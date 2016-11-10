@@ -21,7 +21,7 @@
     $conn->close();
   }
 
-  // This checks what permission the user has. Should probably be a function. 
+  // This checks what permission the user has. Should probably be a function.
   if ($permission == 0) {
     $user_permission = "Redaktör";
   } elseif ($permission == 1) {
@@ -32,9 +32,9 @@
 
 <h2>Inloggad användare: <?php echo $user_firstname; ?></h2>
 <p>Behörighet: <?php echo $user_permission; ?></p>
-<a href="./addpost.php" class="button" target="_self">Skapa nytt inlägg</a>
-<a href="./users.php" class="button" target="_self">Hantera användare</a>
-<a href="./categories.php" class="button" target="_self">Hantera kategorier</a>
-<a href="./postlist.php" class="button" target="_self">Hantera inlägg</a>
-<a href="../assets/logout.php" class="button" target="_self">Logga ut</a>
+<a href="./addpost.php" class="button">Skapa nytt inlägg</a>
+<a href="./users.php" class="button">Hantera användare</a>
+<a href="./categories.php" class="button">Hantera kategorier</a>
+<a href="./postlist.php" class="button">Hantera inlägg</a>
+<a href="../assets/logout.php" class="button">Logga ut</a>
 <?php require_once "../templates/footer.php"; ?>
