@@ -2,10 +2,11 @@
     require_once "../templates/header.php";
     require_once "../assets/db_connect.php";
     require_once "../assets/file_upload.php";
-    require_once "../assets/functions.php";
 
-
+    // This is used for printing out feedback message once post is uploaded.
     $feedback_message = "";
+
+    // This is used to stop user from leaving important fields empty.
     $all_required_filled = true;
 
     if (isset($_POST["submit"])) {
@@ -39,20 +40,28 @@
     		$stmt->execute();
             $stmt->close();
             $feedback_message = "Inlägget laddades upp i databasen.";
+            } else {
+            $feedback_message = "Du måste fylla i alla fält.";
+            }
         }
     }
-}
 ?>
 <h1>Skapa nytt inlägg</h1>
 <!-- TODO: Remove all <br> once CSS is used. -->
 <form method="POST" enctype="multipart/form-data">
     <label for="choose-file">Bild</label><br>
     <input type="file" name="post-img" id="choose-file" required><br>
+    <!-- Prints information about an error if true. -->
+    <?php
+        if (isset($_POST["submit"]) && $file_error) {
+            echo $file_error;
+        }
+    ?>
     <!-- value="1" means publish, 0 means draft -->
     <input type="radio" name="publish" id="publish" value="1" required>
     <label for="publish">Publicera</label><br>
     <input type="radio" name="publish" id="draft" value="0" required>
-    <label for="draft">Spara som utkast</label></br>
+    <label for="draft">Spara som utkast</label><br>
     <label for="headline">Rubrik</label><br>
     <input type="text" name="headline" id="headline" placeholder="Rubrik" required><br>
     <label for="post-content">Beskrivning</label><br>
@@ -62,17 +71,14 @@
         <input type="radio" name="category" value="1" required>
         <label for="publish">Cats</label><br>
         <input type="radio" name="category" value="2" required>
-        <label for="draft">Space</label></br>
+        <label for="draft">Space</label><br>
         <input type="radio" name="category" value="3" required>
-        <label for="draft">Cats and Space</label></br>
+        <label for="draft">Cats and Space</label><br>
     </div>
     <button class="button" type="submit" name="submit">Spara</button>
 </form>
 <!-- This checks if there is a feedback message and prints it if true.  -->
 <?php if (isset($_POST["submit"]) && $feedback_message) { echo $feedback_message; } ?>
-
-<!-- FIXME: This checks if there is an file error and prints info if it is an error. -->
-<?php if (isset($_POST["submit"]) && $file_error) { echo $file_error; } ?>
 
 <a href="./dashboard.php" class="button"><br>Till huvudmenyn</a>
 <?php require_once "../templates/footer.php"; ?>

@@ -1,8 +1,8 @@
 <?php
 require_once(__DIR__."/functions.php");
 
-// Check if user has pressed the save button on addpost.php.
-if (isset($_POST["save"])) {
+// Check if user has pressed the submit button on addpost.php.
+if (isset($_POST["submit"])) {
 
     $target_folder = "../uploads/userpics/"; // The folder in which the file should be saved.
 
