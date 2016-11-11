@@ -1,32 +1,32 @@
 <?php
-  require_once "../templates/header.php";
-  require_once "../assets/db_connect.php";
+    require_once "../templates/header.php";
+    require_once "../assets/db_connect.php";
 
-  if ($db_error) {
-    echo $db_error_message;
-  }
+    if ($db_error) {
+        echo $db_error_message;
+    }
 
-  // Only temporary variables.
-  // $userid = 1; Editor
-  $userid = 2; // Superadmin
+    // Only temporary variables.
+    // $userid = 1; Editor
+    $userid = 2; // Superadmin
 
-  // This query returns the user's first name and permission level.
-  $query = "SELECT firstname, permission FROM users WHERE id = '{$userid}'";
+    // This query returns the user's first name and permission level.
+    $query = "SELECT firstname, permission FROM users WHERE id = '{$userid}'";
 
-  if ($stmt->prepare($query)) {
-    $stmt->execute();
-    $stmt->bind_result($user_firstname, $permission);
-    $stmt->fetch();
-    $stmt->close();
-    $conn->close();
-  }
+    if ($stmt->prepare($query)) {
+        $stmt->execute();
+        $stmt->bind_result($user_firstname, $permission);
+        $stmt->fetch();
+        $stmt->close();
+        $conn->close();
+      }
 
-  // This checks current user's permission level. Should probably be a function.
-  if ($permission == 0) {
-    $user_permission = "Redaktör";
-  } elseif ($permission == 1) {
-    $user_permission = "Superadministratör";
-  }
+    // This checks current user's permission level. Should probably be a function.
+    if ($permission == 0) {
+        $user_permission = "Redaktör";
+    } elseif ($permission == 1) {
+        $user_permission = "Superadministratör";
+    }
 
 ?>
 
