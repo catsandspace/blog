@@ -54,7 +54,7 @@
     <!-- Prints information about an error if true. -->
     <?php
         if (isset($_POST["submit"]) && $file_error) {
-            echo $file_error;
+            echo "$file_error<br>";
         }
     ?>
     <!-- value="1" means publish, 0 means draft -->
