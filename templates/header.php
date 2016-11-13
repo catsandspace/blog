@@ -24,7 +24,7 @@
 		<ul>
 			<li><a href="index.php">Hem</a></li>
 			<?php while (mysqli_stmt_fetch($stmt)): ?>
-			<li><a href="?display=<?php echo $category; ?>"><?php echo ucfirst($category); ?></a></li>
+			<li><a href="?display=<?php echo $id; ?>"><?php echo ucfirst($category); ?></a></li>
 			<?php endwhile?>
 			<li><a href="#">Kontakt</a></li>
 		</ul>

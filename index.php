@@ -15,7 +15,7 @@
 		$display = $_GET["display"];
 
 		// New SQL statement WHERE categories.category = $display.
-		$query = "SELECT posts.*, categories.category FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.category = '{$display}'";
+		$query = "SELECT posts.*, categories.category FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}'";
 	}
 
 	// Execute query.
@@ -33,7 +33,7 @@
 		<h2><?php echo $title; ?></h2>
 		<img src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
 		<p><?php echo $content; ?></p>
-		<p>Tags: <?php echo $categoryname; ?></p>
+		<p>Tags: <?php echo str_replace(' ', '', $categoryname); ?></p>
 	</article>
 	<?php endwhile; ?>
 
