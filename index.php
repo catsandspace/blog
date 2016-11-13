@@ -33,7 +33,7 @@
 		<h2><?php echo $title; ?></h2>
 		<img src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
 		<p><?php echo $content; ?></p>
-		<p>Tags: <?php echo str_replace(' ', '', $categoryname); ?></p>
+		<p>Tags: <a href="?display=<?php echo $catid ?>"><?php echo str_replace(' ', '', $categoryname); ?></a> </p>
 	</article>
 	<?php endwhile; ?>
 
