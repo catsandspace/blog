@@ -13,9 +13,7 @@ if (isset($_POST["submit"])) {
 
     $target_name = $target_folder . basename("postimg") . ".$type";
 
-
-    // FIXME: Se till att det går att flytta filen till rätt mapp.
-    // Move file to ../uploads/userpics.
+    // Move file to "../uploads/postimg/"
     if (!$file_error && move_uploaded_file($temporary_file, $target_name)) {
         echo "File upload success.";
     }
