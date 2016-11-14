@@ -1,20 +1,17 @@
 <?php 
-require_once "templates/header.php"; // Lägger till header
+require_once "./templates/header.php"; 
+require_once "assets/db_connect.php";
 
-if(isset($_POST["Loggain"])) {
+if (isset($_POST["login"]) ) {
 
-	if(!empty($_POST["username"]) && !empty($_POST["Password"]) ) {
+	if (!empty($_POST["username"]) && !empty($_POST["password"]) ) {
 
-		require_once "assets/db_connect.php"; // Hämtar info för att koppla upp sig mot databasen.
-	
-		// $conn = new mysqli("localhost", "root", "", "catsandspace");
+		 
 
 		$user = mysqli_real_escape_string($conn, $_POST["username"]);
-		$pass = mysqli_real_escape_string($conn, $_POST["Password"]);
+		$pass = mysqli_real_escape_string($conn, $_POST["password"]);
 
-		$stmt = $conn->stmt_init(); 
-
-		if($stmt->prepare("SELECT * FROM users WHERE username = '{$user}' ")) { 
+		if($stmt->prepare("SELECT * FROM users WHERE username = '{$user}' ") ) { 
 			
 			$stmt->execute(); 
 
@@ -27,11 +24,11 @@ if(isset($_POST["Loggain"])) {
 
 			echo "$uname<br>" . "$email<br>" . "$website<br>" . "$desc<br>";
 
-			require_once "assets/functions.php"; 
+			//require_once "assets/functions.php"; Make a function instead. 
 		}
 	}
 	else {
-		echo "Misslyckades att logga in!";
+		echo "Misslyckades att logga in!"; // make a variabel instead.
 	
 	}
 }
@@ -41,17 +38,19 @@ if(isset($_POST["Loggain"])) {
 		Formulär för att logga in
 *****************************************************
 **************************************************-->
-<form action="login.php" method="post">
+<form action="login.php" method="POST">
 	<fieldset>
 		<legend>Login</legend>
 		Username/Email: <br>
 		<input type="text" name="username"><br>
 		Password: <br>
-		<input type="password" name="Password"><br>
-		<input type="submit" name="Loggain" value="Logga in">
+		<input type="password" name="password"><br>
+		<input type="submit" name="login" value="Logga in">
 	</fieldset>
 </form>
 <!-- Lägger till footer -->
 <?php
 require_once "templates/footer.php";
 ?>
+
+<!-- Indentera ett steg från php tagen, använd ./ framför assets och templates, engelska kommentarer
