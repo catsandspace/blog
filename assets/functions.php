@@ -6,8 +6,8 @@
  * @return string       The function returns information about the error.
  */
 function checkUploadedFile($file) {
-  $allowed_file_types = array("jpg", "jpeg", "gif", "png", "webp");
-  $list_allowed_types = implode(", ", $allowed_file_types);
+  $allowedFileTypes = array("jpg", "jpeg", "gif", "png", "webp");
+  $listAllowedTypes = implode(", ", $allowedFileTypes);
   $type = strtolower(pathinfo($file["name"], PATHINFO_EXTENSION));
 
   if ($file["size"] > 5000000) {
@@ -18,8 +18,8 @@ function checkUploadedFile($file) {
     return "Du har inte laddat upp någon fil.";
   }
 
-  if (!in_array($type, $allowed_file_types)) {
-    return "Förbjudet filformat. <br>Tillåtna format: {$list_allowed_types}";
+  if (!in_array($type, $allowedFileTypes)) {
+    return "Förbjudet filformat. <br>Tillåtna format: {$listAllowedTypes}";
   }
   return NULL;
 }
