@@ -1,56 +1,53 @@
 <?php 
-require_once "./templates/header.php"; 
-require_once "assets/db_connect.php";
+	require_once "./templates/header.php"; 
+	require_once "./assets/db_connect.php";
+	require_once "./assets/functions.php";
 
-if (isset($_POST["login"]) ) {
+	$errorMessage = "";
+	// if statement that checks if user has filled in username and password
+	if (isset($_POST["login"]) ) {
 
-	if (!empty($_POST["username"]) && !empty($_POST["password"]) ) {
+		if (!empty($_POST["username"]) && !empty($_POST["password"]) ) {
 
-		 
+			$user = mysqli_real_escape_string($conn, $_POST["username"]);
+			$pass = mysqli_real_escape_string($conn, $_POST["password"]);
 
-		$user = mysqli_real_escape_string($conn, $_POST["username"]);
-		$pass = mysqli_real_escape_string($conn, $_POST["password"]);
+			if ($stmt->prepare("SELECT * FROM users WHERE username = '{$user}' ") ) { 
+				
+				$stmt->execute(); 
+				$stmt->bind_result($id, $permission, $uname, $upass, $email, $website, $fname, $lname, $pic, $desc); 
+				$stmt->fetch();  
 
-		if($stmt->prepare("SELECT * FROM users WHERE username = '{$user}' ") ) { 
-			
-			$stmt->execute(); 
+				if ($pass == $upass) {
 
-			$stmt->bind_result($id, $perm, $uname, $upass, $email, $website, $fname, $lname, $pic, $desc); 
-			$stmt->fetch();  
-
-			$_SESSION["userid"] = $id;			
-			$_SESSION["username"] = $uname;
-			$_SESSION["userpassword"] = $upass;
-
-			echo "$uname<br>" . "$email<br>" . "$website<br>" . "$desc<br>";
-
-			//require_once "assets/functions.php"; Make a function instead. 
+					storeUserInSession($id, $uname, $upass);
+					header("Location: ./admin/dashboard.php"); 
+				} else {
+					$errorMessage = "Felaktigt användarnamn eller lösenord";
+				}
+			}
+		} else {
+			$errorMessage = "Misslyckades att logga in!";
 		}
 	}
-	else {
-		echo "Misslyckades att logga in!"; // make a variabel instead.
-	
-	}
-}
 ?>
 <!--*************************************************
 *****************************************************
-		Formulär för att logga in
+				Form to login user
 *****************************************************
 **************************************************-->
 <form action="login.php" method="POST">
 	<fieldset>
 		<legend>Login</legend>
-		Username/Email: <br>
-		<input type="text" name="username"><br>
-		Password: <br>
-		<input type="password" name="password"><br>
-		<input type="submit" name="login" value="Logga in">
+		<label for="username">Username/Email:</label><br>
+		<input type="text" name="username" id="username"><br>
+		<label for="password">Password:</label><br>
+		<input type="password" name="password" id="password"><br>
+		<button type="submit" name="login" class="button">Logga in</button>
 	</fieldset>
 </form>
-<!-- Lägger till footer -->
-<?php
-require_once "templates/footer.php";
-?>
+<?php if ($errorMessage) { echo $errorMessage; } ?>
 
-<!-- Indentera ett steg från php tagen, använd ./ framför assets och templates, engelska kommentarer
+
+<?php require_once "./templates/footer.php"; ?>
+
