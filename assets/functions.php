@@ -24,4 +24,15 @@ function checkUploadedFile($file) {
   return NULL;
 }
 
+/**
+* The functions stores variables in the session
+* @param 	int    $id 			The users id
+* @param 	string $username 	The users username
+* @param 	string $upass 		The users password
+*/
+function storeUserInSession($id, $uname, $upass) {
+	$_SESSION["userid"] = $id;			
+	$_SESSION["username"] = $uname;
+	$_SESSION["userpassword"] = $upass;
+}
 ?>
