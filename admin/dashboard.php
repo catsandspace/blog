@@ -2,8 +2,8 @@
     require_once "../templates/header.php";
     require_once "../assets/db_connect.php";
 
-    if ($db_error) {
-        echo $db_error_message;
+    if ($databaseError) {
+        echo $databaseErrorMessage;
     }
 
     // Only temporary variables.

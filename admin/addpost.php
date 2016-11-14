@@ -4,15 +4,15 @@
     require_once "../assets/file_upload.php";
 
     // This is used for printing out feedback message once post is uploaded.
-    $feedback_message = "";
+    $feedbackMessage = "";
 
     // This is used to stop user from leaving important fields empty.
-    $all_required_filled = true;
+    $allRequiredFilled = true;
 
     if (isset($_POST["submit"])) {
 
         //These variables are used for checking if all fields are filled.
-        $all_required_filled = true;
+        $allRequiredFilled = true;
         $required_fields = array("publish", "headline", "post-content", "category");
 
         // This checks if all required fields are filled.
@@ -20,13 +20,13 @@
             $value = $_POST[$required_fields[$i]];
 
             if (empty($value)) {
-                $all_required_filled = false;
+                $allRequiredFilled = false;
                 break;
             }
         }
 
         // Escapes special characters in a string for use in an SQL statement
-        if ($all_required_filled) {
+        if ($allRequiredFilled) {
             // TODO: Keep it dry. This needs som attention.
             $image = mysqli_real_escape_string($conn, $_FILES["post-img"]["tmp_name"]);
             $title = mysqli_real_escape_string($conn, $_POST["headline"]);
@@ -39,9 +39,9 @@
             if ($stmt->prepare($query)) {
         		$stmt->execute();
                 $stmt->close();
-                $feedback_message = "Inlägget laddades upp i databasen.";
+                $feedbackMessage = "Inlägget laddades upp i databasen.";
             } else {
-                $feedback_message = "Du måste fylla i alla fält.";
+                $feedbackMessage = "Du måste fylla i alla fält.";
             }
         }
     }
@@ -54,8 +54,8 @@
     <input type="file" name="post-img" id="choose-file" required><br>
     <?php
         // Prints information about an error if true.
-        if (isset($_POST["submit"]) && $file_error) {
-            echo "$file_error<br>";
+        if (isset($_POST["submit"]) && $fileError) {
+            echo "$fileError<br>";
         }
     ?>
     <input type="radio" name="publish" id="publish" value="1" required>
@@ -79,7 +79,7 @@
 </form>
 <?php
     // This checks if there is a feedback message and prints it if true.
-    if (isset($_POST["submit"]) && $feedback_message) { echo $feedback_message; }
+    if (isset($_POST["submit"]) && $feedbackMessage) { echo $feedbackMessage; }
 ?>
 
 <a href="./dashboard.php" class="button"><br>Till huvudmenyn</a>
