@@ -31,8 +31,18 @@ function checkUploadedFile($file) {
 * @param 	string $upass 		The users password
 */
 function storeUserInSession($id, $uname, $upass) {
-	$_SESSION["userid"] = $id;			
+    $_SESSION["logged-in"] = true;
+	$_SESSION["userid"] = $id;
 	$_SESSION["username"] = $uname;
 	$_SESSION["userpassword"] = $upass;
+}
+
+/**
+ * The function unsets and destroy cookies stored in a session.
+ */
+function logout() {
+  unset($_SESSION["logged-in"]);
+  setcookie("session_catsandspace", "", time()-(60*60*24), "/");
+  session_destroy();
 }
 ?>
