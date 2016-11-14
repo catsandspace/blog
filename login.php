@@ -39,7 +39,7 @@
 <form action="login.php" method="POST">
 	<fieldset>
 		<legend>Login</legend>
-		<label for="username">Username/Email:</label><br>
+		<label for="username">Username:</label><br>
 		<input type="text" name="username" id="username"><br>
 		<label for="password">Password:</label><br>
 		<input type="password" name="password" id="password"><br>
