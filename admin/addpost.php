@@ -37,27 +37,27 @@
             $query = "INSERT INTO posts VALUES ('', 1, '', '', '{$image}', '{$title}', '{$content}', '{$published}', '{$category}')";
 
             if ($stmt->prepare($query)) {
-    		$stmt->execute();
-            $stmt->close();
-            $feedback_message = "Inlägget laddades upp i databasen.";
+        		$stmt->execute();
+                $stmt->close();
+                $feedback_message = "Inlägget laddades upp i databasen.";
             } else {
-            $feedback_message = "Du måste fylla i alla fält.";
+                $feedback_message = "Du måste fylla i alla fält.";
             }
         }
     }
+// TODO: Remove all <br> once CSS is used.
+// In input name="publish", value="1" means publish, 0 means draft.
 ?>
 <h1>Skapa nytt inlägg</h1>
-<!-- TODO: Remove all <br> once CSS is used. -->
 <form method="POST" enctype="multipart/form-data">
     <label for="choose-file">Bild</label><br>
     <input type="file" name="post-img" id="choose-file" required><br>
-    <!-- Prints information about an error if true. -->
     <?php
+        // Prints information about an error if true.
         if (isset($_POST["submit"]) && $file_error) {
             echo "$file_error<br>";
         }
     ?>
-    <!-- value="1" means publish, 0 means draft -->
     <input type="radio" name="publish" id="publish" value="1" required>
     <label for="publish">Publicera</label><br>
     <input type="radio" name="publish" id="draft" value="0" required>
@@ -77,8 +77,10 @@
     </div>
     <button class="button" type="submit" name="submit">Spara</button>
 </form>
-<!-- This checks if there is a feedback message and prints it if true.  -->
-<?php if (isset($_POST["submit"]) && $feedback_message) { echo $feedback_message; } ?>
+<?php
+    // This checks if there is a feedback message and prints it if true.
+    if (isset($_POST["submit"]) && $feedback_message) { echo $feedback_message; }
+?>
 
 <a href="./dashboard.php" class="button"><br>Till huvudmenyn</a>
 <?php require_once "../templates/footer.php"; ?>
