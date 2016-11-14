@@ -1,8 +1,8 @@
 <?php
 
 	// Includes.
-	include_once ("assets/db_connect.php"); // Database connection.
-	include_once ("templates/header.php"); // Header content.
+	require_once "./assets/db_connect.php"; // Database connection.
+	require_once "./templates/header.php"; // Header content.
 	
 	// Variables.
 	$display = ""; // To avoid "undefined variable".
@@ -39,4 +39,4 @@
 
 </section>
 
-<?php include_once ("templates/footer.php"); ?>
+<?php require_once "./templates/footer.php"; ?>
