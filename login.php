@@ -8,8 +8,10 @@
 
    // Redirect to dashboard.php if there is already an active session.
    if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
+
+       // session.php is used to start the session.
        header("Location: ./admin/dashboard.php");
-   }
+    }
 
    // if statement that checks if user has filled in username and password
    if (isset($_POST["login"]) ) {
@@ -27,8 +29,8 @@
 
                 if ($pass == $upass) {
 
-                   storeUserInSession($id, $uname, $upass);
-                   header("Location: ./admin/dashboard.php");
+                    storeUserInSession($id, $uname, $upass);
+                    header("Location: ./admin/dashboard.php");
                 } else {
                $errorMessage = "Felaktigt användarnamn eller lösenord";
                 }

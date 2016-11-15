@@ -1,9 +1,10 @@
 <?php
     require_once "../templates/header.php";
+    require_once "../assets/session.php";
 
     // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
-      header("Location: ../login.php");
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] != 1) {
+      header("Location: ../index.php");
     }
 
     if ($databaseError) {
