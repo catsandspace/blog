@@ -4,7 +4,7 @@
 
     // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] != 1) {
-      header("Location: ../index.php");
+      header("Location: ../login.php");
     }
 
     if ($databaseError) {
@@ -42,7 +42,7 @@
 <a href="./postlist.php" class="button">Se alla inlägg</a>
 <a href="./comments.php" class="button">Se alla kommentarer</a>
 <?php if ($permission == 1): ?>
-<a href="./postlist.php" class="button">Hantera kategorier</a>
+<a href="./categories.php" class="button">Hantera kategorier</a>
 <a href="./users.php" class="button">Hantera användare</a>
 <?php endif; ?>
 <a href="../assets/logout.php" class="button">Logga ut</a>
