@@ -1,41 +1,41 @@
 <?php
 
-	// Includes.
-	require_once "./assets/db_connect.php"; // Database connection.
-	require_once "./templates/header.php"; // Header content.
-	
-	// Variables.
-	$display = ""; // To avoid "undefined variable".
+   // Includes.
+   require_once "./assets/db_connect.php"; // Database connection.
+   require_once "./templates/header.php"; // Header content.
 
-	// SQL statement with LEFT JOIN table -> posts & categories.
-	$query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id";
+   // Variables.
+   $display = ""; // To avoid "undefined variable".
 
-	// If GET request "display" is set. 
-	if (isset($_GET["display"])) {
-		$display = $_GET["display"];
+   // SQL statement with LEFT JOIN table -> posts & categories.
+   $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id";
 
-		// New SQL statement WHERE categories.category = $display.
-		$query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}'";
-	}
+    // If GET request "display" is set.
+    if (isset($_GET["display"])) {
+        $display = $_GET["display"];
 
-	// Execute query.
-	if ($stmt->prepare($query)) {
-		$stmt->execute();
-		$stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
-	}
+        // New SQL statement WHERE categories.category = $display.
+        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}'";
+   }
+
+    // Execute query.
+    if ($stmt->prepare($query)) {
+       $stmt->execute();
+       $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
+   }
 
 ?>
 
 <section>
 
-	<?php while (mysqli_stmt_fetch($stmt)): ?>
-	<article>
-		<h2><?php echo $title; ?></h2>
-		<img src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
-		<p><?php echo $content; ?></p>
-		<p>Tags: <a href="?display=<?php echo $categoryId ?>"><?php echo str_replace(' ', '', $categoryName); ?></a> </p>
-	</article>
-	<?php endwhile; ?>
+    <?php while (mysqli_stmt_fetch($stmt)): ?>
+    <article>
+        <h2><?php echo $title; ?></h2>
+        <img src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
+        <p><?php echo $content; ?></p>
+        <p>Tags: <a href="?display=<?php echo $categoryId ?>"><?php echo str_replace(' ', '', $categoryName); ?></a> </p>
+    </article>
+    <?php endwhile; ?>
 
 </section>
 

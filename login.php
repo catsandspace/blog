@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
    require_once "./templates/header.php";
    require_once "./assets/db_connect.php";
    require_once "./assets/functions.php";
@@ -37,6 +38,41 @@
             $errorMessage = "Misslyckades att logga in!";
         }
     }
+=======
+	require_once "./templates/header.php";
+	require_once "./assets/db_connect.php";
+	require_once "./assets/functions.php";
+
+	$errorMessage = "";
+
+
+	// if statement that checks if user has filled in username and password
+	if (isset($_POST["login"]) ) {
+
+		if (!empty($_POST["username"]) && !empty($_POST["password"]) ) {
+
+			$user = mysqli_real_escape_string($conn, $_POST["username"]);
+			$pass = mysqli_real_escape_string($conn, $_POST["password"]);
+
+			if ($stmt->prepare("SELECT * FROM users WHERE username = '{$user}' ") ) {
+
+				$stmt->execute();
+				$stmt->bind_result($id, $permission, $uname, $upass, $email, $website, $fname, $lname, $pic, $desc);
+				$stmt->fetch();
+
+				if ($pass == $upass) {
+
+					storeUserInSession($id, $uname, $upass);
+					header("Location: ./admin/dashboard.php");
+				} else {
+					$errorMessage = "Felaktigt användarnamn eller lösenord";
+				}
+			}
+		} else {
+			$errorMessage = "Misslyckades att logga in!";
+		}
+	}
+>>>>>>> master
 ?>
 <!--****************************************************************************
 ********************************************************************************
