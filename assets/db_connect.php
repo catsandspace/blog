@@ -8,5 +8,11 @@
     $databaseErrorMessage = "Det går inte att ansluta till databasen just nu (felkod: $databaseError).<br>Försök igen senare.";
 
     $stmt = $conn->stmt_init();
+<<<<<<< HEAD
     
+=======
+
+
+>>>>>>> master
 ?>
+ 
