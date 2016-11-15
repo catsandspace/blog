@@ -1,9 +1,7 @@
 <?php
-    /*  TODO: In this file, we could add a function called "logout()".
-    *   The function itself should be found in functions.php and
-    *   would handle destroying the session.
-    */
+    require_once(__DIR__."/functions.php");
 
-    // Redirect to index.php.
+    // Redirect to index.php and destroy session when user logs out.
     header("Location: ../index.php");
+    logout();
 ?>
