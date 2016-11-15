@@ -1,7 +1,7 @@
 <?php
 	// include_once "../assets/db_connect.php"; // Database connection.
     include_once "../templates/header.php"; // Header content.
-        require_once "../assets/session.php";
+    require_once "../assets/session.php";
 
 
     // Redirect to login.php if no session active.
@@ -13,12 +13,7 @@
     $changeCategoryId = NULL;
     $errorMessage = NULL;
 
-    // Select all rows from the database categories 
-    $query = "SELECT * FROM categories";
-    if ($stmt -> prepare($query)):
-        $stmt-> execute();
-        $stmt -> bind_result($catId, $cat);
-    endif;
+
 
     // If-statement to check if button for adding new categories is set 
     // If everything looks okay insert into db
@@ -80,7 +75,7 @@
         if (!empty($_GET["categoryChange"])):
             $category = mysql_real_escape_string($_GET["categoryChange"]);
             $catId = $_GET["catId"];
-            $query = "UPDATE categories SET category= '$category' WHERE id=$catId";
+            $query = "UPDATE categories SET name= '$category' WHERE id=$catId";
             if ($stmt -> prepare($query)):
                 $stmt->execute();
             else:
@@ -89,6 +84,13 @@
         else:
             $errorMessage ="Du måste ange en ny kategori.";
         endif;
+    endif;
+
+    // Select all rows from the database categories 
+    $query = "SELECT * FROM categories";
+    if ($stmt -> prepare($query)):
+        $stmt-> execute();
+        $stmt -> bind_result($catId, $cat);
     endif;
 ?>
 
