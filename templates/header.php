@@ -1,5 +1,5 @@
 <?php
-	
+
 	// Database connection.
 	require_once __DIR__."/../assets/db_connect.php";
 
