@@ -17,7 +17,7 @@
         $addUser = TRUE;
     endif;
 
-    // If-statement to check if button for removing users is set 
+    // If-statement to check if button for removing users is set
     // If button is pressed continue to check through the array  and
     // for each category checked, remove it fromm the db
     if (isset ($_GET["removeUser"])):
@@ -30,7 +30,7 @@
                 else:
                     echo "fel";
                 endif;
-            endforeach;              
+            endforeach;
         else:
             echo "fellist";
         endif;
@@ -45,7 +45,7 @@
         endif;
     }
 
-    // Select all rows from the database users 
+    // Select all rows from the database users
     $query = "SELECT * FROM users";
     if ($stmt -> prepare($query)):
         $stmt-> execute();
@@ -62,7 +62,7 @@
     while (mysqli_stmt_fetch($stmt)):
         ?>
         <input type="checkbox" name="checkList[]" value="<?php echo $userId; ?>"> <?php echo "$uName "; permission($permission);?>
-        <br>        
+        <br>
 <?php
     endwhile;
 ?>
@@ -76,7 +76,7 @@
     <br>
     <?php
         // if registration is ordered print registration form
-        if ($addUser == TRUE): 
+        if ($addUser == TRUE):
     ?>
             <form method="POST" action="../assets/registercheck.php">
 
@@ -102,7 +102,7 @@
     <?php
         endif;
 
-        // Printing error message 
+        // Printing error message
 
         if (isset ($_GET["errorMessage"])):
             if ($_GET["errorMessage"] != NULL):

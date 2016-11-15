@@ -1,30 +1,12 @@
-<!-- registercheck.php checks the input from users.php. 
-     If all data is valid, the data is stored in the database as a new user. 
+<!-- registercheck.php checks the input from users.php.
+     If all data is valid, the data is stored in the database as a new user.
      If any fault occures during the way, the user receives an error message. -->
 
 <?php
     session_start();
 
 	include_once "./db_connect.php"; // Database connection.
-    $string =NULL;
-
-
-    function printFault($faultString, $header) {
-        // echo "<div class=\"userpage\">";
-        // if ($header == "Login") {
-        //     echo "<h1>Inloggningen misslyckades</h1>";
-        // } else if ($header =="Register") {
-        //     echo "<h1>Registreringen misslyckades</h1>";
-        // }
-        echo "<p>$faultString </p>";
-        // if ($header == "Login") {
-        //     echo "<a href=\"../index.php\" class=\"btn\">Försök igen</a>";
-        // } else if ($header =="Register") {
-        //     echo "<a href=\"../pages/register.php\" class=\"btn\">Försök igen</a>";
-        // }
-        // echo "</div>";
-    } // End function printFault()
-
+    $string = NULL;
 
     // Check if register button is pressed
     if (isset($_POST["register"])):
@@ -43,7 +25,7 @@
             $desc = mysql_real_escape_string($_POST["description"]);
             $pic = "../userpics/default_avatar.jpg";     // Default avatar as first picture
 
-            
+
             // Check if username is taken
             // Create a query
             // Select all columns (data) in database named "users" for given user - $un
