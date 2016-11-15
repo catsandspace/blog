@@ -4,7 +4,7 @@
 
     // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] != 1) {
-      header("Location: ../index.php");
+      header("Location: ../login.php");
     }
 
     if ($databaseError) {
