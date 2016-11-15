@@ -26,6 +26,7 @@
             endif;
         else:
             $errorMessage ="Du måste ange en kategori"; // No input given
+        endif;
     endif;
 
     // If-statement to check if button for removing categories is set 
@@ -125,4 +126,5 @@
     endif;
 
 	include_once "../templates/footer.php"; // Footer.
+
 ?>
