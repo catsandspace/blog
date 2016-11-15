@@ -3,6 +3,11 @@
     require_once "../assets/db_connect.php";
     require_once "../assets/file_upload.php";
 
+    // Redirect to login.php if no session active.
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
+        header("Location: ../login.php");
+    }
+
     // This is used for printing out feedback message once post is uploaded.
     $feedbackMessage = "";
 

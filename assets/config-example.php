@@ -8,5 +8,5 @@
     $db_user = ""; // The username of the database.
     $db_password = ""; // The password of the database.
     $db_name = ""; // The name of the database.
-    $path = "http://".$_SERVER['SERVER_NAME']."/blog-master/blog/"
+    $path = "http://".$_SERVER['SERVER_NAME']."/blog-master/blog/";
 ?>
