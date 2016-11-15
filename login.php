@@ -1,5 +1,6 @@
 <?php
 <<<<<<< HEAD
+<<<<<<< HEAD
    require_once "./templates/header.php";
    require_once "./assets/db_connect.php";
    require_once "./assets/functions.php";
@@ -39,6 +40,8 @@
         }
     }
 =======
+=======
+>>>>>>> master
 	require_once "./templates/header.php";
 	require_once "./assets/db_connect.php";
 	require_once "./assets/functions.php";

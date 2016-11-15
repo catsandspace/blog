@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
    // Includes.
    require_once "./assets/db_connect.php"; // Database connection.
    require_once "./templates/header.php"; // Header content.
@@ -23,6 +24,30 @@
        $stmt->execute();
        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
    }
+=======
+	// Includes.
+	require_once "./templates/header.php"; // Header content.
+	
+	// Variables.
+	$display = ""; // To avoid "undefined variable".
+
+	// SQL statement with LEFT JOIN table -> posts & categories.
+	$query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id";
+
+	// If GET request "display" is set. 
+	if (isset($_GET["display"])) {
+		$display = $_GET["display"];
+
+		// New SQL statement WHERE categories.category = $display.
+		$query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}'";
+	}
+
+	// Execute query.
+	if ($stmt->prepare($query)) {
+		$stmt->execute();
+		$stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
+	}
+>>>>>>> master
 
 ?>
 
