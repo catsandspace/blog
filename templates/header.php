@@ -1,4 +1,8 @@
 <?php
+	
+	// Database connection.
+	require_once __DIR__."/../assets/db_connect.php";
+
 	// Execute categories query.
 	$query = "SELECT * FROM categories";
 	if ($stmt->prepare($query)) {
@@ -18,13 +22,13 @@
 </head>
 <body>
 <header>
-	<img src="img/logo.png" alt="logo">
+	<img src="<?php echo $path; ?>img/logo.png" alt="logo">
 	<h1 class="logo-title">Cats and Space</h1>
 	<nav>
 		<ul>
-			<li><a href="index.php">Hem</a></li>
+			<li><a href="<?php echo $path; ?>index.php">Hem</a></li>
 			<?php while (mysqli_stmt_fetch($stmt)): ?>
-			<li><a href="?display=<?php echo $id; ?>"><?php echo ucfirst($category); ?></a></li>
+			<li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>"><?php echo ucfirst($category); ?></a></li>
 			<?php endwhile?>
 			<li><a href="#">Kontakt</a></li>
 		</ul>
