@@ -6,6 +6,8 @@
     session_start();
 
 	include_once "./db_connect.php"; // Database connection.
+    $string =NULL;
+
 
     function printFault($faultString, $header) {
         // echo "<div class=\"userpage\">";
@@ -60,24 +62,20 @@
                         // checkUser($un, $up);
                     else: // query not ok
                         $string ="<p>Gick inte att registrera. </p>";
-                        printFault($string, "Register");
                     endif; // end if query ok?
                 else: // Username taken
                     $string ="<p>Användarnamnet är upptaget. </p>";
-                    printFault($string, "Register");
                 endif; // end if check user
             else: // query not ok
                 $string ="<p>Något fel! </p>";
-                printFault($string, "Register");
             endif; // end if query ok?
         else: // Not all input given
             $string ="<p>Du har inte fyllt i all information! </p>";
-            printFault($string, "Register");
         endif; // end if all input given
     else: // Button not pressed
             $string ="<p>Du har inte kommit till denna sida på rätt sätt! </p>";
-            printFault($string, "Register");
     endif; // end if submit button not pressed
+    header("Location: ../admin/users.php? errorMessage=$string");
 ?>
 
 

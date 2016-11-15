@@ -36,6 +36,15 @@
         endif;
     endif;
 
+    // Function converting permission to textstring
+    function permission($permission) {
+        if ($permission == 1):
+            echo "Superadmin";
+        else:
+            echo "Admin";
+        endif;
+    }
+
     // Select all rows from the database users 
     $query = "SELECT * FROM users";
     if ($stmt -> prepare($query)):
@@ -52,7 +61,7 @@
 <?php
     while (mysqli_stmt_fetch($stmt)):
         ?>
-        <input type="checkbox" name="checkList[]" value="<?php echo $userId; ?>"> <?php echo $uName; ?>
+        <input type="checkbox" name="checkList[]" value="<?php echo $userId; ?>"> <?php echo "$uName "; permission($permission);?>
         <br>        
 <?php
     endwhile;
@@ -94,8 +103,11 @@
         endif;
 
         // Printing error message 
-        if ($errorMessage != NULL):
-            echo $errorMessage;
+
+        if (isset ($_GET["errorMessage"])):
+            if ($_GET["errorMessage"] != NULL):
+                echo $_GET["errorMessage"];
+            endif;
         endif;
         include_once "../templates/footer.php"; // Footer.
     ?>
