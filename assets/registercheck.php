@@ -54,14 +54,26 @@
                 $result = mysqli_query($conn, $query);
                 // Check if username is free
                 if (!$result || mysqli_num_rows($result) == 0):
-                    // Make a query with all userdata
-                    $query = "INSERT INTO users VALUES (NULL, '0', '$un', '$upHasch', '$fn', '$ln', '$em', '$ws', '$desc', '$pic')";
+                    $query = "SELECT * FROM users WHERE eMail = '$em'";
                     // Check query
                     if ($stmt -> prepare($query)):
-                        $stmt->execute();
-                        // checkUser($un, $up);
+                        $result = mysqli_query($conn, $query);
+                        // Check if e-mail is free
+                        if (!$result || mysqli_num_rows($result) == 0):
+                            // Make a query with all userdata
+                            $query = "INSERT INTO users VALUES (NULL, '0', '$un', '$upHasch', '$fn', '$ln', '$em', '$ws', '$desc', '$pic')";
+                            // Check query
+                            if ($stmt -> prepare($query)):
+                                $stmt->execute();
+                                // checkUser($un, $up);
+                            else: // query not ok
+                                $string ="<p>Gick inte att registrera. </p>";
+                            endif; // end if query ok?
+                        else: // Email taken
+                            $string ="<p>E-mail adressen är upptaget. </p>";
+                        endif;
                     else: // query not ok
-                        $string ="<p>Gick inte att registrera. </p>";
+                        $string ="<p>Något fel! </p>";
                     endif; // end if query ok?
                 else: // Username taken
                     $string ="<p>Användarnamnet är upptaget. </p>";
