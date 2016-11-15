@@ -1,6 +1,5 @@
 <?php
     require_once "../templates/header.php";
-    require_once "../assets/db_connect.php";
 
     if ($databaseError) {
         echo $databaseErrorMessage;

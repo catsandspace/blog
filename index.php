@@ -1,7 +1,6 @@
 <?php
 
 	// Includes.
-	require_once "./assets/db_connect.php"; // Database connection.
 	require_once "./templates/header.php"; // Header content.
 	
 	// Variables.
