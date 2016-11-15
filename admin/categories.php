@@ -1,7 +1,7 @@
 <?php
 	// include_once "../assets/db_connect.php"; // Database connection.
-    include_once "../templates/header.php"; // Header content.
-        require_once "../assets/session.php";
+    require_once "../templates/header.php"; // Header content.
+    require_once "../assets/session.php";
 
 
     // Redirect to login.php if no session active.
@@ -13,14 +13,9 @@
     $changeCategoryId = NULL;
     $errorMessage = NULL;
 
-    // Select all rows from the database categories 
-    $query = "SELECT * FROM categories";
-    if ($stmt -> prepare($query)):
-        $stmt-> execute();
-        $stmt -> bind_result($catId, $cat);
-    endif;
 
-    // If-statement to check if button for adding new categories is set 
+
+    // If-statement to check if button for adding new categories is set
     // If everything looks okay insert into db
     if (isset ($_GET["addCat"])):
         if (!empty($_GET["category"])): // Input given
@@ -36,7 +31,7 @@
         endif;
     endif;
 
-    // If-statement to check if button for removing categories is set 
+    // If-statement to check if button for removing categories is set
     // If button is pressed continue to check through the array  and
     // for each category checked, remove it frpm the db
     if (isset ($_GET["removeCat"])):
@@ -49,15 +44,15 @@
                 else:
                     $errorMessage ="Faulty query in removeCat";
                 endif;
-            endforeach;              
+            endforeach;
         else:
             $errorMessage ="Ange kategori att radera";
         endif;
     endif;
-            
-    // If-statement to check if button for changing categories is set 
+
+    // If-statement to check if button for changing categories is set
     // A counter is set to see if only one category is checked
-    // The id for the checked category is memorized, if nothing is 
+    // The id for the checked category is memorized, if nothing is
     // checked the category id is set to NULL
     if (isset ($_GET["changeCat"])):
         if (!empty($_GET["checkList"])):
@@ -72,23 +67,30 @@
             else:
                 $changeCategoryId = $selected;
             endif;
-        endif; 
+        endif;
     endif;
 
-    // If-statement to check if button for changing categories in the category list 
+    // If-statement to check if button for changing categories in the category list
     if (isset ($_GET["changeCat2"])):
         if (!empty($_GET["categoryChange"])):
             $category = mysql_real_escape_string($_GET["categoryChange"]);
             $catId = $_GET["catId"];
-            $query = "UPDATE categories SET category= '$category' WHERE id=$catId";
+            $query = "UPDATE categories SET name = '$category' WHERE id = $catId";
             if ($stmt -> prepare($query)):
                 $stmt->execute();
             else:
                 $errorMessage ="Faulty query in changeCat2";
             endif;
         else:
-            $errorMessage ="Du måste ange en ny kategori.";
+            $errorMessage = "Du måste ange en ny kategori.";
         endif;
+    endif;
+
+    // Select all rows from the database categories
+    $query = "SELECT * FROM categories";
+    if ($stmt -> prepare($query)):
+        $stmt -> execute();
+        $stmt -> bind_result($catId, $cat);
     endif;
 ?>
 
@@ -112,7 +114,7 @@
             <?php
                 endif;
             ?>
-           <br>    
+           <br>
     <?php
         endwhile;
     ?>
@@ -127,7 +129,7 @@
     </form>
 <?php
 
-    // Print error message 
+    // Print error message
     if ($errorMessage != NULL):
         echo $errorMessage;
     endif;
