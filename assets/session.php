@@ -4,5 +4,4 @@
     session_name($session_name);
     session_start();
     session_regenerate_id(true);
-    // Tested source tree.
 ?>
