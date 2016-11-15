@@ -1,8 +1,5 @@
 <?php
 	
-	// Defines a default "Base URL" to avoid subfolder path problems [localhost/blog-master/blog/].
-	define("BASE_URL","/blog-master/blog/");
-	
 	// Database connection.
 	require_once __DIR__."/../assets/db_connect.php";
 
@@ -25,13 +22,13 @@
 </head>
 <body>
 <header>
-	<img src="<?php echo BASE_URL; ?>img/logo.png" alt="logo">
+	<img src="<?php echo $path; ?>img/logo.png" alt="logo">
 	<h1 class="logo-title">Cats and Space</h1>
 	<nav>
 		<ul>
-			<li><a href="<?php echo BASE_URL; ?>index.php">Hem</a></li>
+			<li><a href="<?php echo $path; ?>index.php">Hem</a></li>
 			<?php while (mysqli_stmt_fetch($stmt)): ?>
-			<li><a href="<?php echo BASE_URL; ?>index.php?display=<?php echo $id; ?>"><?php echo ucfirst($category); ?></a></li>
+			<li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>"><?php echo ucfirst($category); ?></a></li>
 			<?php endwhile?>
 			<li><a href="#">Kontakt</a></li>
 		</ul>
