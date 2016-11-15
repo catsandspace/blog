@@ -2,6 +2,7 @@
 
    // Database connection.
    require_once __DIR__."/../assets/db_connect.php";
+   require_once __DIR__."/../assets/session.php";
 
    // Execute categories query.
    $query = "SELECT * FROM categories";
@@ -31,6 +32,10 @@
                 <li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>"><?php echo ucfirst($category); ?></a></li>
                 <?php endwhile?>
                 <li><a href="#">Kontakt</a></li>
+                <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true): ?>
+                <li><a href="<?php echo $path; ?>admin/dashboard.php">Dashboard</a></li>
+                <li><a href="<?php echo $path; ?>assets/logout.php">Logga ut</a></li>
+                <?php endif; ?>
             </ul>
        </nav>
     </header>
