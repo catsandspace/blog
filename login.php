@@ -1,9 +1,16 @@
-<?php 
-	require_once "./templates/header.php"; 
+<?php
+	require_once "./templates/header.php";
 	require_once "./assets/db_connect.php";
 	require_once "./assets/functions.php";
+	require_once "./assets/session.php";
 
 	$errorMessage = "";
+
+	// Redirect to dashboard.php if there is already an active session.
+	if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
+	  header("Location: ./admin/dashboard.php");
+	}
+
 	// if statement that checks if user has filled in username and password
 	if (isset($_POST["login"]) ) {
 
@@ -12,16 +19,16 @@
 			$user = mysqli_real_escape_string($conn, $_POST["username"]);
 			$pass = mysqli_real_escape_string($conn, $_POST["password"]);
 
-			if ($stmt->prepare("SELECT * FROM users WHERE username = '{$user}' ") ) { 
-				
-				$stmt->execute(); 
-				$stmt->bind_result($id, $permission, $uname, $upass, $email, $website, $fname, $lname, $pic, $desc); 
-				$stmt->fetch();  
+			if ($stmt->prepare("SELECT * FROM users WHERE username = '{$user}' ") ) {
+
+				$stmt->execute();
+				$stmt->bind_result($id, $permission, $uname, $upass, $email, $website, $fname, $lname, $pic, $desc);
+				$stmt->fetch();
 
 				if ($pass == $upass) {
 
 					storeUserInSession($id, $uname, $upass);
-					header("Location: ./admin/dashboard.php"); 
+					header("Location: ./admin/dashboard.php");
 				} else {
 					$errorMessage = "Felaktigt användarnamn eller lösenord";
 				}
@@ -31,11 +38,11 @@
 		}
 	}
 ?>
-<!--*************************************************
-*****************************************************
+<!--****************************************************************************
+********************************************************************************
 				Form to login user
-*****************************************************
-**************************************************-->
+********************************************************************************
+*****************************************************************************-->
 <form action="login.php" method="POST">
 	<fieldset>
 		<legend>Login</legend>
@@ -50,4 +57,3 @@
 
 
 <?php require_once "./templates/footer.php"; ?>
-
