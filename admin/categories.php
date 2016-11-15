@@ -1,11 +1,13 @@
 <?php
 	// include_once "../assets/db_connect.php"; // Database connection.
     include_once "../templates/header.php"; // Header content.
+        require_once "../assets/session.php";
+
 
     // Redirect to login.php if no session active.
-    // if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false):
-    //     header("Location: ../login.php");
-    // endif;
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false):
+        header("Location: ../login.php");
+    endif;
 
     // Reset functions for the internal variables
     $changeCategoryId = NULL;
