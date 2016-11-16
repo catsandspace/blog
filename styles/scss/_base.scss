@@ -2,7 +2,7 @@
 $primary: #20A594;
 $primaryAlternative: #1AC9B2;
 $secondary: #bf2e1d;
-$secondaryAlternative: #cc3628;
+$secondaryAlternative: #ea3e2e;
 $baseColor: #2A3236;
 $baseColor2: #F8F8F8;
 html {
@@ -39,8 +39,7 @@ main {
     padding: 30px;
     padding: 3.0rem;
     width: 100vW;
-    border: 1px solid red;
-    border-sizing: border-box;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -52,8 +51,9 @@ h1 {
 
 h2 {
     font-weight: 600;
-    font-size: 30px;
-    font-size: 3.0rem;
+    font-size: 40px;
+    font-size: 4.0rem;
+    text-align: center;
 }
 
 a {
@@ -63,6 +63,30 @@ a {
 
 .button {
     background-color: $primary;
+    width: 100%;
+    height: 3em;
+    text-transform: uppercase;
+    color: $baseColor2;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    border: 0;
+    margin: 0.5em 0;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+input[type=text] {
+    width: 100%;
+    height: 3em;
+    border: 0;
+    border-bottom: 2px solid $primary;
+    background-color: transparent;
+    margin: 0.5em 0;
+}
+
+label {
+    color: $primary;
+    /*text-transform: uppercase;*/
 }
 
 .button:hover {
@@ -70,8 +94,15 @@ a {
 }
 
 .button:active {
-    background-color: $primaryAlternative;
     transform: translateY(5px);
+}
+
+.red {
+    background-color: $secondary;
+}
+
+.red:hover {
+    background-color: $secondaryAlternative;
 }
 
 .flexboxWrapper {
@@ -81,8 +112,29 @@ a {
 
 .listWrapper {
     box-sizing: border-box;
-    text-align: left;
-    border: 1px solid black;
+    /*text-align: left;*/
     margin: 0 auto;
-    width: 100vW;
+    width: 100%;
+    /*display: flex;
+    justify-content: space-around;*/
+}
+
+.inputWrapper {
+    box-sizing: border-box;
+    /*text-align: left;*/
+    margin-top: 70px;
+    width: 100%;
+}
+
+.categoryList {
+    display: inline-block;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 2.0rem;
+}
+
+.innerCatList {
+    margin: 0 auto;
 }

@@ -103,6 +103,8 @@
 *****************************************************************************-->
     <div class="flexboxWrapper">
         <form method="get" action="categories.php" class="listWrapper">
+            <div class="categoryList">
+            <div class="innerCatList">
         <?php while (mysqli_stmt_fetch($stmt)): ?>
                 <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo $cat; ?>
                 <?php if ($catId == $changeCategoryId): ?>
@@ -114,14 +116,17 @@
                 <?php endif; ?>
             <br>
         <?php endwhile; ?>
+        </div>
+            </div>
             <br>
-            <input type="submit" value="Ta bort" name="removeCat" class="button">
+            <input type="submit" value="Ta bort" name="removeCat" class="button red">
             <br>
             <input type="submit" value="Ändra" name="changeCat" class="button">
             <br>
         </form>
-        <form method="get" action="categories.php">
-            Lägg till kategori: <input type="text" name="category">
+        <form method="get" action="categories.php" class="inputWrapper">
+            <label for="addCatagory">Lägg till kategori:</label>
+            <input type="text" name="category" id="addCatagory">
             <input type="submit" value="Lägg till" name="addCat" class="button">
         </form>
     </div>
