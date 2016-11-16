@@ -1,10 +1,10 @@
 <?php
 
-   // Database connection.
+   // Database connection
    require_once __DIR__."/../assets/db_connect.php";
    require_once __DIR__."/../assets/session.php";
 
-   // Execute categories query.
+   // Execute categories query
    $query = "SELECT * FROM categories";
    if ($stmt->prepare($query)) {
         $stmt->execute();
