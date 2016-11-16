@@ -1,3 +1,6 @@
+
+
+<link rel="stylesheet" type="text/css" href="../styles/css/main.css">
 <?php
 	// include_once "../assets/db_connect.php"; // Database connection.
     require_once "../templates/header.php"; // Header content.
@@ -92,31 +95,41 @@
     endif;
 ?>
 
-<h1>Kategorier</h1>
+<main>
+<h2>Kategorier</h2>
+
 <!--****************************************************************************
     FORM THAT PRINTS ALL CATEGORIES FROM DATABASE, INCLUDING CHECKBOXES
 *****************************************************************************-->
-    <form method="get" action="categories.php">
-    <?php while (mysqli_stmt_fetch($stmt)): ?>
-            <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo $cat; ?>
-            <?php if ($catId == $changeCategoryId): ?>
-                    <form method="get" action="categories.php">
-                        <input type="text" name="categoryChange">
-                        <input type="hidden" name="catId" value="<?php echo $catId; ?>">
-                        <input type="submit" value="Ändra" name="changeCat2">
-                    </form>
-            <?php endif; ?>
-           <br>
-    <?php endwhile; ?>
-        <br>
-        <input type="submit" value="Ta bort" name="removeCat">
-        <input type="submit" value="Ändra" name="changeCat">
-        <br>
-    </form>
-    <form method="get" action="categories.php">
-        Lägg till kategori: <input type="text" name="category">
-        <input type="submit" value="Lägg till" name="addCat">
-    </form>
+    <div class="flexboxWrapper">
+        <form method="get" action="categories.php" class="listWrapper">
+            <div class="categoryList">
+            <div class="innerCatList">
+        <?php while (mysqli_stmt_fetch($stmt)): ?>
+                <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo $cat; ?>
+                <?php if ($catId == $changeCategoryId): ?>
+                        <form method="get" action="categories.php">
+                            <input type="text" name="categoryChange">
+                            <input type="hidden" name="catId" value="<?php echo $catId; ?>">
+                            <input type="submit" value="Ändra" name="changeCat2">
+                        </form>
+                <?php endif; ?>
+            <br>
+        <?php endwhile; ?>
+        </div>
+            </div>
+            <br>
+            <input type="submit" value="Ta bort" name="removeCat" class="button red">
+            <br>
+            <input type="submit" value="Ändra" name="changeCat" class="button">
+            <br>
+        </form>
+        <form method="get" action="categories.php" class="inputWrapper">
+            <label for="addCatagory">Lägg till kategori:</label>
+            <input type="text" name="category" id="addCatagory">
+            <input type="submit" value="Lägg till" name="addCat" class="button">
+        </form>
+    </div>
 <?php
     // Print error message
     if ($errorMessage != NULL): echo $errorMessage; endif;
