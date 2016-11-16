@@ -1,3 +1,6 @@
+
+
+<link rel="stylesheet" type="text/css" href="../styles/css/main.css">
 <?php
 	// include_once "../assets/db_connect.php"; // Database connection.
     require_once "../templates/header.php"; // Header content.
@@ -5,7 +8,7 @@
 
 
     // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false):
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE):
         header("Location: ../login.php");
     endif;
 
@@ -13,15 +16,13 @@
     $changeCategoryId = NULL;
     $errorMessage = NULL;
 
-
-
     // If-statement to check if button for adding new categories is set
     // If everything looks okay insert into db
     if (isset ($_GET["addCat"])):
         if (!empty($_GET["category"])): // Input given
             $category = mysql_real_escape_string($_GET["category"]);
             $query = "INSERT INTO categories VALUES (NULL, '$category')";
-            if ($stmt -> prepare($query)):
+            if ($stmt->prepare($query)):
                 $stmt->execute();
             else:
                 $errorMessage ="Faulty query in addCat";
@@ -39,7 +40,7 @@
             foreach ($_GET['checkList'] as $selected):
                 $catId = $selected;
                 $query = "DELETE FROM categories WHERE id=$catId";
-                if ($stmt -> prepare($query)):
+                if ($stmt->prepare($query)):
                     $stmt->execute();
                 else:
                     $errorMessage ="Faulty query in removeCat";
@@ -56,7 +57,7 @@
     // checked the category id is set to NULL
     if (isset ($_GET["changeCat"])):
         if (!empty($_GET["checkList"])):
-            $count=0;
+            $count = 0;
             foreach ($_GET['checkList'] as $selected):
                 $catId = $selected;
                 $count ++;
@@ -88,52 +89,50 @@
 
     // Select all rows from the database categories
     $query = "SELECT * FROM categories";
-    if ($stmt -> prepare($query)):
-        $stmt -> execute();
-        $stmt -> bind_result($catId, $cat);
+    if ($stmt->prepare($query)):
+        $stmt->execute();
+        $stmt->bind_result($catId, $cat);
     endif;
 ?>
 
-<h1>Kategorier</h1>
+<main>
+<h2>Kategorier</h2>
 
-    <!-- Form that prints all categories from the db with checkboxes -->
-    <!-- If change category is ordered an input field is printed -->
-    <form method="get" action="categories.php">
-    <?php
-        while (mysqli_stmt_fetch($stmt)):
-    ?>
-            <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo $cat; ?>
-            <?php
-                if ($catId == $changeCategoryId):
-            ?>
-                    <form method="get" action="categories.php">
-                        <input type="text" name="categoryChange">
-                        <input type="hidden" name="catId" value="<?php echo $catId; ?>">
-                        <input type="submit" value="Ändra" name="changeCat2">
-                    </form>
-            <?php
-                endif;
-            ?>
-           <br>
-    <?php
-        endwhile;
-    ?>
-        <br>
-        <input type="submit" value="Ta bort" name="removeCat">
-        <input type="submit" value="Ändra" name="changeCat">
-        <br>
-    </form>
-    <form method="get" action="categories.php">
-        Lägg till kategori: <input type="text" name="category">
-        <input type="submit" value="Lägg till" name="addCat">
-    </form>
+<!--****************************************************************************
+    FORM THAT PRINTS ALL CATEGORIES FROM DATABASE, INCLUDING CHECKBOXES
+*****************************************************************************-->
+    <div class="flexboxWrapper">
+        <form method="get" action="categories.php" class="listWrapper">
+            <div class="categoryList">
+            <div class="innerCatList">
+        <?php while (mysqli_stmt_fetch($stmt)): ?>
+                <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo $cat; ?>
+                <?php if ($catId == $changeCategoryId): ?>
+                        <form method="get" action="categories.php">
+                            <input type="text" name="categoryChange">
+                            <input type="hidden" name="catId" value="<?php echo $catId; ?>">
+                            <input type="submit" value="Ändra" name="changeCat2">
+                        </form>
+                <?php endif; ?>
+            <br>
+        <?php endwhile; ?>
+        </div>
+            </div>
+            <br>
+            <input type="submit" value="Ta bort" name="removeCat" class="button red">
+            <br>
+            <input type="submit" value="Ändra" name="changeCat" class="button">
+            <br>
+        </form>
+        <form method="get" action="categories.php" class="inputWrapper">
+            <label for="addCatagory">Lägg till kategori:</label>
+            <input type="text" name="category" id="addCatagory">
+            <input type="submit" value="Lägg till" name="addCat" class="button">
+        </form>
+    </div>
 <?php
-
     // Print error message
-    if ($errorMessage != NULL):
-        echo $errorMessage;
-    endif;
+    if ($errorMessage != NULL): echo $errorMessage; endif;
 
-	include_once "../templates/footer.php"; // Footer.
-
+    include_once "../templates/footer.php"; // Footer.
 ?>

@@ -4,7 +4,7 @@
     require_once "../assets/session.php";
 
     // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false):
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE):
         header("Location: ../login.php");
     endif;
 
