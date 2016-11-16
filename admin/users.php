@@ -1,5 +1,4 @@
 <?php
-	// include_once "../assets/db_connect.php"; // Database connection.
     include_once "../templates/header.php"; // Header content.
     require_once "../assets/session.php";
 
@@ -18,7 +17,7 @@
     endif;
 
     // If-statement to check if button for removing users is set
-    // If button is pressed continue to check through the array  and
+    // If button is pressed continue to check through the array and
     // for each category checked, remove it fromm the db
     if (isset ($_GET["removeUser"])):
         if (!empty($_GET["checkList"])):
@@ -53,11 +52,15 @@
     endif;
 ?>
 
-<h1>Användare</h1>
+<h2>Användare</h2>
 
     <!-- Form that prints all categories from the db with checkboxes -->
     <!-- If change category is ordered an input field is printed -->
-    <form method="get" action="users.php">
+    <div class="flexboxWrapper">
+
+    <form method="get" action="users.php" class="listWrapper">
+        <div class="categoryList">
+            <div class="innerCatList">
 <?php
     while (mysqli_stmt_fetch($stmt)):
         ?>
@@ -66,12 +69,13 @@
 <?php
     endwhile;
 ?>
-        <br>
-        <input type="submit" value="Ta bort användare" name="removeUser">
+            </div>
+        </div>
+        <input type="submit" value="Ta bort användare" name="removeUser"class="button red">
     </form>
     <br>
     <form method="get" action="users.php">
-        <input type="submit" value="Lägg till ny användare" name="addUser">
+        <input type="submit" value="Lägg till ny användare" name="addUser" class="button">
     </form>
     <br>
     <?php
@@ -96,9 +100,10 @@
                     <input type="text" name="webSite"> <br>
                     <label>Beskrivning:</label> <br>
                     <textarea cols="25" rows="7" name="description"></textarea> <br>
-                    <input id="button" type="submit" name="register" value="Lägg till">
+                    <input id="button" type="submit" name="register" value="Lägg till" class="button">
                 </fieldset>
             </form>
+        </div>
     <?php
         endif;
 
