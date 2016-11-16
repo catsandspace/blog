@@ -5,7 +5,7 @@
 
 
     // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false):
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE):
         header("Location: ../login.php");
     endif;
 
@@ -56,7 +56,7 @@
     // checked the category id is set to NULL
     if (isset ($_GET["changeCat"])):
         if (!empty($_GET["checkList"])):
-            $count=0;
+            $count = 0;
             foreach ($_GET['checkList'] as $selected):
                 $catId = $selected;
                 $count ++;

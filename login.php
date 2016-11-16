@@ -7,7 +7,7 @@
    $errorMessage = "";
 
    // Redirect to dashboard.php if there is already an active session.
-   if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
+   if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
 
        // session.php is used to start the session.
        header("Location: ./admin/dashboard.php");
