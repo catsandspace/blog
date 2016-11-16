@@ -43,7 +43,7 @@
 <!--****************************************************************************
     FORM TO LOGIN USER
 *****************************************************************************-->
-<form action="login.php" method="POST">
+<form action="./login.php" method="POST">
    <fieldset>
         <legend>Login</legend>
         <label for="username">Username:</label><br>
