@@ -34,7 +34,7 @@
         // Escapes special characters in a string for use in an SQL statement
         if ($allRequiredFilled) {
             // TODO: Keep it dry. This needs som attention.
-            $image = mysqli_real_escape_string($conn, $_FILES["post-img"]["tmp_name"]);
+            $image = mysqli_real_escape_string($conn, $targetName);
             $title = mysqli_real_escape_string($conn, $_POST["headline"]);
             $content = mysqli_real_escape_string($conn, $_POST["post-content"]);
             $published = mysqli_real_escape_string($conn, $_POST["publish"]);
