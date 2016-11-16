@@ -4,10 +4,10 @@
    require_once "./assets/functions.php";
    require_once "./assets/session.php";
 
-   $errorMessage = "";
+   $errorMessage = NULL;
 
    // Redirect to dashboard.php if there is already an active session.
-   if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
+   if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
 
        // session.php is used to start the session.
        header("Location: ./admin/dashboard.php");
@@ -41,11 +41,9 @@
     }
 ?>
 <!--****************************************************************************
-********************************************************************************
-            Form to login user
-********************************************************************************
+    FORM TO LOGIN USER
 *****************************************************************************-->
-<form action="login.php" method="POST">
+<form action="./login.php" method="POST">
    <fieldset>
         <legend>Login</legend>
         <label for="username">Username:</label><br>

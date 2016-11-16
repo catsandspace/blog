@@ -3,5 +3,5 @@
     session_set_cookie_params($session_time);
     session_name($session_name);
     session_start();
-    session_regenerate_id(true);
+    session_regenerate_id(TRUE);
 ?>
