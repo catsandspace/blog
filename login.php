@@ -4,7 +4,7 @@
    require_once "./assets/functions.php";
    require_once "./assets/session.php";
 
-   $errorMessage = "";
+   $errorMessage = NULL;
 
    // Redirect to dashboard.php if there is already an active session.
    if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
@@ -41,9 +41,7 @@
     }
 ?>
 <!--****************************************************************************
-********************************************************************************
-            Form to login user
-********************************************************************************
+    FORM TO LOGIN USER
 *****************************************************************************-->
 <form action="login.php" method="POST">
    <fieldset>
