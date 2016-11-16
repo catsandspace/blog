@@ -17,7 +17,7 @@
         $addUser = TRUE;
     endif;
 
-    // If-statement to check if button for removing users is set 
+    // If-statement to check if button for removing users is set
     // If button is pressed continue to check through the array  and
     // for each category checked, remove it fromm the db
     if (isset ($_GET["removeUser"])):
@@ -30,13 +30,22 @@
                 else:
                     echo "fel";
                 endif;
-            endforeach;              
+            endforeach;
         else:
             echo "fellist";
         endif;
     endif;
 
-    // Select all rows from the database users 
+    // Function converting permission to textstring
+    function permission($permission) {
+        if ($permission == 1):
+            echo "Superadmin";
+        else:
+            echo "Admin";
+        endif;
+    }
+
+    // Select all rows from the database users
     $query = "SELECT * FROM users";
     if ($stmt -> prepare($query)):
         $stmt-> execute();
@@ -52,8 +61,8 @@
 <?php
     while (mysqli_stmt_fetch($stmt)):
         ?>
-        <input type="checkbox" name="checkList[]" value="<?php echo $userId; ?>"> <?php echo $uName; ?>
-        <br>        
+        <input type="checkbox" name="checkList[]" value="<?php echo $userId; ?>"> <?php echo "$uName "; permission($permission);?>
+        <br>
 <?php
     endwhile;
 ?>
@@ -67,7 +76,7 @@
     <br>
     <?php
         // if registration is ordered print registration form
-        if ($addUser == TRUE): 
+        if ($addUser == TRUE):
     ?>
             <form method="POST" action="../assets/registercheck.php">
 
@@ -93,9 +102,12 @@
     <?php
         endif;
 
-        // Printing error message 
-        if ($errorMessage != NULL):
-            echo $errorMessage;
+        // Printing error message
+
+        if (isset ($_GET["errorMessage"])):
+            if ($_GET["errorMessage"] != NULL):
+                echo $_GET["errorMessage"];
+            endif;
         endif;
         include_once "../templates/footer.php"; // Footer.
     ?>
