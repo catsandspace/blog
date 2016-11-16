@@ -45,6 +45,5 @@
 <a href="./categories.php" class="button">Hantera kategorier</a>
 <a href="./users.php" class="button">Hantera användare</a>
 <?php endif; ?>
-<a href="../assets/logout.php" class="button">Logga ut</a>
 
 <?php require_once "../templates/footer.php"; ?>
