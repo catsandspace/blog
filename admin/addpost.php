@@ -62,7 +62,7 @@
         // Prints information about an error if true.
         if (isset($_POST["submit"]) && $fileError) {
             echo "$fileError<br>";
-        }
+         }
     ?>
     <input type="radio" name="publish" id="publish" value="1" required>
     <label for="publish">Publicera</label><br>
@@ -74,6 +74,7 @@
     <textarea name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required></textarea><br>
     <div>
         <h3>Kategori</h3>
+        <!-- TODO: Loopa ut från kategorierna. -->
         <input type="radio" name="category" value="1" required>
         <label for="publish">Cats</label><br>
         <input type="radio" name="category" value="2" required>
