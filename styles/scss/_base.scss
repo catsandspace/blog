@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Rajdhani:300,400,600');
+$primary: #20A594;
+$primaryAlternative: #1AC9B2;
+$secondary: #bf2e1d;
+$secondaryAlternative: #cc3628;
+$baseColor: #2A3236;
+$baseColor2: #F8F8F8;
+html {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 62.5%;
+}
+
+body {
+    background-color: $baseColor2;
+    color: $baseColor;
+    font-size: 16px;
+    font-size: 1.6rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $baseColor;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+header {
+    background-color: $baseColor;
+    color: $baseColor2;
+    padding: 20px;
+    display: flex;
+}
+
+main {
+    margin: 0 auto;
+    padding: 30px;
+    padding: 3.0rem;
+    width: 100vW;
+    border: 1px solid red;
+    border-sizing: border-box;
+}
+
+h1 {
+    color: $baseColor2;
+    font-weight: 600;
+    font-size: 40px;
+    font-size: 4.0rem;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 30px;
+    font-size: 3.0rem;
+}
+
+a {
+    text-decoration: none;
+    color: $baseColor2;
+}
+
+.button {
+    background-color: $primary;
+}
+
+.button:hover {
+    background-color: $primaryAlternative;
+}
+
+.button:active {
+    background-color: $primaryAlternative;
+    transform: translateY(5px);
+}
+
+.flexboxWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.listWrapper {
+    box-sizing: border-box;
+    text-align: left;
+    border: 1px solid black;
+    margin: 0 auto;
+    width: 100vW;
+}

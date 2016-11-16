@@ -101,27 +101,30 @@
 <!--****************************************************************************
     FORM THAT PRINTS ALL CATEGORIES FROM DATABASE, INCLUDING CHECKBOXES
 *****************************************************************************-->
-    <form method="get" action="categories.php">
-    <?php while (mysqli_stmt_fetch($stmt)): ?>
-            <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo $cat; ?>
-            <?php if ($catId == $changeCategoryId): ?>
-                    <form method="get" action="categories.php">
-                        <input type="text" name="categoryChange">
-                        <input type="hidden" name="catId" value="<?php echo $catId; ?>">
-                        <input type="submit" value="Ändra" name="changeCat2">
-                    </form>
-            <?php endif; ?>
-           <br>
-    <?php endwhile; ?>
-        <br>
-        <input type="submit" value="Ta bort" name="removeCat" class="button">
-        <input type="submit" value="Ändra" name="changeCat" class="button">
-        <br>
-    </form>
-    <form method="get" action="categories.php">
-        Lägg till kategori: <input type="text" name="category">
-        <input type="submit" value="Lägg till" name="addCat" class="button">
-    </form>
+    <div class="flexboxWrapper">
+        <form method="get" action="categories.php" class="listWrapper">
+        <?php while (mysqli_stmt_fetch($stmt)): ?>
+                <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo $cat; ?>
+                <?php if ($catId == $changeCategoryId): ?>
+                        <form method="get" action="categories.php">
+                            <input type="text" name="categoryChange">
+                            <input type="hidden" name="catId" value="<?php echo $catId; ?>">
+                            <input type="submit" value="Ändra" name="changeCat2">
+                        </form>
+                <?php endif; ?>
+            <br>
+        <?php endwhile; ?>
+            <br>
+            <input type="submit" value="Ta bort" name="removeCat" class="button">
+            <br>
+            <input type="submit" value="Ändra" name="changeCat" class="button">
+            <br>
+        </form>
+        <form method="get" action="categories.php">
+            Lägg till kategori: <input type="text" name="category">
+            <input type="submit" value="Lägg till" name="addCat" class="button">
+        </form>
+    </div>
 <?php
     // Print error message
     if ($errorMessage != NULL): echo $errorMessage; endif;
