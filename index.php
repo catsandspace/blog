@@ -1,10 +1,10 @@
 <?php
 
-    // Includes.
+    // File to include
     require_once "./templates/header.php"; // Header content.
 
-    // Variables.
-    $display = ""; // To avoid "undefined variable".
+    // Variables
+    $display = NULL; // To avoid "undefined variable".
 
     // SQL statement with LEFT JOIN table -> posts & categories.
     $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id";

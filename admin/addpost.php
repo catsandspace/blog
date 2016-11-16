@@ -5,20 +5,20 @@
     require_once "../assets/session.php";
 
     // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
     }
 
     // This is used for printing out feedback message once post is uploaded.
-    $feedbackMessage = "";
+    $feedbackMessage = NULL;
 
     // This is used to stop user from leaving important fields empty.
-    $allRequiredFilled = true;
+    $allRequiredFilled = TRUE;
 
     if (isset($_POST["submit"])) {
 
         //These variables are used for checking if all fields are filled.
-        $allRequiredFilled = true;
+        $allRequiredFilled = TRUE;
         $required_fields = array("publish", "headline", "post-content", "category");
 
         // This checks if all required fields are filled.
@@ -26,7 +26,7 @@
             $value = $_POST[$required_fields[$i]];
 
             if (empty($value)) {
-                $allRequiredFilled = false;
+                $allRequiredFilled = FALSE;
                 break;
             }
         }
@@ -59,10 +59,10 @@
     <label for="choose-file">Bild</label><br>
     <input type="file" name="post-img" id="choose-file" required><br>
     <?php
-        // Prints information about an error if true.
+        // Prints information about an error if TRUE.
         if (isset($_POST["submit"]) && $fileError) {
             echo "$fileError<br>";
-        }
+         }
     ?>
     <input type="radio" name="publish" id="publish" value="1" required>
     <label for="publish">Publicera</label><br>
@@ -74,6 +74,7 @@
     <textarea name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required></textarea><br>
     <div>
         <h3>Kategori</h3>
+        <!-- TODO: Loopa ut från kategorierna. -->
         <input type="radio" name="category" value="1" required>
         <label for="publish">Cats</label><br>
         <input type="radio" name="category" value="2" required>
@@ -84,7 +85,7 @@
     <button class="button" type="submit" name="submit">Spara</button>
 </form>
 <?php
-    // This checks if there is a feedback message and prints it if true.
+    // This checks if there is a feedback message and prints it if TRUE.
     if (isset($_POST["submit"]) && $feedbackMessage) { echo $feedbackMessage; }
 ?>
 
