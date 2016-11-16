@@ -1,28 +1,12 @@
-<!-- registercheck.php checks the input from users.php. 
-     If all data is valid, the data is stored in the database as a new user. 
+<!-- registercheck.php checks the input from users.php.
+     If all data is valid, the data is stored in the database as a new user.
      If any fault occures during the way, the user receives an error message. -->
 
 <?php
     session_start();
 
 	include_once "./db_connect.php"; // Database connection.
-
-    function printFault($faultString, $header) {
-        // echo "<div class=\"userpage\">";
-        // if ($header == "Login") {
-        //     echo "<h1>Inloggningen misslyckades</h1>";
-        // } else if ($header =="Register") {
-        //     echo "<h1>Registreringen misslyckades</h1>";
-        // }
-        echo "<p>$faultString </p>";
-        // if ($header == "Login") {
-        //     echo "<a href=\"../index.php\" class=\"btn\">Försök igen</a>";
-        // } else if ($header =="Register") {
-        //     echo "<a href=\"../pages/register.php\" class=\"btn\">Försök igen</a>";
-        // }
-        // echo "</div>";
-    } // End function printFault()
-
+    $string = NULL;
 
     // Check if register button is pressed
     if (isset($_POST["register"])):
@@ -41,7 +25,7 @@
             $desc = mysql_real_escape_string($_POST["description"]);
             $pic = "../userpics/default_avatar.jpg";     // Default avatar as first picture
 
-            
+
             // Check if username is taken
             // Create a query
             // Select all columns (data) in database named "users" for given user - $un
@@ -52,32 +36,40 @@
                 $result = mysqli_query($conn, $query);
                 // Check if username is free
                 if (!$result || mysqli_num_rows($result) == 0):
-                    // Make a query with all userdata
-                    $query = "INSERT INTO users VALUES (NULL, '0', '$un', '$upHasch', '$fn', '$ln', '$em', '$ws', '$desc', '$pic')";
+                    $query = "SELECT * FROM users WHERE eMail = '$em'";
                     // Check query
                     if ($stmt -> prepare($query)):
-                        $stmt->execute();
-                        // checkUser($un, $up);
+                        $result = mysqli_query($conn, $query);
+                        // Check if e-mail is free
+                        if (!$result || mysqli_num_rows($result) == 0):
+                            // Make a query with all userdata
+                            $query = "INSERT INTO users VALUES (NULL, '0', '$un', '$upHasch', '$fn', '$ln', '$em', '$ws', '$desc', '$pic')";
+                            // Check query
+                            if ($stmt -> prepare($query)):
+                                $stmt->execute();
+                                // checkUser($un, $up);
+                            else: // query not ok
+                                $string ="<p>Gick inte att registrera. </p>";
+                            endif; // end if query ok?
+                        else: // Email taken
+                            $string ="<p>E-mail adressen är upptaget. </p>";
+                        endif;
                     else: // query not ok
-                        $string ="<p>Gick inte att registrera. </p>";
-                        printFault($string, "Register");
+                        $string ="<p>Något fel! </p>";
                     endif; // end if query ok?
                 else: // Username taken
                     $string ="<p>Användarnamnet är upptaget. </p>";
-                    printFault($string, "Register");
                 endif; // end if check user
             else: // query not ok
                 $string ="<p>Något fel! </p>";
-                printFault($string, "Register");
             endif; // end if query ok?
         else: // Not all input given
             $string ="<p>Du har inte fyllt i all information! </p>";
-            printFault($string, "Register");
         endif; // end if all input given
     else: // Button not pressed
             $string ="<p>Du har inte kommit till denna sida på rätt sätt! </p>";
-            printFault($string, "Register");
     endif; // end if submit button not pressed
+    header("Location: ../admin/users.php? errorMessage=$string");
 ?>
 
 
