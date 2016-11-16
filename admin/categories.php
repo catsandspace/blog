@@ -1,8 +1,4 @@
-
-
-<link rel="stylesheet" type="text/css" href="../styles/css/main.css">
 <?php
-	// include_once "../assets/db_connect.php"; // Database connection.
     require_once "../templates/header.php"; // Header content.
     require_once "../assets/session.php";
 
@@ -118,11 +114,8 @@
         <?php endwhile; ?>
         </div>
             </div>
-            <br>
             <input type="submit" value="Ta bort" name="removeCat" class="button red">
-            <br>
             <input type="submit" value="Ändra" name="changeCat" class="button">
-            <br>
         </form>
         <form method="get" action="categories.php" class="inputWrapper">
             <label for="addCatagory">Lägg till kategori:</label>

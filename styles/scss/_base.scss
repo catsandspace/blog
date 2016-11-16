@@ -10,7 +10,6 @@ $primary: #20A594;
 $primaryAlternative: #1AC9B2;
 $secondary: #bf2e1d;
 $secondaryAlternative: #ea3e2e;
-
 html {
     font-family: 'Montserrat', sans-serif;
     font-size: 62.5%;
@@ -27,6 +26,77 @@ header {
     color: $baseColor2;
     padding: 20px;
     display: flex;
+    justify-content: space-between;
+}
+
+.hamburger ul,
+.hamburger li,
+.hamburger span,
+.hamburgera {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.hamburger:after,
+.hamburger ul:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.hamburger ul {
+    list-style: none;
+}
+
+.hamburger>ul {
+    float: left;
+}
+
+.hamburger>ul>li {
+    float: left;
+}
+
+.hamburger .has-sub {
+    z-index: 1;
+}
+
+.hamburger .has-sub:hover>ul {
+    display: block;
+}
+
+.hamburger .has-sub ul {
+    display: none;
+    position: absolute;
+    width: 200px;
+    top: 100%;
+    right: 0;
+}
+
+.hamburger .has-sub ul li a {
+    background: $primary;
+    border-bottom: 1px solid $baseColor;
+    /*color: white;*/
+    display: block;
+    line-height: 160%;
+    padding: 15px 10px;
+    font-size: 12px;
+}
+
+.hamburger .has-sub ul li:hover a {
+    background: $primaryAlternative;
+}
+
+.hamburger .has-sub .has-sub:hover>ul {
+    display: block;
+}
+
+.hamburger .has-sub .has-sub ul {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
 }
 
 main {
@@ -48,7 +118,6 @@ h6 {
     font-size: 4.0rem;
 }
 
-
 h1 {
     color: $baseColor2;
 }
@@ -63,9 +132,11 @@ a {
     text-decoration: none;
 }
 
+
 /*******************************************************************************
     END OF GLOBAL STYLES
 *******************************************************************************/
+
 
 /*******************************************************************************
     START OF BUTTONS
@@ -78,6 +149,12 @@ a {
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
     color: $baseColor2;
     cursor: pointer;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+textarea {
     height: 3em;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -103,6 +180,7 @@ a {
 .red:hover {
     background-color: $secondaryAlternative;
 }
+
 
 /*******************************************************************************
     END OF BUTTONS
