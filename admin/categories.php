@@ -1,3 +1,6 @@
+
+
+<link rel="stylesheet" type="text/css" href="../styles/css/main.css">
 <?php
 	// include_once "../assets/db_connect.php"; // Database connection.
     require_once "../templates/header.php"; // Header content.
@@ -93,8 +96,8 @@
         $stmt -> bind_result($catId, $cat);
     endif;
 ?>
-
-<h1>Kategorier</h1>
+<main>
+<h2>Kategorier</h2>
 
     <!-- Form that prints all categories from the db with checkboxes -->
     <!-- If change category is ordered an input field is printed -->
@@ -119,13 +122,13 @@
         endwhile;
     ?>
         <br>
-        <input type="submit" value="Ta bort" name="removeCat">
-        <input type="submit" value="Ändra" name="changeCat">
+        <input type="submit" value="Ta bort" name="removeCat" class="button">
+        <input type="submit" value="Ändra" name="changeCat" class="button">
         <br>
     </form>
     <form method="get" action="categories.php">
         Lägg till kategori: <input type="text" name="category">
-        <input type="submit" value="Lägg till" name="addCat">
+        <input type="submit" value="Lägg till" name="addCat" class="button">
     </form>
 <?php
 
@@ -133,6 +136,7 @@
     if ($errorMessage != NULL):
         echo $errorMessage;
     endif;
+    echo "</main>";
 
 	include_once "../templates/footer.php"; // Footer.
 

@@ -1,4 +1,1 @@
-@import "./normalize.css";
-body {
-    color: white;
-}
+@import url(../css/normalize.css);@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700|Rajdhani:300,400,600");html{font-family:'Montserrat', sans-serif;font-size:62.5%}body{background-color:#F8F8F8;color:#2A3236;font-size:16px;font-size:1.6rem}h1,h2,h3,h4,h5,h6{color:#2A3236;font-family:'Rajdhani', sans-serif}header{background-color:#2A3236;color:#F8F8F8;padding:20px}main{text-align:center}h1{color:#F8F8F8;font-weight:600;font-size:40px;font-size:4.0rem}h2{font-weight:600;font-size:30px;font-size:3.0rem}a{text-decoration:none;color:#F8F8F8}.button{background-color:#20A594}.button:hover{background-color:#1AC9B2}
