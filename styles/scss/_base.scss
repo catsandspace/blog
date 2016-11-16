@@ -1,10 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Rajdhani:300,400,600');
+
+/*******************************************************************************
+    START OF GLOBAL STYLES
+*******************************************************************************/
+
+$baseColor: #2A3236;
+$baseColor2: #F8F8F8;
 $primary: #20A594;
 $primaryAlternative: #1AC9B2;
 $secondary: #bf2e1d;
 $secondaryAlternative: #ea3e2e;
-$baseColor: #2A3236;
-$baseColor2: #F8F8F8;
+
 html {
     font-family: 'Montserrat', sans-serif;
     font-size: 62.5%;
@@ -13,18 +19,7 @@ html {
 body {
     background-color: $baseColor2;
     color: $baseColor;
-    font-size: 16px;
     font-size: 1.6rem;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: $baseColor;
-    font-family: 'Rajdhani', sans-serif;
 }
 
 header {
@@ -35,58 +30,62 @@ header {
 }
 
 main {
-    margin: 0 auto;
-    padding: 30px;
-    padding: 3.0rem;
-    width: 100vW;
     box-sizing: border-box;
+    margin: 0 auto;
+    padding: 3.0rem;
+    width: 100vw;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $baseColor;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    font-size: 4.0rem;
+}
+
 
 h1 {
     color: $baseColor2;
-    font-weight: 600;
-    font-size: 40px;
-    font-size: 4.0rem;
 }
 
 h2 {
     font-weight: 600;
-    font-size: 40px;
-    font-size: 4.0rem;
     text-align: center;
 }
 
 a {
-    text-decoration: none;
     color: $baseColor2;
+    text-decoration: none;
 }
+
+/*******************************************************************************
+    END OF GLOBAL STYLES
+*******************************************************************************/
+
+/*******************************************************************************
+    START OF BUTTONS
+*******************************************************************************/
 
 .button {
     background-color: $primary;
-    width: 100%;
-    height: 3em;
-    text-transform: uppercase;
-    color: $baseColor2;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
     border: 0;
-    margin: 0.5em 0;
+    box-sizing: border-box;
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+    color: $baseColor2;
     cursor: pointer;
-}
-
-input[type=text] {
-    width: 100%;
     height: 3em;
-    border: 0;
-    border-bottom: 2px solid $primary;
-    background-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     margin: 0.5em 0;
-}
-
-label {
-    color: $primary;
-    /*text-transform: uppercase;*/
+    padding-top: 1em;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
 }
 
 .button:hover {
@@ -105,6 +104,23 @@ label {
     background-color: $secondaryAlternative;
 }
 
+/*******************************************************************************
+    END OF BUTTONS
+*******************************************************************************/
+
+input[type=text] {
+    border: 0;
+    border-bottom: 2px solid $primary;
+    background-color: transparent;
+    height: 3em;
+    margin: 0.5em 0;
+    width: 100%;
+}
+
+label {
+    color: $primary;
+}
+
 .flexboxWrapper {
     display: flex;
     flex-direction: column;
@@ -112,16 +128,12 @@ label {
 
 .listWrapper {
     box-sizing: border-box;
-    /*text-align: left;*/
     margin: 0 auto;
     width: 100%;
-    /*display: flex;
-    justify-content: space-around;*/
 }
 
 .inputWrapper {
     box-sizing: border-box;
-    /*text-align: left;*/
     margin-top: 70px;
     width: 100%;
 }
