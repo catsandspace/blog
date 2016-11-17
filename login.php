@@ -29,7 +29,7 @@
 
                 if ($pass == $upass) {
                     // function, stores users id, username, userpassword in session variables - functions.php
-                    storeUserInSession($id, $uname, $upass);
+                    storeUserInSession($id, $permission, $uname, $upass);
                     header("Location: ./admin/dashboard.php");
                 } else {
                $errorMessage = "Felaktigt användarnamn eller lösenord";
