@@ -39,7 +39,7 @@
             $content = mysqli_real_escape_string($conn, $_POST["post-content"]);
             $published = mysqli_real_escape_string($conn, $_POST["publish"]);
             $category = mysqli_real_escape_string($conn, $_POST["category"]);
-
+            // $query = "UPDATE users SET profile_url = '{$target_name}' WHERE id = '{$_SESSION["userid"]}'";
             $query = "INSERT INTO posts VALUES ('', 1, '', '', '{$image}', '{$title}', '{$content}', '{$published}', '{$category}')";
 
             if ($stmt->prepare($query)) {

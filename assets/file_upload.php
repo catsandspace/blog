@@ -14,9 +14,11 @@ if (isset($_POST["submit"])) {
     // TODO: This URL differs from the URL's used on index.php. Don't forget to sort this out.
     $targetName = $targetFolder . basename("postimg") . ".$type";
 
-    // Move file to "../uploads/postimg/"
+    // Move file to "uploads/postimg/"
     if (!$fileError) {
         move_uploaded_file($temporaryFile, $targetName);
+
+        $targetName = "uploads/postimg/". basename("postimg") . ".$type";
     }
 }
 ?>
