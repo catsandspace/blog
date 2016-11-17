@@ -107,20 +107,21 @@
                         <form method="get" action="categories.php">
                             <input type="text" name="categoryChange">
                             <input type="hidden" name="catId" value="<?php echo $catId; ?>">
-                            <input type="submit" value="Ändra" name="changeCat2">
+                            <button type="submit" value="Ändra" name="changeCat2" class="button">Ändra</button>
                         </form>
                 <?php endif; ?>
             <br>
         <?php endwhile; ?>
         </div>
             </div>
-            <input type="submit" value="Ta bort" name="removeCat" class="button red">
-            <input type="submit" value="Ändra" name="changeCat" class="button">
+            <button type="submit" value="Ändra" name="changeCat" class="button">Ändra</button>
+            <button type="submit" value="Ta bort" name="removeCat" class="button red">Ta bort</button>
+
         </form>
         <form method="get" action="categories.php" class="inputWrapper">
             <label for="addCatagory">Lägg till kategori:</label>
             <input type="text" name="category" id="addCatagory">
-            <input type="submit" value="Lägg till" name="addCat" class="button">
+            <button type="submit" value="Lägg till" name="addCat" class="button">Lägg till</button>
         </form>
     </div>
 <?php
