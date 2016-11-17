@@ -59,7 +59,7 @@
     <div class="flexboxWrapper">
 
     <form method="get" action="users.php" class="listWrapper">
-        <div class="categoryList">
+        <div class="list">
             <div class="inner-list">
 <?php
     while (mysqli_stmt_fetch($stmt)):

@@ -99,7 +99,7 @@
 *****************************************************************************-->
     <div class="flexboxWrapper">
         <form method="get" action="categories.php" class="listWrapper">
-            <div class="categoryList">
+            <div class="list">
             <div class="inner-list">
         <?php while (mysqli_stmt_fetch($stmt)): ?>
                 <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo $cat; ?>

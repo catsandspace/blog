@@ -24,6 +24,7 @@ body {
 header {
     background-color: $baseColor;
     color: $baseColor2;
+    /*opacity: 0.8;*/
     padding: 0.8rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -250,7 +251,7 @@ label {
     width: 100%;
 }
 
-.categoryList {
+.list {
     display: inline-block;
     margin: 0 auto;
     display: flex;
@@ -262,4 +263,43 @@ label {
 .inner-list {
     margin: 0 auto;
     padding: 0.5em 0;
+}
+
+.post-img {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.post {
+    display: inline;
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.post-header {
+    text-align: center;
+    display: inline;
+    background-color: $baseColor;
+    opacity: 0.8;
+    color: $baseColor2;
+    font-size: 3.0rem;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    margin: 0 auto;
+    padding: 0.5rem;
+    /*width: 100vw;*/
+}
+
+.post-text {
+    background: $baseColor;
+    opacity: 0.8;
+    color: $baseColor2;
+    font-size: 1.6rem;
+    position: absolute;
+    text-align: center;
+    bottom: 20px;
+    left: 20px;
+    padding: 0.5rem;
 }

@@ -24,15 +24,18 @@
     }
 
 ?>
-
 <section>
 
     <?php while (mysqli_stmt_fetch($stmt)): ?>
-    <article>
-        <h2><?php echo $title; ?></h2>
-        <img src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
-        <p><?php echo $content; ?></p>
-        <p>Tags: <a href="?display=<?php echo $categoryId ?>"><?php echo str_replace(' ', '', $categoryName); ?></a> </p>
+    <article class="list">
+        <div class="post">
+            <h2 class="post-header"><?php echo $title; ?></h2>
+            <img src="<?php echo $image; ?>" alt="<?php echo $title; ?>"class="post-img">
+            <div class="post-text">
+                <p><?php echo $content; ?></p>
+                <p>Tags: <a href="?display=<?php echo $categoryId ?>"><?php echo str_replace(' ', '', $categoryName); ?></a> </p>
+            </div>
+        </div>
     </article>
     <?php endwhile; ?>
 
