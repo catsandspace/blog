@@ -7,6 +7,8 @@
       header("Location: ../login.php");
     }
 
+    $currentUser = $_SESSION['username'];
+
     if ($databaseError) {
         echo $databaseErrorMessage;
     }
@@ -36,7 +38,7 @@
 ?>
 <main>
     <div class="flexboxWrapper">
-        <h2>Inloggad användare: <?php echo $user_firstname; ?></h2>
+        <h2>Inloggad användare: <?php echo $currentUser; ?></h2>
         <!-- TODO: Remove information about permission after testing is completed. -->
         <p>Behörighet: <?php echo $user_permission; ?></p>
         <a href="./addpost.php" class="button">Skapa nytt inlägg</a>
