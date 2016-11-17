@@ -154,7 +154,8 @@ a {
 input[type=text],
 input[type=password],
 input[type=email],
-textarea {
+textarea,
+.button {
     height: 3em;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -186,7 +187,10 @@ textarea {
     END OF BUTTONS
 *******************************************************************************/
 
-input[type=text] {
+input[type=text],
+input[type=password],
+input[type=email],
+textarea {
     border: 0;
     border-bottom: 2px solid $primary;
     background-color: transparent;
