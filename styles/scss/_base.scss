@@ -29,6 +29,11 @@ header {
     justify-content: space-between;
 }
 
+.logo {
+    height: 4em;
+    width: 4em;
+}
+
 .hamburger ul,
 .hamburger li,
 .hamburger span,
@@ -116,6 +121,7 @@ h6 {
     font-family: 'Rajdhani', sans-serif;
     font-weight: 400;
     font-size: 4.0rem;
+    margin: 0;
 }
 
 h1 {

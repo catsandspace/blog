@@ -26,7 +26,9 @@
 </head>
 <body>
     <header>
-       <img src="<?php echo $path; ?>img/logo.png" alt="logo">
+        <svg class="logo">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use>
+        </svg>
        <h1 class="logo-title">Cats and Space</h1>
        <nav class="hamburger">
             <ul>
