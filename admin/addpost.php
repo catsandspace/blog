@@ -5,20 +5,20 @@
     require_once "../assets/session.php";
 
     // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
         header("Location: ../login.php");
     }
 
     // This is used for printing out feedback message once post is uploaded.
-    $feedbackMessage = NULL;
+    $feedbackMessage = "";
 
     // This is used to stop user from leaving important fields empty.
-    $allRequiredFilled = TRUE;
+    $allRequiredFilled = true;
 
     if (isset($_POST["submit"])) {
 
         //These variables are used for checking if all fields are filled.
-        $allRequiredFilled = TRUE;
+        $allRequiredFilled = true;
         $required_fields = array("publish", "headline", "post-content", "category");
 
         // This checks if all required fields are filled.
@@ -26,7 +26,7 @@
             $value = $_POST[$required_fields[$i]];
 
             if (empty($value)) {
-                $allRequiredFilled = FALSE;
+                $allRequiredFilled = false;
                 break;
             }
         }
@@ -44,7 +44,6 @@
 
             if ($stmt->prepare($query)) {
         		$stmt->execute();
-                $stmt->close();
                 $feedbackMessage = "Inlägget laddades upp i databasen.";
             } else {
                 $feedbackMessage = "Du måste fylla i alla fält.";
@@ -53,16 +52,21 @@
     }
 // TODO: Remove all <br> once CSS is used.
 // In input name="publish", value="1" means publish, 0 means draft.
+    $query = "SELECT * FROM categories";
+    if ($stmt->prepare($query)) {
+        $stmt->execute();
+        $stmt->bind_result($id, $category);
+    }
 ?>
 <h1>Skapa nytt inlägg</h1>
 <form method="POST" enctype="multipart/form-data">
     <label for="choose-file">Bild</label><br>
     <input type="file" name="post-img" id="choose-file" required><br>
     <?php
-        // Prints information about an error if TRUE.
+        // Prints information about an error if true.
         if (isset($_POST["submit"]) && $fileError) {
             echo "$fileError<br>";
-         }
+        }
     ?>
     <input type="radio" name="publish" id="publish" value="1" required>
     <label for="publish">Publicera</label><br>
@@ -74,18 +78,17 @@
     <textarea name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required></textarea><br>
     <div>
         <h3>Kategori</h3>
-        <!-- TODO: Loopa ut från kategorierna. -->
-        <input type="radio" name="category" value="1" required>
-        <label for="publish">Cats</label><br>
-        <input type="radio" name="category" value="2" required>
-        <label for="draft">Space</label><br>
-        <input type="radio" name="category" value="3" required>
-        <label for="draft">Cats and Space</label><br>
+
+        <?php while (mysqli_stmt_fetch($stmt)): ?>
+        <input type="radio" name="category" value="<?php echo $id; ?>" required>
+        <label for="publish"><?php echo $category; ?></label><br>
+        <?php endwhile; $stmt->close();?>
+
     </div>
     <button class="button" type="submit" name="submit">Spara</button>
 </form>
 <?php
-    // This checks if there is a feedback message and prints it if TRUE.
+    // This checks if there is a feedback message and prints it if true.
     if (isset($_POST["submit"]) && $feedbackMessage) { echo $feedbackMessage; }
 ?>
 
