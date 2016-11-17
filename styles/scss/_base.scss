@@ -24,14 +24,14 @@ body {
 header {
     background-color: $baseColor;
     color: $baseColor2;
-    padding: 20px;
+    padding: 0.8rem 2rem;
     display: flex;
     justify-content: space-between;
 }
 
 .logo {
-    height: 4em;
-    width: 4em;
+    height: 3em;
+    width: 3em;
 }
 
 .hamburger ul,
@@ -104,6 +104,10 @@ header {
     top: 0;
 }
 
+.fa fa-fw fa-bars {
+    font-size: 6rem;
+}
+
 main {
     box-sizing: border-box;
     margin: 0 auto;
@@ -126,6 +130,7 @@ h6 {
 
 h1 {
     color: $baseColor2;
+    padding-top: 0.3rem;
 }
 
 h2 {
@@ -148,6 +153,16 @@ textarea,
     font-weight: 400;
     margin: 0.5em 0;
     width: 100%;
+}
+
+.hidden {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
 }
 
 
