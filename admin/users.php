@@ -51,7 +51,7 @@
         $stmt -> bind_result($userId, $permission, $uName, $uPass, $uMail, $uWebSite, $ufName, $ulName, $uPic, $uDesc);
     endif;
 ?>
-
+<main>
 <h2>Användare</h2>
 
     <!-- Form that prints all categories from the db with checkboxes -->
@@ -59,8 +59,8 @@
     <div class="flexboxWrapper">
 
     <form method="get" action="users.php" class="listWrapper">
-        <div class="categoryList">
-            <div class="innerCatList">
+        <div class="list">
+            <div class="inner-list">
 <?php
     while (mysqli_stmt_fetch($stmt)):
         ?>
@@ -71,11 +71,11 @@
 ?>
             </div>
         </div>
-        <input type="submit" value="Ta bort användare" name="removeUser"class="button red">
+        <button type="submit" value="Ta bort användare" name="removeUser"class="button red">Ta bort användare</button>
     </form>
     <br>
     <form method="get" action="users.php">
-        <input type="submit" value="Lägg till ny användare" name="addUser" class="button">
+        <button type="submit" value="Lägg till ny användare" name="addUser" class="button">Lägg till ny användare</button>
     </form>
     <br>
     <?php
@@ -100,10 +100,11 @@
                     <input type="text" name="webSite"> <br>
                     <label>Beskrivning:</label> <br>
                     <textarea cols="25" rows="7" name="description"></textarea> <br>
-                    <input id="button" type="submit" name="register" value="Lägg till" class="button">
+                    <button id="button" type="submit" name="register" value="Lägg till" class="button">Lägg till</button>
                 </fieldset>
             </form>
         </div>
+    </main>
     <?php
         endif;
 
