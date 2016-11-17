@@ -26,11 +26,13 @@
 </head>
 <body>
     <header>
-       <img src="<?php echo $path; ?>img/logo.png" alt="logo">
+        <svg class="logo">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use>
+        </svg>
        <h1 class="logo-title">Cats and Space</h1>
        <nav class="hamburger">
             <ul>
-                <li class="has-sub"><a href="#"><span><i class="fa fa-fw fa-bars"></i></span></a>
+                <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
                     <ul>
                         <li><a href="<?php echo $path; ?>index.php">Hem</a></li>
                         <?php while (mysqli_stmt_fetch($stmt)): ?>

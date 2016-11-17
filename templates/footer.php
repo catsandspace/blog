@@ -1,4 +1,4 @@
-<svg class="hidden" width="0" height="0" viewBox="0 0 914 792" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="checkbox">
+<svg  class="hidden" viewBox="0 0 914 792" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="logo">
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <ellipse id="Oval" stroke="#ECDECA" stroke-width="21" fill="#2A3236" cx="395.70323" cy="396" rx="384.70323" ry="385"></ellipse>
         <path d="M184.918241,407.650537 C238.040442,508.734037 512.730389,720.800368 862.852411,561.87515" id="Fill-315" fill="#F0C73A" transform="translate(523.885326, 513.363750) rotate(-21.000000) translate(-523.885326, -513.363750) "></path>
