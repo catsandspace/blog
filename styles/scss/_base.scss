@@ -25,9 +25,8 @@ body {
 header {
     background-color: $baseColor;
     color: $baseColor2;
-    /*opacity: 0.8;*/
-    padding: 0.8rem 2rem;
     display: flex;
+    padding: 0.8rem 2rem;
     justify-content: space-between;
 }
 
@@ -275,7 +274,6 @@ label {
     position: relative;
     width: 100%;
 
-    // This is the post image
     img {
         margin: 0 auto;
         width: 100%;
@@ -293,7 +291,6 @@ label {
         padding: 1em 0.7em 1.5em;
         width: 100%;
 
-        // This is the headline of the post.
         h2 {
             color: $baseColor2;
             font-size: 4.0rem;
@@ -319,12 +316,14 @@ label {
             }
         }
     }
-}
 
-.text-wrapper:hover {
-    background: $baseColorTransparent;
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+    // On hover over text, a background color appears. The backdrop filter blurs image
+    // behind (works in Safari, other browsers will ignore it).
+    .text-wrapper:hover {
+        background: $baseColorTransparent;
+        -webkit-backdrop-filter: blur(3px);
+        backdrop-filter: blur(3px);
+    }
 }
 
 /*******************************************************************************
