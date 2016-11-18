@@ -59,29 +59,28 @@
                 $count ++;
             endforeach;
             if ($count > 1):
-                $errorMessage ="Du kan bara välja en.";
+                $errorMessage ="Du kan bara välja en kategori att ändra.";
                 $catId = NULL;
             else:
                 $changeCategoryId = $selected;
             endif;
-        endif;
-    endif;
-
-    // If-statement to check if button for changing categories in the category list
-    if (isset ($_POST["changeCat"])):
-        if (!empty($_POST["categoryChange"])):
+        elseif (!empty($_POST["categoryChange"])):
             $category = mysql_real_escape_string($_POST["categoryChange"]);
             $catId = $_POST["catId"];
-            $query = "UPDATE categories SET name = '$category' WHERE id = $catId";
+            echo $category;
+            echo $catId;
+            $query = "UPDATE categories SET name = '$category' WHERE id = '$catId'";
             if ($stmt -> prepare($query)):
                 $stmt->execute();
             else:
                 $errorMessage ="Faulty query in changeCat2";
             endif;
         else:
-            $errorMessage = "Du måste ange en ny kategori.";
+            $errorMessage = "Du måste ange en kategori!";
         endif;
     endif;
+
+
 
     // Select all rows from the database categories
     $query = "SELECT * FROM categories";
@@ -92,12 +91,14 @@
 ?>
 
 <main>
-<h2>Kategorier</h2>
+    <h2>Kategorier</h2>
 
 <!--****************************************************************************
     FORM THAT PRINTS ALL CATEGORIES FROM DATABASE, INCLUDING CHECKBOXES
+    IT ALSO PRINTS A TEXT INPUT IF SOMEONE HAS PRESSED CHANGE BUTTON
 *****************************************************************************-->
     <div class="flexboxWrapper">
+
         <form method="post" action="categories.php" class="listWrapper">
             <div class="list">
                 <div class="inner-list">
@@ -106,7 +107,9 @@
                     while (mysqli_stmt_fetch($stmt)): ?>
                         <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo $cat; ?>
                         <?php
+
                         if ($catId == $changeCategoryId):
+
                                 $change=TRUE;
                                 $changeCatId="$catId";
                                 $changeCat="$cat";
@@ -116,11 +119,15 @@
                 </div>
             </div>
             <br>
-            <?php if ($change): ?>
-                <label for="categoryChange">Ändra kategori <?php echo $changeCat; ?>:</label>
-                <input type="text" name="categoryChange">
-                <input type="hidden" name="catId" value='"$changeCat"'>
-            <?php endif; ?>
+            <?php
+                if ($change):
+            ?>
+                    <label for="categoryChange">Ändra kategori <?php echo $changeCat; ?>:</label>
+                    <input type="text" name="categoryChange">
+                    <input type="hidden" name="catId" value="<?php echo $changeCatId; ?>">
+            <?php
+                endif;
+            ?>
             <button type="submit" value="Ändra" name="changeCat" class="button">Ändra</button>
             <button type="submit" value="Ta bort" name="removeCat" class="button red">Ta bort</button>
         </form>
