@@ -265,41 +265,43 @@ label {
     padding: 0.5em 0;
 }
 
-.post-img {
-    margin: 0 auto;
-    width: 100%;
-}
+/*******************************************************************************
+    START OF POSTS ON INDEX.PHP
+*******************************************************************************/
 
-.post {
-    display: inline;
+// This wrapps the whole content in a post, including image.
+.content-wrapper {
+    margin-bottom: 2rem;
     position: relative;
     width: 100%;
-    margin-bottom: 10px;
+
+    // This is the post image
+    img {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    // This wrapps all the text in a post, both paragraphs and headline.
+    .text-wrapper {
+        background: $baseColor;
+        bottom: 5px;
+        color: $baseColor2;
+        display: block;
+        font-size: 1.6rem;
+        left: 0;
+        opacity: 0.8;
+        position: absolute;
+        width: 100%;
+
+        // This is the headline of the post.
+        h2 {
+            color: $baseColor2;
+            text-align: left;
+            font-size: 3.0rem;
+        }
+    }
 }
 
-.post-header {
-    text-align: center;
-    display: inline;
-    background-color: $baseColor;
-    opacity: 0.8;
-    color: $baseColor2;
-    font-size: 3.0rem;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    margin: 0 auto;
-    padding: 0.5rem;
-    /*width: 100vw;*/
-}
-
-.post-text {
-    background: $baseColor;
-    opacity: 0.8;
-    color: $baseColor2;
-    font-size: 1.6rem;
-    position: absolute;
-    text-align: center;
-    bottom: 20px;
-    left: 20px;
-    padding: 0.5rem;
-}
+/*******************************************************************************
+    END OF POSTS ON INDEX.PHP
+*******************************************************************************/
