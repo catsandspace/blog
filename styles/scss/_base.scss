@@ -362,3 +362,44 @@ label {
 /*******************************************************************************
     END OF POSTS ON INDEX.PHP
 *******************************************************************************/
+
+/*******************************************************************************
+    START OF POSTSLIST
+*******************************************************************************/
+
+.dark {
+    //tried dark background.
+    background-color: $baseColor;
+}
+
+table {
+    margin: 0 auto;
+
+    tr {
+        display: flex;
+        flex-direction: column;
+        margin: 1.5em 0;
+        padding-bottom: 1em;
+    }
+
+    td {
+        position: relative;
+
+        h3 {
+            color: $baseColor2;
+            position: absolute;
+            bottom: 20px;
+            left: 10px;
+            text-shadow: 2px 2px 5px $baseColorSemiTransparent;
+        }
+
+    }
+
+    img {
+        width: 100%;
+    }
+}
+
+/*******************************************************************************
+    END OF POSTSLIST
+*******************************************************************************/

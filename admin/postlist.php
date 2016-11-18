@@ -52,11 +52,11 @@
   END OF QUERY AND STMT THAT IS USED TO PRINT POST LIST
 *******************************************************************************/
 ?>
-<main>
+<main class="dark">
     <h2>Inlägg</h2>
     <form method="POST" action="./postlist.php">
         <table>
-            <thead>
+            <thead class="hidden">
                 <td>Foto</td>
                 <td>Rubrik</td>
                 <td>Redigera</td>
@@ -65,7 +65,7 @@
             </tbody>
                 <?php while (mysqli_stmt_fetch($stmt)): ?>
                 <tr>
-                    <td><img src="../uploads/postimg/postlist-img.jpg" alt="Image of cats and space" class="postlist-img"></td>
+                    <td><img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist-img"></td>
                     <td><h3><?php echo $title; ?></h3></td>
                     <td><button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button></td>
                     <td><button type="submit" class="button" name="delete-post" value="<?php echo $id; ?>">Ta bort</button></td>
