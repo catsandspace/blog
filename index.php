@@ -24,9 +24,7 @@
     }
 
 ?>
-<section>
-
-    <?php while (mysqli_stmt_fetch($stmt)): ?>
+<?php while (mysqli_stmt_fetch($stmt)): ?>
     <article class="list">
         <div class="content-wrapper">
             <img src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
@@ -37,8 +35,5 @@
             </div>
         </div>
     </article>
-    <?php endwhile; ?>
-
-</section>
-
+<?php endwhile; ?>
 <?php require_once "./templates/footer.php"; ?>
