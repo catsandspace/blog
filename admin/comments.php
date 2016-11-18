@@ -44,29 +44,33 @@
 ?>
 
 <main>
-<h2>Användare</h2>
+<h2>Kommentarer</h2>
     <form method="POST" action="./comments.php">
         <table>
-            <thead>
-                <th>Ta bort</th>
-                <th>Kommentar</th>
+            <thead class="hidden">
+                <td>Kommentar</td>
+                <td>Namn</td>
+                <td>E-mail</td>
+                <td>Datum</td>
+                <td>Ta bort</td>
+
             </thead>
             <tbody>
                 <?php while (mysqli_stmt_fetch($stmt)): ?>
-                <tr>
-                    <td><input type="checkbox" name="checkList[]" value="<?php echo $commentId; ?>"></td>
-                    <td><?php echo $content; ?></td>
-                </tr>
-                <tr>
-                    <td><?php echo $name; ?></td>
-                    <td><?php echo $eMail; ?></td>
-                    <td><?php echo $date; ?></td>
+                <tr class="comment">
+                    <td><div class="comment-scroll"><?php echo $content; ?></div></td>
+                    <div class="comment-flex">
+                        <td class="comment-info"><?php echo $name; ?></td>
+                        <td class="comment-info"><?php echo $eMail; ?></td>
+                        <td class="comment-info"><?php echo $date; ?></td>
+                    </div>
+                    <td><button type="submit" class="button red" name="delete-post" value="<?php echo $id; ?>">Ta bort</button></td>
+
                 </tr>
                 <?php endwhile; ?>
 
             </tbody>
         </table>
-                        <button type="submit" value="Ta bort användare" name="removeComment"class="button red">Ta bort kommentarer</button>
 
     </form>
 
