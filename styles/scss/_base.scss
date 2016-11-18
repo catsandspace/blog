@@ -4,7 +4,15 @@
     START OF GLOBAL STYLES
 *******************************************************************************/
 
-$baseColor: #2A3236;
+$baseColor: #1D2225;
+$baseColorTransparent: rgba(29,
+34,
+37,
+0.6);
+$baseColorSemiTransparent: rgba(29,
+34,
+37,
+0.95);
 $baseColor2: #F8F8F8;
 $primary: #20A594;
 $primaryAlternative: #1AC9B2;
@@ -21,12 +29,92 @@ body {
     font-size: 1.6rem;
 }
 
-header {
-    background-color: $baseColor;
+main {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 3.0rem;
+    padding-top: 5em;
+    width: 100vw;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $baseColor;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    font-size: 4.0rem;
+    margin: 0;
+}
+
+h1 {
     color: $baseColor2;
-    padding: 0.8rem 2rem;
+    padding-top: 0.3rem;
+}
+
+h2 {
+    font-weight: 600;
+    text-align: center;
+    padding-top: 0.3rem;
+}
+
+a {
+    color: $baseColor2;
+    text-decoration: none;
+}
+
+.hidden {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+
+/*******************************************************************************
+    END OF GLOBAL STYLES
+*******************************************************************************/
+
+
+/*******************************************************************************
+START OF HEADER ELEMENT
+*******************************************************************************/
+
+// START OF TOP MENU SLIDING IN ------------------------------------------------
+@keyframes menu-is-sliding-in {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(6.8rem);
+    }
+}
+
+// END OF TOP MENU SLIDING IN -------------------------------------------------
+header {
+    background-color: $baseColorSemiTransparent;
+    box-sizing: border-box;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+    color: $baseColor2;
     display: flex;
+    padding: 0.8rem 2rem;
     justify-content: space-between;
+    backdrop-filter: blur(5px);
+    animation-name: menu-is-sliding-in;
+    animation-duration: 1.2s;
+    animation-delay: 0.2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    position: fixed;
+    top: -6.8rem;
+    width: 100%;
+    z-index: 2;
 }
 
 .logo {
@@ -34,6 +122,7 @@ header {
     width: 3em;
 }
 
+// START OF HAMBURGER MENY -----------------------------------------------------
 .hamburger ul,
 .hamburger li,
 .hamburger span,
@@ -82,7 +171,6 @@ header {
 .hamburger .has-sub ul li a {
     background: $primary;
     border-bottom: 1px solid $baseColor;
-    /*color: white;*/
     display: block;
     line-height: 160%;
     padding: 15px 10px;
@@ -108,54 +196,10 @@ header {
     font-size: 4.2rem;
 }
 
-main {
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding: 3.0rem;
-    width: 100vw;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: $baseColor;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 400;
-    font-size: 4.0rem;
-    margin: 0;
-}
-
-h1 {
-    color: $baseColor2;
-    padding-top: 0.3rem;
-}
-
-h2 {
-    font-weight: 600;
-    text-align: center;
-}
-
-a {
-    color: $baseColor2;
-    text-decoration: none;
-}
-
-.hidden {
-    border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-
+// END OF HAMBURGER MENY ------------------------------------------------------
 
 /*******************************************************************************
-    END OF GLOBAL STYLES
+    END OF HEADER ELEMENT
 *******************************************************************************/
 
 
@@ -200,7 +244,7 @@ input[type=email],
 textarea,
 .button {
     font-size: 1.8rem;
-    padding-top: 1.5em;
+    /*padding-top: 1.5em;*/
     text-align: center;
     text-transform: uppercase;
     height: 4em;
@@ -208,6 +252,10 @@ textarea,
     font-weight: 400;
     margin: 0.5em 0;
     width: 100%;
+}
+
+a[class="button"] {
+    padding-top: 1.5em;
 }
 
 input[type=text],
@@ -236,11 +284,11 @@ label {
 
 .inputWrapper {
     box-sizing: border-box;
-    margin-top: 70px;
+    margin-top: 10px;
     width: 100%;
 }
 
-.categoryList {
+.list {
     display: inline-block;
     margin: 0 auto;
     display: flex;
@@ -249,6 +297,69 @@ label {
     width: 100%;
 }
 
-.innerCatList {
+.inner-list {
     margin: 0 auto;
+    padding: 0.5em 0;
 }
+
+
+/*******************************************************************************
+    START OF POSTS ON INDEX.PHP
+*******************************************************************************/
+
+// This wrapps the whole content in a post, including image.
+.content-wrapper {
+    margin-bottom: 1.5rem;
+    position: relative;
+    width: 100%;
+    img {
+        margin: 0 auto;
+        width: 100%;
+    }
+    // This wrapps all the text in a post, both paragraphs and headline.
+    .text-wrapper {
+        box-sizing: border-box;
+        bottom: 5px;
+        color: $baseColor2;
+        display: block;
+        font-weight: 400;
+        left: 0;
+        position: absolute;
+        padding: 1em 0.7em 1.5em;
+        width: 100%;
+        h2 {
+            color: $baseColor2;
+            font-size: 4.0rem;
+            line-height: 1em;
+            text-align: left;
+        }
+        p {
+            margin: 0.2em 0;
+            line-height: 1.3em;
+        }
+        .tag {
+            color: $primary;
+            font-size: 2.5rem;
+            font-family: 'Rajdhani', sans-serif;
+            margin-bottom: 0.4em;
+            a {
+                color: $primary;
+            }
+            a:hover {
+                color: $primaryAlternative;
+            }
+        }
+    }
+    // On hover over text, a background color appears. The backdrop filter blurs image
+    // behind (works in Safari, other browsers will ignore it).
+    .text-wrapper:hover {
+        background: $baseColorTransparent;
+        -webkit-backdrop-filter: blur(3px);
+        backdrop-filter: blur(3px);
+    }
+}
+
+
+/*******************************************************************************
+    END OF POSTS ON INDEX.PHP
+*******************************************************************************/

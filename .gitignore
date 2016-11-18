@@ -1,4 +1,5 @@
 .DS_Store
 config.php
 styles\css\main.css
+styles/css/main.css
 main.css
