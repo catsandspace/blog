@@ -10,7 +10,7 @@
     }
 
     // This is used for printing out feedback message once post is uploaded.
-    $feedbackMessage = "";
+    $feedbackMessage = NULL;
 
     // This is used to stop user from leaving important fields empty.
     $allRequiredFilled = true;
@@ -59,7 +59,11 @@
                     $stmt->prepare($updateQuery);
                     $stmt->execute();
 
-                    $feedbackMessage = "Inlägget laddades upp i databasen.";
+                    //$feedbackMessage = "Inlägget laddades upp i databasen.";
+                    $_SESSION["message"]='Inlägget laddades upp i databasen.';
+                    $feedbackMessage =  $_SESSION["message"];
+                    //header("Location: addpost.php");
+                    //header("Location: " . $_SERVER['REQUEST_URI']); // Avoid refresh problems
                 }
 
             } else {
@@ -104,11 +108,13 @@
     </div>
     <button class="button" type="submit" name="submit">Spara</button>
 </form>
+<p> <!-- ta bort -->
 <?php
     // This checks if there is a feedback message and prints it if true.
     //TODO: NEEDS TO BE IN <p> or something, now loose in html.
-    if (isset($_POST["submit"]) && $feedbackMessage) { echo $feedbackMessage; }
+    echo $feedbackMessage;
+    if (isset($_SESSION["message"]) && $feedbackMessage) { echo $feedbackMessage; }
 ?>
-
+</p> <!-- ta bort -->
 <a href="./dashboard.php" class="button"><br>Till huvudmenyn</a>
 <?php require_once "../templates/footer.php"; ?>
