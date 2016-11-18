@@ -32,8 +32,8 @@
             <img src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
             <div class="text-wrapper">
                 <h2><?php echo $title; ?></h2>
+                <p class="tag">Tags: <a href="?display=<?php echo $categoryId ?>"><?php echo str_replace(' ', '', $categoryName); ?></a> </p>
                 <p><?php echo $content; ?></p>
-                <p>Tags: <a href="?display=<?php echo $categoryId ?>"><?php echo str_replace(' ', '', $categoryName); ?></a> </p>
             </div>
         </div>
     </article>

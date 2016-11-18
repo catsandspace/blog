@@ -4,7 +4,8 @@
     START OF GLOBAL STYLES
 *******************************************************************************/
 
-$baseColor: #2A3236;
+$baseColor: #23292D;
+$baseColorTransparent: rgba(35, 41, 45, 0.6);
 $baseColor2: #F8F8F8;
 $primary: #20A594;
 $primaryAlternative: #1AC9B2;
@@ -88,7 +89,6 @@ header {
 .hamburger .has-sub ul li a {
     background: $primary;
     border-bottom: 1px solid $baseColor;
-    /*color: white;*/
     display: block;
     line-height: 160%;
     padding: 15px 10px;
@@ -271,7 +271,7 @@ label {
 
 // This wrapps the whole content in a post, including image.
 .content-wrapper {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     position: relative;
     width: 100%;
 
@@ -283,23 +283,48 @@ label {
 
     // This wrapps all the text in a post, both paragraphs and headline.
     .text-wrapper {
-        background: $baseColor;
+        box-sizing: border-box;
         bottom: 5px;
         color: $baseColor2;
         display: block;
-        font-size: 1.6rem;
+        font-weight: 400;
         left: 0;
-        opacity: 0.8;
         position: absolute;
+        padding: 1em 0.7em 1.5em;
         width: 100%;
 
         // This is the headline of the post.
         h2 {
             color: $baseColor2;
+            font-size: 4.0rem;
+            line-height: 1em;
             text-align: left;
-            font-size: 3.0rem;
+        }
+
+        p {
+            margin: 0.2em 0;
+            line-height: 1.3em;
+        }
+
+        .tag {
+            color: $primary;
+            font-size: 2.5rem;
+            font-family: 'Rajdhani', sans-serif;
+            margin-bottom: 0.4em;
+            a {
+                color: $primary;
+            }
+            a:hover {
+                color: $primaryAlternative;
+            }
         }
     }
+}
+
+.text-wrapper:hover {
+    background: $baseColorTransparent;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 }
 
 /*******************************************************************************
