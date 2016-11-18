@@ -24,21 +24,16 @@
     }
 
 ?>
-<section>
-
-    <?php while (mysqli_stmt_fetch($stmt)): ?>
+<?php while (mysqli_stmt_fetch($stmt)): ?>
     <article class="list">
-        <div class="post">
-            <h2 class="post-header"><?php echo $title; ?></h2>
-            <img src="<?php echo $image; ?>" alt="<?php echo $title; ?>"class="post-img">
-            <div class="post-text">
+        <div class="content-wrapper">
+            <img src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
+            <div class="text-wrapper">
+                <h2><?php echo $title; ?></h2>
+                <p class="tag">Tags: <a href="?display=<?php echo $categoryId ?>"><?php echo str_replace(' ', '', $categoryName); ?></a> </p>
                 <p><?php echo $content; ?></p>
-                <p>Tags: <a href="?display=<?php echo $categoryId ?>"><?php echo str_replace(' ', '', $categoryName); ?></a> </p>
             </div>
         </div>
     </article>
-    <?php endwhile; ?>
-
-</section>
-
+<?php endwhile; ?>
 <?php require_once "./templates/footer.php"; ?>
