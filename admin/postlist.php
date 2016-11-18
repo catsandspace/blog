@@ -8,7 +8,7 @@
     }
 
 /* -----------------------------------------------------------------------------
-   START OF FEEDBACK MESSAGE THAT PRINTS INFO ABOUT THE DATABASE UPDATE
+   START OF FEEDBACK MESSAGE AND DATABASE UPDATE
 ----------------------------------------------------------------------------- */
 
     $feedbackMessage = NULL;
@@ -29,7 +29,7 @@
     }
 
 /* -----------------------------------------------------------------------------
-   END OF FEEDBACK MESSAGE THAT PRINTS INFO ABOUT THE DATABASE UPDATE
+   END OF FEEDBACK MESSAGE AND DATABASE UPDATE
 ----------------------------------------------------------------------------- */
 
     // SQL statement with LEFT JOIN table -> posts & categories.
