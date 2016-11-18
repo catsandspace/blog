@@ -5,14 +5,8 @@
 *******************************************************************************/
 
 $baseColor: #1D2225;
-$baseColorTransparent: rgba(29,
-34,
-37,
-0.6);
-$baseColorSemiTransparent: rgba(29,
-34,
-37,
-0.95);
+$baseColorTransparent: rgba(29, 34, 37, 0.6);
+$baseColorSemiTransparent: rgba(29, 34, 37, 0.95);
 $baseColor2: #F8F8F8;
 $primary: #20A594;
 $primaryAlternative: #1AC9B2;
@@ -29,11 +23,11 @@ body {
     font-size: 1.6rem;
 }
 
+
 main {
     box-sizing: border-box;
     margin: 0 auto;
     padding: 3.0rem;
-    padding-top: 5em;
     width: 100vw;
 }
 
@@ -76,27 +70,28 @@ a {
     width: 1px;
 }
 
-
 /*******************************************************************************
     END OF GLOBAL STYLES
 *******************************************************************************/
-
 
 /*******************************************************************************
 START OF HEADER ELEMENT
 *******************************************************************************/
 
 // START OF TOP MENU SLIDING IN ------------------------------------------------
+
 @keyframes menu-is-sliding-in {
     from {
         transform: translateY(0);
     }
+
     to {
         transform: translateY(6.8rem);
     }
 }
 
 // END OF TOP MENU SLIDING IN -------------------------------------------------
+
 header {
     background-color: $baseColorSemiTransparent;
     box-sizing: border-box;
@@ -123,6 +118,7 @@ header {
 }
 
 // START OF HAMBURGER MENY -----------------------------------------------------
+
 .hamburger ul,
 .hamburger li,
 .hamburger span,
@@ -201,7 +197,6 @@ header {
 /*******************************************************************************
     END OF HEADER ELEMENT
 *******************************************************************************/
-
 
 /*******************************************************************************
     START OF BUTTONS
@@ -302,7 +297,6 @@ label {
     padding: 0.5em 0;
 }
 
-
 /*******************************************************************************
     START OF POSTS ON INDEX.PHP
 *******************************************************************************/
@@ -312,10 +306,12 @@ label {
     margin-bottom: 1.5rem;
     position: relative;
     width: 100%;
+
     img {
         margin: 0 auto;
         width: 100%;
     }
+
     // This wrapps all the text in a post, both paragraphs and headline.
     .text-wrapper {
         box-sizing: border-box;
@@ -327,16 +323,19 @@ label {
         position: absolute;
         padding: 1em 0.7em 1.5em;
         width: 100%;
+
         h2 {
             color: $baseColor2;
             font-size: 4.0rem;
             line-height: 1em;
             text-align: left;
         }
+
         p {
             margin: 0.2em 0;
             line-height: 1.3em;
         }
+
         .tag {
             color: $primary;
             font-size: 2.5rem;
@@ -350,6 +349,7 @@ label {
             }
         }
     }
+
     // On hover over text, a background color appears. The backdrop filter blurs image
     // behind (works in Safari, other browsers will ignore it).
     .text-wrapper:hover {
@@ -359,7 +359,51 @@ label {
     }
 }
 
-
 /*******************************************************************************
     END OF POSTS ON INDEX.PHP
+*******************************************************************************/
+
+/*******************************************************************************
+    START OF POSTSLIST
+*******************************************************************************/
+
+.dark {
+    //tried dark background.
+    background-color: $baseColor;
+}
+
+table {
+    margin: 0 auto;
+
+    tr {
+        display: flex;
+        flex-direction: column;
+        margin: 1.5em 0;
+        padding-bottom: 1em;
+    }
+
+    td {
+        position: relative;
+
+        h3 {
+            color: $baseColor2;
+            position: absolute;
+            bottom: 20px;
+            left: 10px;
+            //if playing around with borders, change bottom and left
+            text-shadow: 2px 2px 5px $baseColorSemiTransparent;
+        }
+
+    }
+
+    img {
+        box-sizing: border-box;
+        // play around with borders!
+        // border: 7px solid $primary;
+        width: 100%;
+    }
+}
+
+/*******************************************************************************
+    END OF POSTSLIST
 *******************************************************************************/
