@@ -22,6 +22,86 @@ body {
     font-size: 1.6rem;
 }
 
+
+main {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 3.0rem;
+    width: 100vw;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $baseColor;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    font-size: 4.0rem;
+    margin: 0;
+}
+
+h1 {
+    color: $baseColor2;
+    padding-top: 0.3rem;
+}
+
+h2 {
+    font-weight: 600;
+    text-align: center;
+    padding-top: 0.3rem;
+}
+
+a {
+    color: $baseColor2;
+    text-decoration: none;
+}
+
+.hidden {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*******************************************************************************
+    END OF GLOBAL STYLES
+*******************************************************************************/
+
+/*******************************************************************************
+START OF HEADER ELEMENT
+*******************************************************************************/
+
+// START OF TOP MENU SLIDING IN ------------------------------------------------
+
+@keyframes menu-is-sliding-in {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(54px);
+    }
+}
+
+@keyframes navigation-is-sliding-in-small {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(114px);
+    }
+}
+
+// END OF TOP MENU SLIDING IN -------------------------------------------------
+
+
 header {
     background-color: $baseColor;
     color: $baseColor2;
@@ -35,10 +115,7 @@ header {
     width: 3em;
 }
 
-
-/*******************************************************************************
-    Hamburger menu
-*******************************************************************************/
+// START OF HAMBURGER MENY -----------------------------------------------------
 
 .hamburger ul,
 .hamburger li,
@@ -113,55 +190,8 @@ header {
     font-size: 4.2rem;
 }
 
-main {
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding: 3.0rem;
-    width: 100vw;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: $baseColor;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 400;
-    font-size: 4.0rem;
-    margin: 0;
-}
-
-h1 {
-    color: $baseColor2;
-    padding-top: 0.3rem;
-}
-
-h2 {
-    font-weight: 600;
-    text-align: center;
-    padding-top: 0.3rem;
-}
-
-a {
-    color: $baseColor2;
-    text-decoration: none;
-}
-
-.hidden {
-    border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-
-
 /*******************************************************************************
-    END OF GLOBAL STYLES
+    END OF HEADER ELEMENT
 *******************************************************************************/
 
 
