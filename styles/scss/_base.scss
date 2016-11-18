@@ -390,12 +390,16 @@ table {
             position: absolute;
             bottom: 20px;
             left: 10px;
+            //if playing around with borders, change bottom and left
             text-shadow: 2px 2px 5px $baseColorSemiTransparent;
         }
 
     }
 
     img {
+        box-sizing: border-box;
+        // play around with borders!
+        // border: 7px solid $primary;
         width: 100%;
     }
 }
