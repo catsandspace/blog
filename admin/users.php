@@ -12,16 +12,16 @@
     $errorMessage = NULL;
 
     // Set key for printing register form
-    if (isset ($_GET["addUser"])):
+    if (isset ($_POST["addUser"])):
         $addUser = TRUE;
     endif;
 
     // If-statement to check if button for removing users is set
     // If button is pressed continue to check through the array and
     // for each category checked, remove it fromm the db
-    if (isset ($_GET["removeUser"])):
-        if (!empty($_GET["checkList"])):
-            foreach ($_GET['checkList'] as $selected):
+    if (isset ($_POST["removeUser"])):
+        if (!empty($_POST["checkList"])):
+            foreach ($_POST['checkList'] as $selected):
                 $userId = $selected;
                 $query = "DELETE FROM users WHERE id=$userId";
                 if ($stmt -> prepare($query)):
@@ -58,7 +58,7 @@
     <!-- If change category is ordered an input field is printed -->
     <div class="flexboxWrapper">
 
-    <form method="get" action="users.php" class="listWrapper">
+    <form method="post" action="users.php" class="listWrapper">
         <div class="list">
             <div class="inner-list">
 <?php
@@ -74,7 +74,7 @@
         <button type="submit" value="Ta bort användare" name="removeUser"class="button red">Ta bort användare</button>
     </form>
     <br>
-    <form method="get" action="users.php">
+    <form method="post" action="users.php">
         <button type="submit" value="Lägg till ny användare" name="addUser" class="button">Lägg till ny användare</button>
     </form>
     <br>
@@ -82,24 +82,24 @@
         // if registration is ordered print registration form
         if ($addUser == TRUE):
     ?>
-            <form method="POST" action="../assets/registercheck.php">
+            <form method="post" action="../assets/registercheck.php">
 
                 <fieldset>
                     <legend>Lägg till ny användare</legend>
-                    <label>Användarnamn:</label> <br>
-                    <input type="text" name="userName"> <br>
-                    <label>Lösenord: </label> <br>
-                    <input type="password" name="passWord"> <br>
-                    <label>Förnamn:</label> <br>
-                    <input type="text" name="firstName"> <br>
-                    <label>Efternamn:</label> <br>
-                    <input type="text" name="lastName"> <br>
-                    <label>E-post:</label> <br>
-                    <input type="email" name="eMail"> <br>
-                    <label>Web-sida:</label> <br>
-                    <input type="text" name="webSite"> <br>
-                    <label>Beskrivning:</label> <br>
-                    <textarea cols="25" rows="7" name="description"></textarea> <br>
+                    <label for="userName">Användarnamn:</label> <br>
+                    <input type="text" name="userName" id="userName" required> <br>
+                    <label for="passWord">Lösenord: </label> <br>
+                    <input type="password" name="passWord" id="passWord" required> <br>
+                    <label for="firstName">Förnamn:</label> <br>
+                    <input type="text" name="firstName" id="firstName" required> <br>
+                    <label for="lastName">Efternamn:</label> <br>
+                    <input type="text" name="lastName" id="lastName"> <br>
+                    <label for="eMail">E-post:</label> <br>
+                    <input type="email" name="eMail" id="eMail" required> <br>
+                    <label for="webSite">Web-sida:</label> <br>
+                    <input type="text" name="webSite" id="webSite"> <br>
+                    <label for="description">Beskrivning:</label> <br>
+                    <textarea cols="25" rows="7" name="description" id="description"></textarea> <br>
                     <button id="button" type="submit" name="register" value="Lägg till" class="button">Lägg till</button>
                 </fieldset>
             </form>
