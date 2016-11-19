@@ -56,6 +56,12 @@
                     $stmt->prepare($updateQuery);
                     $stmt->execute();
                     header("Location: ./addpost.php?message=success");
+
+                } else if ($fileError) {
+                    $updateQuery = "UPDATE posts SET published ='2' WHERE id ='{$imageId}' ";
+                    $stmt->prepare($updateQuery);
+                    $stmt->execute();
+                    header("Location: ./addpost.php?message=fileerror");
                 }
 
             } else {
@@ -106,6 +112,9 @@
     switch ((isset($_GET["message"]) ? $_GET["message"]: "" )) {
         case "success":
             echo "Inlägget laddades upp i databasen.";
+            break;
+        case "fileerror":
+            echo "Ej tillåtet filformat.<br>Tillåtna filformat: [tillåtna filformat]<br>Inlägg sparat som utkast.";
             break;
         case "failed":
             echo "Du måste fylla i alla fält.";
