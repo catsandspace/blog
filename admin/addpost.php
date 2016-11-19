@@ -11,6 +11,7 @@
 
     // This is used to stop user from leaving important fields empty.
     $allRequiredFilled = true;
+    $userid = $_SESSION["userid"];
 
     if (isset($_POST["submit"])) {
 
@@ -36,7 +37,7 @@
             $published = mysqli_real_escape_string($conn, $_POST["publish"]);
             $category = mysqli_real_escape_string($conn, $_POST["category"]);
 
-            $query = "INSERT INTO posts VALUES ('', 1, '', '', '', '{$title}', '{$content}', '{$published}', '{$category}')";
+            $query = "INSERT INTO posts VALUES ('', {$userid}, now(), '', '', '{$title}', '{$content}', '{$published}', '{$category}')";
 
             // Statements for inserting and updating database values TODO: escape char.
             if ($stmt->prepare($query)) { // 1st query -INSERTS values into db
