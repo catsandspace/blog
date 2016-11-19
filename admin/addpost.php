@@ -9,9 +9,6 @@
         header("Location: ../login.php");
     }
 
-    // This is used for printing out feedback message once post is uploaded.
-    $feedbackMessage = NULL;
-
     // This is used to stop user from leaving important fields empty.
     $allRequiredFilled = true;
 
@@ -40,7 +37,7 @@
             $category = mysqli_real_escape_string($conn, $_POST["category"]);
 
             $query = "INSERT INTO posts VALUES ('', 1, '', '', '', '{$title}', '{$content}', '{$published}', '{$category}')";
-            
+
             // Statements for inserting and updating database values TODO: escape char.
             if ($stmt->prepare($query)) { // 1st query -INSERTS values into db
                 $stmt->execute();
@@ -58,16 +55,11 @@
                     $updateQuery = "UPDATE posts SET image ='{$targetName}' WHERE id ='{$imageId}' ";
                     $stmt->prepare($updateQuery);
                     $stmt->execute();
-
-                    //$feedbackMessage = "Inlägget laddades upp i databasen.";
-                    $_SESSION["message"]='Inlägget laddades upp i databasen.';
-                    $feedbackMessage =  $_SESSION["message"];
-                    //header("Location: addpost.php");
-                    //header("Location: " . $_SERVER['REQUEST_URI']); // Avoid refresh problems
+                    header("Location: ./addpost.php?message=success");
                 }
 
             } else {
-                $feedbackMessage = "Du måste fylla i alla fält.";
+                header("Location: ./addpost.php?message=failed");
             }
         }
     }
@@ -84,7 +76,7 @@
     <label for="choose-file">Bild</label><br>
     <input type="file" name="post-img" id="choose-file" required><br>
     <?php
-        // Prints information about an error if true.
+        // Prints information about an error if true. //FIXA DETTA!
         if (isset($_POST["submit"]) && $fileError) {
             echo "$fileError<br>";
         }
@@ -108,13 +100,18 @@
     </div>
     <button class="button" type="submit" name="submit">Spara</button>
 </form>
-<p> <!-- ta bort -->
+<p class="upload-message">
 <?php
-    // This checks if there is a feedback message and prints it if true.
-    //TODO: NEEDS TO BE IN <p> or something, now loose in html.
-    echo $feedbackMessage;
-    if (isset($_SESSION["message"]) && $feedbackMessage) { echo $feedbackMessage; }
+    // Message if POST = succeed/failed.
+    switch ((isset($_GET["message"]) ? $_GET["message"]: "" )) {
+        case "success":
+            echo "Inlägget laddades upp i databasen.";
+            break;
+        case "failed":
+            echo "Du måste fylla i alla fält.";
+            break;
+    }
 ?>
-</p> <!-- ta bort -->
+</p>
 <a href="./dashboard.php" class="button"><br>Till huvudmenyn</a>
 <?php require_once "../templates/footer.php"; ?>
