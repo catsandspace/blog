@@ -5,6 +5,13 @@
     <div>
         <h2>Kontaktinformation</h2>
     </div>
+    <!--*******************************************************
+    ***********************************************************
+            UL LIST WITH THE GROUP NAMES AND CONTACT
+            INFORMATION
+    ***********************************************************
+    ********************************************************-->
+    <!-- TODO: Css is not working yet. Changes are to be made -->
     <div>
         <h3>Katarina</h3>
         <ul>
