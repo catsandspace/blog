@@ -7,14 +7,14 @@
     $display = NULL; // To avoid "undefined variable".
 
     // SQL statement with LEFT JOIN table -> posts & categories.
-    $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id";
+    $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1";
 
     // If GET request "display" is set.
     if (isset($_GET["display"])) {
         $display = $_GET["display"];
 
         // New SQL statement WHERE categories.category = $display.
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}'";
+        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}' AND published = 1";
     }
 
     // Execute query.
