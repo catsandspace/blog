@@ -62,7 +62,7 @@
                     // Filename should now be postimg_[post.id].[type]
                     die(header("Location: ./addpost.php?message=success"));
 
-                // When file error occurs save new post as draft
+                // When file error occurs save new post as draft [value: 2]
                 } else if ($fileError) {
                     $updateQuery = "UPDATE posts SET published ='2' WHERE id ='{$imageId}' ";
                     $stmt->prepare($updateQuery);
