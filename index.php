@@ -50,29 +50,29 @@
                     <div class="comment-wrapper">
                         <?php // START OF COMMENTS
 
-                            $totalNumberOfComments = NULL;
-                            $errorMessage = NULL;
+                        $totalNumberOfComments = NULL;
+                        $errorMessage = NULL;
 
-                            $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
+                        $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
 
-                            if ($stmt->prepare($query)) {
-                                $stmt->execute();
-                                $stmt->bind_result($commentId, $userId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
-                            } else {
-                                $errorMessage = "Något gick fel.";
+                        if ($stmt->prepare($query)) {
+                            $stmt->execute();
+                            $stmt->bind_result($commentId, $userId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
+                        } else {
+                            $errorMessage = "Något gick fel.";
+                        }
+
+                        while (mysqli_stmt_fetch($stmt)):
+                            $stmt->store_result();
+                            $numberOfComments = mysqli_stmt_num_rows($stmt);
+
+                            if ($post["id"] == $postId) {
+                                echo "<p class=\"comment-content\">$commentContent</p>";
+                                echo "<p class=\"comment-author\">$commentAuthor</p>";
+                                $totalNumberOfComments++;
                             }
 
-                            while (mysqli_stmt_fetch($stmt)):
-                                $stmt->store_result();
-                                $numberOfComments = mysqli_stmt_num_rows($stmt);
-
-                                if ($post["id"] == $postId) {
-                                    echo "<p class=\"comment-content\">$commentContent</p>";
-                                    echo "<p class=\"comment-author\">$commentAuthor</p>";
-                                    $totalNumberOfComments++;
-                                }
-
-                            endwhile;
+                        endwhile;
                         ?>
                     </div>
                 <?php if ($totalNumberOfComments): ?>

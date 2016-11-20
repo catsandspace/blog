@@ -435,6 +435,10 @@ table {
 
 // START OF COMMENTS ON INDEX.PHP ----------------------------------------------
 
+.comment-wrapper {
+    display: none;
+}
+
 .post-comments {
     // Since we need to use float in this assignment
     float: right;
