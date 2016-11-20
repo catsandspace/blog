@@ -32,6 +32,10 @@
                 <h2><?php echo $title; ?></h2>
                 <p class="tag">Tags: <a href="?display=<?php echo $categoryId ?>"><?php echo str_replace(' ', '', $categoryName); ?></a> </p>
                 <p><?php echo $content; ?></p>
+                <div class="post-comments">
+                    <i class="fa fa-comment" aria-hidden="true"></i>
+                    <p>8</p>
+                </div>
             </div>
         </div>
     </article>
