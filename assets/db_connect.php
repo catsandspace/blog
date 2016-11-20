@@ -9,6 +9,11 @@
 
     $stmt = $conn->stmt_init();
 
+    // TODO: Discuss if this should be a function. If yes, move to functions.php.
+    function getStatement() {
+        global $conn;
+        $stmt = $conn->stmt_init();
+        return $stmt;
+    }
 
 ?>
- 
