@@ -38,8 +38,7 @@
 
     for ($i=0; $i < count($posts); $i++):
         $post = $posts[$i];
-        ?>
-
+    ?>
     <article class="list">
         <div class="content-wrapper">
             <img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
@@ -47,7 +46,6 @@
                 <h2><?php echo $post["title"]; ?></h2>
                 <p class="tag">Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?></a> </p>
                 <p><?php echo $post["content"]; ?></p>
-
                 <div class="post-comments">
                     <div class="comment-wrapper">
                         <?php // START OF COMMENTS
@@ -60,8 +58,7 @@
                             if ($stmt->prepare($query)) {
                                 $stmt->execute();
                                 $stmt->bind_result($commentId, $userId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
-                            }
-                            else {
+                            } else {
                                 $errorMessage = "Något gick fel.";
                             }
 
@@ -70,10 +67,12 @@
                                 $numberOfComments = mysqli_stmt_num_rows($stmt);
 
                                 if ($post["id"] == $postId) {
-                                    echo "$commentContent<br>";
-                                    echo "Skriven av $commentAuthor<br><br>";
+                                    echo "<p class=\"comment-content\">$commentContent</p>";
+                                    echo "<p class=\"comment-author\">$commentAuthor</p>";
                                     $totalNumberOfComments++;
-                            } endwhile;
+                                }
+
+                            endwhile;
                         ?>
                     </div>
                 <?php if ($totalNumberOfComments): ?>
