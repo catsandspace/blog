@@ -89,7 +89,7 @@
                     <td class="comment-info"><?php echo $date; ?></td>
                     <td class="comment-info"><?php echo $postId; ?></td>
                     <td>
-                        <button type="submit" class="button red" name="removeComment" value="<?php echo $id; ?>">Ta bort</button>
+                        <button type="submit" class="button error" name="removeComment" value="<?php echo $id; ?>">Ta bort</button>
                     </td>
                 </tr>
                 <?php endwhile; ?>

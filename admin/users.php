@@ -71,7 +71,7 @@
 ?>
             </div>
         </div>
-        <button type="submit" value="Ta bort användare" name="removeUser"class="button red">Ta bort användare</button>
+        <button type="submit" value="Ta bort användare" name="removeUser"class="button error">Ta bort användare</button>
     </form>
     <br>
     <form method="post" action="users.php">

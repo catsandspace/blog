@@ -68,7 +68,7 @@
                     <td><img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist-img"></td>
                     <td><h3><?php echo $title; ?></h3></td>
                     <td><button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button></td>
-                    <td><button type="submit" class="button" name="delete-post" value="<?php echo $id; ?>">Ta bort</button></td>
+                    <td><button type="submit" class="button error" name="delete-post" value="<?php echo $id; ?>">Ta bort</button></td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>
