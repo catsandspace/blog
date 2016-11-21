@@ -5,39 +5,58 @@
     require_once "../assets/session.php";
 
     // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
     }
 
     // This is used to stop user from leaving important fields empty.
-    $allRequiredFilled = true;
+    $allRequiredFilled = TRUE;
+    $obligatoryField = "<p class=\"error\">Det här fältet är obligatoriskt</p><br>";
+    $publish = "";
+    $headline = "";
+    $postContent = "";
+    $postCategory = "";
+    $errors = array();
+    // TODO: Add array for info stored in $_FILES.
 
     if (isset($_POST["submit"])) {
 
         //These variables are used for checking if all fields are filled.
-        $allRequiredFilled = true;
+        $allRequiredFilled = TRUE;
         $required_fields = array("publish", "headline", "post-content", "category");
+        $uploadedFile = $_FILES["post-img"]["size"];
 
         // This checks if all required fields are filled.
         for ($i = 0; $i < count($required_fields); $i++) {
-            $value = $_POST[$required_fields[$i]];
+            $key = $required_fields[$i];
+
+            // TODO: Sort this out, ATM shown as "undefined index".
+            $value = $_POST[$key];
 
             if (empty($value)) {
-                $allRequiredFilled = false;
-                break;
+                $allRequiredFilled = FALSE;
+                array_push($errors, $key);
             }
         }
 
+        // This checks if the file has a file size
+        if (empty($uploadedFile)) {
+            $allRequiredFilled = FALSE;
+        }
+
+        // These are printed if user already filled the fields but forgot to fill all.
+        // TODO: convert to function.
+        // TODO: Keep it dry. This needs attention.
+        $publish = mysqli_real_escape_string($conn, $_POST["publish"]);
+        $headline = mysqli_real_escape_string($conn, $_POST["headline"]);
+        $postContent = mysqli_real_escape_string($conn, $_POST["post-content"]);
+        $postCategory = mysqli_real_escape_string($conn, $_POST["category"]);
+
         // Escapes special characters in a string for use in an SQL statement
         if ($allRequiredFilled) {
-            // TODO: Keep it dry. This needs som attention.
-            $userid = $_SESSION["userid"];
-            $title = mysqli_real_escape_string($conn, $_POST["headline"]);
-            $content = mysqli_real_escape_string($conn, $_POST["post-content"]);
-            $published = mysqli_real_escape_string($conn, $_POST["publish"]);
-            $category = mysqli_real_escape_string($conn, $_POST["category"]);
 
-            $query = "INSERT INTO posts VALUES ('', {$userid}, now(), '', '', '{$title}', '{$content}', '{$published}', '{$category}')";
+            $userid = $_SESSION["userid"];
+            $query = "INSERT INTO posts VALUES ('', {$userid}, now(), '', '', '{$headline}', '{$postContent}', '{$publish}', '{$postCategory}')";
 
             // Lets insert and update database values.
             if ($stmt->prepare($query)) { // Prepares 1st query INSERTS first query values into db
@@ -74,33 +93,46 @@
                 die(header("Location: ./addpost.php?message=failed"));
             }
         }
+
+
     }
 // TODO: Remove all <br> once CSS is used.
     $query = "SELECT * FROM categories";
     if ($stmt->prepare($query)) {
         $stmt->execute();
-        $stmt->bind_result($id, $category);
+        $stmt->bind_result($id, $postCategory);
     }
 ?>
-<h1>Skapa nytt inlägg</h1>
+<h2>Skapa nytt inlägg</h2>
+
+
 <form method="POST" enctype="multipart/form-data">
     <label for="choose-file">Bild</label><br>
     <input type="file" name="post-img" id="choose-file" required><br>
-    <input type="radio" name="publish" id="publish" value="1" required>
+
+    <input type="radio" name="publish" id="publish" value="1" required <?php if ($publish == 1) { echo "checked"; } ?> >
     <label for="publish">Publicera</label><br>
-    <input type="radio" name="publish" id="draft" value="2" required>
+    <input type="radio" name="publish" id="draft" value="2" required <?php if ($publish == 2) { echo "checked"; } ?>>
     <label for="draft">Spara som utkast</label><br>
+    <?php if (in_array("publish", $errors)) { echo $obligatoryField; } ?>
+
     <label for="headline">Rubrik</label><br>
-    <input type="text" name="headline" id="headline" placeholder="Rubrik" required><br>
+    <input type="text" name="headline" id="headline" placeholder="Rubrik"
+    value="<?php echo $headline; ?>" required><br>
+    <?php if (in_array("headline", $errors)) { echo $obligatoryField; } ?>
+
     <label for="post-content">Beskrivning</label><br>
-    <textarea name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required></textarea><br>
+    <textarea name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required><?php echo $postContent; ?></textarea><br>
+    <?php if (in_array("post-content", $errors)) { echo $obligatoryField; } ?>
+
     <div>
         <h3>Kategori</h3>
 
         <?php while (mysqli_stmt_fetch($stmt)): ?>
-        <input type="radio" name="category" value="<?php echo $id; ?>" required>
-        <label for="publish"><?php echo ucfirst($category); ?></label><br>
+        <input type="radio" name="category" value="<?php echo $id; ?>" required <?php if ($postCategory == $id) { echo "checked"; } ?>>
+        <label for="publish"><?php echo ucfirst($postCategory); ?></label><br>
         <?php endwhile; $stmt->close();?>
+        <?php if (in_array("category", $errors)) { echo $obligatoryField; } ?>
 
     </div>
     <button class="button" type="submit" name="submit">Spara</button>
