@@ -41,7 +41,7 @@
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
                         <li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>"><?php echo ucfirst($category); ?></a></li>
                         <?php endwhile?>
-                        <li><a href="#">Kontakt</a></li>
+                        <li><a href="<?php echo $path; ?>contact.php">Kontakt</a></li>
                         <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
                         <li><a href="<?php echo $path; ?>admin/dashboard.php">Dashboard</a></li>
                         <li><a href="<?php echo $path; ?>assets/logout.php">Logga ut</a></li>
