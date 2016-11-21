@@ -86,7 +86,7 @@
     $query = "SELECT * FROM categories";
     if ($stmt->prepare($query)):
         $stmt->execute();
-        $stmt->bind_result($catId, $cat);
+        $stmt->bind_result($catId, $category);
     endif;
 ?>
 
@@ -105,7 +105,7 @@
                 <?php
                     $change=FALSE;
                     while (mysqli_stmt_fetch($stmt)): ?>
-                        <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo $cat; ?>
+                        <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo ucfirst($category); ?>
                         <?php
 
                         if ($catId == $changeCategoryId):
