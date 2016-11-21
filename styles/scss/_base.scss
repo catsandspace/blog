@@ -225,11 +225,11 @@ header {
     transform: translateY(5px);
 }
 
-.red {
+.error {
     background-color: $secondary;
 }
 
-.red:hover {
+.error:hover {
     background-color: $secondaryAlternative;
 }
 
@@ -434,6 +434,10 @@ table {
 }
 
 // START OF COMMENTS ON INDEX.PHP ----------------------------------------------
+
+.comment-wrapper {
+    display: none;
+}
 
 .post-comments {
     // Since we need to use float in this assignment
