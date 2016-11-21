@@ -16,8 +16,8 @@ $baseColorSemiTransparent: rgba(29,
 $baseColor2: #F8F8F8;
 $primary: #20A594;
 $primaryAlternative: #1AC9B2;
-$secondary: #bf2e1d;
-$secondaryAlternative: #ea3e2e;
+$error: #bf2e1d;
+$errorAlternative: #ea3e2e;
 html {
     font-family: 'Montserrat', sans-serif;
     font-size: 62.5%;
@@ -226,11 +226,11 @@ header {
 }
 
 .error {
-    background-color: $secondary;
+    background-color: $error;
 }
 
 .error:hover {
-    background-color: $secondaryAlternative;
+    background-color: $errorAlternative;
 }
 
 
