@@ -129,7 +129,7 @@
                 endif;
             ?>
             <button type="submit" value="Ändra" name="changeCat" class="button">Ändra</button>
-            <button type="submit" value="Ta bort" name="removeCat" class="button red">Ta bort</button>
+            <button type="submit" value="Ta bort" name="removeCat" class="button error">Ta bort</button>
         </form>
 
         <form method="post" action="categories.php" class="inputWrapper">
