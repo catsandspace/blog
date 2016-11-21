@@ -37,7 +37,7 @@
             <ul>
                 <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
                     <ul>
-                        <li><a href="<?php echo $path; ?>index.php">Hem</a></li>
+                        <li><a href="<?php echo $path; ?>index.php">Start</a></li>
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
                         <li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>"><?php echo ucfirst($category); ?></a></li>
                         <?php endwhile?>
