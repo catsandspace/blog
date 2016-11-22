@@ -9,6 +9,14 @@
         header("Location: ../login.php");
     }
 
+    // This is used to populate input fields.
+    $fields = array(
+        "publish" => "",
+        "headline" => "",
+        "post-content" => "",
+        "category" => ""
+    );
+
 /*******************************************************************************
    START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
 *******************************************************************************/
@@ -21,12 +29,6 @@
     $errors = array();
     $obligatoryField = "<p class=\"error\">Obligatoriskt fält</p><br>";
 
-    $fields = array(
-        "publish" => "",
-        "headline" => "",
-        "post-content" => "",
-        "category" => ""
-    );
 
     if (isset($_POST["submit"])) {
 
@@ -87,9 +89,13 @@
                     move_uploaded_file($temporaryFile, $targetName); // Move file from temp to new file path
                     $targetName = "uploads/postimg/". basename("postimg_") . $imageId . ".$type"; // Renames the file path
                     $updateQuery = "UPDATE posts SET image ='{$targetName}' WHERE id ='{$imageId}' "; // Inserts correct file path into db column posts.image
-                    $stmt->prepare($updateQuery); // Prepares 2nd query to UPDATE posts.image with new value.
-                    $stmt->execute();
 
+                    // Prepares 2nd query to UPDATE posts.image with new value.
+                    if ($stmt->prepare($updateQuery)) {
+                        $stmt->execute();
+                    } else {
+                        $databaseError = "<p class=\"error\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
+                    }
                     // Redirect to confirmation.php
                     header("Location: ./confirmation.php");
                 }
