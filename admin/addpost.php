@@ -68,7 +68,7 @@
             $content = mysqli_real_escape_string($conn, $fields["post-content"]);
             $category = mysqli_real_escape_string($conn, $fields["category"]);
 
-            $query = "INSERT INTO posts VALUES ('', {$userid}, now(), '', '', '{$headline}', '{$content}', '{$publish}', '{$category}')";
+            $query = "INSERT INTO posts VALUES ('', '{$userid}', now(), '', '', '{$headline}', '{$content}', '{$publish}', '{$category}')";
 
             // Insert and update database values
             if ($stmt->prepare($query)) {
@@ -107,7 +107,7 @@
     }
 ?>
 <h2>Skapa nytt inlägg</h2>
-
+<?php if (!empty($errors)) { echo "Ooops, något gick fel!"; } ?>
 <form method="POST" enctype="multipart/form-data">
     <label for="choose-file">Bild</label><br>
     <input type="file" name="post-img" id="choose-file" required><br>
