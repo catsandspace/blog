@@ -18,6 +18,8 @@ $primary: #20A594;
 $primaryAlternative: #1AC9B2;
 $error: #bf2e1d;
 $errorAlternative: #ea3e2e;
+$errortestcolor: #bc4c4c;
+
 html {
     font-family: 'Montserrat', sans-serif;
     font-size: 62.5%;
@@ -508,4 +510,22 @@ table {
 
 /*******************************************************************************
     END OF COMMENTS
+*******************************************************************************/
+
+/*******************************************************************************
+    START OF MESSAGES
+*******************************************************************************/
+
+.error-msg {
+    color: #fff;
+    padding: 5px 0;
+    //background: lighten($error, 2%);
+    background: $errortestcolor;
+    text-align: center;
+    width: 100%;
+    border: 1px solid black;
+}
+
+/*******************************************************************************
+    END OF MESSAGES
 *******************************************************************************/
