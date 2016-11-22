@@ -90,8 +90,8 @@
                     $stmt->prepare($updateQuery); // Prepares 2nd query to UPDATE posts.image with new value.
                     $stmt->execute();
 
-                    // Filename should now be postimg_[post.id].[type]
-                    die(header("Location: ./addpost.php?success"));
+                    // Redirect to confirmation.php
+                    header("Location: ./confirmation.php");
                 }
             } else {
                 // If problem occurs, create variable $databaseError
@@ -107,9 +107,6 @@
     }
 ?>
 <h2>Skapa nytt inlägg</h2>
-<pre><?php var_dump($_POST); ?></pre>
-<pre><?php var_dump($_GET); ?></pre>
-<pre><?php var_dump($_FILES); ?></pre>
 
 <form method="POST" enctype="multipart/form-data">
     <label for="choose-file">Bild</label><br>
@@ -144,12 +141,5 @@
     </div>
     <button class="button" type="submit" name="submit">Spara</button>
 </form>
-<p class="upload-message">
-<?php
-    if (isset($_GET["success"])) {
-        echo "Inlägget laddades upp i databasen.";
-    }
-?>
-</p>
-<a href="./dashboard.php" class="button"><br>Till huvudmenyn</a>
+<a href="./dashboard.php" class="button error"><br>Till huvudmenyn</a>
 <?php require_once "../templates/footer.php"; ?>
