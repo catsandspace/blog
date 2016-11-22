@@ -43,7 +43,7 @@
                         <?php endwhile?>
                         <li><a href="<?php echo $path; ?>contact.php">Kontakt</a></li>
                         <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                        <li><a href="<?php echo $path; ?>admin/dashboard.php">Dashboard</a></li>
+                        <li><a href="<?php echo $path; ?>admin/dashboard.php">Panel</a></li>
                         <li><a href="<?php echo $path; ?>assets/logout.php">Logga ut</a></li>
                         <?php endif; ?>
                     </ul>
