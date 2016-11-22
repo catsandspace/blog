@@ -196,9 +196,6 @@ header {
     font-size: 4.2rem;
 }
 // testing to change bg color on burger meny for categories, need to be moved to a better location in css----
----------------- {
-
-}
 // END OF HAMBURGER MENY ------------------------------------------------------
 
 /*******************************************************************************
@@ -306,15 +303,39 @@ label {
     padding: 0.5em 0;
 }
 /*******************************************************************************
-    START OF CÓNTACT.PHP
+    START OF CONTACT.PHP
 *******************************************************************************/
 .flex-item {
      box-sizing: border-box;
      margin: 0 auto;
      text-align: center;
 }
+.mail {
+    font-size: 1.8rem;
+    /*padding-top: 1.5em;*/
+    text-align: center;
+    text-transform: uppercase;
+    height: 1em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    margin: 0.5em 0;
+    width: 100%;
+    background-color: $primary;
+}
+.phone {
+    font-size: 1.8rem;
+    /*padding-top: 1.5em;*/
+    text-align: center;
+    text-transform: uppercase;
+    height: 1em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    margin: 0.5em 0;
+    width: 100%;
+    background-color: $primary;
+}
 /*******************************************************************************
-    END OF POSTS ON INDEX.PHP
+    END OF CONTACT.PHP
 *******************************************************************************/
 
 
