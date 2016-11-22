@@ -119,41 +119,39 @@
    START OF HTML
 *******************************************************************************/
 ?>
-<h2>Skapa nytt inlägg</h2>
-<?php if (!empty($errors)) { echo "Ooops, något gick fel!"; } ?>
-<form method="POST" enctype="multipart/form-data">
-    <label for="choose-file">Bild</label><br>
-    <input type="file" name="post-img" id="choose-file" required><br>
-    <?php if (in_array("file", $errors)) { echo $obligatoryField; } ?>
-    <?php if (!empty($fileError)) { echo "$fileError<br>"; } ?>
+<main>
+    <h2>Skapa nytt inlägg</h2>
+    <?php if (!empty($errors)) { echo "Ooops, något gick fel!"; } ?>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="choose-file">Välj bild</label><br>
+        <input type="file" name="post-img" id="choose-file" required><br>
+        <?php if (in_array("file", $errors)) { echo $obligatoryField; } ?>
+        <?php if (!empty($fileError)) { echo "$fileError<br>"; } ?>
 
-    <input type="radio" name="publish" id="publish" value="1" required <?php if ($fields["publish"] == 1) { echo "checked"; } ?> >
-    <label for="publish">Publicera</label><br>
-    <input type="radio" name="publish" id="draft" value="2" required <?php if ($fields["publish"] == 2) { echo "checked"; } ?>>
-    <label for="draft">Spara som utkast</label><br>
-    <?php if (in_array("publish", $errors)) { echo $obligatoryField; } ?>
+        <input type="radio" name="publish" id="publish" value="1" required <?php if ($fields["publish"] == 1) { echo "checked"; } ?> >
+        <label for="publish">Publicera</label><br>
+        <input type="radio" name="publish" id="draft" value="2" required <?php if ($fields["publish"] == 2) { echo "checked"; } ?>>
+        <label for="draft">Spara som utkast</label><br>
+        <?php if (in_array("publish", $errors)) { echo $obligatoryField; } ?>
 
-    <label for="headline">Rubrik</label><br>
-    <input type="text" name="headline" id="headline" placeholder="Rubrik"
-    value="<?php echo $fields["headline"]; ?>" required><br>
-    <?php if (in_array("headline", $errors)) { echo $obligatoryField; } ?>
+        <label for="headline">Rubrik</label><br>
+        <input type="text" name="headline" id="headline" placeholder="Rubrik"
+        value="<?php echo $fields["headline"]; ?>" required><br>
+        <?php if (in_array("headline", $errors)) { echo $obligatoryField; } ?>
 
-    <label for="post-content">Beskrivning</label><br>
-    <textarea name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required><?php echo $fields["post-content"]; ?></textarea><br>
-    <?php if (in_array("post-content", $errors)) { echo $obligatoryField; } ?>
-
-    <div>
+        <label for="post-content">Beskrivning</label><br>
+        <textarea name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required><?php echo $fields["post-content"]; ?></textarea><br>
+        <?php if (in_array("post-content", $errors)) { echo $obligatoryField; } ?>
         <h3>Kategori</h3>
-        <?php
-            // Print categories
-            while (mysqli_stmt_fetch($stmt)):
-        ?>
-        <input type="radio" name="category" value="<?php echo $id; ?>" required <?php if ($fields["category"] == $id) { echo "checked"; } ?>>
-        <label for="publish"><?php echo ucfirst($category); ?></label><br>
-        <?php endwhile; $stmt->close();?>
-        <?php if (in_array("category", $errors)) { echo $obligatoryField; } ?>
-    </div>
-    <button class="button" type="submit" name="submit">Spara</button>
-</form>
-<a href="./dashboard.php" class="button error"><br>Till huvudmenyn</a>
+        <div class="flexboxWrapper">
+            <?php while (mysqli_stmt_fetch($stmt)): ?>
+            <input type="radio" name="category" value="<?php echo $id; ?>" required <?php if ($fields["category"] == $id) { echo "checked"; } ?>>
+            <label for="publish"><?php echo ucfirst($category); ?></label><br>
+            <?php endwhile; $stmt->close();?>
+            <?php if (in_array("category", $errors)) { echo $obligatoryField; } ?>
+            <button class="button" type="submit" name="submit">Spara</button>
+            <a href="./dashboard.php" class="button error"><br>Gå till panelen utan att spara</a>
+        </div>
+    </form>
+</main>
 <?php require_once "../templates/footer.php"; ?>
