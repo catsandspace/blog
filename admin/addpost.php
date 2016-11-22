@@ -1,5 +1,5 @@
 <?php
-    // require_once "../templates/header.php";
+    require_once "../templates/header.php";
     require_once "../assets/db_connect.php";
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
@@ -99,12 +99,20 @@
             }
         }
     }
-// TODO: Remove all <br> once CSS is used.
+
+/*******************************************************************************
+   START OF QUERY THAT PRINTS CATEGORIES
+*******************************************************************************/
+
     $query = "SELECT * FROM categories";
     if ($stmt->prepare($query)) {
         $stmt->execute();
         $stmt->bind_result($id, $category);
     }
+
+/*******************************************************************************
+   START OF HTML
+*******************************************************************************/
 ?>
 <h2>Skapa nytt inlägg</h2>
 <?php if (!empty($errors)) { echo "Ooops, något gick fel!"; } ?>
@@ -131,13 +139,14 @@
 
     <div>
         <h3>Kategori</h3>
-
-        <?php while (mysqli_stmt_fetch($stmt)): ?>
+        <?php
+            // Print categories
+            while (mysqli_stmt_fetch($stmt)):
+        ?>
         <input type="radio" name="category" value="<?php echo $id; ?>" required <?php if ($fields["category"] == $id) { echo "checked"; } ?>>
         <label for="publish"><?php echo ucfirst($category); ?></label><br>
         <?php endwhile; $stmt->close();?>
         <?php if (in_array("category", $errors)) { echo $obligatoryField; } ?>
-
     </div>
     <button class="button" type="submit" name="submit">Spara</button>
 </form>
