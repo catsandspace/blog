@@ -24,7 +24,7 @@
     // This is used to stop user from leaving important fields empty.
     $allRequiredFilled = TRUE;
 
-    // If a required field is left empty, info the key will be inserted in $errors
+    // If a required field is left empty, info about the key will be inserted in $errors
     // $obligatoryField is used to print out error message to user
     $errors = array();
     $obligatoryField = "<p class=\"error\">Obligatoriskt fält</p><br>";
