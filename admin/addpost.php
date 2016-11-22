@@ -5,50 +5,83 @@
     require_once "../assets/session.php";
 
     // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
     }
 
+    // This is used to populate input fields.
+    $fields = array(
+        "publish" => "",
+        "headline" => "",
+        "post-content" => "",
+        "category" => ""
+    );
+
+/*******************************************************************************
+   START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
+*******************************************************************************/
+
     // This is used to stop user from leaving important fields empty.
-    $allRequiredFilled = true;
+    $allRequiredFilled = TRUE;
+
+    // If a required field is left empty, info the key will be inserted in $errors
+    // $obligatoryField is used to print out error message to user
+    $errors = array();
+    $obligatoryField = "<p class=\"error\">Obligatoriskt fält</p><br>";
+
 
     if (isset($_POST["submit"])) {
 
-        //These variables are used for checking if all fields are filled.
-        $allRequiredFilled = true;
-        $required_fields = array("publish", "headline", "post-content", "category");
+        // These variables are used for checking if all fields are filled.
+        $allRequiredFilled = TRUE;
+        $requiredFields = array("publish", "headline", "post-content", "category");
+        $uploadedFile = $_FILES["post-img"]["size"];
 
         // This checks if all required fields are filled.
-        for ($i = 0; $i < count($required_fields); $i++) {
-            $value = $_POST[$required_fields[$i]];
+        foreach ($fields as $key => $value) {
+            $isRequired = in_array($key, $requiredFields);
 
-            if (empty($value)) {
-                $allRequiredFilled = false;
-                break;
+            if (!array_key_exists($key, $_POST) || empty($_POST[$key])) {
+                if ($isRequired) {
+                    $allRequiredFilled = FALSE;
+                    array_push($errors, $key);
+                }
+            } else {
+                $fields[$key] = mysqli_real_escape_string($conn, $_POST[$key]);
             }
         }
 
-        // Escapes special characters in a string for use in an SQL statement
+        // Check if file has a file size. If not, push key to $errors.
+        if (empty($uploadedFile)) {
+            $allRequiredFilled = FALSE;
+            array_push($errors, "file");
+        }
+
+/*******************************************************************************
+   START OF DATABASE INSERTION SINCE ALL REQUIRED FIELDS ARE FILLED
+*******************************************************************************/
+
         if ($allRequiredFilled) {
-            // TODO: Keep it dry. This needs som attention.
+
             $userid = $_SESSION["userid"];
-            $title = mysqli_real_escape_string($conn, $_POST["headline"]);
-            $content = mysqli_real_escape_string($conn, $_POST["post-content"]);
-            $published = mysqli_real_escape_string($conn, $_POST["publish"]);
-            $category = mysqli_real_escape_string($conn, $_POST["category"]);
 
-            $query = "INSERT INTO posts VALUES ('', {$userid}, now(), '', '', '{$title}', '{$content}', '{$published}', '{$category}')";
+            $publish = mysqli_real_escape_string($conn, $fields["publish"]);
+            $headline = mysqli_real_escape_string($conn, $fields["headline"]);
+            $content = mysqli_real_escape_string($conn, $fields["post-content"]);
+            $category = mysqli_real_escape_string($conn, $fields["category"]);
 
-            // Lets insert and update database values.
-            if ($stmt->prepare($query)) { // Prepares 1st query INSERTS first query values into db
+            $query = "INSERT INTO posts VALUES ('', '{$userid}', now(), '', '', '{$headline}', '{$content}', '{$publish}', '{$category}')";
+
+            // Insert and update database values
+            if ($stmt->prepare($query)) {
                 $stmt->execute();
                 $imageId = $stmt->insert_id; // Catches the created post.id for later use
 
-                // NOW lets start working with the uploaded file
+                // Now lets start working with the uploaded file
                 $fileName = basename($_FILES["post-img"]["name"]); // The name of the file
                 $temporaryFile = $_FILES["post-img"]["tmp_name"]; // The temporary file path
                 $type = pathinfo($fileName, PATHINFO_EXTENSION); // The file type
-                $fileError = checkUploadedFile($_FILES["post-img"]); // This checks if there are any file errors
+                $fileError = checkUploadedFile($_FILES["post-img"]); // A function to check file errors
                 $targetName = "../uploads/postimg/" . basename("postimg_") . $imageId . ".$type"; // The new file path connected with post.id column
 
                 // Move uploaded file to "uploads/postimg/ and update $targetName to a appropiate path in table posts.image
@@ -56,70 +89,72 @@
                     move_uploaded_file($temporaryFile, $targetName); // Move file from temp to new file path
                     $targetName = "uploads/postimg/". basename("postimg_") . $imageId . ".$type"; // Renames the file path
                     $updateQuery = "UPDATE posts SET image ='{$targetName}' WHERE id ='{$imageId}' "; // Inserts correct file path into db column posts.image
-                    $stmt->prepare($updateQuery); // Prepares 2nd query to UPDATE posts.image with new value.
-                    $stmt->execute();
 
-                    // Filename should now be postimg_[post.id].[type]
-                    die(header("Location: ./addpost.php?message=success"));
-
-                // When file error occurs save new post as draft [value: 2]
-                } else if ($fileError) {
-                    $updateQuery = "UPDATE posts SET published ='2' WHERE id ='{$imageId}' ";
-                    $stmt->prepare($updateQuery);
-                    $stmt->execute();
-                    die(header("Location: ./addpost.php?message=fileerror"));
+                    // Prepares 2nd query to UPDATE posts.image with new value.
+                    if ($stmt->prepare($updateQuery)) {
+                        $stmt->execute();
+                    } else {
+                        $databaseError = "<p class=\"error\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
+                    }
+                    // Redirect to confirmation.php
+                    header("Location: ./confirmation.php");
                 }
-
             } else {
-                die(header("Location: ./addpost.php?message=failed"));
+                // If problem occurs, create variable $databaseError
+                $databaseError = "<p class=\"error\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
             }
         }
     }
-// TODO: Remove all <br> once CSS is used.
+
+/*******************************************************************************
+   START OF QUERY THAT PRINTS CATEGORIES
+*******************************************************************************/
+
     $query = "SELECT * FROM categories";
     if ($stmt->prepare($query)) {
         $stmt->execute();
         $stmt->bind_result($id, $category);
     }
+
+/*******************************************************************************
+   START OF HTML
+*******************************************************************************/
 ?>
-<h1>Skapa nytt inlägg</h1>
+<h2>Skapa nytt inlägg</h2>
+<?php if (!empty($errors)) { echo "Ooops, något gick fel!"; } ?>
 <form method="POST" enctype="multipart/form-data">
     <label for="choose-file">Bild</label><br>
     <input type="file" name="post-img" id="choose-file" required><br>
-    <input type="radio" name="publish" id="publish" value="1" required>
+    <?php if (in_array("file", $errors)) { echo $obligatoryField; } ?>
+    <?php if (!empty($fileError)) { echo "$fileError<br>"; } ?>
+
+    <input type="radio" name="publish" id="publish" value="1" required <?php if ($fields["publish"] == 1) { echo "checked"; } ?> >
     <label for="publish">Publicera</label><br>
-    <input type="radio" name="publish" id="draft" value="2" required>
+    <input type="radio" name="publish" id="draft" value="2" required <?php if ($fields["publish"] == 2) { echo "checked"; } ?>>
     <label for="draft">Spara som utkast</label><br>
+    <?php if (in_array("publish", $errors)) { echo $obligatoryField; } ?>
+
     <label for="headline">Rubrik</label><br>
-    <input type="text" name="headline" id="headline" placeholder="Rubrik" required><br>
+    <input type="text" name="headline" id="headline" placeholder="Rubrik"
+    value="<?php echo $fields["headline"]; ?>" required><br>
+    <?php if (in_array("headline", $errors)) { echo $obligatoryField; } ?>
+
     <label for="post-content">Beskrivning</label><br>
-    <textarea name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required></textarea><br>
+    <textarea name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required><?php echo $fields["post-content"]; ?></textarea><br>
+    <?php if (in_array("post-content", $errors)) { echo $obligatoryField; } ?>
+
     <div>
         <h3>Kategori</h3>
-
-        <?php while (mysqli_stmt_fetch($stmt)): ?>
-        <input type="radio" name="category" value="<?php echo $id; ?>" required>
+        <?php
+            // Print categories
+            while (mysqli_stmt_fetch($stmt)):
+        ?>
+        <input type="radio" name="category" value="<?php echo $id; ?>" required <?php if ($fields["category"] == $id) { echo "checked"; } ?>>
         <label for="publish"><?php echo ucfirst($category); ?></label><br>
         <?php endwhile; $stmt->close();?>
-
+        <?php if (in_array("category", $errors)) { echo $obligatoryField; } ?>
     </div>
     <button class="button" type="submit" name="submit">Spara</button>
 </form>
-<p class="upload-message">
-<?php
-    // Message if POST = succeed/failed.
-    switch ((isset($_GET["message"]) ? $_GET["message"]: "" )) {
-        case "success":
-            echo "Inlägget laddades upp i databasen.";
-            break;
-        case "fileerror":
-            echo "Ej tillåtet filformat.<br>Tillåtna filformat: [tillåtna filformat]<br>Inlägg sparat som utkast.";
-            break;
-        case "failed":
-            echo "Du måste fylla i alla fält.";
-            break;
-    }
-?>
-</p>
-<a href="./dashboard.php" class="button"><br>Till huvudmenyn</a>
+<a href="./dashboard.php" class="button error"><br>Till huvudmenyn</a>
 <?php require_once "../templates/footer.php"; ?>
