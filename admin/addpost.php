@@ -63,17 +63,15 @@
 
             $userid = $_SESSION["userid"];
 
-            // TODO: Keep it dry. This needs attention.
-            // Escapes special characters in a string for use in an SQL statement
             $publish = mysqli_real_escape_string($conn, $fields["publish"]);
             $headline = mysqli_real_escape_string($conn, $fields["headline"]);
-            $postContent = mysqli_real_escape_string($conn, $fields["post-content"]);
-            $postCategory = mysqli_real_escape_string($conn, $fields["category"]);
+            $content = mysqli_real_escape_string($conn, $fields["post-content"]);
+            $category = mysqli_real_escape_string($conn, $fields["category"]);
 
-            $query = "INSERT INTO posts VALUES ('', {$userid}, now(), '', '', '{$headline}', '{$postContent}', '{$publish}', '{$postCategory}')";
+            $query = "INSERT INTO posts VALUES ('', {$userid}, now(), '', '', '{$headline}', '{$content}', '{$publish}', '{$category}')";
 
-            // Lets insert and update database values.
-            if ($stmt->prepare($query)) { // Prepares 1st query INSERTS first query values into db
+            // Insert and update database values
+            if ($stmt->prepare($query)) {
                 $stmt->execute();
                 $imageId = $stmt->insert_id; // Catches the created post.id for later use
 
@@ -81,7 +79,7 @@
                 $fileName = basename($_FILES["post-img"]["name"]); // The name of the file
                 $temporaryFile = $_FILES["post-img"]["tmp_name"]; // The temporary file path
                 $type = pathinfo($fileName, PATHINFO_EXTENSION); // The file type
-                $fileError = checkUploadedFile($_FILES["post-img"]); // This checks if there are any file errors
+                $fileError = checkUploadedFile($_FILES["post-img"]); // A function to check file errors
                 $targetName = "../uploads/postimg/" . basename("postimg_") . $imageId . ".$type"; // The new file path connected with post.id column
 
                 // Move uploaded file to "uploads/postimg/ and update $targetName to a appropiate path in table posts.image
@@ -93,38 +91,31 @@
                     $stmt->execute();
 
                     // Filename should now be postimg_[post.id].[type]
-                    die(header("Location: ./addpost.php?message=success"));
-
-                // When file error occurs save new post as draft [value: 2]
-                } else if ($fileError) {
-                    $updateQuery = "UPDATE posts SET published ='2' WHERE id ='{$imageId}' ";
-                    $stmt->prepare($updateQuery);
-                    $stmt->execute();
-                    die(header("Location: ./addpost.php?message=fileerror"));
+                    die(header("Location: ./addpost.php?success"));
                 }
-
             } else {
-                die(header("Location: ./addpost.php?message=failed"));
+                // If problem occurs, create variable $databaseError
+                $databaseError = "<p class=\"error\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
             }
         }
-
-
     }
 // TODO: Remove all <br> once CSS is used.
     $query = "SELECT * FROM categories";
     if ($stmt->prepare($query)) {
         $stmt->execute();
-        $stmt->bind_result($id, $postCategory);
+        $stmt->bind_result($id, $category);
     }
 ?>
 <h2>Skapa nytt inlägg</h2>
 <pre><?php var_dump($_POST); ?></pre>
+<pre><?php var_dump($_GET); ?></pre>
 <pre><?php var_dump($_FILES); ?></pre>
 
 <form method="POST" enctype="multipart/form-data">
     <label for="choose-file">Bild</label><br>
     <input type="file" name="post-img" id="choose-file" required><br>
     <?php if (in_array("file", $errors)) { echo $obligatoryField; } ?>
+    <?php if (!empty($fileError)) { echo "$fileError<br>"; } ?>
 
     <input type="radio" name="publish" id="publish" value="1" required <?php if ($fields["publish"] == 1) { echo "checked"; } ?> >
     <label for="publish">Publicera</label><br>
@@ -146,7 +137,7 @@
 
         <?php while (mysqli_stmt_fetch($stmt)): ?>
         <input type="radio" name="category" value="<?php echo $id; ?>" required <?php if ($fields["category"] == $id) { echo "checked"; } ?>>
-        <label for="publish"><?php echo ucfirst($postCategory); ?></label><br>
+        <label for="publish"><?php echo ucfirst($category); ?></label><br>
         <?php endwhile; $stmt->close();?>
         <?php if (in_array("category", $errors)) { echo $obligatoryField; } ?>
 
@@ -155,17 +146,8 @@
 </form>
 <p class="upload-message">
 <?php
-    // Message if POST = succeed/failed.
-    switch ((isset($_GET["message"]) ? $_GET["message"]: "" )) {
-        case "success":
-            echo "Inlägget laddades upp i databasen.";
-            break;
-        case "fileerror":
-            echo "Ej tillåtet filformat.<br>Tillåtna filformat: [tillåtna filformat]<br>Inlägg sparat som utkast.";
-            break;
-        case "failed":
-            echo "Du måste fylla i alla fält.";
-            break;
+    if (isset($_GET["success"])) {
+        echo "Inlägget laddades upp i databasen.";
     }
 ?>
 </p>
