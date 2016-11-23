@@ -33,7 +33,6 @@
     if (isset($_POST["submit"])) {
 
         // These variables are used for checking if all fields are filled.
-        $allRequiredFilled = TRUE;
         $requiredFields = array("publish", "headline", "post-content", "category");
         $uploadedFile = $_FILES["post-img"]["size"];
 
