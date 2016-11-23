@@ -43,7 +43,7 @@
                 endif;
             endforeach;
         else:
-            $errorMessage ="Ange kategori att radera";
+            $errorMessage ="Ange kategori att radera!";
         endif;
     endif;
 
@@ -138,9 +138,6 @@
             <button type="submit" value="Lägg till" name="addCat" class="button">Lägg till</button>
         </form>
     </div>
-<?php
-    // Print error message
-    if ($errorMessage != NULL): echo $errorMessage; endif;
-
-    include_once "../templates/footer.php"; // Footer.
-?>
+    <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
+</main>
+<?php include_once "../templates/footer.php"; ?>

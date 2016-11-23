@@ -43,15 +43,17 @@
 <!--****************************************************************************
     FORM TO LOGIN USER
 *****************************************************************************-->
-<form action="./login.php" method="POST">
-   <fieldset>
-        <legend>Login</legend>
-        <label for="username">Username:</label><br>
-        <input type="text" name="username" id="username"><br>
-        <label for="password">Password:</label><br>
-        <input type="password" name="password" id="password"><br>
-        <button type="submit" name="login" class="button">Logga in</button>
-   </fieldset>
-</form>
-<?php if ($errorMessage) { echo $errorMessage; } ?>
+<main>
+    <form action="./login.php" method="POST">
+       <fieldset>
+            <legend>Login</legend>
+            <label for="username">Username:</label><br>
+            <input type="text" name="username" id="username"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" name="password" id="password"><br>
+            <button type="submit" name="login" class="button">Logga in</button>
+       </fieldset>
+    </form>
+    <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
+</main>
 <?php require_once "./templates/footer.php"; ?>
