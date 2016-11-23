@@ -207,9 +207,9 @@
             <label for="draft">Spara som utkast</label><br>
             <?php if (in_array("publish", $errors)) { echo $obligatoryField; } ?>
         </div>
-        <div class="flexboxWrapper">
-        <button class="button" type="submit" name="submit">Spara</button>
-        <a href="./dashboard.php" class="button error"><br>Gå till panelen</a>
+        <div class="flexbox-wrapper">
+            <button class="button" type="submit" name="submit">Spara</button>
+            <a href="./dashboard.php" class="button error"><br>Gå till panelen</a>
         </div>
     </form>
 </main>

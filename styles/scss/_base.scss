@@ -98,23 +98,24 @@ START OF HEADER ELEMENT
 
 // END OF TOP MENU SLIDING IN -------------------------------------------------
 header {
-    background-color: $baseColorSemiTransparent;
-    box-sizing: border-box;
-    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
-    color: $baseColor2;
-    display: flex;
-    padding: 0.8rem 2rem;
-    justify-content: space-between;
-    backdrop-filter: blur(5px);
     animation-name: menu-is-sliding-in;
     animation-duration: 1.2s;
     animation-delay: 0.2s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+    background-color: $baseColorSemiTransparent;
+    box-sizing: border-box;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+    color: $baseColor2;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 2rem;
     position: fixed;
     top: -6.8rem;
     width: 100%;
     z-index: 2;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 }
 
 .logo {
@@ -144,11 +145,11 @@ header {
     list-style: none;
 }
 
-.hamburger>ul {
+.hamburger > ul {
     float: left;
 }
 
-.hamburger>ul>li {
+.hamburger > ul > li {
     float: left;
 }
 
@@ -156,7 +157,7 @@ header {
     z-index: 1;
 }
 
-.hamburger .has-sub:hover>ul {
+.hamburger .has-sub:hover > ul {
     display: block;
 }
 
@@ -219,7 +220,6 @@ header {
     END OF HEADER ELEMENT
 *******************************************************************************/
 
-
 /*******************************************************************************
     START OF BUTTONS
 *******************************************************************************/
@@ -231,8 +231,17 @@ header {
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
     color: $baseColor2;
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    height: 4em;
+    margin: 0.5em 0;
+    text-align: center;
     text-transform: uppercase;
+    padding: 0.5em;
+    width: 100%;
 }
+
 
 .button:hover {
     background-color: $primaryAlternative;
@@ -242,31 +251,21 @@ header {
     transform: translateY(5px);
 }
 
-.error {
+.link__button, .link__button--error {
+    padding: 1.5em;
+}
+
+.error, .link__button--error {
     background-color: $error;
 }
 
-.error:hover {
+.error:hover, .link__button--error:hover {
     background-color: $errorAlternative;
 }
-
 
 /*******************************************************************************
     END OF BUTTONS
 *******************************************************************************/
-
-.button {
-    font-size: 1.8rem;
-    height: 4em;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    margin: 0.5em 0;
-    width: 100%;
-}
-
-a[class="button"] {
-    padding-top: 1.5em;
-}
 
 input[type=text],
 input[type=password],
@@ -290,28 +289,27 @@ label {
     color: $primary;
 }
 
-.flexboxWrapper {
+.flexbox-wrapper {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
 }
 
-.listWrapper {
+.list-wrapper {
     box-sizing: border-box;
     margin: 0 auto;
     width: 100%;
 }
 
-.inputWrapper {
+.input-wrapper {
     box-sizing: border-box;
     margin-top: 10px;
     width: 100%;
 }
 
 .list {
-    display: inline-block;
-    margin: 0 auto;
     display: flex;
+    margin: 0 auto;
     justify-content: space-around;
     font-size: 2.0rem;
     width: 100%;
@@ -321,14 +319,17 @@ label {
     margin: 0 auto;
     padding: 0.5em 0;
 }
+
 /*******************************************************************************
     START OF CONTACT.PHP
 *******************************************************************************/
+
 .flex-item {
      box-sizing: border-box;
      margin: 0 auto;
      text-align: center;
 }
+
 .mail {
     font-size: 1.8rem;
     text-transform: uppercase;
@@ -340,9 +341,9 @@ label {
     background-color: $primary;
     border-radius:  5px;
 }
+
 .phone {
     font-size: 1.8rem;
-    text-transform: uppercase;
     height: 1.2em;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -350,15 +351,15 @@ label {
     width: 100%;
     background-color: $primary;
     border-radius:  5px;
+    text-transform: uppercase;
 }
+
 .mail > a {
     // background-image: url('../img/mail.png'); //TODO: Either use icons with links or use pictures here for mail and phone links
 }
 /*******************************************************************************
     END OF CONTACT.PHP
 *******************************************************************************/
-
-
 
 /*******************************************************************************
     START OF POSTS ON INDEX.PHP
@@ -416,7 +417,6 @@ label {
     }
 }
 
-
 /*******************************************************************************
     END OF POSTS ON INDEX.PHP
 *******************************************************************************/
@@ -457,7 +457,6 @@ table {
         width: 100%;
     }
 }
-
 
 /*******************************************************************************
     END OF POSTSLIST
@@ -547,6 +546,7 @@ table {
 /*******************************************************************************
     END OF POSTEDITOR
 *******************************************************************************/
+
 /*******************************************************************************
     START OF MESSAGES
 *******************************************************************************/
@@ -560,7 +560,6 @@ table {
     width: 100%;
     border: 1px solid black;
 }
-
 
 /*******************************************************************************
     END OF MESSAGES

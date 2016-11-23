@@ -10,7 +10,7 @@
     }
 ?>
 <main>
-    <div class="flexboxWrapper">
+    <div class="flexbox-wrapper">
         <h2>Hurra!</h2>
         <p>Ännu ett inlägg skapat! Vad vill du göra nu?</p>
         <a href="./posteditor.php" class="button">Skapa nytt inlägg</a>

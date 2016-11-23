@@ -56,9 +56,9 @@
 
     <!-- Form that prints all categories from the db with checkboxes -->
     <!-- If change category is ordered an input field is printed -->
-    <div class="flexboxWrapper">
+    <div class="flexbox-wrapper">
 
-    <form method="post" action="users.php" class="listWrapper">
+    <form method="post" action="users.php" class="list-wrapper">
         <div class="list">
             <div class="inner-list">
 <?php
@@ -73,11 +73,9 @@
         </div>
         <button type="submit" value="Ta bort användare" name="removeUser"class="button error">Ta bort användare</button>
     </form>
-    <br>
     <form method="post" action="users.php">
         <button type="submit" value="Lägg till ny användare" name="addUser" class="button">Lägg till ny användare</button>
     </form>
-    <br>
     <?php
         // if registration is ordered print registration form
         if ($addUser == TRUE):
