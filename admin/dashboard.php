@@ -21,7 +21,7 @@
 <main>
     <div class="flexbox-wrapper">
         <h2>Hej @<?php echo $currentUser; ?></h2>
-        <p>Din behörighet är <?php echo $user_permission; ?></p>
+        <p class="introduction-paragraph">Behörighet: <?php echo ucfirst($user_permission); ?></p>
         <a href="./posteditor.php" class="button link__button">Skapa nytt inlägg</a>
         <a href="./postlist.php" class="button link__button">Se alla inlägg</a>
         <a href="./comments.php" class="button link__button">Se alla kommentarer</a>
