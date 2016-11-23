@@ -22,7 +22,7 @@
     <div class="flexboxWrapper">
         <h2>Hej @<?php echo $currentUser; ?></h2>
         <p>Din behörighet är <?php echo $user_permission; ?></p>
-        <a href="./addpost.php" class="button">Skapa nytt inlägg</a>
+        <a href="./posteditor.php" class="button">Skapa nytt inlägg</a>
         <a href="./postlist.php" class="button">Se alla inlägg</a>
         <a href="./comments.php" class="button">Se alla kommentarer</a>
         <?php if ($currentUsersPermission == 1): ?>

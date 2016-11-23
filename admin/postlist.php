@@ -16,7 +16,7 @@
     if (isset($_POST["edit-post"])) {
         $postToEdit = $_POST["edit-post"];
         //Redirect to add post with current post id
-        header("Location: ./addpost.php?edit=$postToEdit");
+        header("Location: ./posteditor.php?edit=$postToEdit");
     }
 
     if (isset($_POST["delete-post"])) {
