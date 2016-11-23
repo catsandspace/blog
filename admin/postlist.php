@@ -14,9 +14,9 @@
     $feedbackMessage = NULL;
 
     if (isset($_POST["edit-post"])) {
-        // TODO: This doesn't lead anywhere (should probably open addpost.php)
         $postToEdit = $_POST["edit-post"];
-        $feedbackMessage = "Du vill redigera ett inlägg med id: $postToEdit";
+        //Redirect to add post with current post id
+        header("Location: ./addpost.php?edit=$postToEdit");
     }
 
     if (isset($_POST["delete-post"])) {
