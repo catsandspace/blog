@@ -89,7 +89,6 @@ a {
     END OF GLOBAL STYLES
 *******************************************************************************/
 
-
 /*******************************************************************************
 START OF HEADER ELEMENT
 *******************************************************************************/
@@ -275,6 +274,10 @@ header {
     END OF BUTTONS
 *******************************************************************************/
 
+/*******************************************************************************
+    START OF INPUT FIELDS
+*******************************************************************************/
+
 input[type=text],
 input[type=password],
 input[type=email],
@@ -296,6 +299,39 @@ textarea {
 label {
     color: $primary;
 }
+
+/* START OF STYLING FOR INPUT FIELD REGARDING FILE UPLOAD ------------------- */
+
+/* Hide original appearance */
+.choose-file__input {
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0.1px;
+    z-index: -1;
+}
+
+/* Style both input field and label */
+.choose-file__input + .choose-file__label {
+    display: block;
+    padding: 1.5em;
+}
+
+label.choose-file__label::before {
+    content: "Välj bild";
+}
+
+/* This appears after a file is chosen. */
+.choose-file__input:valid + .choose-file__label::before {
+    content: "1 Bild vald";
+}
+
+/* END OF STYLING FOR INPUT FIELD REGARDING FILE UPLOAD --------------------- */
+
+/*******************************************************************************
+    END OF INPUT FIELDS
+*******************************************************************************/
 
 .flexbox-wrapper {
     display: flex;

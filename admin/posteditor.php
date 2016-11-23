@@ -169,8 +169,8 @@
     <form method="POST" enctype="multipart/form-data">
         <?php if (!isset($_GET["edit"])): ?>
         <div class="edit-post-div">
-            <label for="choose-file">Välj bild</label><br>
-            <input type="file" name="post-img" id="choose-file" required><br>
+            <input class="choose-file__input button" type="file" name="post-img" id="choose-file" required>
+            <label class="choose-file__label button" for="choose-file"></label><br>
         </div>
         <?php else: ?>
         <div class="edit-post-div">
