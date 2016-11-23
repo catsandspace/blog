@@ -143,7 +143,11 @@
 *******************************************************************************/
 ?>
 <main>
+    <?php if (isset($_GET["edit"])): ?>
+    <h2>Redigera inlägg</h2>
+    <?php else: ?>
     <h2>Skapa nytt inlägg</h2>
+    <?php endif; ?>
     <?php if (!empty($errors)) { echo "Ooops, något gick fel!"; } ?>
     <form method="POST" enctype="multipart/form-data">
         <label for="choose-file">Välj bild</label><br>
