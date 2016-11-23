@@ -18,6 +18,30 @@
     );
 
 /*******************************************************************************
+   START TO CHECK IF EXISTING POST IS TO BE EDITED
+*******************************************************************************/
+
+    if (isset($_GET['edit'])) {
+        $postIdToEdit = $_GET['edit'];
+
+        $query = "SELECT * FROM posts WHERE id = '{$postIdToEdit}'";
+
+        // Insert and update database values
+        if ($stmt->prepare($query)) {
+            $stmt->execute();
+            $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
+            $stmt->fetch();
+
+            //Populate fields array with values from database
+            $fields["publish"] = $published;
+            $fields["headline"] = $title;
+            $fields["post-content"] = $content;
+            $fields["category"] = $categoryId;
+
+        }
+    }
+
+/*******************************************************************************
    START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
 *******************************************************************************/
 
@@ -28,13 +52,10 @@
     // $obligatoryField is used to print out error message to user
     $errors = array();
     $obligatoryField = "<p class=\"error-msg\">Obligatoriskt fält</p><br>";
-
-
     if (isset($_POST["submit"])) {
 
         // These variables are used for checking if all fields are filled.
         $requiredFields = array("publish", "headline", "post-content", "category");
-        $uploadedFile = $_FILES["post-img"]["size"];
 
         // This checks if all required fields are filled.
         foreach ($fields as $key => $value) {
@@ -51,9 +72,12 @@
         }
 
         // Check if file has a file size. If not, push key to $errors.
-        if (empty($uploadedFile)) {
-            $allRequiredFilled = FALSE;
-            array_push($errors, "file");
+        if (!isset($_GET["edit"])) {
+            $uploadedFile = $_FILES["post-img"]["size"];
+            if (empty($uploadedFile)) {
+                $allRequiredFilled = FALSE;
+                array_push($errors, "file");
+            }
         }
 
 /*******************************************************************************
@@ -63,43 +87,60 @@
         if ($allRequiredFilled) {
 
             $userid = $_SESSION["userid"];
-            $publish = $fields["publish"];
-            $headline = $fields["headline"];
-            $content = $fields["post-content"];
-            $category = $fields["category"];
+            $publish = mysqli_real_escape_string($conn, $fields["publish"]);
+            $headline = mysqli_real_escape_string($conn, $fields["headline"]);
+            $content = mysqli_real_escape_string($conn, $fields["post-content"]);
+            $category = mysqli_real_escape_string($conn, $fields["category"]);
 
             $query = "INSERT INTO posts VALUES ('', '{$userid}', now(), '', '', '{$headline}', '{$content}', '{$publish}', '{$category}')";
 
-            // Insert and update database values
-            if ($stmt->prepare($query)) {
-                $stmt->execute();
-                $imageId = $stmt->insert_id; // Catches the created post.id for later use
+            if (isset($_GET["edit"])) {
 
-                // Now lets start working with the uploaded file
-                $fileName = basename($_FILES["post-img"]["name"]); // The name of the file
-                $temporaryFile = $_FILES["post-img"]["tmp_name"]; // The temporary file path
-                $type = pathinfo($fileName, PATHINFO_EXTENSION); // The file type
-                $fileError = checkUploadedFile($_FILES["post-img"]); // A function to check file errors
-                $targetName = "../uploads/postimg/" . basename("postimg_") . $imageId . ".$type"; // The new file path connected with post.id column
-
-                // Move uploaded file to "uploads/postimg/ and update $targetName to a appropiate path in table posts.image
-                if (!$fileError) {
-                    move_uploaded_file($temporaryFile, $targetName); // Move file from temp to new file path
-                    $targetName = "uploads/postimg/". basename("postimg_") . $imageId . ".$type"; // Renames the file path
-                    $updateQuery = "UPDATE posts SET image ='{$targetName}' WHERE id ='{$imageId}' "; // Inserts correct file path into db column posts.image
-
-                    // Prepares 2nd query to UPDATE posts.image with new value.
-                    if ($stmt->prepare($updateQuery)) {
-                        $stmt->execute();
-                    } else {
-                        $databaseError = "<p class=\"error\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
-                    }
-                    // Redirect to confirmation.php
-                    header("Location: ./confirmation.php");
+                 $query = "UPDATE posts SET title ='{$headline}', content ='{$content}', published ='{$publish}', categoryid = '{$category}' WHERE id ='{$postIdToEdit}'";
+                if ($stmt->prepare($query)) {
+                    $stmt->execute();
+                } else {
+                    // If problem occurs, create variable $databaseError
+                    $databaseError = "<p class=\"error-msg\">Det gick inte att uppdatera inlägget i databasen. Försök igen.</p>";
                 }
-            } else {
-                // If problem occurs, create variable $databaseError
-                $databaseError = "<p class=\"error\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
+
+                // Redirect to confirmation.php
+                // TODO: Redirect message
+                header("Location: ./confirmation.php");
+            }
+
+            if (!isset($_GET["edit"])) {
+                // Insert and update database values
+                if ($stmt->prepare($query)) {
+                    $stmt->execute();
+                    $imageId = $stmt->insert_id; // Catches the created post.id for later use
+
+                    // Now lets start working with the uploaded file
+                    $fileName = basename($_FILES["post-img"]["name"]); // The name of the file
+                    $temporaryFile = $_FILES["post-img"]["tmp_name"]; // The temporary file path
+                    $type = pathinfo($fileName, PATHINFO_EXTENSION); // The file type
+                    $fileError = checkUploadedFile($_FILES["post-img"]); // A function to check file errors
+                    $targetName = "../uploads/postimg/" . basename("postimg_") . $imageId . ".$type"; // The new file path connected with post.id column
+
+                    // Move uploaded file to "uploads/postimg/ and update $targetName to a appropiate path in table posts.image
+                    if (!$fileError) {
+                        move_uploaded_file($temporaryFile, $targetName); // Move file from temp to new file path
+                        $targetName = "uploads/postimg/". basename("postimg_") . $imageId . ".$type"; // Renames the file path
+                        $updateQuery = "UPDATE posts SET image ='{$targetName}' WHERE id ='{$imageId}' "; // Inserts correct file path into db column posts.image
+
+                        // Prepares 2nd query to UPDATE posts.image with new value.
+                        if ($stmt->prepare($updateQuery)) {
+                            $stmt->execute();
+                        } else {
+                            $databaseError = "<p class=\"error-msg\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
+                        }
+                        // Redirect to confirmation.php
+                        header("Location: ./confirmation.php");
+                    }
+                } else {
+                    // If problem occurs, create variable $databaseError
+                    $databaseError = "<p class=\"error-msg\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
+                }
             }
         }
     }
@@ -119,11 +160,17 @@
 *******************************************************************************/
 ?>
 <main>
+    <?php if (isset($_GET["edit"])): ?>
+    <h2>Redigera inlägg</h2>
+    <?php else: ?>
     <h2>Skapa nytt inlägg</h2>
+    <?php endif; ?>
     <?php if (!empty($errors)) { echo "Ooops, något gick fel!"; } ?>
     <form method="POST" enctype="multipart/form-data">
+        <?php if (!isset($_GET["edit"])): ?>
         <label for="choose-file">Välj bild</label><br>
         <input type="file" name="post-img" id="choose-file" required><br>
+        <?php endif; ?>
         <?php if (in_array("file", $errors)) { echo $obligatoryField; } ?>
         <?php if (!empty($fileError)) { echo "$fileError<br>"; } ?>
 
