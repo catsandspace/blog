@@ -34,17 +34,11 @@ body {
 main {
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 3.0rem;
+    padding: 10rem 3rem 3rem;
     width: 100vw;
-    padding-top: 5em;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3 {
     color: $baseColor;
     font-family: 'Rajdhani', sans-serif;
     font-weight: 400;
@@ -61,6 +55,10 @@ h2 {
     font-weight: 600;
     text-align: center;
     padding-top: 0.3rem;
+}
+
+h3 {
+    font-size: 3rem;
 }
 
 a {
@@ -257,15 +255,8 @@ header {
     END OF BUTTONS
 *******************************************************************************/
 
-input[type=text],
-input[type=password],
-input[type=email],
-textarea,
 .button {
     font-size: 1.8rem;
-    /*padding-top: 1.5em;*/
-    text-align: center;
-    text-transform: uppercase;
     height: 4em;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -284,6 +275,15 @@ textarea {
     border: 0;
     border-bottom: 2px solid $primary;
     background-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    width: 100%;
+}
+
+textarea {
+    box-sizing: border-box;
+    border: 2px solid $primary;
+    padding: 0.2em;
 }
 
 label {
@@ -530,6 +530,24 @@ table {
 *******************************************************************************/
 
 /*******************************************************************************
+    START OF POSTEDITOR
+*******************************************************************************/
+
+.edit-post-image {
+    box-sizing: border-box;
+    border: 7px solid $primary;
+    width: 100%;
+}
+
+.edit-post-div {
+    box-sizing: border-box;
+    margin: 2em 0;
+}
+
+/*******************************************************************************
+    END OF POSTEDITOR
+*******************************************************************************/
+/*******************************************************************************
     START OF MESSAGES
 *******************************************************************************/
 
@@ -542,6 +560,7 @@ table {
     width: 100%;
     border: 1px solid black;
 }
+
 
 /*******************************************************************************
     END OF MESSAGES
