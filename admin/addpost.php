@@ -1,5 +1,5 @@
 <?php
-    // require_once "../templates/header.php";
+    require_once "../templates/header.php";
     require_once "../assets/db_connect.php";
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
