@@ -1,5 +1,5 @@
 <?php
-    require_once "../templates/header.php";
+    // require_once "../templates/header.php";
     require_once "../assets/db_connect.php";
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
@@ -16,6 +16,30 @@
         "post-content" => "",
         "category" => ""
     );
+
+/*******************************************************************************
+   START TO CHECK IF EXISTING POST IS TO BE EDITED
+*******************************************************************************/
+    if (isset($_GET['edit'])) {
+        $postIdToEdit = $_GET['edit'];
+
+        $query = "SELECT * FROM posts WHERE id = '{$postIdToEdit}'";
+
+        // Insert and update database values
+        if ($stmt->prepare($query)) {
+            $stmt->execute();
+            $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
+            $stmt->fetch();
+            //Populate fields array with values from database
+            $fields["publish"] = $published;
+            $fields["headline"] = $title;
+            $fields["post-content"] = $content;
+            $fields["category"] = $categoryId;
+
+        }
+    }
+
+
 
 /*******************************************************************************
    START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
