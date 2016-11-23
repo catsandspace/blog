@@ -28,6 +28,7 @@
         <?php if ($currentUsersPermission == 1): ?>
         <a href="./categories.php" class="button">Hantera kategorier</a>
         <a href="./users.php" class="button">Hantera användare</a>
+        <a href="../assets/logout.php" class="button error" target="_self">Logga ut</a>
         <?php endif; ?>
     </div>
 </main>
