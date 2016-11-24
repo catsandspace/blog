@@ -97,9 +97,9 @@
     FORM THAT PRINTS ALL CATEGORIES FROM DATABASE, INCLUDING CHECKBOXES
     IT ALSO PRINTS A TEXT INPUT IF SOMEONE HAS PRESSED CHANGE BUTTON
 *****************************************************************************-->
-    <div class="flexboxWrapper">
+    <div class="flexbox-wrapper">
 
-        <form method="post" action="categories.php" class="listWrapper">
+        <form method="post" action="categories.php" class="list-wrapper">
             <div class="list">
                 <div class="inner-list">
                 <?php
@@ -132,7 +132,7 @@
             <button type="submit" value="Ta bort" name="removeCat" class="button error">Ta bort</button>
         </form>
 
-        <form method="post" action="categories.php" class="inputWrapper">
+        <form method="post" action="categories.php" class="input-wrapper">
             <label for="addCatagory">Lägg till kategori:</label>
             <input type="text" name="category" id="addCategory">
             <button type="submit" value="Lägg till" name="addCat" class="button">Lägg till</button>

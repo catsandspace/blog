@@ -19,17 +19,17 @@
 ?>
 
 <main>
-    <div class="flexboxWrapper">
+    <div class="flexbox-wrapper">
         <h2>Hej @<?php echo $currentUser; ?></h2>
-        <p>Din behörighet är <?php echo $user_permission; ?></p>
-        <a href="./addpost.php" class="button">Skapa nytt inlägg</a>
-        <a href="./postlist.php" class="button">Se alla inlägg</a>
-        <a href="./comments.php" class="button">Se alla kommentarer</a>
+        <p class="introduction-paragraph">Behörighet: <?php echo ucfirst($user_permission); ?></p>
+        <a href="./posteditor.php" class="button link__button">Skapa nytt inlägg</a>
+        <a href="./postlist.php" class="button link__button">Se alla inlägg</a>
+        <a href="./comments.php" class="button link__button">Se alla kommentarer</a>
         <?php if ($currentUsersPermission == 1): ?>
-        <a href="./categories.php" class="button">Hantera kategorier</a>
-        <a href="./users.php" class="button">Hantera användare</a>
-        <a href="../assets/logout.php" class="button error" target="_self">Logga ut</a>
+        <a href="./categories.php" class="button link__button">Hantera kategorier</a>
+        <a href="./users.php" class="button link__button">Hantera användare</a>
         <?php endif; ?>
+        <a href="../assets/logout.php" class="button link__button--error" target="_self">Logga ut</a>
     </div>
 </main>
 <?php require_once "../templates/footer.php"; ?>

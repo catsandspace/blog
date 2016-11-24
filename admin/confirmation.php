@@ -10,10 +10,10 @@
     }
 ?>
 <main>
-    <div class="flexboxWrapper">
+    <div class="flexbox-wrapper">
         <h2>Hurra!</h2>
         <p>Ännu ett inlägg skapat! Vad vill du göra nu?</p>
-        <a href="./addpost.php" class="button">Skapa nytt inlägg</a>
+        <a href="./posteditor.php" class="button">Skapa nytt inlägg</a>
         <a href="./postlist.php" class="button">Se alla inlägg</a>
         <a href="./dashboard.php" class="button">Gå tillbaka till panelen</a>
         <a href="logout.php" class="button error" target="_self">Logga ut</a>

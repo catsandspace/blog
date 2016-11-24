@@ -2,7 +2,7 @@
 
 <main>
     <h2>Kontaktinformation</h2>
-    <div class="flexboxWrapper">
+    <div class="flexbox-wrapper">
         <div class="flex-item">
             <h3>Alexandra Fagerström Alselius</h3>
             <ul>
