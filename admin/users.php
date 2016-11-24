@@ -1,14 +1,18 @@
 <?php
     require_once "../templates/header.php";
+    require_once "../assets/functions.php";
 
     // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE):
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
-    endif;
+
+    // Redirect to .dashboard.php if user is not a superadmin.
+    } elseif ($_SESSION["permission"] != 1) {
+        header("Location: ./dashboard.php");
+    }
 
 /*******************************************************************************
    TODO: THIS PAGE NEEDS AN ALL REQUIRED FILLED FUNCTION, JUST LIKE POSTEDITOR.
-   TODO: This page need a check if user is a superadmin. Else, redirect to dashboard.
 *******************************************************************************/
 
     // Reset functions for the internal variables
@@ -37,16 +41,16 @@
         endif;
     endif;
 
-    // Select all rows from the database users
-    // TODO: do we need to bind all results?
-    // TODO: Add switch statement to change permission from int to string.
-    $query = "SELECT * FROM users";
-    if ($stmt -> prepare($query)):
+    $query = "SELECT permission, username FROM users";
+    if ($stmt -> prepare($query)) {
         $stmt-> execute();
-        $stmt -> bind_result($userId, $permission, $userName, $userPassword, $userEmail, $userWebSite, $userFirstname, $userLastname, $userPic, $userDescription);
-    endif;
-?>
+        $stmt -> bind_result($permission, $userName);
+    }
 
+    // This checks current user's permission level.
+    $userPermission = strtolower(convertPermissionToString($permission));
+?>
+<main>
     <h2>Användare</h2>
     <div class="flexbox-wrapper">
     <form method="post" action="users.php" class="list-wrapper">
@@ -56,7 +60,7 @@
                 <input type="checkbox" name="checklist[]" value="<?php echo $userId; ?>">
                 <?php
                     // TODO: Convert if statment on dashboard to a function, use it here.
-                    echo "$userName – behörighet: $permission";?><br>
+                    echo "$userName – behörighet: $userPermission";?><br>
                 <?php endwhile; ?>
             </div>
         </div>
@@ -77,8 +81,8 @@
             <input type="text" name="lastName" id="lastName">
             <label for="eMail">E-post</label>
             <input type="email" name="eMail" id="eMail" required>
-            <label for="webSite">Eventuell webbplats</label>
-            <input type="text" name="webSite" id="webSite">
+            <label for="website">Webbplats</label>
+            <input type="text" name="website" id="website">
             <label for="description">Beskrivning</label>
             <textarea cols="25" rows="7" name="description" id="description"></textarea>
             <button id="button" type="submit" name="register" value="Lägg till" class="button">Lägg till</button>
