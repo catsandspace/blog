@@ -5,20 +5,14 @@
 *******************************************************************************/
 
 $baseColor: #1D2225;
-$baseColorTransparent: rgba(29,
-34,
-37,
-0.6);
-$baseColorSemiTransparent: rgba(29,
-34,
-37,
-0.95);
+$baseColorTransparent: rgba(29, 34, 37, 0.6);
+$baseColorSemiTransparent: rgba(29, 34, 37, 0.95);
 $baseColor2: #F8F8F8;
 $primary: #20A594;
 $primaryAlternative: #1AC9B2;
 $error: #bf2e1d;
 $errorAlternative: #ea3e2e;
-$errortestcolor: #bc4c4c;
+$errorTestColor: #bc4c4c;
 
 html {
     font-family: 'Montserrat', sans-serif;
@@ -39,7 +33,6 @@ main {
 }
 
 h1, h2, h3 {
-    color: $baseColor;
     font-family: 'Rajdhani', sans-serif;
     font-weight: 400;
     font-size: 4.0rem;
@@ -84,6 +77,36 @@ a {
     width: 1px;
 }
 
+.flexbox-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.list-wrapper {
+    box-sizing: border-box;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.input-wrapper {
+    box-sizing: border-box;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.list {
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-around;
+    font-size: 2.0rem;
+    width: 100%;
+}
+
+.inner-list {
+    margin: 0 auto;
+    padding: 0.5em 0;
+}
 
 /*******************************************************************************
     END OF GLOBAL STYLES
@@ -249,7 +272,6 @@ header {
     width: 100%;
 }
 
-
 .button:hover {
     background-color: $primaryAlternative;
 }
@@ -278,26 +300,29 @@ header {
     START OF INPUT FIELDS
 *******************************************************************************/
 
-input[type=text],
-input[type=password],
-input[type=email],
-textarea {
+input {
     border: 0;
     border-bottom: 2px solid $primary;
     background-color: transparent;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
+    height: 4em;
+    margin: 0.5em 0;
     width: 100%;
-}
-
-textarea {
-    box-sizing: border-box;
-    border: 2px solid $primary;
-    padding: 0.2em;
 }
 
 label {
     color: $primary;
+}
+
+.edit-post__input {
+
+}
+
+.edit-post__textarea {
+    box-sizing: border-box;
+    border: 2px solid $primary;
+    padding: 0.2em;
 }
 
 /* START OF STYLING FOR INPUT FIELD REGARDING FILE UPLOAD ------------------- */
@@ -332,37 +357,6 @@ label.choose-file__label::before {
 /*******************************************************************************
     END OF INPUT FIELDS
 *******************************************************************************/
-
-.flexbox-wrapper {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-}
-
-.list-wrapper {
-    box-sizing: border-box;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.input-wrapper {
-    box-sizing: border-box;
-    margin-top: 10px;
-    width: 100%;
-}
-
-.list {
-    display: flex;
-    margin: 0 auto;
-    justify-content: space-around;
-    font-size: 2.0rem;
-    width: 100%;
-}
-
-.inner-list {
-    margin: 0 auto;
-    padding: 0.5em 0;
-}
 
 /*******************************************************************************
     START OF CONTACT.PHP
@@ -599,7 +593,7 @@ table {
     color: #fff;
     padding: 5px 0;
     //background: lighten($error, 2%);
-    background: $errortestcolor;
+    background: $errorTestColor;
     text-align: center;
     width: 100%;
     border: 1px solid black;
