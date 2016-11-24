@@ -12,11 +12,15 @@
 <main>
     <div class="flexbox-wrapper">
         <h2>Hurra!</h2>
-        <p>Ännu ett inlägg skapat! Vad vill du göra nu?</p>
-        <a href="./posteditor.php" class="button">Skapa nytt inlägg</a>
-        <a href="./postlist.php" class="button">Se alla inlägg</a>
-        <a href="./dashboard.php" class="button">Gå tillbaka till panelen</a>
-        <a href="logout.php" class="button error" target="_self">Logga ut</a>
+        <?php if (isset($_GET["updated"])): ?>
+        <p class="introduction-paragraph">Inlägget är uppdaterat. Vad vill du göra nu?</p>
+        <?php else: ?>
+        <p class="introduction-paragraph">Ännu ett inlägg skapat! Vad vill du göra nu?</p>
+        <?php endif; ?>
+        <a href="./posteditor.php" class="button link__button">Skapa nytt inlägg</a>
+        <a href="./postlist.php" class="button link__button">Se alla inlägg</a>
+        <a href="./dashboard.php" class="button link__button">Gå tillbaka till panelen</a>
+        <a href="logout.php" class="button link__button error" target="_self">Logga ut</a>
     </div>
 </main>
 <?php require_once "../templates/footer.php"; ?>
