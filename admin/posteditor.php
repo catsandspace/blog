@@ -165,7 +165,7 @@
     <?php else: ?>
     <h2>Skapa nytt inlägg</h2>
     <?php endif; ?>
-    <?php if (!empty($errors)) { echo "Ooops, något gick fel!"; } ?>
+    <?php if (!empty($errors)) { echo "<p class=\"error-msg\">Ooops, något gick fel!</p>"; } ?>
     <form method="POST" enctype="multipart/form-data">
         <?php if (!isset($_GET["edit"])): ?>
         <div class="edit-post-div">

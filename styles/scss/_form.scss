@@ -1,12 +1,19 @@
-input {
+input[type=text], input[type=password], textarea {
     border: 0;
     border-bottom: 2px solid $primary;
     background-color: transparent;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-    height: 4em;
+    font-size: 4rem;
+    height: 4rem;
     margin: 0.5em 0;
+    outline: none;
+    text-align: center;
     width: 100%;
+}
+
+input:visited {
+    background-color: none;
 }
 
 label {
@@ -20,14 +27,18 @@ label {
 }
 
 // TODO: Get the styling right!
-.edit-post__input {
-
+input.edit-post__input {
+    height: 3rem;
+    font-size: 3rem;
 }
 
 .edit-post__textarea {
     box-sizing: border-box;
     border: 2px solid $primary;
+    line-height: 1.5em;
     padding: 0.2em;
+    width: 100%;
+    height: auto;
 }
 
 /* START OF STYLING FOR INPUT FIELD REGARDING FILE UPLOAD ------------------- */
