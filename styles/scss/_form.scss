@@ -1,0 +1,71 @@
+input[type=text], input[type=password], textarea {
+    border: 0;
+    border-bottom: 2px solid $primary;
+    background-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 4rem;
+    height: 4rem;
+    margin: 0.5em 0;
+    outline: none;
+    text-align: center;
+    width: 100%;
+}
+
+input:visited {
+    background-color: none;
+}
+
+label {
+    color: $primary;
+}
+
+.input-wrapper {
+    box-sizing: border-box;
+    margin-top: 10px;
+    width: 100%;
+}
+
+// TODO: Get the styling right!
+input.edit-post__input {
+    height: 3rem;
+    font-size: 3rem;
+}
+
+.edit-post__textarea {
+    box-sizing: border-box;
+    border: 2px solid $primary;
+    line-height: 1.5em;
+    padding: 0.2em;
+    width: 100%;
+    height: auto;
+}
+
+/* START OF STYLING FOR INPUT FIELD REGARDING FILE UPLOAD ------------------- */
+
+/* Hide original appearance */
+.choose-file__input {
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0.1px;
+    z-index: -1;
+}
+
+/* Style both input field and label */
+.choose-file__input + .choose-file__label {
+    display: block;
+    padding: 1.5em;
+}
+
+label.choose-file__label::before {
+    content: "Välj bild";
+}
+
+/* This appears after a file is chosen. */
+.choose-file__input:valid + .choose-file__label::before {
+    content: "1 Bild vald";
+}
+
+/* END OF STYLING FOR INPUT FIELD REGARDING FILE UPLOAD --------------------- */

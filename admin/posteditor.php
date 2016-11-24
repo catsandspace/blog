@@ -165,7 +165,7 @@
     <?php else: ?>
     <h2>Skapa nytt inlägg</h2>
     <?php endif; ?>
-    <?php if (!empty($errors)) { echo "Ooops, något gick fel!"; } ?>
+    <?php if (!empty($errors)) { echo "<p class=\"error-msg\">Ooops, något gick fel!</p>"; } ?>
     <form method="POST" enctype="multipart/form-data">
         <?php if (!isset($_GET["edit"])): ?>
         <div class="edit-post-div">
@@ -182,13 +182,13 @@
         </div>
         <div class="edit-post-div">
             <label for="headline">Rubrik</label><br>
-            <input type="text" name="headline" id="headline" placeholder="Rubrik"
+            <input type="text" class="edit-post__input" name="headline" id="headline" placeholder="Rubrik"
             value="<?php echo $fields["headline"]; ?>" required><br>
             <?php if (in_array("headline", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
             <label for="post-content">Beskrivning</label><br>
-            <textarea name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required><?php echo $fields["post-content"]; ?></textarea><br>
+            <textarea class="edit-post__textarea" name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required><?php echo $fields["post-content"]; ?></textarea><br>
             <?php if (in_array("post-content", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">

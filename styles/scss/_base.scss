@@ -1,99 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Rajdhani:300,400,600');
-
-/*******************************************************************************
-    START OF GLOBAL STYLES
-*******************************************************************************/
-
-$baseColor: #1D2225;
-$baseColorTransparent: rgba(29,
-34,
-37,
-0.6);
-$baseColorSemiTransparent: rgba(29,
-34,
-37,
-0.95);
-$baseColor2: #F8F8F8;
-$primary: #20A594;
-$primaryAlternative: #1AC9B2;
-$error: #bf2e1d;
-$errorAlternative: #ea3e2e;
-$errortestcolor: #bc4c4c;
-
-html {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 62.5%;
-}
-
-body {
-    background-color: $baseColor2;
-    color: $baseColor;
-    font-size: 1.6rem;
-}
-
-main {
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding: 10rem 3rem 3rem;
-    width: 100vw;
-}
-
-h1, h2, h3 {
-    color: $baseColor;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 400;
-    font-size: 4.0rem;
-    margin: 0;
-}
-
-h1 {
-    color: $baseColor2;
-    padding-top: 0.3rem;
-}
-
-h2 {
-    font-weight: 600;
-    text-align: center;
-    padding-top: 0.3rem;
-}
-
-h3 {
-    font-size: 3rem;
-}
-
-a {
-    color: $baseColor2;
-    text-decoration: none;
-}
-
-.introduction-paragraph {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 2rem;
-    font-weight: 600;
-    margin: 0.5em;
-    text-align: center;
-}
-
-.hidden {
-    border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-
-
-/*******************************************************************************
-    END OF GLOBAL STYLES
-*******************************************************************************/
-
 /*******************************************************************************
 START OF HEADER ELEMENT
 *******************************************************************************/
 
-// START OF TOP MENU SLIDING IN ------------------------------------------------
 @keyframes menu-is-sliding-in {
     from {
         transform: translateY(0);
@@ -103,7 +11,6 @@ START OF HEADER ELEMENT
     }
 }
 
-// END OF TOP MENU SLIDING IN -------------------------------------------------
 header {
     animation-name: menu-is-sliding-in;
     animation-duration: 1.2s;
@@ -130,287 +37,17 @@ header {
     width: 3em;
 }
 
-// START OF HAMBURGER MENY -----------------------------------------------------
-.hamburger ul,
-.hamburger li,
-.hamburger span,
-.hamburgera {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    position: relative;
-}
-
-.hamburger:after,
-.hamburger ul:after {
-    content: '';
-    display: block;
-    clear: both;
-}
-
-.hamburger ul {
-    list-style: none;
-}
-
-.hamburger > ul {
-    float: left;
-}
-
-.hamburger > ul > li {
-    float: left;
-}
-
-.hamburger .has-sub {
-    z-index: 1;
-}
-
-.hamburger .has-sub:hover > ul {
-    display: block;
-}
-
-.hamburger .has-sub ul {
-    display: none;
-    position: absolute;
-    width: 200px;
-    top: 100%;
-    right: 0;
-}
-//TODO: Discuss if the new solution is good and remove this or change it back.
-// .hamburger .has-sub ul li a {
-//     background: $primary;
-//     border-bottom: 1px solid $baseColor;
-//     display: block;
-//     line-height: 160%;
-//     padding: 15px 10px;
-//     font-size: 12px;
-// }
-
-.hamburger .has-sub ul li:hover a {
-    background: $primaryAlternative;
-}
-
-.hamburger .has-sub .has-sub:hover>ul {
-    display: block;
-}
-
-.hamburger .has-sub .has-sub ul {
-    display: none;
-    position: absolute;
-    left: 100%;
-    top: 0;
-}
-
-.burger-size {
-    font-size: 4.2rem;
-}
-//TODO: testing to change bg color on burger meny for categories, need to be moved to a better location in css----
-.hamburger-categories {
-    background: #1d7f72;
-    border-bottom: 1px solid $baseColor;
-    display: block;
-    line-height: 160%;
-    padding: 15px 10px;
-    font-size: 12px;
-}
-// TODO: Discuss if the new solution is good and remove this or change it back.
-.hamburger-menu {
-    background: $primary;
-    border-bottom: 1px solid $baseColor;
-    display: block;
-    line-height: 160%;
-    padding: 15px 10px;
-    font-size: 12px;
-}
-// END OF HAMBURGER MENY ------------------------------------------------------
-
 /*******************************************************************************
     END OF HEADER ELEMENT
-*******************************************************************************/
-
-/*******************************************************************************
-    START OF BUTTONS
-*******************************************************************************/
-
-.button {
-    background-color: $primary;
-    border: 0;
-    box-sizing: border-box;
-    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
-    color: $baseColor2;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 400;
-    height: 4em;
-    margin: 0.5em 0;
-    text-align: center;
-    text-transform: uppercase;
-    padding: 0.5em;
-    width: 100%;
-}
-
-
-.button:hover {
-    background-color: $primaryAlternative;
-}
-
-.button:active {
-    transform: translateY(5px);
-}
-
-.link__button, .link__button--error {
-    padding: 1.5em;
-}
-
-.error, .link__button--error {
-    background-color: $error;
-}
-
-.error:hover, .link__button--error:hover {
-    background-color: $errorAlternative;
-}
-
-/*******************************************************************************
-    END OF BUTTONS
-*******************************************************************************/
-
-/*******************************************************************************
-    START OF INPUT FIELDS
-*******************************************************************************/
-
-input[type=text],
-input[type=password],
-input[type=email],
-textarea {
-    border: 0;
-    border-bottom: 2px solid $primary;
-    background-color: transparent;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    width: 100%;
-}
-
-textarea {
-    box-sizing: border-box;
-    border: 2px solid $primary;
-    padding: 0.2em;
-}
-
-label {
-    color: $primary;
-}
-
-/* START OF STYLING FOR INPUT FIELD REGARDING FILE UPLOAD ------------------- */
-
-/* Hide original appearance */
-.choose-file__input {
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    width: 0.1px;
-    z-index: -1;
-}
-
-/* Style both input field and label */
-.choose-file__input + .choose-file__label {
-    display: block;
-    padding: 1.5em;
-}
-
-label.choose-file__label::before {
-    content: "Välj bild";
-}
-
-/* This appears after a file is chosen. */
-.choose-file__input:valid + .choose-file__label::before {
-    content: "1 Bild vald";
-}
-
-/* END OF STYLING FOR INPUT FIELD REGARDING FILE UPLOAD --------------------- */
-
-/*******************************************************************************
-    END OF INPUT FIELDS
-*******************************************************************************/
-
-.flexbox-wrapper {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-}
-
-.list-wrapper {
-    box-sizing: border-box;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.input-wrapper {
-    box-sizing: border-box;
-    margin-top: 10px;
-    width: 100%;
-}
-
-.list {
-    display: flex;
-    margin: 0 auto;
-    justify-content: space-around;
-    font-size: 2.0rem;
-    width: 100%;
-}
-
-.inner-list {
-    margin: 0 auto;
-    padding: 0.5em 0;
-}
-
-/*******************************************************************************
-    START OF CONTACT.PHP
-*******************************************************************************/
-
-.flex-item {
-     box-sizing: border-box;
-     margin: 0 auto;
-     text-align: center;
-}
-
-.mail {
-    font-size: 1.8rem;
-    text-transform: uppercase;
-    height: 1.2em;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    margin: 0.5em 0;
-    width: 100%;
-    background-color: $primary;
-    border-radius:  5px;
-}
-
-.phone {
-    font-size: 1.8rem;
-    height: 1.2em;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    margin: 0.5em 0;
-    width: 100%;
-    background-color: $primary;
-    border-radius:  5px;
-    text-transform: uppercase;
-}
-
-.mail > a {
-    // background-image: url('../img/mail.png'); //TODO: Either use icons with links or use pictures here for mail and phone links
-}
-/*******************************************************************************
-    END OF CONTACT.PHP
 *******************************************************************************/
 
 /*******************************************************************************
     START OF POSTS ON INDEX.PHP
 *******************************************************************************/
 
+// TODO: This needs to be sorted out!
 // This wrapps the whole content in a post, including image.
-.content-wrapper {
+.blogpost-wrapper {
     margin-bottom: 1.5rem;
     position: relative;
     width: 100%;
@@ -419,7 +56,7 @@ label.choose-file__label::before {
         width: 100%;
     }
     // This wrapps all the text in a post, both paragraphs and headline.
-    .text-wrapper {
+    .blogpost-wrapper__text {
         box-sizing: border-box;
         bottom: 5px;
         color: $baseColor2;
@@ -454,7 +91,7 @@ label.choose-file__label::before {
     }
     // On hover over text, a background color appears. The backdrop filter blurs image
     // behind (works in Safari, other browsers will ignore it).
-    .text-wrapper:hover {
+    .blogpost-wrapper__text:hover {
         background: $baseColorTransparent;
         -webkit-backdrop-filter: blur(3px);
         backdrop-filter: blur(3px);
@@ -466,14 +103,62 @@ label.choose-file__label::before {
 *******************************************************************************/
 
 /*******************************************************************************
-    START OF POSTSLIST
+    START OF CONTACT.PHP
 *******************************************************************************/
 
-.dark {
-    //tried dark background.
-    background-color: $baseColor;
-    padding-top: 0;
+.mail {
+    background-color: $primary;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    height: 1.2em;
+    margin: 0.5em 0;
+    text-transform: uppercase;
+    width: 100%;
 }
+
+.phone {
+    background-color: $primary;
+    border-radius:  5px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    height: 1.2em;
+    margin: 0.5em 0;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.mail > a {
+    // background-image: url('../img/mail.png'); //TODO: Either use icons with links or use pictures here for mail and phone links
+}
+/*******************************************************************************
+    END OF CONTACT.PHP
+*******************************************************************************/
+
+/*******************************************************************************
+    START OF POSTEDITOR
+*******************************************************************************/
+
+.edit-post-image {
+    box-sizing: border-box;
+    border: 7px solid $primary;
+    width: 100%;
+}
+
+.edit-post-div {
+    box-sizing: border-box;
+    margin: 2em 0;
+}
+
+/*******************************************************************************
+    END OF POSTEDITOR
+*******************************************************************************/
+
+/*******************************************************************************
+    START OF POSTLIST.PHP
+*******************************************************************************/
 
 table {
     margin: 0 auto;
@@ -504,107 +189,4 @@ table {
 
 /*******************************************************************************
     END OF POSTSLIST
-*******************************************************************************/
-
-/*******************************************************************************
-    START OF COMMENTS
-*******************************************************************************/
-
-.comment {
-    background-color: $baseColor;
-    padding: 10px;
-    color: $baseColor2;
-}
-
-.comment-scroll {
-    height: 5em;
-    overflow: auto;
-    background-color: $primary;
-    padding: 10px;
-    line-height: 200%;
-}
-
-.comment-info {
-    padding: 10px 0;
-}
-
-.comment-flex {
-    display: flex;
-    flex-direction: row;
-}
-
-// START OF COMMENTS ON INDEX.PHP ----------------------------------------------
-
-.comment-wrapper {
-    display: none;
-}
-
-.post-comments {
-    // Since we need to use float in this assignment
-    float: right;
-    position: relative;
-    cursor: pointer;
-
-    i {
-        font-size: 5rem;
-        color: $primary;
-        text-shadow: 2px 2px 5px $baseColorTransparent;
-    }
-    i:hover {
-        color: $primaryAlternative;
-    }
-
-    p {
-        // TODO: Make sure this looks good even when there are 10+ comments.
-        color: $baseColor2;
-        font-family: 'Rajdhani', sans-serif;
-        font-size: 2.4rem;
-        font-weight: 600;
-        left: 1.9rem;
-        position: absolute;
-        top: 0.5rem;
-        text-align: center;
-    }
-}
-// END OF COMMENTS ON INDEX.PHP ------------------------------------------------
-
-/*******************************************************************************
-    END OF COMMENTS
-*******************************************************************************/
-
-/*******************************************************************************
-    START OF POSTEDITOR
-*******************************************************************************/
-
-.edit-post-image {
-    box-sizing: border-box;
-    border: 7px solid $primary;
-    width: 100%;
-}
-
-.edit-post-div {
-    box-sizing: border-box;
-    margin: 2em 0;
-}
-
-/*******************************************************************************
-    END OF POSTEDITOR
-*******************************************************************************/
-
-/*******************************************************************************
-    START OF MESSAGES
-*******************************************************************************/
-
-.error-msg {
-    color: #fff;
-    padding: 5px 0;
-    //background: lighten($error, 2%);
-    background: $errortestcolor;
-    text-align: center;
-    width: 100%;
-    border: 1px solid black;
-}
-
-/*******************************************************************************
-    END OF MESSAGES
 *******************************************************************************/
