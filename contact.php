@@ -1,7 +1,7 @@
 <?php require_once "./templates/header.php"; // Header content. ?>
 <main>
     <h2>Kontaktinformation</h2>
-    <div class="flexboxWrapper">
+    <div class="flexbox-wrapper">
         <div class="flex-item">
             <h3>Katarina</h3>
             <ul>
