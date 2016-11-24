@@ -1,0 +1,56 @@
+.comment {
+    background-color: $baseColor;
+    padding: 10px;
+    color: $baseColor2;
+}
+
+.comment-scroll {
+    height: 5em;
+    overflow: auto;
+    background-color: $primary;
+    padding: 10px;
+    line-height: 200%;
+}
+
+.comment-info {
+    padding: 10px 0;
+}
+
+.comment-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+// START OF COMMENTS ON INDEX.PHP ----------------------------------------------
+
+.comment-wrapper {
+    display: none;
+}
+
+.post-comments {
+    // Since we need to use float in this assignment
+    float: right;
+    position: relative;
+    cursor: pointer;
+
+    i {
+        font-size: 5rem;
+        color: $primary;
+        text-shadow: 2px 2px 5px $baseColorTransparent;
+    }
+    i:hover {
+        color: $primaryAlternative;
+    }
+
+    p {
+        // TODO: Make sure this looks good even when there are 10+ comments.
+        color: $baseColor2;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 2.4rem;
+        font-weight: 600;
+        left: 1.9rem;
+        position: absolute;
+        top: 0.5rem;
+        text-align: center;
+    }
+}
