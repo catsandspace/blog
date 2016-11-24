@@ -60,6 +60,19 @@
    GET COMMENTS ASSOCIATING WITH POST
 *******************************************************************************/
 
+    if (isset($_GET['getpost'])) {
+
+        $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
+
+        if ($stmt->prepare($query)) {
+            $stmt->execute();
+            $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
+            $stmt->fetch();
+
+        } else {
+            $errorMessage = "Något gick fel.";       
+        }
+    }
 
 /*******************************************************************************
    ERROR MESSAGE
@@ -97,7 +110,11 @@
             
 
             <div class="post-test__comments">
-                <h3>Comments:</h3>
+                <h3>Comments:</h3> 
+                <!-- TODO: Loop these out.. -->
+                <p class="commentAuthor">By: <?php echo $commentAuthor; ?></p>
+                <p><?php echo $commentCreated; ?></p><br>
+                <p><?php echo $commentContent; ?></p>
 
             </div>
 
