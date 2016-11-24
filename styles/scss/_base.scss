@@ -105,6 +105,9 @@ header {
 /*******************************************************************************
     START OF CONTACT.PHP
 *******************************************************************************/
+.contact-info {
+    list-style-type: none;
+}
 .name-alexandra {
     padding-top: 40px;
 }
@@ -114,7 +117,6 @@ header {
     font-size: 1.8rem;
     height: 1.2em;
     margin: 0.5em 0;
-    // text-transform: uppercase;
     width: 100%;
 }
 .mail:hover {
@@ -124,15 +126,14 @@ header {
     font-size: 1.8rem;
     height: 1.2em;
     margin: 0.5em 0;
-    // text-transform: uppercase;
+    padding: 5px;
     width: 100%;
 }
 .mail > a:hover {
     color: $baseColor2;
 }
 .mail > a, .phone > a {
-    color: $primary; //TODO: Either use icons with links or use pictures here for mail and phone links
-    background-image: url('./img/phone.png');
+    color: $primary;
 }
 .phone {
     font-family: 'Montserrat', sans-serif;
@@ -140,7 +141,6 @@ header {
     font-size: 1.8rem;
     height: 1.2em;
     margin: 0.5em 0;
-    // text-transform: uppercase;
     width: 100%;
 }
 .phone:hover {
@@ -150,7 +150,7 @@ header {
     font-size: 1.8rem;
     height: 1.2em;
     margin: 0.5em 0;
-    // text-transform: uppercase;
+    padding: 5px;
     width: 100%;
 }
 .phone > a:hover {
