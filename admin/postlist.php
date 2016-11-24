@@ -12,6 +12,7 @@
 *******************************************************************************/
 
     $feedbackMessage = NULL;
+    $draftMessage = "<p class\"\">Det här inlägget är inte publicerat</p>";
 
     if (isset($_POST["edit-post"])) {
         $postToEdit = $_POST["edit-post"];
@@ -62,7 +63,7 @@
                 <td>Redigera</td>
                 <td>Ta bort</td>
             </thead>
-            </tbody>
+            <tbody class="postlist-wrapper">
                 <?php while (mysqli_stmt_fetch($stmt)):
 
                     $draft = FALSE;
@@ -70,8 +71,9 @@
                         $draft = TRUE;
                     }
                 ?>
-                <tr class="<?php if ($draft) { echo "postlist__draft"; } ?>">
-                    <td><img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist__img"></td>
+                <tr class="postlist-wrapper__row">
+                    <?php if ($draft) { echo $draftMessage; } ?>
+                    <td><img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist-wrapper__img"></td>
                     <td><h3><?php echo $title; ?></h3></td>
                     <td><button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button></td>
                     <td><button type="submit" class="button error" name="delete-post" value="<?php echo $id; ?>">Ta bort</button></td>
