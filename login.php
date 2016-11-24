@@ -44,12 +44,13 @@
     FORM TO LOGIN USER
 *****************************************************************************-->
 <main>
+    <h2>Logga in</h2>
     <form action="./login.php" method="POST">
        <fieldset>
-            <legend>Login</legend>
-            <label for="username">Username:</label><br>
+            <legend class="hidden">Login</legend>
+            <label for="username">Användarnamn</label><br>
             <input type="text" name="username" id="username"><br>
-            <label for="password">Password:</label><br>
+            <label for="password">Lösenord</label><br>
             <input type="password" name="password" id="password"><br>
             <button type="submit" name="login" class="button">Logga in</button>
        </fieldset>
