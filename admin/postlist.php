@@ -69,11 +69,12 @@
                     $draft = FALSE;
                     if ($published == 2) {
                         $draft = TRUE;
+                        $modifier = "grayscale";
                     }
                 ?>
                 <tr class="postlist-wrapper__row">
                     <td class="postlist-wrapper__td">
-                        <img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist-wrapper__img">
+                        <img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist-wrapper__img <?php if ($draft) { echo $modifier; } ?>">
                         <?php if ($draft) { echo $draftMessage; } ?>
                     </td>
                     <td class="postlist-wrapper__td">
