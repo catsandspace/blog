@@ -40,9 +40,9 @@
         $post = $posts[$i];
     ?>
     <article class="list">
-        <div class="content-wrapper">
+        <div class="blogpost-wrapper">
             <img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
-            <div class="text-wrapper">
+            <div class="blogpost-wrapper__text">
                 <h2><?php echo $post["title"]; ?></h2>
                 <p class="tag">Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?></a> </p>
                 <p><?php echo $post["content"]; ?></p>

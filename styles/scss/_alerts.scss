@@ -1,0 +1,9 @@
+.error-msg {
+    color: #fff;
+    padding: 5px 0;
+    //background: lighten($error, 2%);
+    background: $errorTestColor;
+    text-align: center;
+    width: 100%;
+    border: 1px solid black;
+}

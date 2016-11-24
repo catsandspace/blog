@@ -1,0 +1,47 @@
+.dark {
+    //tried dark background.
+    background-color: $baseColor;
+    padding-top: 0;
+}
+
+.hidden {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.flexbox-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.list-wrapper {
+    box-sizing: border-box;
+    margin: 0 auto;
+    width: 100%;
+}
+
+
+.list {
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-around;
+    font-size: 2.0rem;
+    width: 100%;
+}
+
+.inner-list {
+    margin: 0 auto;
+    padding: 0.5em 0;
+}
+
+.flex-item {
+     box-sizing: border-box;
+     margin: 0 auto;
+     text-align: center;
+}

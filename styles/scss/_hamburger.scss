@@ -1,0 +1,90 @@
+.hamburger ul,
+.hamburger li,
+.hamburger span,
+.hamburger {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.hamburger:after,
+.hamburger ul:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.hamburger ul {
+    list-style: none;
+}
+
+.hamburger > ul {
+    float: left;
+}
+
+.hamburger > ul > li {
+    float: left;
+}
+
+.hamburger .has-sub {
+    z-index: 1;
+}
+
+.hamburger .has-sub:hover > ul {
+    display: block;
+}
+
+.hamburger .has-sub ul {
+    display: none;
+    position: absolute;
+    width: 200px;
+    top: 100%;
+    right: 0;
+}
+//TODO: Discuss if the new solution is good and remove this or change it back.
+// .hamburger .has-sub ul li a {
+//     background: $primary;
+//     border-bottom: 1px solid $baseColor;
+//     display: block;
+//     line-height: 160%;
+//     padding: 15px 10px;
+//     font-size: 12px;
+// }
+
+.hamburger .has-sub ul li:hover a {
+    background: $primaryAlternative;
+}
+
+.hamburger .has-sub .has-sub:hover>ul {
+    display: block;
+}
+
+.hamburger .has-sub .has-sub ul {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+}
+
+.burger-size {
+    font-size: 4.2rem;
+}
+//TODO: testing to change bg color on burger meny for categories, need to be moved to a better location in css----
+.hamburger-categories {
+    background: #1d7f72;
+    border-bottom: 1px solid $baseColor;
+    display: block;
+    line-height: 160%;
+    padding: 15px 10px;
+    font-size: 12px;
+}
+// TODO: Discuss if the new solution is good and remove this or change it back.
+.hamburger-menu {
+    background: $primary;
+    border-bottom: 1px solid $baseColor;
+    display: block;
+    line-height: 160%;
+    padding: 15px 10px;
+    font-size: 12px;
+}
