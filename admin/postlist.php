@@ -63,9 +63,15 @@
                 <td>Ta bort</td>
             </thead>
             </tbody>
-                <?php while (mysqli_stmt_fetch($stmt)): ?>
-                <tr>
-                    <td><img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist-img"></td>
+                <?php while (mysqli_stmt_fetch($stmt)):
+
+                    $draft = FALSE;
+                    if ($published == 2) {
+                        $draft = TRUE;
+                    }
+                ?>
+                <tr class="<?php if ($draft) { echo "postlist__draft"; } ?>">
+                    <td><img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist__img"></td>
                     <td><h3><?php echo $title; ?></h3></td>
                     <td><button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button></td>
                     <td><button type="submit" class="button error" name="delete-post" value="<?php echo $id; ?>">Ta bort</button></td>
