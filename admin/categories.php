@@ -1,7 +1,7 @@
 <?php
-    require_once "../templates/header.php"; // Header content.
-    require_once "../assets/session.php";
+    require_once "../templates/header.php";
 
+    // TODO: This page need a check if user is a superadmin. Else, redirect to dashboard.
 
     // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE):
@@ -32,8 +32,8 @@
     // If button is pressed continue to check through the array  and
     // for each category checked, remove it frpm the db
     if (isset ($_POST["removeCat"])):
-        if (!empty($_POST["checkList"])):
-            foreach ($_POST['checkList'] as $selected):
+        if (!empty($_POST["checklist"])):
+            foreach ($_POST['checklist'] as $selected):
                 $catId = $selected;
                 $query = "DELETE FROM categories WHERE id=$catId";
                 if ($stmt->prepare($query)):
@@ -52,9 +52,9 @@
     // The id for the checked category is memorized, if nothing is
     // checked the category id is set to NULL
     if (isset ($_POST["changeCat"])):
-        if (!empty($_POST["checkList"])):
+        if (!empty($_POST["checklist"])):
             $count = 0;
-            foreach ($_POST['checkList'] as $selected):
+            foreach ($_POST['checklist'] as $selected):
                 $catId = $selected;
                 $count ++;
             endforeach;
@@ -105,7 +105,7 @@
                 <?php
                     $change=FALSE;
                     while (mysqli_stmt_fetch($stmt)): ?>
-                        <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo ucfirst($category); ?>
+                        <input type="checkbox" name="checklist[]" value="<?php echo $catId; ?>"> <?php echo ucfirst($category); ?>
                         <?php
 
                         if ($catId == $changeCategoryId):

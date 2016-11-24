@@ -8,7 +8,7 @@ input:-webkit-autofill {
 }
 
 
-input[type=text], input[type=password], textarea {
+input[type=text], input[type=password], input[type=email], textarea {
     border: 0;
     border-bottom: 2px solid $primary;
     background-color: transparent;
