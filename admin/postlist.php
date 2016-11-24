@@ -12,7 +12,7 @@
 *******************************************************************************/
 
     $feedbackMessage = NULL;
-    $draftMessage = "<p class\"\">Det här inlägget är inte publicerat</p>";
+    $draftMessage = "<p class=\"postlist-wrapper__draft-info\">Det här inlägget är inte publicerat</p>";
 
     if (isset($_POST["edit-post"])) {
         $postToEdit = $_POST["edit-post"];
@@ -72,11 +72,19 @@
                     }
                 ?>
                 <tr class="postlist-wrapper__row">
-                    <?php if ($draft) { echo $draftMessage; } ?>
-                    <td><img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist-wrapper__img"></td>
-                    <td><h3><?php echo $title; ?></h3></td>
-                    <td><button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button></td>
-                    <td><button type="submit" class="button error" name="delete-post" value="<?php echo $id; ?>">Ta bort</button></td>
+                    <td class="postlist-wrapper__td">
+                        <img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist-wrapper__img">
+                        <?php if ($draft) { echo $draftMessage; } ?>
+                    </td>
+                    <td class="postlist-wrapper__td">
+                        <h3 class="postlist-wrapper__title"><?php echo $title; ?></h3>
+                    </td>
+                    <td class="postlist-wrapper__td">
+                        <button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button>
+                    </td>
+                    <td class="postlist-wrapper__td">
+                        <button type="submit" class="button error" name="delete-post" value="<?php echo $id; ?>">Ta bort</button>
+                    </td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>
