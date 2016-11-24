@@ -1,3 +1,13 @@
+fieldset {
+    border: none;
+    margin: 2em 0;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px $baseColor2 inset;
+}
+
+
 input[type=text], input[type=password], textarea {
     border: 0;
     border-bottom: 2px solid $primary;
@@ -8,7 +18,6 @@ input[type=text], input[type=password], textarea {
     height: 4rem;
     margin: 0.5em 0;
     outline: none;
-    text-align: center;
     width: 100%;
 }
 
@@ -35,6 +44,7 @@ input.edit-post__input {
 .edit-post__textarea {
     box-sizing: border-box;
     border: 2px solid $primary;
+    font-size: 1.6rem;
     line-height: 1.5em;
     padding: 0.2em;
     width: 100%;
