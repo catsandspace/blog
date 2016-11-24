@@ -114,4 +114,4 @@
 
 </main>
 
-<?php else: echo "<p class='error-msg'>".$errorMessage."</p>"; endif; ?>
+<?php else: echo "<p class='error-msg'>".$errorMessage."</p>"; echo "<a href=\"?getpost=1\">for developers</a>"; endif; ?>
