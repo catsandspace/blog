@@ -104,9 +104,8 @@
                     $databaseError = "<p class=\"error-msg\">Det gick inte att uppdatera inlägget i databasen. Försök igen.</p>";
                 }
 
-                // Redirect to confirmation.php
-                // TODO: Redirect message
-                header("Location: ./confirmation.php");
+                // Redirect to confirmation.php?edit
+                header("Location: ./confirmation.php?updated=true");
             }
 
             if (!isset($_GET["edit"])) {
@@ -182,12 +181,13 @@
         </div>
         <div class="edit-post-div">
             <label for="headline">Rubrik</label><br>
-            <input type="text" class="edit-post__input" name="headline" id="headline" value="<?php echo $fields["headline"]; ?>" required><br>
+            <input type="text" class="edit-post__input" name="headline" id="headline" placeholder="Rubrik"
+            value="<?php echo $fields["headline"]; ?>" required><br>
             <?php if (in_array("headline", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
             <label for="post-content">Beskrivning</label><br>
-            <textarea class="edit-post__textarea" name="post-content" id="post-content" rows="10" cols="50" required><?php echo $fields["post-content"]; ?></textarea><br>
+            <textarea class="edit-post__textarea" name="post-content" id="post-content" rows="10" cols="50" placeholder="Skriv något om bilden" required><?php echo $fields["post-content"]; ?></textarea><br>
             <?php if (in_array("post-content", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
