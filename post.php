@@ -1,9 +1,5 @@
-<?php 
+<?php
     require_once "./templates/header.php";
-
-    //Remove these just to avoid header from hiding errors.
-    require_once __DIR__."./assets/db_connect.php";
-    require_once __DIR__."./assets/session.php";
 
     $post = array(
         "id" => "",
@@ -27,8 +23,7 @@
         $getPost = $_GET['getpost'];
 
         //$query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND id = '{$getPost}'";
-
-        // ^ Problem with $getPost won't work with LEFT JOIN ??? ^
+        //TODO: ^ FIX Problem with $getPost won't work with LEFT JOIN, we also need to join posts.userid w. users.username ^
 
         $query = "SELECT * FROM posts WHERE id = '{$getPost}' AND published = 1";
 
@@ -62,7 +57,7 @@
 
     if (isset($_GET['getpost'])) {
 
-        $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
+        $query = "SELECT * FROM comments WHERE postid = '{$getPost}'";
 
         if ($stmt->prepare($query)) {
             $stmt->execute();
@@ -70,7 +65,7 @@
             $stmt->fetch();
 
         } else {
-            $errorMessage = "Något gick fel.";       
+            $errorMessage = "Något gick fel.";
         }
     }
 
@@ -96,34 +91,37 @@
         <div class="post-test">
             <img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
             <div class="post-test__flex">
-                <p>Created: <?php echo $post["created"]; ?></p>
+                <p>Skapad: <?php echo $post["created"]; ?></p>
 
                 <?php if ($post["created"] != $post["updated"]): ?>
-                <p>Updated: <?php echo $post["updated"]; ?></p>
+                <p>Uppdaterad: <?php echo $post["updated"]; ?></p>
                 <?php endif; ?>
                 </div>
 
-                <p>Author: <?php echo $post["userid"]; ?></p>
-                <p class="tag">Tags: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryid"]); ?></a> </p>
-                <h2>Title: <?php echo $post["title"]; ?></h2>
-                <p>Content: <?php echo $post["content"]; ?></p>
-            
+                <p>Av: <?php echo $post["userid"]; ?></p>
+                <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryid"]); ?></a></p>
+                <h2>Titel: <?php echo $post["title"]; ?></h2>
+                <p>Text: <?php echo $post["content"]; ?></p>
+
 
             <div class="post-test__comments">
-                <h3>Comments:</h3> 
+                <h3>Kommentarer:</h3>
                 <!-- TODO: Loop these out.. -->
+                <?php if ($commentId != NULL): ?>
                 <p class="commentAuthor">By: <?php echo $commentAuthor; ?></p>
                 <p><?php echo $commentCreated; ?></p><br>
                 <p><?php echo $commentContent; ?></p>
+                <?php else: echo "<p>Detta inlägg har inga kommentarer.</p>"; endif; ?>
 
             </div>
 
             <div class="post-test__comments">
-                <h3>Add comment:</h3>
-
+                <h3>Kommentera inlägg:</h3>
+                <!-- FORM START -->
                 <form>
-                    
+
                 </form>
+                <!-- FORM END -->
 
             </div>
         </div>
