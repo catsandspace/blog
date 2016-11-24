@@ -1,4 +1,5 @@
 <?php require_once "./templates/header.php"; // Header content. ?>
+
 <main>
     <h2>Kontaktinformation</h2>
     <div class="flexboxWrapper">
@@ -32,16 +33,5 @@
         </div>
     </div>
 </main>
-
-
-
-
-
-
-
-
-
-
-
 
  <?php require_once "./templates/footer.php"; ?> <!-- Footer content -->
