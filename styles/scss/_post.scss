@@ -1,0 +1,29 @@
+//TODO: This just resets some CSS, we need to get the CSS done properly.
+body {
+    background: $baseColor;
+}
+img {
+    width: 100%;
+}
+
+h2 {
+    font-size: 1.4rem;
+    text-align: left;
+}
+
+.post-test {
+    font-size: 1.4rem;
+    background: $baseColor;
+    color: $baseColor2;
+
+    .post-test__comments {
+    background: lighten($baseColor, 10%);
+    }
+    .post-test__flex {
+        display: flex;
+        justify-content: space-around;
+        background: lighten($baseColor, 10%);
+
+    }
+
+}
