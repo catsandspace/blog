@@ -4,6 +4,11 @@
     padding-top: 0;
 }
 
+.grayscale {
+    -webkit-filter: grayscale(1);
+    filter: gray;
+}
+
 .hidden {
     border: 0;
     clip: rect(1px, 1px, 1px, 1px);
