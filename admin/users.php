@@ -46,14 +46,17 @@
         $stmt -> bind_result($userId, $permission, $userName, $userPassword, $userEmail, $userWebSite, $userFirstname, $userLastname, $userPic, $userDescription);
     endif;
 ?>
-<main>
+
     <h2>Användare</h2>
     <div class="flexbox-wrapper">
     <form method="post" action="users.php" class="list-wrapper">
         <div class="list">
             <div class="inner-list">
                 <?php while (mysqli_stmt_fetch($stmt)): ?>
-                <input type="checkbox" name="checklist[]" value="<?php echo $userId; ?>"> <?php echo "$userName – behörighet: $permission";?><br>
+                <input type="checkbox" name="checklist[]" value="<?php echo $userId; ?>">
+                <?php
+                    // TODO: Convert if statment on dashboard to a function, use it here.
+                    echo "$userName – behörighet: $permission";?><br>
                 <?php endwhile; ?>
             </div>
         </div>

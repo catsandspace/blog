@@ -11,6 +11,13 @@ START OF HEADER ELEMENT
     }
 }
 
+main {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 10rem 3rem 3rem;
+    width: 100vw;
+}
+
 header {
     animation-name: menu-is-sliding-in;
     animation-duration: 1.2s;

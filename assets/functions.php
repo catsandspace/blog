@@ -48,4 +48,14 @@ function logout() {
     setcookie("session_catsandspace", "", time()-(60*60*24), "/");
     session_destroy();
 }
+
+
+function convertPermissionToString($permission) {
+    if ($permission == 0) {
+        return "Redaktör";
+    } elseif ($permission == 1) {
+        return "Superadministratör";
+    }
+    return NULL;
+}
 ?>
