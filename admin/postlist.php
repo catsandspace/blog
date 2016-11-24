@@ -54,7 +54,7 @@
 *******************************************************************************/
 ?>
 <main class="dark">
-    <h2>Inlägg</h2>
+    <h2 class="inverted-text-color">Alla inlägg</h2>
     <form method="POST" action="./postlist.php">
         <table>
             <thead class="hidden">
