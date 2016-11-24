@@ -104,9 +104,8 @@
                     $databaseError = "<p class=\"error-msg\">Det gick inte att uppdatera inlägget i databasen. Försök igen.</p>";
                 }
 
-                // Redirect to confirmation.php
-                // TODO: Redirect message
-                header("Location: ./confirmation.php");
+                // Redirect to confirmation.php?edit
+                header("Location: ./confirmation.php?updated=true");
             }
 
             if (!isset($_GET["edit"])) {
