@@ -12,7 +12,11 @@
 <main>
     <div class="flexbox-wrapper">
         <h2>Hurra!</h2>
-        <p>Ännu ett inlägg skapat! Vad vill du göra nu?</p>
+        <?php if (isset($_GET["updated"])): ?>
+        <p class="introduction-paragraph">Inlägget är uppdaterat. Vad vill du göra nu?</p>
+        <?php else: ?>
+        <p class="introduction-paragraph">Ännu ett inlägg skapat! Vad vill du göra nu?</p>
+        <?php endif; ?>
         <a href="./posteditor.php" class="button">Skapa nytt inlägg</a>
         <a href="./postlist.php" class="button">Se alla inlägg</a>
         <a href="./dashboard.php" class="button">Gå tillbaka till panelen</a>
