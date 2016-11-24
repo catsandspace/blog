@@ -1,0 +1,52 @@
+html {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 62.5%;
+}
+
+body {
+    background-color: $baseColor2;
+    color: $baseColor;
+    font-size: 1.6rem;
+}
+
+main {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 10rem 3rem 3rem;
+    width: 100vw;
+}
+
+h1, h2, h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    font-size: 4.0rem;
+    margin: 0;
+}
+
+h1 {
+    color: $baseColor2;
+    padding-top: 0.3rem;
+}
+
+h2 {
+    font-weight: 600;
+    text-align: center;
+    padding-top: 0.3rem;
+}
+
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 0.5em;
+}
+
+a {
+    color: $baseColor2;
+    text-decoration: none;
+}
+
+.introduction-paragraph {
+    font-size: 2rem;
+    margin: 0.7em 0 1.5em;
+    text-align: center;
+}

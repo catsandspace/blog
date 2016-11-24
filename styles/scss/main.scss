@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Rajdhani:300,400,600');
+@import "normalize";
+@import "variables";
+@import "base";
+@import "typography";
+@import "hamburger";
+@import "buttons";
+@import "form";
+@import "alerts";
+@import "utilities";
+@import "comments";
+
+
+/*@media screen and (min-width: 1024px) {
+	@import "_tablet";
+}
+
+@media screen and (min-width: 1200px) {
+	@import "_desktop";
+}*/

@@ -4,12 +4,14 @@
    require_once "./assets/functions.php";
    require_once "./assets/session.php";
 
-   $errorMessage = "";
+   $errorMessage = NULL;
 
    // Redirect to dashboard.php if there is already an active session.
-   if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == true) {
+   if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
+
+       // session.php is used to start the session.
        header("Location: ./admin/dashboard.php");
-   }
+    }
 
    // if statement that checks if user has filled in username and password
    if (isset($_POST["login"]) ) {
@@ -26,9 +28,9 @@
                 $stmt->fetch();
 
                 if ($pass == $upass) {
-
-                   storeUserInSession($id, $uname, $upass);
-                   header("Location: ./admin/dashboard.php");
+                    // function, stores users id, username, userpassword in session variables - functions.php
+                    storeUserInSession($id, $permission, $uname, $upass);
+                    header("Location: ./admin/dashboard.php");
                 } else {
                $errorMessage = "Felaktigt användarnamn eller lösenord";
                 }
@@ -39,19 +41,20 @@
     }
 ?>
 <!--****************************************************************************
-********************************************************************************
-            Form to login user
-********************************************************************************
+    FORM TO LOGIN USER
 *****************************************************************************-->
-<form action="login.php" method="POST">
-   <fieldset>
-        <legend>Login</legend>
-        <label for="username">Username:</label><br>
-        <input type="text" name="username" id="username"><br>
-        <label for="password">Password:</label><br>
-        <input type="password" name="password" id="password"><br>
-        <button type="submit" name="login" class="button">Logga in</button>
-   </fieldset>
-</form>
-<?php if ($errorMessage) { echo $errorMessage; } ?>
+<main>
+    <h2>Logga in</h2>
+    <form action="./login.php" method="POST">
+       <fieldset>
+            <legend class="hidden">Login</legend>
+            <label for="username">Användarnamn</label><br>
+            <input type="text" name="username" id="username"><br>
+            <label for="password">Lösenord</label><br>
+            <input type="password" name="password" id="password"><br>
+            <button type="submit" name="login" class="button">Logga in</button>
+       </fieldset>
+    </form>
+    <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
+</main>
 <?php require_once "./templates/footer.php"; ?>

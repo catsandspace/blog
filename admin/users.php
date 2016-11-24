@@ -1,87 +1,117 @@
 <?php
-    require_once (__DIR__."/../assets/db_connect.php");
+    include_once "../templates/header.php"; // Header content.
+    require_once "../assets/session.php";
 
-    if (isset ($_GET["addCat"])) {
-        $category = strip_tags($_GET["category"]);
-        $query = "INSERT INTO categories VALUES (NULL, '$category')";
-        if ($stmt -> prepare($query)) {
-            $stmt->execute();
-        } else {
-            echo "fel";
-        }
-    }
+    // Redirect to login.php if no session active.
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE):
+        header("Location: ../login.php");
+    endif;
 
-    if (isset ($_GET["removeCat"])) {
-        if (!empty($_GET["checkList"])) {
-            foreach ($_GET['checkList'] as $selected) {
-                $catId = $selected;
-                $query = "DELETE FROM categories WHERE id=$catId";
-                if ($stmt -> prepare($query)) {
+    // Reset functions for the internal variables
+    $addUser = FALSE;
+    $errorMessage = NULL;
+
+    // Set key for printing register form
+    if (isset ($_POST["addUser"])):
+        $addUser = TRUE;
+    endif;
+
+    // If-statement to check if button for removing users is set
+    // If button is pressed continue to check through the array and
+    // for each category checked, remove it fromm the db
+    if (isset ($_POST["removeUser"])):
+        if (!empty($_POST["checkList"])):
+            foreach ($_POST['checkList'] as $selected):
+                $userId = $selected;
+                $query = "DELETE FROM users WHERE id=$userId";
+                if ($stmt -> prepare($query)):
                     $stmt->execute();
-                } else {
+                else:
                     echo "fel";
-                } //end if
-            } // end foreach              
-        } else {
+                endif;
+            endforeach;
+        else:
             echo "fellist";
-        }
+        endif;
+    endif;
+
+    // Function converting permission to textstring
+    function permission($permission) {
+        if ($permission == 1):
+            echo "Superadmin";
+        else:
+            echo "Admin";
+        endif;
     }
-            
 
-        if (isset ($_GET["changeCat"])) {
-            echo "button pressed";
-            if (!empty($_GET["checkList"])) {
-                echo "checked";
-                foreach ($_GET['checkList'] as $selected) {
-                    $catId = $selected;
-                    echo $selected;
-                    ?>
-                    <form method="get" action="categories.php">
-                        Ändra kategori: <input type="text" name="categoryChange">
-                        <input type="submit" value="Ändra" name="changeCat">
-                    </form>
-                    <?php
-                    $category = $_GET["categoryChange"];
-                    $query = "UPDATE categories SET category= $category WHERE id=$catId";
-                    if ($stmt -> prepare($query)) {
-                        $stmt->execute();
-                    } else {
-                        echo "fel";
-                    }
-                }
-            }
-        }
+    // Select all rows from the database users
+    $query = "SELECT * FROM users";
+    if ($stmt -> prepare($query)):
+        $stmt-> execute();
+        $stmt -> bind_result($userId, $permission, $uName, $uPass, $uMail, $uWebSite, $ufName, $ulName, $uPic, $uDesc);
+    endif;
 ?>
+<main>
+<h2>Användare</h2>
 
-<h1>användare</h1>
+    <!-- Form that prints all categories from the db with checkboxes -->
+    <!-- If change category is ordered an input field is printed -->
+    <div class="flexbox-wrapper">
 
+    <form method="post" action="users.php" class="list-wrapper">
+        <div class="list">
+            <div class="inner-list">
 <?php
-
-// $query = "SELECT * FROM posts LEFT JOIN users ON posts.userid = users.id";
-$query = "SELECT * FROM users";
-if ($stmt -> prepare($query)) {
-    $stmt-> execute();
-    $stmt -> bind_result($userId, $permission, $uName, $uPass, $uMail, $uWebSite, $ufName, $ulName, $uPic, $uDesc);
-?>
-    <form method="get" action="categories.php">
-<?php
-    while (mysqli_stmt_fetch($stmt)) {
+    while (mysqli_stmt_fetch($stmt)):
         ?>
-        <input type="checkbox" name="checkList[]" value="<?php echo $catId ?>"> <?php echo $uName; ?>
-        <br>        
-        <?php
-    } // end while
-    ?>
+        <input type="checkbox" name="checkList[]" value="<?php echo $userId; ?>"> <?php echo "$uName "; permission($permission);?>
         <br>
-        <input type="submit" value="Ta bort" name="removeUser">
-        <br>
+<?php
+    endwhile;
+?>
+            </div>
+        </div>
+        <button type="submit" value="Ta bort användare" name="removeUser"class="button error">Ta bort användare</button>
     </form>
-    <form method="get" action="categories.php">
-        Lägg till användare: <input type="text" name="category">
-        <input type="submit" value="Lägg till" name="addUser">
+    <form method="post" action="users.php">
+        <button type="submit" value="Lägg till ny användare" name="addUser" class="button">Lägg till ny användare</button>
     </form>
     <?php
-    
-}
+        // if registration is ordered print registration form
+        if ($addUser == TRUE):
+    ?>
+            <form method="post" action="../assets/registercheck.php">
 
-?>
+                <fieldset>
+                    <legend>Lägg till ny användare</legend>
+                    <label for="userName">Användarnamn:</label> <br>
+                    <input type="text" name="userName" id="userName" required> <br>
+                    <label for="passWord">Lösenord: </label> <br>
+                    <input type="password" name="passWord" id="passWord" required> <br>
+                    <label for="firstName">Förnamn:</label> <br>
+                    <input type="text" name="firstName" id="firstName" required> <br>
+                    <label for="lastName">Efternamn:</label> <br>
+                    <input type="text" name="lastName" id="lastName"> <br>
+                    <label for="eMail">E-post:</label> <br>
+                    <input type="email" name="eMail" id="eMail" required> <br>
+                    <label for="webSite">Web-sida:</label> <br>
+                    <input type="text" name="webSite" id="webSite"> <br>
+                    <label for="description">Beskrivning:</label> <br>
+                    <textarea cols="25" rows="7" name="description" id="description"></textarea> <br>
+                    <button id="button" type="submit" name="register" value="Lägg till" class="button">Lägg till</button>
+                </fieldset>
+            </form>
+        </div>
+    </main>
+    <?php
+        endif;
+
+        // Printing error message
+
+        if (isset ($_GET["errorMessage"])):
+            if ($_GET["errorMessage"] != NULL):
+                echo $_GET["errorMessage"];
+            endif;
+        endif;
+        include_once "../templates/footer.php"; // Footer.
+    ?>

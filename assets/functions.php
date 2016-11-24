@@ -26,15 +26,18 @@ function checkUploadedFile($file) {
 
 /**
 * The functions stores variables in the session
-* @param 	int    $id 			The users id
-* @param 	string $username 	The users username
-* @param 	string $upass 		The users password
+* @param 	int    $id            The users id
+* @param 	int    $permission    The users permission level
+* @param 	string $uname         The users username
+* @param 	string $upass         The users password
 */
-function storeUserInSession($id, $uname, $upass) {
-    $_SESSION["logged-in"] = true;
+function storeUserInSession($id, $permission, $uname, $upass) {
+    $_SESSION["logged-in"] = TRUE;
 	$_SESSION["userid"] = $id;
+	$_SESSION["permission"] = $permission;
 	$_SESSION["username"] = $uname;
 	$_SESSION["userpassword"] = $upass;
+
 }
 
 /**
