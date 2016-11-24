@@ -105,33 +105,56 @@ header {
 /*******************************************************************************
     START OF CONTACT.PHP
 *******************************************************************************/
-
+.name-alexandra {
+    padding-top: 40px;
+}
 .mail {
-    background-color: $primary;
-    border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 1.8rem;
     height: 1.2em;
     margin: 0.5em 0;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     width: 100%;
 }
-
+.mail:hover {
+    background-color: $primary;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    height: 1.2em;
+    margin: 0.5em 0;
+    // text-transform: uppercase;
+    width: 100%;
+}
+.mail > a:hover {
+    color: $baseColor2;
+}
+.mail > a, .phone > a {
+    color: $primary; //TODO: Either use icons with links or use pictures here for mail and phone links
+    background-image: url('./img/phone.png');
+}
 .phone {
-    background-color: $primary;
-    border-radius:  5px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 1.8rem;
     height: 1.2em;
     margin: 0.5em 0;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     width: 100%;
 }
-
-.mail > a {
-    // background-image: url('../img/mail.png'); //TODO: Either use icons with links or use pictures here for mail and phone links
+.phone:hover {
+    background-color: $primary;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    height: 1.2em;
+    margin: 0.5em 0;
+    // text-transform: uppercase;
+    width: 100%;
+}
+.phone > a:hover {
+    color: $baseColor2;
 }
 /*******************************************************************************
     END OF CONTACT.PHP

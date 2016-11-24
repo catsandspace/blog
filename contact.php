@@ -6,7 +6,7 @@
     <h2>Kontaktinformation</h2>
     <div class="flexbox-wrapper">
         <div class="flex-item">
-            <h3>Alexandra Fagerström Alselius</h3>
+            <h3 class="name-alexandra">Alexandra Fagerström Alselius</h3>
             <ul>
                 <li class="mail"><a href="mailto:alexandra.fantastic4@catsandspace.com">alexandra.fantastic4@catsandspace.com</a></li>
                 <li class="phone"><a href="tel:084429500">08-442 95 00</a></li>
@@ -15,7 +15,7 @@
         <div class="flex-item">
             <h3>Anders Gustavsson</h3>
             <ul>
-                <li class="mail"><a href="mailto:anders.fantastic4@catsandspace.com">Anders.fantastic4@catsandspace.com</a></li>
+                <li class="mail"><a href="mailto:anders.fantastic4@catsandspace.com">anders.fantastic4@catsandspace.com</a></li>
                 <li class="phone"><a href="tel:084429500">08-442 95 00</a></li>
             </ul>
         </div>
