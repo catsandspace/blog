@@ -18,6 +18,8 @@ $primary: #20A594;
 $primaryAlternative: #1AC9B2;
 $error: #bf2e1d;
 $errorAlternative: #ea3e2e;
+$errortestcolor: #bc4c4c;
+
 html {
     font-family: 'Montserrat', sans-serif;
     font-size: 62.5%;
@@ -167,15 +169,15 @@ header {
     top: 100%;
     right: 0;
 }
-
-.hamburger .has-sub ul li a {
-    background: $primary;
-    border-bottom: 1px solid $baseColor;
-    display: block;
-    line-height: 160%;
-    padding: 15px 10px;
-    font-size: 12px;
-}
+//TODO: Discuss if the new solution is good and remove this or change it back.
+// .hamburger .has-sub ul li a {
+//     background: $primary;
+//     border-bottom: 1px solid $baseColor;
+//     display: block;
+//     line-height: 160%;
+//     padding: 15px 10px;
+//     font-size: 12px;
+// }
 
 .hamburger .has-sub ul li:hover a {
     background: $primaryAlternative;
@@ -195,7 +197,24 @@ header {
 .burger-size {
     font-size: 4.2rem;
 }
-// testing to change bg color on burger meny for categories, need to be moved to a better location in css----
+//TODO: testing to change bg color on burger meny for categories, need to be moved to a better location in css----
+.hamburger-categories {
+    background: #1d7f72;
+    border-bottom: 1px solid $baseColor;
+    display: block;
+    line-height: 160%;
+    padding: 15px 10px;
+    font-size: 12px;
+}
+// TODO: Discuss if the new solution is good and remove this or change it back.
+.hamburger-menu {
+    background: $primary;
+    border-bottom: 1px solid $baseColor;
+    display: block;
+    line-height: 160%;
+    padding: 15px 10px;
+    font-size: 12px;
+}
 // END OF HAMBURGER MENY ------------------------------------------------------
 
 /*******************************************************************************
@@ -508,4 +527,22 @@ table {
 
 /*******************************************************************************
     END OF COMMENTS
+*******************************************************************************/
+
+/*******************************************************************************
+    START OF MESSAGES
+*******************************************************************************/
+
+.error-msg {
+    color: #fff;
+    padding: 5px 0;
+    background: lighten($error, 2%);
+    // background: $errortestcolor;
+    text-align: center;
+    width: 100%;
+    border: 1px solid black;
+}
+
+/*******************************************************************************
+    END OF MESSAGES
 *******************************************************************************/
