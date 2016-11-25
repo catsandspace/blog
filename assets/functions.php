@@ -44,8 +44,18 @@ function storeUserInSession($id, $permission, $uname, $upass) {
  * The function unsets and destroy cookies stored in a session.
  */
 function logout() {
-  unset($_SESSION["logged-in"]);
-  setcookie("session_catsandspace", "", time()-(60*60*24), "/");
-  session_destroy();
+    unset($_SESSION["logged-in"]);
+    setcookie("session_catsandspace", "", time()-(60*60*24), "/");
+    session_destroy();
+}
+
+
+function convertPermissionToString($permission) {
+    if ($permission == 0) {
+        return "Redaktör";
+    } elseif ($permission == 1) {
+        return "Superadministratör";
+    }
+    return NULL;
 }
 ?>

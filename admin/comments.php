@@ -67,7 +67,6 @@
     endif;
     }
 ?>
-
 <main>
     <h2>Kommentarer</h2>
     <form method="POST" action="./comments.php">
@@ -104,7 +103,5 @@
             endif;
         endif;
     ?>
-    </main>
-<?php
-    require_once "../templates/footer.php";
-?>
+</main>
+<?php require_once "../templates/footer.php"; ?>

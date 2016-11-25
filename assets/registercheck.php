@@ -16,7 +16,7 @@
     if (isset($_POST["register"])):
         //  Check if all input is given
         // If everything is okay, connect to the server and database
-        if (!empty($_POST["userName"]) && !empty($_POST["passWord"]) && !empty($_POST["firstName"])&& !empty($_POST["lastName"])&& !empty($_POST["eMail"]) && !empty($_POST["webSite"]) && !empty($_POST["description"])):
+        if (!empty($_POST["userName"]) && !empty($_POST["passWord"]) && !empty($_POST["firstName"])&& !empty($_POST["lastName"])&& !empty($_POST["eMail"]) && !empty($_POST["website"]) && !empty($_POST["description"])):
             // Remove any html or php from the input strings
             $un = mysqli_real_escape_string($_POST["userName"]);
             $up = mysqli_real_escape_string($_POST["passWord"]);
@@ -25,7 +25,7 @@
             $fn = mysqli_real_escape_string($_POST["firstName"]);
             $ln = mysqli_real_escape_string($_POST["lastName"]);
             $em = mysqli_real_escape_string($_POST["eMail"]);
-            $ws = mysqli_real_escape_string($_POST["webSite"]);
+            $ws = mysqli_real_escape_string($_POST["website"]);
             $desc = mysqli_real_escape_string($_POST["description"]);
             $pic = "../userpics/default_avatar.jpg";     // Default avatar as first picture
 
