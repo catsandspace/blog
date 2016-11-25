@@ -112,33 +112,57 @@ header {
 /*******************************************************************************
     START OF CONTACT.PHP
 *******************************************************************************/
-
+.contact-info {
+    list-style-type: none;
+}
+.name-alexandra {
+    padding-top: 40px;
+}
 .mail {
-    background-color: $primary;
-    border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 1.8rem;
     height: 1.2em;
     margin: 0.5em 0;
-    text-transform: uppercase;
     width: 100%;
 }
-
+.mail:hover {
+    background-color: $primary;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    display: block;
+    height: 1.2em;
+    margin: 0.5em 0;
+    padding: 5px;
+    width: 100%;
+}
+.mail > a:hover {
+    color: $baseColor2;
+}
+.mail > a, .phone > a {
+    color: $primary;
+}
 .phone {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    height: 1.2em;
+    margin: 0.5em 0;;
+    width: 100%;
+}
+.phone:hover {
     background-color: $primary;
-    border-radius:  5px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 1.8rem;
     height: 1.2em;
     margin: 0.5em 0;
-    text-transform: uppercase;
+    padding: 5px;
     width: 100%;
 }
-
-.mail > a {
-    // background-image: url('../img/mail.png'); //TODO: Either use icons with links or use pictures here for mail and phone links
+.phone > a:hover {
+    color: $baseColor2;
 }
 /*******************************************************************************
     END OF CONTACT.PHP
