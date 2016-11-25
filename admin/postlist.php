@@ -12,7 +12,7 @@
 *******************************************************************************/
 
     $feedbackMessage = NULL;
-    $draftMessage = "<p class=\"postlist-wrapper__draft-info\">Det här inlägget är inte publicerat</p>";
+    $draftMessage = "<p class=\"table-listing__draft-info\">Det här inlägget är inte publicerat</p>";
 
     if (isset($_POST["edit-post"])) {
         $postToEdit = $_POST["edit-post"];
@@ -56,14 +56,14 @@
 <main class="dark">
     <h2>Inlägg</h2>
     <form method="POST" action="./postlist.php">
-        <table>
+        <table class="table-listing">
             <thead class="hidden">
                 <td>Foto</td>
                 <td>Rubrik</td>
                 <td>Redigera</td>
                 <td>Ta bort</td>
             </thead>
-            <tbody class="postlist-wrapper">
+            <tbody>
                 <?php while (mysqli_stmt_fetch($stmt)):
 
                     $draft = FALSE;
@@ -72,18 +72,18 @@
                         $modifier = "grayscale";
                     }
                 ?>
-                <tr class="postlist-wrapper__row">
-                    <td class="postlist-wrapper__td">
-                        <img src="../<?php echo $image; ?>" alt="Image of cats and space" class="postlist-wrapper__img <?php if ($draft) { echo $modifier; } ?>">
+                <tr class="table-listing__row">
+                    <td class="table-listing__td">
+                        <img src="../<?php echo $image; ?>" alt="Image of cats and space" class="table-listing__img <?php if ($draft) { echo $modifier; } ?>">
                         <?php if ($draft) { echo $draftMessage; } ?>
                     </td>
-                    <td class="postlist-wrapper__td">
-                        <h3 class="postlist-wrapper__title"><?php echo $title; ?></h3>
+                    <td class="table-listing__td">
+                        <h3 class="table-listing__title"><?php echo $title; ?></h3>
                     </td>
-                    <td class="postlist-wrapper__td">
+                    <td class="table-listing__td">
                         <button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button>
                     </td>
-                    <td class="postlist-wrapper__td">
+                    <td class="table-listing__td">
                         <button type="submit" class="button error" name="delete-post" value="<?php echo $id; ?>">Ta bort</button>
                     </td>
                 </tr>
