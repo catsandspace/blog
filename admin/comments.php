@@ -1,5 +1,5 @@
 <?php
-    require_once "../templates/header.php"; // Header content.
+    require_once "../templates/header.php";
     require_once "../assets/session.php";
 
     // Redirect to login.php if no session active.
@@ -8,7 +8,8 @@
     endif;
 
     // For superuser print all comments
-    if ($_SESSION["permission"]==1):
+    if ($_SESSION["permission"] == 1):
+
         // select all comments and username and email from user
         $query  = "SELECT comments.*, users.username, users.email
                     FROM comments
@@ -22,8 +23,8 @@
         endif;
     endif;
 
-    // For adminuser print only the comments connected to the posts for that adminuser
-    if ($_SESSION["permission"]==0):
+    // If user has permission "admin" only print the comments connected to the posts for that adminuser
+    if ($_SESSION["permission"] == 0):
         $userId = $_SESSION["userid"];
         $query  = "SELECT comments.*, users.username, users.email
                     FROM comments
@@ -41,8 +42,8 @@
     endif;
 
     // If-statement to check if button for removing comments is set
-    if (isset ($_POST["removeComment"])):
-        $commentToDelete = $_POST["removeComment"];
+    if (isset ($_POST["remove-comment"])):
+        $commentToDelete = $_POST["remove-comment"];
         $query = "DELETE FROM comments WHERE id = '{$commentToDelete}'";
         if ($stmt->prepare($query)):
             $stmt->execute();
@@ -51,26 +52,27 @@
         endif;
     endif;
 
+
+
+
     function checkName($name, $userName) {
-        if ($name == NULL):
-            echo $userName;
-        else:
-            echo $name;
-        endif;
+        if ($name == NULL) {
+            return $userName;
+        }
+        return $name;
     }
 
     function checkMail($eMail, $userMail) {
-    if ($eMail == NULL):
-        echo $userMail;
-    else:
-        echo $eMail;
-    endif;
+        if ($eMail == NULL) {
+            return $userMail;
+        }
+        return $eMail;
     }
 ?>
-<main>
-    <h2>Kommentarer</h2>
+<main class="dark">
+    <h2 class="inverted-text-color">Kommentarer</h2>
     <form method="POST" action="./comments.php">
-        <table>
+        <table class="table-listing--inverted">
             <thead class="hidden">
                 <td>Kommentar</td>
                 <td>Namn</td>
@@ -80,18 +82,22 @@
                 <td>Ta bort</td>
             </thead>
             <tbody>
+                <tr class="table-listing__row">
                 <?php while (mysqli_stmt_fetch($stmt)): ?>
-                <tr class="comment">
-                    <td><div class="comment-scroll"><?php echo $content; ?><div></td>
-                    <td class="comment-info"><?php checkName($name, $userName); ?></td>
-                    <td class="comment-info"><?php checkMail($eMail, $userMail); ?></td>
-                    <td class="comment-info"><?php echo $date; ?></td>
-                    <td class="comment-info"><?php echo $postId; ?></td>
+                    <td class="table-listing__td"></td>
+                    <td class="table-listing__td"><?php echo $content; ?></td>
+                    <td class="table-listing__td"><?php echo checkName($name, $userName); ?></td>
+                    <td class="table-listing__td saffron-text primary-brand-font">[<?php echo $date; ?>] [Kommentar på inlägg:
+                        <?php
+                        // TODO: Change this to post title instead.
+                        echo $postId;
+                        ?>]</td>
+                    <td class="table-listing__td"><?php echo checkMail($eMail, $userMail); ?></td>
                     <td>
-                        <button type="submit" class="button error" name="removeComment" value="<?php echo $id; ?>">Ta bort</button>
+                        <button type="submit" class="button error" name="remove-comment" value="<?php echo $id; ?>">Ta bort kommentar</button>
                     </td>
-                </tr>
                 <?php endwhile; ?>
+            </tr>
             </tbody>
         </table>
     </form>

@@ -1,25 +1,28 @@
-.comment {
-    background-color: $baseColor;
-    padding: 10px;
-    color: $baseColor2;
-}
 
-.comment-scroll {
-    height: 5em;
-    overflow: auto;
-    background-color: $primary;
-    padding: 10px;
-    line-height: 200%;
-}
-
-.comment-info {
-    padding: 10px 0;
-}
-
-.comment-flex {
-    display: flex;
-    flex-direction: row;
-}
+// TODO: These are replaced by css in _tablelisting.scss. If okay, my suggestion is
+// to remove these completely.
+// .comment {
+//     background-color: $baseColor;
+//     padding: 10px;
+//     color: $baseColor2;
+// }
+//
+// .comment-scroll {
+//     height: 5em;
+//     overflow: auto;
+//     background-color: $primary;
+//     padding: 10px;
+//     line-height: 200%;
+// }
+//
+// .comment-info {
+//     padding: 10px 0;
+// }
+//
+// .comment-flex {
+//     display: flex;
+//     flex-direction: row;
+// }
 
 // START OF COMMENTS ON INDEX.PHP ----------------------------------------------
 
