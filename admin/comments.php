@@ -1,6 +1,7 @@
 <?php
-    require_once "../templates/header.php"; // Header content.
+    require_once "../templates/header.php";
     require_once "../assets/session.php";
+    require_once "../assets/functions.php";
 
     // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE):
@@ -8,7 +9,8 @@
     endif;
 
     // For superuser print all comments
-    if ($_SESSION["permission"]==1):
+    if ($_SESSION["permission"] == 1):
+
         // select all comments and username and email from user
         $query  = "SELECT comments.*, users.username, users.email
                     FROM comments
@@ -16,14 +18,14 @@
                     ON comments.userid = users.id";
         if ($stmt -> prepare($query)):
             $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $eMail, $name, $content, $postId, $userName, $userMail);
+            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $postId, $userName, $userMail);
         else:
             echo "wrong query";
         endif;
     endif;
 
-    // For adminuser print only the comments connected to the posts for that adminuser
-    if ($_SESSION["permission"]==0):
+    // If user has permission "admin" only print the comments connected to the posts for that adminuser
+    if ($_SESSION["permission"] == 0):
         $userId = $_SESSION["userid"];
         $query  = "SELECT comments.*, users.username, users.email
                     FROM comments
@@ -34,15 +36,15 @@
                     WHERE posts.userid = '{$userId}'";
         if ($stmt -> prepare($query)):
             $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $eMail, $name, $content, $postId, $userName, $userMail);
+            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $postId, $userName, $userMail);
         else:
             echo "wrong query";
         endif;
     endif;
 
     // If-statement to check if button for removing comments is set
-    if (isset ($_POST["removeComment"])):
-        $commentToDelete = $_POST["removeComment"];
+    if (isset ($_POST["remove-comment"])):
+        $commentToDelete = $_POST["remove-comment"];
         $query = "DELETE FROM comments WHERE id = '{$commentToDelete}'";
         if ($stmt->prepare($query)):
             $stmt->execute();
@@ -50,28 +52,11 @@
             echo "Fel på queryn";
         endif;
     endif;
-
-    function checkName($name, $userName) {
-        if ($name == NULL):
-            echo $userName;
-        else:
-            echo $name;
-        endif;
-    }
-
-    function checkMail($eMail, $userMail) {
-    if ($eMail == NULL):
-        echo $userMail;
-    else:
-        echo $eMail;
-    endif;
-    }
 ?>
-
-<main>
-    <h2>Kommentarer</h2>
+<main class="dark">
+    <h2 class="inverted-text-color">Kommentarer</h2>
     <form method="POST" action="./comments.php">
-        <table>
+        <table class="table-listing--inverted">
             <thead class="hidden">
                 <td>Kommentar</td>
                 <td>Namn</td>
@@ -81,30 +66,24 @@
                 <td>Ta bort</td>
             </thead>
             <tbody>
-                <?php while (mysqli_stmt_fetch($stmt)): ?>
-                <tr class="comment">
-                    <td><div class="comment-scroll"><?php echo $content; ?><div></td>
-                    <td class="comment-info"><?php checkName($name, $userName); ?></td>
-                    <td class="comment-info"><?php checkMail($eMail, $userMail); ?></td>
-                    <td class="comment-info"><?php echo $date; ?></td>
-                    <td class="comment-info"><?php echo $postId; ?></td>
-                    <td>
-                        <button type="submit" class="button error" name="removeComment" value="<?php echo $id; ?>">Ta bort</button>
-                    </td>
+                <tr class="table-listing__row">
+                    <?php while (mysqli_stmt_fetch($stmt)): ?>
+                        <td class="table-listing__td"><?php echo $content; ?></td>
+                        <td class="table-listing__td">Skriven av: <?php echo checkExistingOrReturnPredefined($name, $userName); ?></td>
+                        <td class="table-listing__td saffron-text primary-brand-font">[<?php echo $date; ?>] [Kommentar på inlägg:
+                            <?php
+                            // TODO: Change this to post title instead.
+                            echo $postId;
+                            ?>]</td>
+                        <td class="table-listing__td"><?php echo checkExistingOrReturnPredefined($email, $userMail); ?></td>
+                        <td>
+                            <button type="submit" class="button error margin-bottom-xl" name="remove-comment" value="<?php echo $id; ?>">Ta bort kommentar</button>
+                        </td>
+                    <?php endwhile; ?>
                 </tr>
-                <?php endwhile; ?>
             </tbody>
         </table>
     </form>
-    <br>
-    <?php
-        if (isset ($_GET["errorMessage"])):
-            if ($_GET["errorMessage"] != NULL):
-                echo $_GET["errorMessage"];
-            endif;
-        endif;
-    ?>
-    </main>
-<?php
-    require_once "../templates/footer.php";
-?>
+    <?php if ($_GET["errorMessage"]) { echo $_GET["errorMessage"]; } ?>
+</main>
+<?php require_once "../templates/footer.php"; ?>

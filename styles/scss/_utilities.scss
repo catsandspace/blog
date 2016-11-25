@@ -1,7 +1,26 @@
+.center-text {
+    text-align: center;
+}
+
 .dark {
-    //tried dark background.
     background-color: $baseColor;
-    padding-top: 0;
+}
+
+.flex-item {
+    box-sizing: border-box;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.flexbox-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.grayscale {
+    -webkit-filter: grayscale(1);
+    filter: gray;
 }
 
 .hidden {
@@ -14,10 +33,13 @@
     width: 1px;
 }
 
-.flexbox-wrapper {
-    display: flex;
-    flex-direction: column;
+.inner-list {
     margin: 0 auto;
+    padding: 0.5em 0;
+}
+
+.inverted-text-color {
+    color: $baseColor2;
 }
 
 .list-wrapper {
@@ -26,6 +48,9 @@
     width: 100%;
 }
 
+.list-style-none {
+    list-style-type: none;
+}
 
 .list {
     display: flex;
@@ -35,13 +60,22 @@
     width: 100%;
 }
 
-.inner-list {
-    margin: 0 auto;
-    padding: 0.5em 0;
+.margin-bottom-xl {
+    margin-bottom: 5rem;
 }
 
-.flex-item {
-     box-sizing: border-box;
-     margin: 0 auto;
-     text-align: center;
+.no-padding {
+    padding: 0;
+}
+
+.padding-top-xl {
+    padding-top: 4rem;
+}
+
+.primary-color {
+    color: $primary;
+}
+
+.saffron-text {
+    color: $complimentary;
 }

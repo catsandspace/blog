@@ -71,18 +71,45 @@
     font-size: 4.2rem;
 }
 //TODO: testing to change bg color on burger meny for categories, need to be moved to a better location in css----
-.hamburger-categories {
-    background: #1d7f72;
+// TODO: Discuss if the new solution is good and remove this or change it back.
+.hamburger-menu {
+    background: $primary;
     border-bottom: 1px solid $baseColor;
     display: block;
     line-height: 160%;
     padding: 15px 10px;
     font-size: 12px;
 }
+.hamburger-categories {
+    background: #1d7f72;
+    border-bottom: 1px solid transparent;
+    display: block;
+    line-height: 160%;
+    padding: 15px 10px;
+    font-size: 12px;
+}
 // TODO: Discuss if the new solution is good and remove this or change it back.
-.hamburger-menu {
+.hamburger-menu-contact {
     background: $primary;
+    border-top: 1px solid $baseColor;
+    display: block;
+    line-height: 160%;
+    padding: 15px 10px;
+    font-size: 12px;
+}
+// TODO: Discuss if the new solution is good and remove this or change it back.
+.hamburger-menu-controlpanel {
+    background: $primary;
+    border-top: 1px solid $baseColor;
     border-bottom: 1px solid $baseColor;
+    display: block;
+    line-height: 160%;
+    padding: 15px 10px;
+    font-size: 12px;
+}
+.hamburger-menu-logout {
+    background: $primary;
+    border-bottom: 1px solid transparent;
     display: block;
     line-height: 160%;
     padding: 15px 10px;

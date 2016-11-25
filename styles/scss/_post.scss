@@ -1,0 +1,30 @@
+.post-text__img {
+    width: 100%;
+}
+
+.post-text__title {
+    font-size: 1.4rem;
+    text-align: left;
+}
+
+
+.post-test {
+    font-size: 1.4rem;
+    background: $baseColor;
+    color: $baseColor2;
+
+    .post-test__comments {
+    background: lighten($baseColor, 10%);
+    margin-bottom: 1em;
+    }
+
+    // TODO: Det finns redan en klass i utilities som hanterar flex, kolla om du kan använda den.
+    // Annars, lägg in ny klass som bara har display: flex.
+    .post-test__flex {
+        display: flex;
+        justify-content: space-around;
+        background: lighten($baseColor, 10%);
+
+    }
+
+}
