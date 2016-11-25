@@ -13,6 +13,16 @@
         //"categoryname" => ""
     );
 
+    $comment = array(
+        "id" => "",
+        "userid" => "",
+        "created" => "",
+        "email" => "",
+        "name" => "",
+        "content" => "",
+        "postid" => ""
+    );
+
 
 /*******************************************************************************
    GET SELECTED POST WHERE ID = post.php?getpost[id]
@@ -22,7 +32,7 @@
 
         $getPost = $_GET['getpost'];
 
-        //$query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND id = '{$getPost}'";
+        //$query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1, id = '{$getPost}'";
         //TODO: ^ FIX Problem with $getPost won't work with LEFT JOIN, we also need to join posts.userid w. users.username ^
 
         $query = "SELECT * FROM posts WHERE id = '{$getPost}' AND published = 1";
@@ -63,6 +73,14 @@
             $stmt->execute();
             $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
             $stmt->fetch();
+
+            $comment["id"] = $commentId;
+            $comment["userid"] = $commentUserId;
+            $comment["created"] = $commentCreated;
+            $comment["email"] = $commentEmail;
+            $comment["name"] = $commentAuthor;
+            $comment["content"] = $commentContent;
+            $comment["postid"] = $postId;
 
         } else {
             $errorMessage = "Något gick fel.";
@@ -107,10 +125,10 @@
             <div class="post-test__comments">
                 <h3>Kommentarer:</h3>
                 <!-- TODO: Loop these out.. -->
-                <?php if ($commentId != NULL): ?>
-                <p class="commentAuthor">By: <?php echo $commentAuthor; ?></p>
-                <p><?php echo $commentCreated; ?></p><br>
-                <p><?php echo $commentContent; ?></p>
+                <?php if ($comment["id"] != NULL): ?>
+                <p class="commentAuthor">By: <?php echo $comment["name"]; ?></p>
+                <p><?php echo $comment["created"]; ?></p><br>
+                <p><?php echo $comment["content"]; ?></p>
                 <?php else: echo "<p>Detta inlägg har inga kommentarer.</p>"; endif; ?>
 
             </div>
