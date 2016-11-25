@@ -34,17 +34,17 @@
         </a>
        <h1 class="logo-title">Cats and Space</h1>
        <nav class="hamburger">
-            <ul>
+            <ul class="list-style-none">
                 <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
-                    <ul>
+                    <ul class="list-style-none box-shadow">
                         <li><a href="<?php echo $path; ?>index.php" class="hamburger-menu">Start</a></li>
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
-                        <li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="hamburger-categories"><?php echo ucfirst($category); ?></a></li>
+                        <li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="hamburger-menu hamburger-menu--categories">Kategori: <?php echo ucfirst($category); ?></a></li>
                         <?php endwhile?>
-                        <li><a href="<?php echo $path; ?>contact.php" class="hamburger-menu-contact">Kontakt</a></li>
+                        <li><a href="<?php echo $path; ?>contact.php" class="hamburger-menu">Kontakt</a></li>
                         <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                        <li><a href="<?php echo $path; ?>admin/dashboard.php" class="hamburger-menu-controlpanel">Kontrollpanel</a></li>
-                        <li><a href="<?php echo $path; ?>assets/logout.php" class="hamburger-menu-logout">Logga ut</a></li>
+                        <li><a href="<?php echo $path; ?>admin/dashboard.php" class="hamburger-menu">Kontrollpanel</a></li>
+                        <li><a href="<?php echo $path; ?>assets/logout.php" class="hamburger-menu border-none">Logga ut</a></li>
                         <?php endif; ?>
                     </ul>
                 </li>
