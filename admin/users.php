@@ -71,20 +71,20 @@
     <form method="post" action="../assets/registercheck.php">
         <fieldset>
             <legend class="hidden">Lägg till ny användare</legend>
-            <label for="userName">Användarnamn</label>
-            <input type="text" name="userName" id="userName" required>
-            <label for="passWord">Lösenord</label>
-            <input type="password" name="passWord" id="passWord" required>
-            <label for="firstName">Förnamn</label>
-            <input type="text" name="firstName" id="firstName" required>
-            <label for="lastName">Efternamn</label>
-            <input type="text" name="lastName" id="lastName">
-            <label for="eMail">E-post</label>
-            <input type="email" name="eMail" id="eMail" required>
-            <label for="website">Webbplats</label>
-            <input type="text" name="website" id="website">
-            <label for="description">Beskrivning</label>
-            <textarea cols="25" rows="7" name="description" id="description"></textarea>
+            <label class="form-field__label" for="userName">Användarnamn</label>
+            <input class="form-field" type="text" name="userName" id="userName" required>
+            <label class="form-field__label" for="passWord">Lösenord</label>
+            <input class="form-field" type="password" name="passWord" id="passWord" required>
+            <label class="form-field__label" for="firstName">Förnamn</label>
+            <input class="form-field" type="text" name="firstName" id="firstName" required>
+            <label class="form-field__label" for="lastName">Efternamn</label>
+            <input class="form-field" type="text" name="lastName" id="lastName">
+            <label class="form-field__label" for="eMail">E-post</label>
+            <input class="form-field" type="email" name="eMail" id="eMail" required>
+            <label class="form-field__label" for="website">Webbplats</label>
+            <input class="form-field" type="text" name="website" id="website">
+            <label class="form-field__label" for="description">Beskrivning</label>
+            <textarea class="form-field" cols="25" rows="7" name="description" id="description"></textarea>
             <button id="button" type="submit" name="register" value="Lägg till" class="button">Lägg till</button>
         </fieldset>
     </form>
