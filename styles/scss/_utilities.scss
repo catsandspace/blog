@@ -2,12 +2,16 @@
     background-color: $baseColor;
 }
 
-.saffron-text {
-    color: $complimentary;
+.flex-item {
+    box-sizing: border-box;
+    margin: 0 auto;
+    text-align: center;
 }
 
-.inverted-text-color {
-    color: $baseColor2;
+.flexbox-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
 }
 
 .grayscale {
@@ -25,10 +29,13 @@
     width: 1px;
 }
 
-.flexbox-wrapper {
-    display: flex;
-    flex-direction: column;
+.inner-list {
     margin: 0 auto;
+    padding: 0.5em 0;
+}
+
+.inverted-text-color {
+    color: $baseColor2;
 }
 
 .list-wrapper {
@@ -36,7 +43,6 @@
     margin: 0 auto;
     width: 100%;
 }
-
 
 .list {
     display: flex;
@@ -46,13 +52,11 @@
     width: 100%;
 }
 
-.inner-list {
-    margin: 0 auto;
-    padding: 0.5em 0;
+
+.margin-bottom-xl {
+    margin-bottom: 5rem;
 }
 
-.flex-item {
-     box-sizing: border-box;
-     margin: 0 auto;
-     text-align: center;
+.saffron-text {
+    color: $complimentary;
 }

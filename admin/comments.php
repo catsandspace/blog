@@ -1,6 +1,7 @@
 <?php
     require_once "../templates/header.php";
     require_once "../assets/session.php";
+    require_once "../assets/functions.php";
 
     // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE):
@@ -17,7 +18,7 @@
                     ON comments.userid = users.id";
         if ($stmt -> prepare($query)):
             $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $eMail, $name, $content, $postId, $userName, $userMail);
+            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $postId, $userName, $userMail);
         else:
             echo "wrong query";
         endif;
@@ -35,7 +36,7 @@
                     WHERE posts.userid = '{$userId}'";
         if ($stmt -> prepare($query)):
             $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $eMail, $name, $content, $postId, $userName, $userMail);
+            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $postId, $userName, $userMail);
         else:
             echo "wrong query";
         endif;
@@ -51,23 +52,6 @@
             echo "Fel på queryn";
         endif;
     endif;
-
-
-
-
-    function checkName($name, $userName) {
-        if ($name == NULL) {
-            return $userName;
-        }
-        return $name;
-    }
-
-    function checkMail($eMail, $userMail) {
-        if ($eMail == NULL) {
-            return $userMail;
-        }
-        return $eMail;
-    }
 ?>
 <main class="dark">
     <h2 class="inverted-text-color">Kommentarer</h2>
@@ -83,31 +67,23 @@
             </thead>
             <tbody>
                 <tr class="table-listing__row">
-                <?php while (mysqli_stmt_fetch($stmt)): ?>
-                    <td class="table-listing__td"></td>
-                    <td class="table-listing__td"><?php echo $content; ?></td>
-                    <td class="table-listing__td"><?php echo checkName($name, $userName); ?></td>
-                    <td class="table-listing__td saffron-text primary-brand-font">[<?php echo $date; ?>] [Kommentar på inlägg:
-                        <?php
-                        // TODO: Change this to post title instead.
-                        echo $postId;
-                        ?>]</td>
-                    <td class="table-listing__td"><?php echo checkMail($eMail, $userMail); ?></td>
-                    <td>
-                        <button type="submit" class="button error" name="remove-comment" value="<?php echo $id; ?>">Ta bort kommentar</button>
-                    </td>
-                <?php endwhile; ?>
-            </tr>
+                    <?php while (mysqli_stmt_fetch($stmt)): ?>
+                        <td class="table-listing__td"><?php echo $content; ?></td>
+                        <td class="table-listing__td">Skriven av: <?php echo checkExistingOrReturnPredefined($name, $userName); ?></td>
+                        <td class="table-listing__td saffron-text primary-brand-font">[<?php echo $date; ?>] [Kommentar på inlägg:
+                            <?php
+                            // TODO: Change this to post title instead.
+                            echo $postId;
+                            ?>]</td>
+                        <td class="table-listing__td"><?php echo checkExistingOrReturnPredefined($email, $userMail); ?></td>
+                        <td>
+                            <button type="submit" class="button error margin-bottom-xl" name="remove-comment" value="<?php echo $id; ?>">Ta bort kommentar</button>
+                        </td>
+                    <?php endwhile; ?>
+                </tr>
             </tbody>
         </table>
     </form>
-    <br>
-    <?php
-        if (isset ($_GET["errorMessage"])):
-            if ($_GET["errorMessage"] != NULL):
-                echo $_GET["errorMessage"];
-            endif;
-        endif;
-    ?>
+    <?php if ($_GET["errorMessage"]) { echo $_GET["errorMessage"]; } ?>
 </main>
 <?php require_once "../templates/footer.php"; ?>

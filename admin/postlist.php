@@ -78,7 +78,7 @@
                         <?php if ($draft) { echo $draftMessage; } ?>
                     </td>
                     <td class="table-listing__td">
-                        <h3 class=".table-listing__title table-listing__title--on-img"><?php echo $title; ?></h3>
+                        <h3 class="table-listing__title table-listing__title--on-img"><?php echo $title; ?></h3>
                     </td>
                     <td class="table-listing__td">
                         <button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button>
