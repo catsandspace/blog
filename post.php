@@ -32,14 +32,14 @@
 
         $getPost = $_GET['getpost'];
 
-        $query  = 
+        $query  =
 
-        "SELECT posts.*, 
-        categories.name 
-        FROM posts 
-        LEFT JOIN categories 
-        ON posts.categoryid = categories.id 
-        WHERE published = 1 
+        "SELECT posts.*,
+        categories.name
+        FROM posts
+        LEFT JOIN categories
+        ON posts.categoryid = categories.id
+        WHERE published = 1
         AND posts.id = '{$getPost}'";
 
         //TODO: join posts.userid w. users.username
@@ -114,7 +114,7 @@
 <!-- TODO: Make this semantic -->
     <article class="">
         <div class="post-test">
-            <img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
+            <img class="post-test__img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
             <div class="post-test__flex">
                 <p>Skapad: <?php echo $post["created"]; ?></p>
 
@@ -125,7 +125,7 @@
 
                 <p>Av: <?php echo $post["userid"]; ?></p>
                 <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a></p>
-                <h2>Titel: <?php echo $post["title"]; ?></h2>
+                <h2 class="post-text__title">Titel: <?php echo $post["title"]; ?></h2>
                 <p>Text: <?php echo $post["content"]; ?></p>
 
 
