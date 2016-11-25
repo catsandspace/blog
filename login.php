@@ -48,10 +48,10 @@
     <form action="./login.php" method="POST">
        <fieldset>
             <legend class="hidden">Login</legend>
-            <label for="username">Användarnamn</label><br>
-            <input type="text" name="username" id="username"><br>
-            <label for="password">Lösenord</label><br>
-            <input type="password" name="password" id="password"><br>
+            <label class="form-field__label" for="username">Användarnamn</label><br>
+            <input class="form-field" type="text" name="username" id="username"><br>
+            <label class="form-field__label" for="password">Lösenord</label><br>
+            <input class="form-field" type="password" name="password" id="password"><br>
             <button type="submit" name="login" class="button">Logga in</button>
        </fieldset>
     </form>

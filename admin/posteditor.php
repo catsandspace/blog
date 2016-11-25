@@ -180,29 +180,29 @@
             <?php if (!empty($fileError)) { echo "$fileError<br>"; } ?>
         </div>
         <div class="edit-post-div">
-            <label for="headline">Rubrik</label><br>
-            <input type="text" class="edit-post__input" name="headline" id="headline" value="<?php echo $fields["headline"]; ?>" required><br>
+            <label class="form-field__label" for="headline">Rubrik</label><br>
+            <input type="text" class="form-field edit-post__input" name="headline" id="headline" value="<?php echo $fields["headline"]; ?>" required><br>
             <?php if (in_array("headline", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
-            <label for="post-content">Beskrivning</label><br>
-            <textarea class="edit-post__textarea" name="post-content" id="post-content" rows="10" cols="50" required><?php echo $fields["post-content"]; ?></textarea><br>
+            <label class="form-field__label" for="post-content">Beskrivning</label><br>
+            <textarea class="form-field edit-post__textarea" name="post-content" id="post-content" rows="10" cols="50" required><?php echo $fields["post-content"]; ?></textarea><br>
             <?php if (in_array("post-content", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
             <h3>Kategori</h3>
             <?php while (mysqli_stmt_fetch($stmt)): ?>
             <input type="radio" name="category" value="<?php echo $id; ?>" required <?php if ($fields["category"] == $id) { echo "checked"; } ?> id="category">
-            <label for="category"><?php echo ucfirst($category); ?></label><br>
+            <label class="form-field__label" for="category"><?php echo ucfirst($category); ?></label><br>
             <?php endwhile; $stmt->close();?>
             <?php if (in_array("category", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
             <h3>Ska inlägget publiceras?</h3>
             <input type="radio" name="publish" id="publish" value="1" required <?php if ($fields["publish"] == 1) { echo "checked"; } ?> >
-            <label for="publish">Publicera</label><br>
+            <label class="form-field__label" for="publish">Publicera</label><br>
             <input type="radio" name="publish" id="draft" value="2" required <?php if ($fields["publish"] == 2) { echo "checked"; } ?>>
-            <label for="draft">Spara som utkast</label><br>
+            <label class="form-field__label" for="draft">Spara som utkast</label><br>
             <?php if (in_array("publish", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="flexbox-wrapper">
