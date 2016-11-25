@@ -13,6 +13,16 @@
         //"categoryname" => ""
     );
 
+    $comment = array(
+        "id" => "",
+        "userid" => "",
+        "created" => "",
+        "email" => "",
+        "name" => "",
+        "content" => "",
+        "postid" => ""
+    );
+
 
 /*******************************************************************************
    GET SELECTED POST WHERE ID = post.php?getpost[id]
@@ -22,14 +32,21 @@
 
         $getPost = $_GET['getpost'];
 
-        //$query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND id = '{$getPost}'";
-        //TODO: ^ FIX Problem with $getPost won't work with LEFT JOIN, we also need to join posts.userid w. users.username ^
+        $query  = 
 
-        $query = "SELECT * FROM posts WHERE id = '{$getPost}' AND published = 1";
+        "SELECT posts.*, 
+        categories.name 
+        FROM posts 
+        LEFT JOIN categories 
+        ON posts.categoryid = categories.id 
+        WHERE published = 1 
+        AND posts.id = '{$getPost}'";
+
+        //TODO: join posts.userid w. users.username
 
             if ($stmt->prepare($query)) {
             $stmt->execute();
-            $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
+            $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
             $stmt->fetch();
             //$stmt->close();
 
@@ -41,7 +58,7 @@
             $post["title"] = $title;
             $post["content"] = $content;
             $post["categoryid"] = $categoryId;
-            //$post["categoryname"] = $categoryName;
+            $post["categoryname"] = $categoryName;
 
             //var_dump($post);
 
@@ -63,6 +80,14 @@
             $stmt->execute();
             $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
             $stmt->fetch();
+
+            $comment["id"] = $commentId;
+            $comment["userid"] = $commentUserId;
+            $comment["created"] = $commentCreated;
+            $comment["email"] = $commentEmail;
+            $comment["name"] = $commentAuthor;
+            $comment["content"] = $commentContent;
+            $comment["postid"] = $postId;
 
         } else {
             $errorMessage = "Något gick fel.";
@@ -99,7 +124,7 @@
                 </div>
 
                 <p>Av: <?php echo $post["userid"]; ?></p>
-                <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryid"]); ?></a></p>
+                <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a></p>
                 <h2>Titel: <?php echo $post["title"]; ?></h2>
                 <p>Text: <?php echo $post["content"]; ?></p>
 
@@ -107,10 +132,10 @@
             <div class="post-test__comments">
                 <h3>Kommentarer:</h3>
                 <!-- TODO: Loop these out.. -->
-                <?php if ($commentId != NULL): ?>
-                <p class="commentAuthor">By: <?php echo $commentAuthor; ?></p>
-                <p><?php echo $commentCreated; ?></p><br>
-                <p><?php echo $commentContent; ?></p>
+                <?php if ($comment["id"] != NULL): ?>
+                <p class="commentAuthor">By: <?php echo $comment["name"]; ?></p>
+                <p><?php echo $comment["created"]; ?></p><br>
+                <p><?php echo $comment["content"]; ?></p>
                 <?php else: echo "<p>Detta inlägg har inga kommentarer.</p>"; endif; ?>
 
             </div>
