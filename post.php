@@ -75,7 +75,7 @@
 
     if ($post["id"] == NULL) {
         // TODO: Show 404-page instead?
-        $errorMessage = "Vi hittade inget inlägg med id: $getPost";
+        $errorMessage = "Vi hittade inget inlägg med angivet id";
     }
 
 
