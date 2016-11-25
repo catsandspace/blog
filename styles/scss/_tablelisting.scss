@@ -3,6 +3,11 @@
     width: 100%;
 }
 
+.table-listing--inverted {
+    color: $baseColor2;
+    margin: 0 auto;
+}
+
 .table-listing__row {
     display: flex;
     flex-direction: column;
@@ -26,8 +31,12 @@
     position: relative;
 }
 
+// TODO: Sort these out. The color change is prob redundant if we convert the whole blog to dark mode.
 .table-listing__title {
     color: $baseColor2;
+}
+
+.table-listing__title--on-img {
     position: absolute;
     bottom: 20px;
     left: 10px;
