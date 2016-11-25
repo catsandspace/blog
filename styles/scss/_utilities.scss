@@ -1,7 +1,14 @@
 .dark {
-    //tried dark background.
     background-color: $baseColor;
-    padding-top: 0;
+}
+
+.inverted-text-color {
+    color: $baseColor2;
+}
+
+.grayscale {
+    -webkit-filter: grayscale(1);
+    filter: gray;
 }
 
 .hidden {

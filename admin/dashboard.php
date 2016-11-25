@@ -1,6 +1,7 @@
 <?php
     require_once "../templates/header.php";
     require_once "../assets/session.php";
+    require_once "../assets/functions.php";
 
     // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] != 1) {
@@ -11,17 +12,13 @@
     $currentUsersPermission = $_SESSION["permission"];
 
     // This checks current user's permission level.
-    if ($currentUsersPermission == 0) {
-        $user_permission = "redaktör";
-    } elseif ($currentUsersPermission == 1) {
-        $user_permission = "superadministratör";
-    }
+    $userPermission = convertPermissionToString($currentUsersPermission);
 ?>
 
-<main>
+<main class="dark">
     <div class="flexbox-wrapper">
-        <h2>Hej @<?php echo $currentUser; ?></h2>
-        <p class="introduction-paragraph">Behörighet: <?php echo ucfirst($user_permission); ?></p>
+        <h2 class="inverted-text-color">Hej @<?php echo $currentUser; ?></h2>
+        <p class="introduction-paragraph inverted-text-color">Behörighet: <?php echo ucfirst($userPermission); ?></p>
         <a href="./posteditor.php" class="button link__button">Skapa nytt inlägg</a>
         <a href="./postlist.php" class="button link__button">Se alla inlägg</a>
         <a href="./comments.php" class="button link__button">Se alla kommentarer</a>
