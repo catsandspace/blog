@@ -119,19 +119,17 @@
     <article class="post-test">
         <img class="post-test__img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
         <div class="post-test__flex">
+            <p>Uppladdad av: <span class="post-text__name"><?php echo $post["username"]; ?></span></p>
             <p>Skapad: <?php echo $post["created"]; ?></p>
 
             <?php if ($post["created"] != $post["updated"]): ?>
             <p>Uppdaterad: <?php echo $post["updated"]; ?></p>
             <?php endif; ?>
-            </div>
 
-            <p>Uppladdad av: <span class="post-text__name"><?php echo $post["username"]; ?></span></p>
             <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a></p>
             <h2 class="post-text__title">Titel: <?php echo $post["title"]; ?></h2>
             <p>Text: <?php echo $post["content"]; ?></p>
-
-
+        </div>
         <div class="post-test__comments">
             <h3>Kommentarer:</h3>
             <!-- TODO: Loop these out.. -->

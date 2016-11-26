@@ -37,9 +37,9 @@ textarea {
     // TODO: Det finns redan en klass i utilities som hanterar flex, kolla om du kan använda den.
     // Annars, lägg in ny klass som bara har display: flex.
     .post-test__flex {
-        display: flex;
-        justify-content: space-around;
-        background: lighten($baseColor, 10%);
+/*         display: flex;
+        justify-content: space-around; */
+        background: $baseColor;
 
     }
 
