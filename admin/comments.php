@@ -76,7 +76,7 @@
                             echo $postId;
                             ?>]</td>
                         <td class="table-listing__td"><?php echo checkExistingOrReturnPredefined($email, $userMail); ?></td>
-                        <td>
+                        <td class="table-listing__td">
                             <button type="submit" class="button error margin-bottom-xl" name="remove-comment" value="<?php echo $id; ?>">Ta bort kommentar</button>
                         </td>
                     <?php endwhile; ?>
@@ -84,6 +84,6 @@
             </tbody>
         </table>
     </form>
-    <?php if ($_GET["errorMessage"]) { echo $_GET["errorMessage"]; } ?>
+    <?php if (!empty($_GET["errorMessage"])) { echo $_GET["errorMessage"]; } ?>
 </main>
 <?php require_once "../templates/footer.php"; ?>
