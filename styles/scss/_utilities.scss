@@ -1,6 +1,11 @@
 .border-none {
     border: none;
 }
+
+.border-radius {
+    border-radius: 5px;
+}
+
 .box-shadow{
     box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
 }
@@ -68,6 +73,10 @@
 
 .margin-bottom-xl {
     margin-bottom: 5rem;
+}
+
+.margin-bottom-l {
+    margin-bottom: 3rem;
 }
 
 .no-padding {
