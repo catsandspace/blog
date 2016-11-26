@@ -9,8 +9,8 @@
 }
 
 .table-listing__row {
-    display: block;
-    // flex-direction: column;
+    display: flex;
+    flex-direction: column;
     margin: 1.5em 0;
     padding-bottom: 1em;
 }
