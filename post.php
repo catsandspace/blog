@@ -9,6 +9,7 @@
         "image" => "",
         "title" => "",
         "content" => "",
+        "username" => "",
         "categoryid" => "",
         //"categoryname" => ""
     );
@@ -33,12 +34,14 @@
         $getPost = $_GET['getpost'];
 
         $query  =
-
         "SELECT posts.*,
-        categories.name
+        categories.name,
+        users.username
         FROM posts
         LEFT JOIN categories
         ON posts.categoryid = categories.id
+        LEFT JOIN users
+        ON posts.userid = users.id
         WHERE published = 1
         AND posts.id = '{$getPost}'";
 
@@ -46,7 +49,7 @@
 
             if ($stmt->prepare($query)) {
             $stmt->execute();
-            $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
+            $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUsername);
             $stmt->fetch();
             //$stmt->close();
 
@@ -59,6 +62,7 @@
             $post["content"] = $content;
             $post["categoryid"] = $categoryId;
             $post["categoryname"] = $categoryName;
+            $post["username"] = $postUsername;
 
             //var_dump($post);
 
@@ -112,43 +116,61 @@
 
 <?php if ($post["id"] != NULL): ?>
 <!-- TODO: Make this semantic -->
-    <article class="">
-        <div class="post-test">
-            <img class="post-test__img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
-            <div class="post-test__flex">
-                <p>Skapad: <?php echo $post["created"]; ?></p>
+    <article class="post-test">
+        <img class="post-test__img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
+        <div class="post-test__flex">
+            <p>Skapad: <?php echo $post["created"]; ?></p>
 
-                <?php if ($post["created"] != $post["updated"]): ?>
-                <p>Uppdaterad: <?php echo $post["updated"]; ?></p>
-                <?php endif; ?>
-                </div>
-
-                <p>Av: <?php echo $post["userid"]; ?></p>
-                <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a></p>
-                <h2 class="post-text__title">Titel: <?php echo $post["title"]; ?></h2>
-                <p>Text: <?php echo $post["content"]; ?></p>
-
-
-            <div class="post-test__comments">
-                <h3>Kommentarer:</h3>
-                <!-- TODO: Loop these out.. -->
-                <?php if ($comment["id"] != NULL): ?>
-                <p class="commentAuthor">By: <?php echo $comment["name"]; ?></p>
-                <p><?php echo $comment["created"]; ?></p><br>
-                <p><?php echo $comment["content"]; ?></p>
-                <?php else: echo "<p>Detta inlägg har inga kommentarer.</p>"; endif; ?>
-
+            <?php if ($post["created"] != $post["updated"]): ?>
+            <p>Uppdaterad: <?php echo $post["updated"]; ?></p>
+            <?php endif; ?>
             </div>
 
-            <div class="post-test__comments">
-                <h3>Kommentera inlägg:</h3>
-                <!-- FORM START -->
-                <form>
+            <p>Uppladdad av: <span class="post-text__name"><?php echo $post["username"]; ?></span></p>
+            <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a></p>
+            <h2 class="post-text__title">Titel: <?php echo $post["title"]; ?></h2>
+            <p>Text: <?php echo $post["content"]; ?></p>
 
-                </form>
-                <!-- FORM END -->
 
-            </div>
+        <div class="post-test__comments">
+            <h3>Kommentarer:</h3>
+            <!-- TODO: Loop these out.. -->
+            <?php if ($comment["id"] != NULL): ?>
+            <p>Av: <span class="post-text__name"><?php echo $comment["name"]; ?></span></p>
+            <p><?php echo $comment["created"]; ?></p>
+            <p><?php echo $comment["content"]; ?></p>
+            <?php else: echo "<p>Detta inlägg har inga kommentarer.</p>"; endif; ?>
+
+        </div>
+
+        <div class="post-test__comments">
+            <h3>Kommentera inlägg:</h3>
+            <!-- FORM START -->
+            <form method="post" action="" class="">
+                <fieldset>
+                    <legend class="hidden">Skriv ny kommentar</legend>
+
+                    <!-- TODO: Checka så att dessa är ifyllda.. -->
+
+                    <!-- NAME START -->
+                    <label class="form-field__label" for="userName">Namn:</label>
+                    <input class="form-field" type="text" name="name" id="name" required>
+                    <!-- NAME END -->
+
+                    <!-- EMAIL START -->
+                    <label class="form-field__label" for="userName">Email:</label>
+                    <input class="form-field" type="email" name="email" id="email" required>
+                    <!-- EMAIL END -->
+
+                    <!-- TEXTFIELD START -->
+                    <label class="form-field__label" for="comment">Kommentar:</label>
+                    <textarea class="" name="comment" id="comment" required></textarea>
+                    <!-- TEXTFIELD END -->
+
+                </fieldset>
+            </form>
+            <!-- FORM END -->
+
         </div>
     </article>
 
