@@ -1,15 +1,12 @@
-//TODO: This just resets some CSS, we need to get the CSS done properly.
-body {
-    background: $baseColor;
-}
-img {
+.post-text__img {
     width: 100%;
 }
 
-h2 {
+.post-text__title {
     font-size: 1.4rem;
     text-align: left;
 }
+
 
 .post-test {
     font-size: 1.4rem;
@@ -20,6 +17,9 @@ h2 {
     background: lighten($baseColor, 10%);
     margin-bottom: 1em;
     }
+
+    // TODO: Det finns redan en klass i utilities som hanterar flex, kolla om du kan använda den.
+    // Annars, lägg in ny klass som bara har display: flex.
     .post-test__flex {
         display: flex;
         justify-content: space-around;

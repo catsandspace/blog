@@ -49,7 +49,7 @@ function logout() {
     session_destroy();
 }
 
-
+// TODO: Describe what this function does!
 function convertPermissionToString($permission) {
     if ($permission == 0) {
         return "Redaktör";
@@ -57,5 +57,13 @@ function convertPermissionToString($permission) {
         return "Superadministratör";
     }
     return NULL;
+}
+
+// TODO: Describe what this does!
+function checkExistingOrReturnPredefined($alternative, $predefined) {
+    if ($alternative != NULL) {
+        return $alternative;
+    }
+    return $predefined;
 }
 ?>

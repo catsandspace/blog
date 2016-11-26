@@ -7,8 +7,8 @@
     $display = NULL; // To avoid "undefined variable".
     $numberOfComments = NULL;
 
-    // SQL statement with LEFT JOIN table -> posts & categories.
-    $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1";
+    // SQL statement with LEFT JOIN table -> posts & categories. Latest post is shown first.
+    $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
 
     // If GET request "display" is set.
     if (isset($_GET["display"])) {
@@ -32,8 +32,10 @@
             "title" => $title,
             "content" => $content,
             "categoryId" => $categoryId,
+            "created" => $created,
             "categoryName" => $categoryName
         ));
+        // TODO: Trim $created so that only date is shown.
     }
 
     for ($i=0; $i < count($posts); $i++):
@@ -44,7 +46,7 @@
             <img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
             <div class="blogpost-wrapper__text">
                 <h2><?php echo $post["title"]; ?></h2>
-                <p class="tag">Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?></a> </p>
+                <p class="tag">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [<?php echo $post["created"] ?>]</p>
                 <p><?php echo $post["content"]; ?></p>
                 <div class="post-comments">
                     <div class="comment-wrapper">

@@ -1,3 +1,7 @@
+body {
+    background: $baseColor;
+}
+
 /*******************************************************************************
 START OF HEADER ELEMENT
 *******************************************************************************/
@@ -46,126 +50,6 @@ header {
 
 /*******************************************************************************
     END OF HEADER ELEMENT
-*******************************************************************************/
-
-/*******************************************************************************
-    START OF POSTS ON INDEX.PHP
-*******************************************************************************/
-
-// TODO: This needs to be sorted out!
-// This wrapps the whole content in a post, including image.
-.blogpost-wrapper {
-    margin-bottom: 0.2rem;
-    position: relative;
-    width: 100%;
-    img {
-        margin: 0 auto;
-        width: 100%;
-    }
-    // This wrapps all the text in a post, both paragraphs and headline.
-    .blogpost-wrapper__text {
-        box-sizing: border-box;
-        bottom: 5px;
-        color: $baseColor2;
-        display: block;
-        font-weight: 400;
-        left: 0;
-        position: absolute;
-        padding: 1em 0.7em 1.5em;
-        width: 100%;
-        h2 {
-            color: $baseColor2;
-            font-size: 4.0rem;
-            line-height: 1em;
-            text-align: left;
-        }
-        p {
-            margin: 0.2em 0;
-            line-height: 1.3em;
-        }
-        .tag {
-            color: $primary;
-            font-size: 2.5rem;
-            font-family: 'Rajdhani', sans-serif;
-            margin-bottom: 0.4em;
-            a {
-                color: $primary;
-            }
-            a:hover {
-                color: $primaryAlternative;
-            }
-        }
-    }
-    // On hover over text, a background color appears. The backdrop filter blurs image
-    // behind (works in Safari, other browsers will ignore it).
-    .blogpost-wrapper__text:hover {
-        background: $baseColorTransparent;
-        -webkit-backdrop-filter: blur(3px);
-        backdrop-filter: blur(3px);
-    }
-}
-
-/*******************************************************************************
-    END OF POSTS ON INDEX.PHP
-*******************************************************************************/
-
-/*******************************************************************************
-    START OF CONTACT.PHP
-*******************************************************************************/
-.contact-info {
-    list-style-type: none;
-}
-.name-alexandra {
-    padding-top: 40px;
-}
-.mail {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 1.8rem;
-    height: 1.2em;
-    margin: 0.5em 0;
-    width: 100%;
-}
-.mail:hover {
-    background-color: $primary;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 1.8rem;
-    display: block;
-    height: 1.2em;
-    margin: 0.5em 0;
-    padding: 5px;
-    width: 100%;
-}
-.mail > a:hover {
-    color: $baseColor2;
-}
-.mail > a, .phone > a {
-    color: $primary;
-}
-.phone {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 1.8rem;
-    height: 1.2em;
-    margin: 0.5em 0;;
-    width: 100%;
-}
-.phone:hover {
-    background-color: $primary;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 1.8rem;
-    height: 1.2em;
-    margin: 0.5em 0;
-    padding: 5px;
-    width: 100%;
-}
-.phone > a:hover {
-    color: $baseColor2;
-}
-/*******************************************************************************
-    END OF CONTACT.PHP
 *******************************************************************************/
 
 /*******************************************************************************

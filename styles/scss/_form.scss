@@ -3,16 +3,18 @@ fieldset {
     margin: 2em 0;
 }
 
+// TODO: När texten är autofill, se till att textfärgen är vit.
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px $baseColor2 inset;
+    -webkit-box-shadow: 0 0 0px 1000px $baseColor inset;
 }
 
-input[type=text], input[type=password], input[type=email], textarea {
+// This class is also found in "_typography.scss"
+.form-field {
     border: 0;
     border-bottom: 2px solid $primary;
     background-color: transparent;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
+    color: $baseColor2;
+    font-family: $secondaryBrandFont;
     font-size: 4rem;
     height: 4rem;
     margin: 0.5em 0;
@@ -20,11 +22,25 @@ input[type=text], input[type=password], input[type=email], textarea {
     width: 100%;
 }
 
-input:visited {
+// TODO: sort out border-radius and text-align
+.form-field__select {
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+    background-color: $primary;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin: 1em;
+    margin-left: 0;
+    width: 100%;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px $baseColorSmallTransparent;
+}
+
+.form-field:visited {
     background-color: none;
 }
 
-label {
+.form-field__label {
     color: $primary;
 }
 
@@ -35,7 +51,7 @@ label {
 }
 
 // TODO: Get the styling right!
-input.edit-post__input {
+.form-field.edit-post__input {
     height: 3rem;
     font-size: 3rem;
 }

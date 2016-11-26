@@ -3,11 +3,17 @@
     width: 100%;
 }
 
+.table-listing--inverted {
+    color: $baseColor2;
+    margin: 0 auto;
+}
+
+// TODO: When styling for desktop, change to flex and rows.
 .table-listing__row {
-    display: flex;
-    flex-direction: column;
+    display: block;
     margin: 1.5em 0;
     padding-bottom: 1em;
+    width: 100%;
 }
 
 .table-listing__draft-info {
@@ -22,14 +28,17 @@
     top: 1.5rem;
 }
 
+// TODO: When styling for desktop, change to flex and rows.
 .table-listing__td {
+    display: block;
+    width: 100%;
     position: relative;
 }
 
-.table-listing__title {
-    color: $baseColor2;
-    position: absolute;
+.table-listing__title--on-img {
     bottom: 20px;
+    position: absolute;
+    width: 100%;
     left: 10px;
     text-shadow: 2px 2px 5px $baseColorSemiTransparent;
 }
