@@ -1,10 +1,26 @@
-.post-text__img {
+textarea {
+    width: 100%;
+    resize: none;
+    height: 100px;
+    background: lighten($baseColor, 20%);
+    border: none;
+}
+
+.post-text__img { /* TODO: Kolla denna */
+    width: 100%;
+}
+
+.post-test img {
     width: 100%;
 }
 
 .post-text__title {
     font-size: 1.4rem;
     text-align: left;
+}
+
+.post-text__name {
+    color: $primary;
 }
 
 
