@@ -41,6 +41,7 @@
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
                         <li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="hamburger-menu hamburger-menu--categories">Kategori: <?php echo ucfirst($category); ?></a></li>
                         <?php endwhile?>
+                        <li><a href="<?php echo $path; ?>archive.php" class="hamburger-menu">Arkiv</a></li>
                         <li><a href="<?php echo $path; ?>contact.php" class="hamburger-menu <?php if(!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE): ?>border-none<?php endif; ?>">Kontakt</a></li>
                         <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
                         <li><a href="<?php echo $path; ?>admin/dashboard.php" class="hamburger-menu">Kontrollpanel</a></li>
