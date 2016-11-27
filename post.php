@@ -119,15 +119,16 @@
 <?php if ($post["id"] != NULL): ?>
 <!-- TODO: Make this semantic -->
     <article class="post-test">
+        <h2 class=""><?php echo $post["title"]; ?></h2>
+        <img class="post-test__img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
 
         <div class="post-test__flex">
         <p>Uppladdad av: <span class="post-text__name"><?php echo $post["username"]; ?></span></p>
+
         <p><?php echo $post["created"]; ?></p>
         </div>
-
-        <img class="post-test__img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
         <div class="">
-            <h2 class=""><?php echo $post["title"]; ?></h2>
+
             <?php if ($post["created"] != $post["updated"]): ?>
             <p>Uppdaterad: <?php echo $post["updated"]; ?></p>
             <?php endif; ?>
