@@ -1,6 +1,8 @@
 <?php
     require_once "./templates/header.php";
 
+    //$commentId = NULL;
+
     $post = array(
         "id" => "",
         "userid" => "",
@@ -117,17 +119,20 @@
 <?php if ($post["id"] != NULL): ?>
 <!-- TODO: Make this semantic -->
     <article class="post-test">
-        <img class="post-test__img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
-        <div class="post-test__flex">
-            <p>Uppladdad av: <span class="post-text__name"><?php echo $post["username"]; ?></span></p>
-            <p>Skapad: <?php echo $post["created"]; ?></p>
 
+        <div class="post-test__flex">
+        <p>Uppladdad av: <span class="post-text__name"><?php echo $post["username"]; ?></span></p>
+        <p><?php echo $post["created"]; ?></p>
+        </div>
+
+        <img class="post-test__img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
+        <div class="">
+            <h2 class=""><?php echo $post["title"]; ?></h2>
             <?php if ($post["created"] != $post["updated"]): ?>
             <p>Uppdaterad: <?php echo $post["updated"]; ?></p>
             <?php endif; ?>
 
             <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a></p>
-            <h2 class="post-text__title">Titel: <?php echo $post["title"]; ?></h2>
             <p>Text: <?php echo $post["content"]; ?></p>
         </div>
         <div class="post-test__comments">
@@ -168,7 +173,7 @@
                     <label class="form-field__label" for="comment">Kommentar:</label>
                     <textarea class="" name="comment" id="comment" required></textarea>
                     <!-- TEXTFIELD END -->
-
+                    <button type="submit" class="button" name="" value="">Lägg till</button>
                 </fieldset>
             </form>
             <!-- FORM END -->

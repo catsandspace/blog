@@ -4,6 +4,8 @@ textarea {
     height: 100px;
     background: lighten($baseColor, 20%);
     border: none;
+    color: white;
+    box-sizing: border-box;
 }
 
 .post-text__img { /* TODO: Kolla denna */
@@ -20,7 +22,7 @@ textarea {
 }
 
 .post-text__name {
-    color: $primary;
+    color: lighten($primaryAlternative, 10%);
 }
 
 
@@ -36,11 +38,12 @@ textarea {
 
     // TODO: Det finns redan en klass i utilities som hanterar flex, kolla om du kan använda den.
     // Annars, lägg in ny klass som bara har display: flex.
-    .post-test__flex {
-/*         display: flex;
-        justify-content: space-around; */
-        background: $baseColor;
 
     }
+    .post-test__flex {
+        display: flex;
+        justify-content: space-around;
+        background: $primary;
+
 
 }
