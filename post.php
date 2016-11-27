@@ -83,15 +83,15 @@
         if ($stmt->prepare($query)) {
             $stmt->execute();
             $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
-            $stmt->fetch();
+            //$stmt->fetch();
 
-            $comment["id"] = $commentId;
-            $comment["userid"] = $commentUserId;
-            $comment["created"] = $commentCreated;
-            $comment["email"] = $commentEmail;
-            $comment["name"] = $commentAuthor;
-            $comment["content"] = $commentContent;
-            $comment["postid"] = $postId;
+            // $comment["id"] = $commentId;
+            // $comment["userid"] = $commentUserId;
+            // $comment["created"] = $commentCreated;
+            // $comment["email"] = $commentEmail;
+            // $comment["name"] = $commentAuthor;
+            // $comment["content"] = $commentContent;
+            // $comment["postid"] = $postId;
 
         } else {
             $errorMessage = "Något gick fel.";
@@ -133,11 +133,15 @@
         <div class="post-test__comments">
             <h3>Kommentarer:</h3>
             <!-- TODO: Loop these out.. -->
-            <?php if ($comment["id"] != NULL): ?>
-            <p>Av: <span class="post-text__name"><?php echo $comment["name"]; ?></span></p>
-            <p><?php echo $comment["created"]; ?></p>
-            <p><?php echo $comment["content"]; ?></p>
-            <?php else: echo "<p>Detta inlägg har inga kommentarer.</p>"; endif; ?>
+
+            <?php while (mysqli_stmt_fetch($stmt)): ?>
+
+            <p>Av: <span class="post-text__name"><?php echo $commentAuthor; ?></span></p>
+            <p><?php echo $commentCreated; ?></p>
+            <p><?php echo $commentContent; ?></p>
+            <br>
+            <?php endwhile; ?>
+            <?php if ($commentId == NULL): echo "<p>Detta inlägg har inga kommentarer.</p>"; endif; ?>
 
         </div>
 
