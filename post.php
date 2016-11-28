@@ -13,7 +13,7 @@
         "content" => "",
         "username" => "",
         "categoryid" => "",
-        //"categoryname" => ""
+        "categoryname" => ""
     );
 
     $comment = array(
@@ -66,9 +66,9 @@
             $post["categoryname"] = $categoryName;
             $post["username"] = $postUsername;
 
-            //var_dump($post);
-
             } else {
+
+                // TODO: FIX THIS
                 $errorMessage = "Något gick fel.";
             }
 
@@ -86,18 +86,38 @@
             $stmt->execute();
             $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
             //$stmt->fetch();
+            //$stmt->close();
 
-            // $comment["id"] = $commentId;
-            // $comment["userid"] = $commentUserId;
-            // $comment["created"] = $commentCreated;
-            // $comment["email"] = $commentEmail;
-            // $comment["name"] = $commentAuthor;
-            // $comment["content"] = $commentContent;
-            // $comment["postid"] = $postId;
 
         } else {
+
+            // TODO: FIX THIS
             $errorMessage = "Något gick fel.";
         }
+    }
+
+/*******************************************************************************
+   FORM
+*******************************************************************************/
+
+    if (isset($_POST["add-comment"])) {
+
+        $name = mysqli_real_escape_string($conn, $_POST["name"]);
+        $email = mysqli_real_escape_string($conn, $_POST["email"]);
+        $content = mysqli_real_escape_string($conn, $_POST["content"]);
+
+        $query = "INSERT INTO comments VALUES ('', '', now(), '{$email}', '{$name}', '{$content}', '{$getPost}')";
+
+        if ($stmt->prepare($query)) {
+            $stmt->execute();
+            header("Location: ./post.php?getpost=$getPost");
+
+        } else {
+
+            // TODO: FIX THIS
+            $errorMessage = "Något gick fel.";
+        }
+
     }
 
 /*******************************************************************************
@@ -161,20 +181,20 @@
                     <!-- TODO: Checka så att dessa är ifyllda.. -->
 
                     <!-- NAME START -->
-                    <label class="form-field__label" for="userName">Namn:</label>
+                    <label class="form-field__label" for="name">Namn:</label>
                     <input class="form-field" type="text" name="name" id="name" required>
                     <!-- NAME END -->
 
                     <!-- EMAIL START -->
-                    <label class="form-field__label" for="userName">Email:</label>
+                    <label class="form-field__label" for="email">Email:</label>
                     <input class="form-field" type="email" name="email" id="email" required>
                     <!-- EMAIL END -->
 
                     <!-- TEXTFIELD START -->
-                    <label class="form-field__label" for="comment">Kommentar:</label>
-                    <textarea class="" name="comment" id="comment" required></textarea>
+                    <label class="form-field__label" for="content">Kommentar:</label>
+                    <textarea class="" name="content" id="content" required></textarea>
                     <!-- TEXTFIELD END -->
-                    <button type="submit" class="button" name="" value="">Lägg till</button>
+                    <button type="submit" class="button" name="add-comment" value="Lägg till">Lägg till</button>
                 </fieldset>
             </form>
             <!-- FORM END -->
