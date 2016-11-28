@@ -1,4 +1,6 @@
-textarea {
+// TODO: CLEAN UP
+
+textarea { //MOVE THIS ONE TO _FORM / USE STUFF FROM _FORM
     width: 100%;
     resize: none;
     height: 100px;
@@ -8,7 +10,7 @@ textarea {
     box-sizing: border-box;
 }
 
-.post-text__img { /* TODO: Kolla denna */
+.post-text__img { 
     width: 100%;
 }
 
@@ -22,7 +24,11 @@ textarea {
 }
 
 .post-text__name {
-    color: lighten($primaryAlternative, 10%);
+    color: $primary;
+}
+
+.post-text__name__2 {
+    color: lighten($primaryAlternative, 10%);  
 }
 
 
