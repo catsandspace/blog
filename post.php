@@ -1,7 +1,15 @@
 <?php
     require_once "./templates/header.php";
+    
+    //TODO: CLEAN UP ARRAYS
+    //TODO: CLEAN UP CSS
+    //TODO: ERROR-MESSAGES/404
+    //TODO: CHECK ARTICLE ELEMENT SEMANTICS
+    //TODO: REQUIRE ON INPUT-FIELDS
+    //TODO: REMOVE DEV LINK
+    //TODO: CHECK $stmt->close();
+    //TODO: FIX CLASSES
 
-    //$commentId = NULL;
 
     $post = array(
         "id" => "",
@@ -17,13 +25,13 @@
     );
 
     $comment = array(
-        "id" => "",
-        "userid" => "",
-        "created" => "",
+        //"id" => "",
+        //"userid" => "",
+        //"created" => "",
         "email" => "",
         "name" => "",
-        "content" => "",
-        "postid" => ""
+        "content" => ""
+        //"postid" => ""
     );
 
 
@@ -47,8 +55,6 @@
         WHERE published = 1
         AND posts.id = '{$getPost}'";
 
-        //TODO: join posts.userid w. users.username
-
             if ($stmt->prepare($query)) {
             $stmt->execute();
             $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUsername);
@@ -68,7 +74,7 @@
 
             } else {
 
-                // TODO: FIX THIS
+                // TODO: 404?
                 $errorMessage = "Något gick fel.";
             }
 
@@ -85,40 +91,76 @@
         if ($stmt->prepare($query)) {
             $stmt->execute();
             $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
-            //$stmt->fetch();
-            //$stmt->close();
+            
 
 
         } else {
 
-            // TODO: FIX THIS
+            // TODO: 404?
             $errorMessage = "Något gick fel.";
         }
     }
 
 /*******************************************************************************
-   FORM
+   START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
 *******************************************************************************/
 
+    // This is used to stop user from leaving important fields empty.
+    $allRequiredFilled = TRUE;
+
+    // If a required field is left empty, info about the key will be inserted in $errors
+    // $obligatoryField is used to print out error message to user
+    $errors = array();
+    $obligatoryField = "<p class=\"error-msg\">Obligatoriskt fält</p><br>";
     if (isset($_POST["add-comment"])) {
 
-        $name = mysqli_real_escape_string($conn, $_POST["name"]);
-        $email = mysqli_real_escape_string($conn, $_POST["email"]);
-        $content = mysqli_real_escape_string($conn, $_POST["content"]);
+        // These variables are used for checking if all fields are filled.
+        $requiredFields = array("email", "name", "content");
 
-        $query = "INSERT INTO comments VALUES ('', '', now(), '{$email}', '{$name}', '{$content}', '{$getPost}')";
+        // This checks if all required fields are filled.
+        foreach ($comment as $key => $value) {
+            $isRequired = in_array($key, $requiredFields);
 
-        if ($stmt->prepare($query)) {
-            $stmt->execute();
-            header("Location: ./post.php?getpost=$getPost");
+            if (!array_key_exists($key, $_POST) || empty($_POST[$key])) {
+                if ($isRequired) {
+                    $allRequiredFilled = FALSE;
+                    array_push($errors, $key);
+                }
+            } else {
+                $fields[$key] = mysqli_real_escape_string($conn, $_POST[$key]);
+            }
+        }
+    }
 
-        } else {
+/*******************************************************************************
+   INSERTING VALUES FROM FORM TO DATABASE
+*******************************************************************************/
+    
+    if ($allRequiredFilled) {
 
-            // TODO: FIX THIS
-            $errorMessage = "Något gick fel.";
+        if (isset($_POST["add-comment"])) {
+
+            $name = mysqli_real_escape_string($conn, $_POST["name"]);
+            $email = mysqli_real_escape_string($conn, $_POST["email"]);
+            $content = mysqli_real_escape_string($conn, $_POST["content"]);
+
+            $query = "INSERT INTO comments VALUES ('', '', now(), '{$email}', '{$name}', '{$content}', '{$getPost}')";
+
+            if ($stmt->prepare($query)) {
+                $stmt->execute();
+                $stmt->close();
+                header("Location: ./post.php?getpost=$getPost");
+
+            } else {
+
+                // TODO: 404?
+                $errorMessage = "Något gick fel.";
+            }
+
         }
 
     }
+
 
 /*******************************************************************************
    ERROR MESSAGE
@@ -143,7 +185,7 @@
         <img class="post-test__img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
 
         <div class="post-test__flex">
-        <p>Uppladdad av: <span class="post-text__name"><?php echo $post["username"]; ?></span></p>
+        <p>Uppladdad av: <span class="post-text__name__2"><?php echo $post["username"]; ?></span></p>
 
         <p><?php echo $post["created"]; ?></p>
         </div>
@@ -158,7 +200,6 @@
         </div>
         <div class="post-test__comments">
             <h3>Kommentarer:</h3>
-            <!-- TODO: Loop these out.. -->
 
             <?php while (mysqli_stmt_fetch($stmt)): ?>
 
@@ -178,22 +219,26 @@
                 <fieldset>
                     <legend class="hidden">Skriv ny kommentar</legend>
 
-                    <!-- TODO: Checka så att dessa är ifyllda.. -->
+                    <!-- TODO: REQUIRE ON INPUTS WHEN FINAL-->
 
                     <!-- NAME START -->
                     <label class="form-field__label" for="name">Namn:</label>
-                    <input class="form-field" type="text" name="name" id="name" required>
+                    <input class="form-field" type="text" name="name" id="name">
+                    <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
                     <!-- NAME END -->
 
                     <!-- EMAIL START -->
                     <label class="form-field__label" for="email">Email:</label>
-                    <input class="form-field" type="email" name="email" id="email" required>
+                    <input class="form-field" type="email" name="email" id="email">
+                    <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
                     <!-- EMAIL END -->
 
                     <!-- TEXTFIELD START -->
                     <label class="form-field__label" for="content">Kommentar:</label>
-                    <textarea class="" name="content" id="content" required></textarea>
+                    <textarea class="" name="content" id="content"></textarea>
+                    <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>    
                     <!-- TEXTFIELD END -->
+
                     <button type="submit" class="button" name="add-comment" value="Lägg till">Lägg till</button>
                 </fieldset>
             </form>
@@ -203,5 +248,6 @@
     </article>
 
 </main>
+
 <!-- TODO: Remove dev link when final -->
 <?php else: echo "<p class='error-msg'>".$errorMessage."</p>"; echo "<u><a href=\"?getpost=1\">for developers</a></u>"; endif; ?>
