@@ -2,7 +2,7 @@
     require_once "./templates/header.php";
 
     //TODO: CLEAN UP ARRAYS
-    //TODO: CLEAN UP CSS
+
     //TODO: ERROR-MESSAGES/404
     //TODO: CHECK ARTICLE ELEMENT SEMANTICS
     //TODO: REQUIRE ON INPUT-FIELDS
@@ -85,13 +85,11 @@
 
     if (isset($_GET['getpost'])) {
 
-        $query = "SELECT * FROM comments WHERE postid = '{$getPost}'";
+        $query = "SELECT * FROM comments WHERE postid = '{$getPost}' ORDER BY date DESC";
 
         if ($stmt->prepare($query)) {
             $stmt->execute();
             $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
-
-
 
         } else {
 
