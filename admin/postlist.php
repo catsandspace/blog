@@ -12,7 +12,7 @@
 *******************************************************************************/
 
     $feedbackMessage = NULL;
-    $draftMessage = "<p class=\"table-listing__draft-info\">Det här inlägget är inte publicerat</p>";
+    $draftMessage = "<p class=\"relative-container__info\">Det här inlägget är inte publicerat</p>";
 
     if (isset($_POST["edit-post"])) {
         $postToEdit = $_POST["edit-post"];
@@ -73,17 +73,17 @@
                     }
                 ?>
                 <tr class="table-listing__row">
-                    <td class="table-listing__td">
-                        <img src="../<?php echo $image; ?>" alt="Image of cats and space" class="table-listing__img <?php if ($draft) { echo $modifier; } ?>">
+                    <td class="relative-container">
+                        <img src="../<?php echo $image; ?>" alt="Image of cats and space" class="full-width-img <?php if ($draft) { echo $modifier; } ?>">
                         <?php if ($draft) { echo $draftMessage; } ?>
                     </td>
-                    <td class="table-listing__td">
+                    <td class="relative-container">
                         <h3 class="table-listing__title table-listing__title--on-img"><?php echo $title; ?></h3>
                     </td>
-                    <td class="table-listing__td">
+                    <td class="relative-container">
                         <button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button>
                     </td>
-                    <td class="table-listing__td">
+                    <td class="relative-container">
                         <button type="submit" class="button error" name="delete-post" value="<?php echo $id; ?>">Ta bort</button>
                     </td>
                 </tr>
