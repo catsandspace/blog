@@ -1,24 +1,7 @@
-// TODO: CLEAN UP
 
-
-.post-text__title {
-    font-size: 2.4rem;
-    text-align: left;
-}
-
-.post-text__name {
-    color: $primary;
-}
-
-.post-text__name__2 {
-    color: lighten($primaryAlternative, 10%);
-}
-
-
-
-.post-test__comments {
-background: lighten($baseColor, 10%);
-margin-bottom: 1em;
-}
-// TODO: Det finns redan en klass i utilities som hanterar flex, kolla om du kan använda den.
-// Annars, lägg in ny klass som bara har display: flex.
+// .post-test__comments {
+// background: lighten($baseColor, 10%);
+// margin-bottom: 1em;
+// }
+// // TODO: Det finns redan en klass i utilities som hanterar flex, kolla om du kan använda den.
+// // Annars, lägg in ny klass som bara har display: flex.
