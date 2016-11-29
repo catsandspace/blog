@@ -173,7 +173,7 @@
         </div>
         <?php else: ?>
         <div class="edit-post-div">
-            <img src="../<?php echo $image; ?>" alt="Inläggets bild" class="edit-post-image">
+            <img src="../<?php echo $image; ?>" alt="Inläggets bild" class="border-xl full-width-img">
         </div>
         <?php endif; ?>
             <?php if (in_array("file", $errors)) { echo $obligatoryField; } ?>

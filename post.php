@@ -188,7 +188,7 @@
             <button type="submit" name="new-comment" value="true" class="button">Kommentera inlägget</button>
         </form>
         <?php if (isset ($_POST["new-comment"])): ?>
-        <div class="post-test__comments">
+        <div class="post-comments padding-normal margin-normal">
             <h3>Skriv ny kommentar</h3>
             <form method="post">
                 <fieldset>
@@ -203,18 +203,18 @@
                     <label class="form-field__label" for="email">Din e-postadress</label>
                     <input class="form-field" type="email" name="email" id="email">
                     <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
-                    <button type="submit" class="button margin-bottom-l" name="add-comment" value="Lägg till">Lägg till</button>
+                    <button type="submit" class="button" name="add-comment" value="Lägg till">Lägg till</button>
                 </fieldset>
             </form>
             <!-- FORM END -->
         </div>
         <?php endif; ?>
-        <div class="post-test__comments">
+        <div class="padding-normal border-normal">
             <h3>Kommentarer</h3>
 
             <?php while (mysqli_stmt_fetch($stmt)): ?>
 
-            <p>Av: <span class="post-text__name"><?php echo $commentAuthor; ?></span></p>
+            <p>Av: <?php echo $commentAuthor; ?></p>
             <p><?php echo $commentCreated; ?></p>
             <p><?php echo $commentContent; ?></p>
             <br>
