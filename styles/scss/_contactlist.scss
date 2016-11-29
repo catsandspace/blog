@@ -1,0 +1,14 @@
+.contact-list__item {
+    background-color: $baseColor;
+    display: block;
+    // TODO: Decide font sizes, create variables.
+    font-size: 1.8rem;
+    margin: 0.7em 0;
+
+}
+
+.contact-list__item:hover {
+    color: $primary;
+    cursor: pointer;
+
+}

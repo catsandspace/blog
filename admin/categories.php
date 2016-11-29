@@ -1,12 +1,14 @@
 <?php
-    require_once "../templates/header.php"; // Header content.
-    require_once "../assets/session.php";
-
+    require_once "../templates/header.php";
 
     // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE):
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
-    endif;
+
+    // Redirect to .dashboard.php if user is not a superadmin.
+    } elseif ($_SESSION["permission"] != 1) {
+        header("Location: ./dashboard.php");
+    }
 
     // Reset functions for the internal variables
     $changeCategoryId = NULL;
@@ -32,8 +34,8 @@
     // If button is pressed continue to check through the array  and
     // for each category checked, remove it frpm the db
     if (isset ($_POST["removeCat"])):
-        if (!empty($_POST["checkList"])):
-            foreach ($_POST['checkList'] as $selected):
+        if (!empty($_POST["checklist"])):
+            foreach ($_POST['checklist'] as $selected):
                 $catId = $selected;
                 $query = "DELETE FROM categories WHERE id=$catId";
                 if ($stmt->prepare($query)):
@@ -51,10 +53,10 @@
     // A counter is set to see if only one category is checked
     // The id for the checked category is memorized, if nothing is
     // checked the category id is set to NULL
-    if (isset ($_POST["changeCat"])):
-        if (!empty($_POST["checkList"])):
+    if (isset ($_POST["change-category"])):
+        if (!empty($_POST["checklist"])):
             $count = 0;
-            foreach ($_POST['checkList'] as $selected):
+            foreach ($_POST['checklist'] as $selected):
                 $catId = $selected;
                 $count ++;
             endforeach;
@@ -73,68 +75,50 @@
             if ($stmt -> prepare($query)):
                 $stmt->execute();
             else:
-                $errorMessage ="Faulty query in changeCat2";
+                $errorMessage ="Faulty query in change-category2";
             endif;
         else:
             $errorMessage = "Du måste ange en kategori!";
         endif;
     endif;
 
-
-
     // Select all rows from the database categories
     $query = "SELECT * FROM categories";
+
     if ($stmt->prepare($query)):
         $stmt->execute();
         $stmt->bind_result($catId, $category);
     endif;
-?>
 
+    $change = FALSE;
+?>
 <main>
     <h2>Kategorier</h2>
-
-<!--****************************************************************************
-    FORM THAT PRINTS ALL CATEGORIES FROM DATABASE, INCLUDING CHECKBOXES
-    IT ALSO PRINTS A TEXT INPUT IF SOMEONE HAS PRESSED CHANGE BUTTON
-*****************************************************************************-->
     <div class="flexbox-wrapper">
-
         <form method="post" action="categories.php" class="list-wrapper">
             <div class="list">
                 <div class="inner-list">
-                <?php
-                    $change=FALSE;
-                    while (mysqli_stmt_fetch($stmt)): ?>
-                        <input type="checkbox" name="checkList[]" value="<?php echo $catId; ?>"> <?php echo ucfirst($category); ?>
-                        <?php
-
-                        if ($catId == $changeCategoryId):
-
-                                $change=TRUE;
-                                $changeCatId="$catId";
-                                $changeCat="$cat";
-                        endif; ?>
-                        <br>
-                <?php endwhile; ?>
+                <?php while (mysqli_stmt_fetch($stmt)): ?>
+                <input type="checkbox" name="checklist[]" value="<?php echo $catId; ?>"> <?php echo ucfirst($category); ?><br>
+                <?php if ($catId == $changeCategoryId) {
+                    $change = TRUE;
+                    $changeCatId = $catId;
+                    $changeCat = $cat;
+                }
+                endwhile; ?>
                 </div>
             </div>
-            <br>
-            <?php
-                if ($change):
-            ?>
-                    <label for="categoryChange">Ändra kategori <?php echo $changeCat; ?>:</label>
-                    <input type="text" name="categoryChange">
-                    <input type="hidden" name="catId" value="<?php echo $changeCatId; ?>">
-            <?php
-                endif;
-            ?>
-            <button type="submit" value="Ändra" name="changeCat" class="button">Ändra</button>
+            <?php if ($change): ?>
+            <label class="form-field__label" for="categoryChange">Ändra kategori <?php echo $changeCat; ?>:</label>
+            <input type="text" name="categoryChange">
+            <input type="hidden" name="catId" value="<?php echo $changeCatId; ?>">
+            <?php endif; ?>
+            <button type="submit" value="Ändra" name="change-category" class="button">Ändra</button>
             <button type="submit" value="Ta bort" name="removeCat" class="button error">Ta bort</button>
         </form>
-
         <form method="post" action="categories.php" class="input-wrapper">
-            <label for="addCatagory">Lägg till kategori:</label>
-            <input type="text" name="category" id="addCategory">
+            <label class="form-field__label" for="addCatagory">Lägg till kategori</label>
+            <input class="form-field" type="text" name="category" id="addCategory">
             <button type="submit" value="Lägg till" name="addCat" class="button">Lägg till</button>
         </form>
     </div>

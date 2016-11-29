@@ -1,9 +1,16 @@
 $baseColor: #1D2225;
+$baseColorSmallTransparent: rgba(29, 34, 37, 0.2);
 $baseColorTransparent: rgba(29, 34, 37, 0.6);
 $baseColorSemiTransparent: rgba(29, 34, 37, 0.95);
 $baseColor2: #F8F8F8;
 $primary: #20A594;
 $primaryAlternative: #1AC9B2;
+$complimentary: #F0C73A;
+$complimentaryAlternative: #A57F00;
 $error: #bf2e1d;
 $errorAlternative: #ea3e2e;
 $errorTestColor: #bc4c4c;
+
+$primaryBrandFont: 'Rajdhani', sans-serif;
+$primaryBrandWeight: 400;
+$secondaryBrandFont: 'Montserrat', sans-serif;
