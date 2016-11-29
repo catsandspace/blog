@@ -177,15 +177,13 @@
 <?php if ($post["id"] != NULL): ?>
 <!-- TODO: Make this semantic -->
     <article class="post-test">
-        <img class="full-width-img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
+        <div class="relative-container">
+            <img class="full-width-img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
+            <p class="relative-container__info">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a></p>
+        </div>
         <p class="saffron-text primary-brand-font">[Uppladdad av: <?php echo $post["username"]; ?>] [Publicerad: <?php echo $post["created"]; ?>] <?php if ($post["created"] != $post["updated"]): ?> [Uppdaterad: <?php echo $post["updated"]; ?>] <?php endif; ?></p>
         <h2 class=""><?php echo $post["title"]; ?></h2>
-        <div class="">
-
-
-            <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a></p>
-            <p>Text: <?php echo $post["content"]; ?></p>
-        </div>
+        <p>Text: <?php echo $post["content"]; ?></p>
         <form method="post" action="#">
             <button type="submit" name="new-comment" value="true" class="button">Kommentera inlägget</button>
         </form>

@@ -96,6 +96,24 @@
     color: $primary;
 }
 
+.relative-container {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.relative-container__info {
+    background-color: $complimentary;
+    box-sizing: border-box;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+    color: $complimentaryAlternative;
+    left: 0;
+    line-height: 1.2em;
+    padding: 1em;
+    position: absolute;
+    top: 1.5rem;
+}
+
 .saffron-text {
     color: $complimentary;
 }
