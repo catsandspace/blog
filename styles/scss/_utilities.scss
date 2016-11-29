@@ -29,6 +29,11 @@
     margin: 0 auto;
 }
 
+.full-width-img {
+    box-sizing: border-box;
+    width: 100%;
+}
+
 .grayscale {
     -webkit-filter: grayscale(1);
     filter: gray;

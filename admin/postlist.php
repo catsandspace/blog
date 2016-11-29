@@ -74,7 +74,7 @@
                 ?>
                 <tr class="table-listing__row">
                     <td class="table-listing__td">
-                        <img src="../<?php echo $image; ?>" alt="Image of cats and space" class="table-listing__img <?php if ($draft) { echo $modifier; } ?>">
+                        <img src="../<?php echo $image; ?>" alt="Image of cats and space" class="full-width-img <?php if ($draft) { echo $modifier; } ?>">
                         <?php if ($draft) { echo $draftMessage; } ?>
                     </td>
                     <td class="table-listing__td">

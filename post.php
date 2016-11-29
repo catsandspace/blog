@@ -1,6 +1,6 @@
 <?php
     require_once "./templates/header.php";
-    
+
     //TODO: CLEAN UP ARRAYS
     //TODO: CLEAN UP CSS
     //TODO: ERROR-MESSAGES/404
@@ -91,7 +91,7 @@
         if ($stmt->prepare($query)) {
             $stmt->execute();
             $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
-            
+
 
 
         } else {
@@ -135,7 +135,7 @@
 /*******************************************************************************
    INSERTING VALUES FROM FORM TO DATABASE
 *******************************************************************************/
-    
+
     if ($allRequiredFilled) {
 
         if (isset($_POST["add-comment"])) {
@@ -182,7 +182,7 @@
 <!-- TODO: Make this semantic -->
     <article class="post-test">
         <h2 class=""><?php echo $post["title"]; ?></h2>
-        <img class="post-test__img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
+        <img class="full-width-img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
 
         <div class="post-test__flex">
         <p>Uppladdad av: <span class="post-text__name__2"><?php echo $post["username"]; ?></span></p>
@@ -236,7 +236,7 @@
                     <!-- TEXTFIELD START -->
                     <label class="form-field__label" for="content">Kommentar:</label>
                     <textarea class="" name="content" id="content"></textarea>
-                    <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>    
+                    <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
                     <!-- TEXTFIELD END -->
 
                     <button type="submit" class="button" name="add-comment" value="Lägg till">Lägg till</button>
