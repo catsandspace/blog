@@ -34,7 +34,6 @@
         //"postid" => ""
     );
 
-
 /*******************************************************************************
    GET SELECTED POST WHERE ID = post.php?getpost[id]
 *******************************************************************************/
@@ -161,7 +160,6 @@
 
     }
 
-
 /*******************************************************************************
    ERROR MESSAGE
 *******************************************************************************/
@@ -171,13 +169,11 @@
         $errorMessage = "Vi hittade inget inlägg med angivet id";
     }
 
-
 /*******************************************************************************
    START OF HTML
 *******************************************************************************/
 ?>
 <main>
-
 <?php if ($post["id"] != NULL): ?>
 <!-- TODO: Make this semantic -->
     <article class="post-test">
@@ -190,7 +186,6 @@
         <p><?php echo $post["created"]; ?></p>
         </div>
         <div class="">
-
             <?php if ($post["created"] != $post["updated"]): ?>
             <p>Uppdaterad: <?php echo $post["updated"]; ?></p>
             <?php endif; ?>
@@ -198,27 +193,15 @@
             <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a></p>
             <p>Text: <?php echo $post["content"]; ?></p>
         </div>
+        <form method="post" action="#">
+            <button type="submit" name="new-comment" value="true" class="button">Kommentera inlägget</button>
+        </form>
+        <?php if (isset ($_POST["new-comment"])): ?>
         <div class="post-test__comments">
-            <h3>Kommentarer:</h3>
-
-            <?php while (mysqli_stmt_fetch($stmt)): ?>
-
-            <p>Av: <span class="post-text__name"><?php echo $commentAuthor; ?></span></p>
-            <p><?php echo $commentCreated; ?></p>
-            <p><?php echo $commentContent; ?></p>
-            <br>
-            <?php endwhile; ?>
-            <?php if ($commentId == NULL): echo "<p>Detta inlägg har inga kommentarer.</p>"; endif; ?>
-
-        </div>
-
-        <div class="post-test__comments">
-            <h3>Kommentera inlägg:</h3>
-            <!-- FORM START -->
-            <form method="post" action="" class="">
+            <h3>Skriv ny kommentar</h3>
+            <form method="post">
                 <fieldset>
                     <legend class="hidden">Skriv ny kommentar</legend>
-
                     <!-- TODO: REQUIRE ON INPUTS WHEN FINAL-->
 
                     <!-- NAME START -->
@@ -243,10 +226,21 @@
                 </fieldset>
             </form>
             <!-- FORM END -->
+        </div>
+        <?php endif; ?>
+        <div class="post-test__comments">
+            <h3>Kommentarer:</h3>
 
+            <?php while (mysqli_stmt_fetch($stmt)): ?>
+
+            <p>Av: <span class="post-text__name"><?php echo $commentAuthor; ?></span></p>
+            <p><?php echo $commentCreated; ?></p>
+            <p><?php echo $commentContent; ?></p>
+            <br>
+            <?php endwhile; ?>
+            <?php if ($commentId == NULL): echo "<p>Detta inlägg har inga kommentarer.</p>"; endif; ?>
         </div>
     </article>
-
 </main>
 
 <!-- TODO: Remove dev link when final -->
