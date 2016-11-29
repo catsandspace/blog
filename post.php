@@ -1,5 +1,6 @@
 <?php
     require_once "./templates/header.php";
+    require_once "./assets/functions.php";
 
     //TODO: CLEAN UP ARRAYS
     //TODO: ERROR-MESSAGES/404
@@ -78,14 +79,6 @@
                 // TODO: 404?
                 $errorMessage = "Något gick fel.";
             }
-    }
-
-    function formatInnerHtml($string) {
-
-        $newString = str_replace('\n', "<br>", $string);
-        $newString = str_replace('\r', "", $newString);
-        $newString = str_replace('\\', "", $newString);
-        return $newString;
     }
 
 /*******************************************************************************
