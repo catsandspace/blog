@@ -177,18 +177,11 @@
 <?php if ($post["id"] != NULL): ?>
 <!-- TODO: Make this semantic -->
     <article class="post-test">
-        <h2 class=""><?php echo $post["title"]; ?></h2>
         <img class="full-width-img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
-
-        <div class="post-test__flex">
-        <p>Uppladdad av: <span class="post-text__name__2"><?php echo $post["username"]; ?></span></p>
-
-        <p><?php echo $post["created"]; ?></p>
-        </div>
+        <p class="saffron-text primary-brand-font">[Uppladdad av: <?php echo $post["username"]; ?>] [Publicerad: <?php echo $post["created"]; ?>] <?php if ($post["created"] != $post["updated"]): ?> [Uppdaterad: <?php echo $post["updated"]; ?>] <?php endif; ?></p>
+        <h2 class=""><?php echo $post["title"]; ?></h2>
         <div class="">
-            <?php if ($post["created"] != $post["updated"]): ?>
-            <p>Uppdaterad: <?php echo $post["updated"]; ?></p>
-            <?php endif; ?>
+
 
             <p class="tag">Kategori: <a href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a></p>
             <p>Text: <?php echo $post["content"]; ?></p>
@@ -203,33 +196,23 @@
                 <fieldset>
                     <legend class="hidden">Skriv ny kommentar</legend>
                     <!-- TODO: REQUIRE ON INPUTS WHEN FINAL-->
-
-                    <!-- NAME START -->
-                    <label class="form-field__label" for="name">Namn:</label>
+                    <label class="form-field__label" for="content">Kommentar</label>
+                    <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7"></textarea>
+                    <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
+                    <label class="form-field__label" for="name">Ditt namn</label>
                     <input class="form-field" type="text" name="name" id="name">
                     <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
-                    <!-- NAME END -->
-
-                    <!-- EMAIL START -->
-                    <label class="form-field__label" for="email">Email:</label>
+                    <label class="form-field__label" for="email">Din e-postadress</label>
                     <input class="form-field" type="email" name="email" id="email">
                     <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
-                    <!-- EMAIL END -->
-
-                    <!-- TEXTFIELD START -->
-                    <label class="form-field__label" for="content">Kommentar:</label>
-                    <textarea class="" name="content" id="content"></textarea>
-                    <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
-                    <!-- TEXTFIELD END -->
-
-                    <button type="submit" class="button" name="add-comment" value="Lägg till">Lägg till</button>
+                    <button type="submit" class="button margin-bottom-l" name="add-comment" value="Lägg till">Lägg till</button>
                 </fieldset>
             </form>
             <!-- FORM END -->
         </div>
         <?php endif; ?>
         <div class="post-test__comments">
-            <h3>Kommentarer:</h3>
+            <h3>Kommentarer</h3>
 
             <?php while (mysqli_stmt_fetch($stmt)): ?>
 
