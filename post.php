@@ -183,11 +183,12 @@
         </div>
         <p class="saffron-text primary-brand-font">[Uppladdad av: <?php echo $post["username"]; ?>] [Publicerad: <?php echo $post["created"]; ?>] <?php if ($post["created"] != $post["updated"]): ?> [Uppdaterad: <?php echo $post["updated"]; ?>] <?php endif; ?></p>
         <h2 class=""><?php echo $post["title"]; ?></h2>
-        <p>Text: <?php echo $post["content"]; ?></p>
+        <p><?php echo $post["content"]; ?></p>
+        <?php if (!isset ($_POST["new-comment"])): ?>
         <form method="post" action="#">
-            <button type="submit" name="new-comment" value="true" class="button">Kommentera inlägget</button>
+            <button type="submit" name="new-comment" value="true" class="button margin-bottom-l">Kommentera inlägget</button>
         </form>
-        <?php if (isset ($_POST["new-comment"])): ?>
+        <?php elseif (isset ($_POST["new-comment"])): ?>
         <div class="post-comments padding-normal margin-normal">
             <h3>Skriv ny kommentar</h3>
             <form method="post">
@@ -203,7 +204,7 @@
                     <label class="form-field__label" for="email">Din e-postadress</label>
                     <input class="form-field" type="email" name="email" id="email">
                     <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
-                    <button type="submit" class="button" name="add-comment" value="Lägg till">Lägg till</button>
+                    <button type="submit" class="button margin-bottom-l" name="add-comment" value="Lägg till">Lägg till</button>
                 </fieldset>
             </form>
             <!-- FORM END -->
@@ -211,15 +212,11 @@
         <?php endif; ?>
         <div class="padding-normal border-normal">
             <h3>Kommentarer</h3>
-
             <?php while (mysqli_stmt_fetch($stmt)): ?>
-
-            <p>Av: <?php echo $commentAuthor; ?></p>
-            <p><?php echo $commentCreated; ?></p>
             <p><?php echo $commentContent; ?></p>
-            <br>
+            <p class="saffron-text primary-brand-font comment__border-bottom">[Av: <?php echo $commentAuthor; ?>] [Skriven den: <?php echo $commentCreated; ?>]</p>
             <?php endwhile; ?>
-            <?php if ($commentId == NULL): echo "<p>Detta inlägg har inga kommentarer.</p>"; endif; ?>
+            <?php if ($commentId == NULL): echo "<p class=\"saffron-text primary-brand-font\">Detta inlägg har inga kommentarer ännu.</p>"; endif; ?>
         </div>
     </article>
 </main>

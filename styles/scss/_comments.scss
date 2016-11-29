@@ -31,3 +31,8 @@
         text-align: center;
     }
 }
+
+.comment__border-bottom {
+    border-bottom: 2px solid $primary;
+    padding-bottom: 2rem;
+}
