@@ -14,6 +14,7 @@
 /*******************************************************************************
    TODO: THIS PAGE NEEDS AN ALL REQUIRED FILLED FUNCTION, JUST LIKE POSTEDITOR.
 *******************************************************************************/
+// TODO: Convert if statment on dashboard to a function, use it here. done?
 
     // Reset functions for the internal variables
     $addUser = FALSE;
@@ -41,10 +42,10 @@
         endif;
     endif;
 
-    $query = "SELECT permission, username FROM users";
+    $query = "SELECT permission, username, id FROM users";
     if ($stmt -> prepare($query)) {
         $stmt-> execute();
-        $stmt -> bind_result($permission, $userName);
+        $stmt -> bind_result($permission, $userName, $userId);
     }
 
     // This checks current user's permission level.
@@ -60,10 +61,12 @@
         <div class="list">
             <div class="inner-list">
                 <?php while (mysqli_stmt_fetch($stmt)): ?>
+                <div class="padding-normal border-normal margin-bottom-l">
+                <p><?php echo "Användarnamn: $userName"; ?></p>
+                <p class="saffron-text primary-brand-font"><?php echo "Behörighet: $userPermission"; ?></p>
                 <input type="checkbox" name="checklist[]" value="<?php echo $userId; ?>">
-                <?php
-                    // TODO: Convert if statment on dashboard to a function, use it here.
-                    echo "$userName – behörighet: $userPermission";?><br>
+                <label for="checklist[]">Radera</label><br><br>
+                </div>
                 <?php endwhile; ?>
             </div>
         </div>
