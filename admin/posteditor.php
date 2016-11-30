@@ -181,7 +181,7 @@
         </div>
         <div class="edit-post-div">
             <label class="form-field__label" for="headline">Rubrik</label><br>
-            <input type="text" class="form-field edit-post__input" name="headline" id="headline" value="<?php echo $fields["headline"]; ?>" required><br>
+            <input type="text" class="form-field edit-post__input" name="headline" id="headline" value="<?php echo formatInnerHtml($fields["headline"]); ?>" required><br>
             <?php if (in_array("headline", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
