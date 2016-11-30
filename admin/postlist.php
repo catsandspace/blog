@@ -41,7 +41,7 @@
 
     // SQL statement with LEFT JOIN table -> posts & categories.
     // TODO: Just get the variables you need.
-    $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id";
+    $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id ORDER BY created DESC";
 
     // Execute query.
     if ($stmt->prepare($query)) {
