@@ -76,7 +76,7 @@ function formatInnerHtml($string) {
 
     $newString = str_replace('\n', "<br>", $string);
     $newString = str_replace('\r', "", $newString);
-    $newString = str_replace('\\', "", $newString);
+    $newString = str_replace('\\\'', "'", $newString);
     return $newString;
 }
 
