@@ -49,6 +49,9 @@
 
     // This checks current user's permission level.
     $userPermission = strtolower(convertPermissionToString($permission));
+    $userPermission = utf8_encode($userPermission);
+
+
 ?>
 <main>
     <h2>Användare</h2>

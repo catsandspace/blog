@@ -6,6 +6,7 @@ fieldset {
 // TODO: När texten är autofill, se till att textfärgen är vit.
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px $baseColor inset;
+    -webkit-text-fill-color: $baseColor2;
 }
 
 // This class is also found in "_typography.scss"

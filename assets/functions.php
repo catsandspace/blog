@@ -52,9 +52,9 @@ function logout() {
 // TODO: Describe what this function does!
 function convertPermissionToString($permission) {
     if ($permission == 0) {
-        return "Redaktör";
+        return utf8_decode("Redaktör");
     } elseif ($permission == 1) {
-        return "Superadministratör";
+        return utf8_decode("Superadministratör");
     }
     return NULL;
 }
@@ -73,10 +73,11 @@ function checkExistingOrReturnPredefined($alternative, $predefined) {
  * @return string         HTML markup.
  */
 function formatInnerHtml($string) {
-
+    // TODO: Make this DRY!
     $newString = str_replace('\n', "<br>", $string);
     $newString = str_replace('\r', "", $newString);
     $newString = str_replace('\\\'', "'", $newString);
+    $newString = str_replace('\\"', '"', $newString);
     return $newString;
 }
 
