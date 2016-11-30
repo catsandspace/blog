@@ -73,10 +73,11 @@ function checkExistingOrReturnPredefined($alternative, $predefined) {
  * @return string         HTML markup.
  */
 function formatInnerHtml($string) {
-
+    // TODO: Make this DRY!
     $newString = str_replace('\n', "<br>", $string);
     $newString = str_replace('\r', "", $newString);
     $newString = str_replace('\\\'', "'", $newString);
+    $newString = str_replace('\\"', '"', $newString);
     return $newString;
 }
 
