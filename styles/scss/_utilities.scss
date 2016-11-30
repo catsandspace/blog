@@ -117,6 +117,9 @@
     width: 100%;
     position: relative;
 }
+.relative-container--boxsizing {
+    box-sizing: border-box;
+}
 
 .relative-container__info {
     background-color: $complimentary;
