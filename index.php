@@ -47,8 +47,6 @@
             <div class="blogpost-wrapper__text">
                 <h2><?php echo $post["title"]; ?></h2>
                 <p class="tag">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [<?php echo $post["created"] ?>]</p>
-               <!--  <p><?php //echo $post["content"]; ?></p> -->
-                <!-- <p><a href="post.php?getpost=<?php //echo $post["id"] ?>"></a></p> -->
                 <div class="post-comments">
                     <div class="comment-wrapper">
                         <?php // START OF COMMENTS
