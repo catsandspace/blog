@@ -52,9 +52,9 @@ function logout() {
 // TODO: Describe what this function does!
 function convertPermissionToString($permission) {
     if ($permission == 0) {
-        return "Redaktör";
+        return utf8_decode("Redaktör");
     } elseif ($permission == 1) {
-        return "Superadministratör";
+        return utf8_decode("Superadministratör");
     }
     return NULL;
 }
