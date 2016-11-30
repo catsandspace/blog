@@ -1,6 +1,7 @@
 <?php
     require_once "../templates/header.php";
     require_once "../assets/session.php";
+    require_once "../assets/functions.php";
 
     // This redirects user to login.php if not logged in.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
@@ -78,7 +79,7 @@
                         <?php if ($draft) { echo $draftMessage; } ?>
                     </td>
                     <td class="relative-container">
-                        <h3 class="table-listing__title table-listing__title--on-img"><?php echo $title; ?></h3>
+                        <h3 class="table-listing__title table-listing__title--on-img"><?php echo formatInnerHtml($title); ?></h3>
                     </td>
                     <td class="relative-container">
                         <button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button>
