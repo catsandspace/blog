@@ -19,6 +19,16 @@
     <div class="flexbox-wrapper">
         <h2 class="inverted-text-color">Hej @<?php echo $currentUser; ?></h2>
         <p class="introduction-paragraph inverted-text-color">Behörighet: <?php echo ucfirst($userPermission); ?></p>
+        <?php if (isset($_GET['statistics'])): ?>
+        <div class="border-normal padding-normal relative-container relative-container--boxsizing margin-normal center-text ">
+            <h3 class="center-text">Statistik</h3>
+            <ul class="list-style-none">
+                <li>Du har totalt x blogginlägg</li>
+                <li>Du har totalt x antal kommentarer</li>
+                <li>Du har x antal kommentarer i snitt på varje inlägg</li>
+            </ul>
+        </div>
+        <?php endif; ?>
         <a href="./posteditor.php" class="button link__button">Skapa nytt inlägg</a>
         <a href="./postlist.php" class="button link__button">Se alla inlägg</a>
         <a href="./comments.php" class="button link__button">Se alla kommentarer</a>
@@ -26,6 +36,10 @@
         <a href="./categories.php" class="button link__button">Hantera kategorier</a>
         <a href="./users.php" class="button link__button">Hantera användare</a>
         <?php endif; ?>
+        <form method="get">
+            <button type="submit" name="statistics" value="true" class="button">Se statistik </button>
+
+        </form>
         <a href="../assets/logout.php" class="button link__button--error" target="_self">Logga ut</a>
     </div>
 </main>
