@@ -66,4 +66,18 @@ function checkExistingOrReturnPredefined($alternative, $predefined) {
     }
     return $predefined;
 }
+
+/**
+ * The function removes special characters and format string as HTML markup.
+ * @param  string $string The string that needs formatting.
+ * @return string         HTML markup.
+ */
+function formatInnerHtml($string) {
+
+    $newString = str_replace('\n', "<br>", $string);
+    $newString = str_replace('\r', "", $newString);
+    $newString = str_replace('\\', "", $newString);
+    return $newString;
+}
+
 ?>
