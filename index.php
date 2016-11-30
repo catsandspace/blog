@@ -16,7 +16,7 @@
         $display = $_GET["display"];
 
         // New SQL statement WHERE categories.category = $display.
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}' AND published = 1";
+        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}' AND published = 1 ORDER BY created DESC";
     }
 
     // Execute query.
