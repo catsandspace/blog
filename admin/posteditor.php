@@ -186,12 +186,7 @@
         </div>
         <div class="edit-post-div">
             <label class="form-field__label" for="post-content">Beskrivning</label><br>
-            <textarea class="form-field edit-post__textarea" name="post-content" id="post-content" rows="10" cols="50" required>
-                <?php
-                    // FIXME: Figure out how to remove <br>.
-                    echo formatInnerHtml($fields["post-content"]);
-                ?>
-            </textarea><br>
+            <textarea class="form-field edit-post__textarea" name="post-content" id="post-content" rows="10" cols="50" required><?php echo formatInnerHtml($fields["post-content"]); ?></textarea><br>
             <?php if (in_array("post-content", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
