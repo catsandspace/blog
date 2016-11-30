@@ -70,12 +70,12 @@
                     <?php while (mysqli_stmt_fetch($stmt)): ?>
                         <td class="relative-container"><?php echo $content; ?></td>
                         <td class="relative-container">Skriven av: <?php echo checkExistingOrReturnPredefined($name, $userName); ?></td>
+                        <td class="relative-container">E-postadress: <a href="mailto:<?php echo checkExistingOrReturnPredefined($email, $userMail); ?>"><?php echo checkExistingOrReturnPredefined($email, $userMail); ?></a></td>
                         <td class="relative-container saffron-text primary-brand-font">[<?php echo $date; ?>] [Kommentar på inlägg:
                             <?php
                             // TODO: Change this to post title instead.
                             echo $postId;
                             ?>]</td>
-                        <td class="relative-container"><?php echo checkExistingOrReturnPredefined($email, $userMail); ?></td>
                         <td class="relative-container">
                             <button type="submit" class="button error margin-bottom-xl" name="remove-comment" value="<?php echo $id; ?>">Ta bort kommentar</button>
                         </td>

@@ -1,14 +1,15 @@
 <?php
     require_once "./templates/header.php";
+    require_once "./assets/functions.php";
 
     //TODO: CLEAN UP ARRAYS
-
     //TODO: ERROR-MESSAGES/404
     //TODO: CHECK ARTICLE ELEMENT SEMANTICS
     //TODO: REQUIRE ON INPUT-FIELDS
     //TODO: REMOVE DEV LINK
     //TODO: CHECK $stmt->close();
     //TODO: FIX CLASSES
+    //TODO: FIX ANCHOR LINK WITH TARGET WHEN COMMENTING.
 
 
     $post = array(
@@ -59,7 +60,9 @@
             $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUsername);
             $stmt->fetch();
             //$stmt->close();
+            //
 
+            // TODO: If we need to define these, use them down below.
             $post["id"] = $id;
             $post["userid"] = $userId;
             $post["created"] = $created;
@@ -76,7 +79,6 @@
                 // TODO: 404?
                 $errorMessage = "Något gick fel.";
             }
-
     }
 
 /*******************************************************************************
@@ -172,16 +174,17 @@
 *******************************************************************************/
 ?>
 <main>
+
 <?php if ($post["id"] != NULL): ?>
 <!-- TODO: Make this semantic -->
     <article class="smaller-font">
         <div class="relative-container">
             <img class="full-width-img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
-            <a class="relative-container__info" href="index.php?display=<?php echo $post["categoryid"] ?>"><?php echo str_replace(' ', '', $post["categoryname"]); ?></a>
+            <a class="relative-container__info" href="index.php?display=<?php echo $post["categoryid"] ?>">Kategori: <?php echo str_replace(' ', '', $post["categoryname"]); ?></a>
         </div>
         <p class="saffron-text primary-brand-font">[Uppladdad av: <?php echo $post["username"]; ?>] [Publicerad: <?php echo $post["created"]; ?>] <?php if ($post["created"] != $post["updated"]): ?> [Uppdaterad: <?php echo $post["updated"]; ?>] <?php endif; ?></p>
-        <h2 class=""><?php echo $post["title"]; ?></h2>
-        <p><?php echo $post["content"]; ?></p>
+        <h2><?php echo $title; ?></h2>
+        <p><?php echo formatInnerHtml($content); ?></p>
         <?php if (!isset ($_POST["new-comment"])): ?>
         <form method="post" action="#">
             <button type="submit" name="new-comment" value="true" class="button margin-bottom-l">Kommentera inlägget</button>
