@@ -57,7 +57,7 @@
     }
     // Variables with function that devide comments on posts
     $averagePostComments = $NumberOfComments / $NumberOfPosts;
-    $roundAverageNumber = number_format($avergarePostComments, 2,',', ' ');
+    $roundAverageNumber = number_format($averagePostComments, 2,',', ' ');
     /***************************************************************************/
 ?>
 
