@@ -48,9 +48,7 @@
         $stmt -> bind_result($permission, $userName, $userId);
     }
 
-    // This checks current user's permission level.
-    $userPermission = strtolower(convertPermissionToString($permission));
-    $userPermission = utf8_encode($userPermission);
+
 
 
 ?>
@@ -63,6 +61,11 @@
                 <?php while (mysqli_stmt_fetch($stmt)): ?>
                 <div class="padding-normal border-normal margin-bottom-l">
                 <p><?php echo "Användarnamn: $userName"; ?></p>
+                <?php
+                    // This checks current user's permission level.
+                    $userPermission = strtolower(convertPermissionToString($permission));
+                    $userPermission = utf8_encode($userPermission);
+                ?>
                 <p class="saffron-text primary-brand-font"><?php echo "Behörighet: $userPermission"; ?></p>
                 <input type="checkbox" name="checklist[]" value="<?php echo $userId; ?>">
                 <label for="checklist[]">Radera</label><br><br>

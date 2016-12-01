@@ -8,7 +8,20 @@
         header("Location: ../login.php");
     endif;
 
-    // For superuser print all comments
+
+
+    // If-statement to check if button for removing comments is set
+    if (isset ($_POST["remove-comment"])):
+        $commentToDelete = $_POST["remove-comment"];
+        $query = "DELETE FROM comments WHERE id = '{$commentToDelete}'";
+        if ($stmt->prepare($query)):
+            $stmt->execute();
+        else:
+            echo "Fel på queryn";
+        endif;
+    endif;
+
+        // For superuser print all comments
     if ($_SESSION["permission"] == 1):
 
         // select all comments and username and email from user
@@ -41,17 +54,6 @@
             echo "wrong query";
         endif;
     endif;
-
-    // If-statement to check if button for removing comments is set
-    if (isset ($_POST["remove-comment"])):
-        $commentToDelete = $_POST["remove-comment"];
-        $query = "DELETE FROM comments WHERE id = '{$commentToDelete}'";
-        if ($stmt->prepare($query)):
-            $stmt->execute();
-        else:
-            echo "Fel på queryn";
-        endif;
-    endif;
 ?>
 <main class="dark">
     <h2 class="inverted-text-color">Kommentarer</h2>
@@ -77,7 +79,7 @@
                             echo $postId;
                             ?>]</td>
                         <td class="relative-container">
-                            <button type="submit" class="button error margin-bottom-xl" name="remove-comment" value="<?php echo $id; ?>">Ta bort kommentar</button>
+                            <button type="submit" class="button error margin-bottom-xl" name="remove-comment" value="<?php echo $commentId; ?>">Ta bort kommentar</button>
                         </td>
                     <?php endwhile; ?>
                 </tr>
