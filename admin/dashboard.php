@@ -27,7 +27,7 @@
             $post_id = $rows['id'];
 
 
-            // echo count($post_id);
+            echo $post_id;
 
         }
     }
