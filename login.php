@@ -53,8 +53,9 @@
             <label class="form-field__label" for="password">Lösenord</label><br>
             <input class="form-field" type="password" name="password" id="password"><br>
             <button type="submit" name="login" class="button">Logga in</button>
+            <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
        </fieldset>
     </form>
-    <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
+    
 </main>
 <?php require_once "./templates/footer.php"; ?>
