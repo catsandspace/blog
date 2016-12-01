@@ -57,6 +57,7 @@
         // $numberOfPosts = mysqli_stmt_num_rows($stmt);
         $NumberOfComments++;
     }
+    // Variables with function that devide comments on posts
     $avergarePostComments = $NumberOfComments / $NumberOfPosts;
     $generalCommentsOnPosts = number_format($avergarePostComments, 2,',', ' ');
     /***************************************************************************/
