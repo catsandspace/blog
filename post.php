@@ -148,7 +148,7 @@
             if ($stmt->prepare($query)) {
                 $stmt->execute();
                 $stmt->close();
-                header("Location: ./post.php?getpost=$getPost");
+                header("Location: ./post.php?getpost=$getPost#comment-bottom");
 
             } else {
 
@@ -186,11 +186,11 @@
         <h2><?php echo $title; ?></h2>
         <p><?php echo formatInnerHtml($content); ?></p>
         <?php if (!isset ($_POST["new-comment"])): ?>
-        <form method="post" action="#">
+        <form method="post" action="#comment-top">
             <button type="submit" name="new-comment" value="true" class="button margin-bottom-l">Kommentera inlägget</button>
         </form>
         <?php elseif (isset ($_POST["new-comment"])): ?>
-        <div class="padding-normal margin-normal">
+        <div class="padding-normal margin-normal" id="comment-top">
             <h3>Skriv ny kommentar</h3>
             <form method="post">
                 <fieldset>
@@ -212,7 +212,7 @@
         </div>
         <?php endif; ?>
         <div class="padding-normal border-normal">
-            <h3>Kommentarer</h3>
+            <h3 id="comment-bottom">Kommentarer</h3>
             <?php while (mysqli_stmt_fetch($stmt)): ?>
             <p><?php echo $commentContent; ?></p>
             <p class="saffron-text primary-brand-font comment__border-bottom">[Av: <?php echo $commentAuthor; ?>] [Skriven den: <?php echo $commentCreated; ?>]</p>
