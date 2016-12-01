@@ -67,7 +67,7 @@
         <?php if (isset($_GET['statistics'])): ?>
         <div class="border-normal padding-normal relative-container relative-container--boxsizing margin-normal center-text ">
             <h3 class="center-text">Statistik</h3>
-            <ul class="list-style-none">
+            <ul class="list-style-none no-padding">
                 <li>Totalt antal publicerade blogginlägg: <?php echo $NumberOfPosts; ?></li>
                 <li>Totalt antal kommentarer: <?php echo $NumberOfComments; ?></li>
                 <li>Antal kommentarer i snitt på varje inlägg: <?php echo  $roundAverageNumber; ?></li>
