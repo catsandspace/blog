@@ -190,7 +190,7 @@
             <button type="submit" name="new-comment" value="true" class="button margin-bottom-l">Kommentera inlägget</button>
         </form>
         <?php elseif (isset ($_POST["new-comment"])): ?>
-        <div class="post-comments padding-normal margin-normal">
+        <div class="padding-normal margin-normal">
             <h3>Skriv ny kommentar</h3>
             <form method="post">
                 <fieldset>
