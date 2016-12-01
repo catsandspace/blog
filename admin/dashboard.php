@@ -37,7 +37,6 @@
     while (mysqli_stmt_fetch($stmt)) {
 
         $stmt->store_result();
-        // $numberOfPosts = mysqli_stmt_num_rows($stmt);
         $NumberOfPosts++;
     }
     // Fetching comments row id from database
@@ -54,12 +53,11 @@
     while (mysqli_stmt_fetch($stmt)) {
 
         $stmt->store_result();
-        // $numberOfPosts = mysqli_stmt_num_rows($stmt);
         $NumberOfComments++;
     }
     // Variables with function that devide comments on posts
-    $avergarePostComments = $NumberOfComments / $NumberOfPosts;
-    $generalCommentsOnPosts = number_format($avergarePostComments, 2,',', ' ');
+    $averagePostComments = $NumberOfComments / $NumberOfPosts;
+    $roundAverageNumber = number_format($avergarePostComments, 2,',', ' ');
     /***************************************************************************/
 ?>
 
@@ -72,7 +70,7 @@
             <ul class="list-style-none">
                 <li>Totalt antal publicerade blogginlägg: <?php echo $NumberOfPosts; ?></li>
                 <li>Totalt antal kommentarer: <?php echo $NumberOfComments; ?></li>
-                <li>Antal kommentarer i snitt på varje inlägg: <?php echo $generalCommentsOnPosts; ?></li>
+                <li>Antal kommentarer i snitt på varje inlägg: <?php echo  $roundAverageNumber; ?></li>
             </ul>
         </div>
         <?php endif; ?>
