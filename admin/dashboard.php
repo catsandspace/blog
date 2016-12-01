@@ -18,7 +18,7 @@
     Trying to retreive data and display it - work in progress / Anders
     *****************************************************************************/
 
-    $conn = NEW mysqli("localhost", "root", "", "catsandspace");
+    // $conn = NEW mysqli("localhost", "root", "", "catsandspace");
 
     $resultSet = $conn->query("SELECT id FROM posts");
 
@@ -31,14 +31,13 @@
 
         }
     }
-
+    $numberOfPosts = NULL;
     /***************************************************************************/
 ?>
 
 <main class="dark">
     <div class="flexbox-wrapper">
         <h2 class="inverted-text-color">Hej @<?php echo $currentUser; ?></h2>
-        <p class="introduction-paragraph inverted-text-color"><?php echo ucfirst($userPermission); ?></p>
         <?php if (isset($_GET['statistics'])): ?>
         <div class="border-normal padding-normal relative-container relative-container--boxsizing margin-normal center-text ">
             <h3 class="center-text">Statistik</h3>
