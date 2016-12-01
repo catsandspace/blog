@@ -18,17 +18,16 @@
         // If everything is okay, connect to the server and database
         if (!empty($_POST["userName"]) && !empty($_POST["passWord"]) && !empty($_POST["firstName"])&& !empty($_POST["lastName"])&& !empty($_POST["eMail"]) && !empty($_POST["website"]) && !empty($_POST["description"])):
             // Remove any html or php from the input strings
-            $un = mysqli_real_escape_string($_POST["userName"]);
-            $up = mysqli_real_escape_string($_POST["passWord"]);
+            $un = mysqli_real_escape_string($conn, $_POST["userName"]);
+            $up = mysqli_real_escape_string($conn, $_POST["passWord"]);
             $upHash = password_hash($up, PASSWORD_DEFAULT); // Generate hashed password, salt included
 
-            $fn = mysqli_real_escape_string($_POST["firstName"]);
-            $ln = mysqli_real_escape_string($_POST["lastName"]);
-            $em = mysqli_real_escape_string($_POST["eMail"]);
-            $ws = mysqli_real_escape_string($_POST["website"]);
-            $desc = mysqli_real_escape_string($_POST["description"]);
+            $fn = mysqli_real_escape_string($conn, $_POST["firstName"]);
+            $ln = mysqli_real_escape_string($conn, $_POST["lastName"]);
+            $em = mysqli_real_escape_string($conn, $_POST["eMail"]);
+            $ws = mysqli_real_escape_string($conn, $_POST["website"]);
+            $desc = mysqli_real_escape_string($conn, $_POST["description"]);
             $pic = "../userpics/default_avatar.jpg";     // Default avatar as first picture
-
 
             // Check if username is taken
             // Create a query
@@ -47,7 +46,7 @@
                         // Check if e-mail is available
                         if (!$result || mysqli_num_rows($result) == 0):
                             // Make a query with all userdata
-                            $query = "INSERT INTO users VALUES (NULL, '0', '$un', '$upHash', '$fn', '$ln', '$em', '$ws', '$desc', '$pic')";
+                            $query = "INSERT INTO users VALUES (NULL, '0', '$un', '$upHash', '$em', '$ws', '$fn', '$ln', '$pic', '$desc')";
                             // Check query
                             if ($stmt -> prepare($query)):
                                 $stmt->execute();
