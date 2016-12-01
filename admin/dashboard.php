@@ -18,8 +18,6 @@
     Trying to retreive data and display it - work in progress / Anders
     *****************************************************************************/
 
-    // $conn = NEW mysqli("localhost", "root", "", "catsandspace");
-
     $resultSet = $conn->query("SELECT id FROM posts");
 
     if ($resultSet->num_rows != 0){
@@ -42,9 +40,9 @@
         <div class="border-normal padding-normal relative-container relative-container--boxsizing margin-normal center-text ">
             <h3 class="center-text">Statistik</h3>
             <ul class="list-style-none">
-                <li>Du har totalt x blogginlägg</li>
-                <li>Du har totalt x antal kommentarer</li>
-                <li>Du har x antal kommentarer i snitt på varje inlägg</li>
+                <li>Totalt antal publicerade blogginlägg: </li>
+                <li>Totalt antal kommentarer:</li>
+                <li>Antal kommentarer i snitt på varje inlägg:</li>
             </ul>
         </div>
         <?php endif; ?>
