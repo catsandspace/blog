@@ -207,7 +207,7 @@
         </div>
         <div class="flexbox-wrapper">
             <button class="button" type="submit" name="submit">Spara</button>
-            <a href="./dashboard.php" class="button error"><br>Gå till panelen</a>
+            <a href="./dashboard.php" class="button error"><br>Till kontrollpanelen</a>
         </div>
     </form>
 </main>
