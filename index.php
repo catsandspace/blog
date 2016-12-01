@@ -37,9 +37,11 @@
             "categoryName" => $categoryName
         ));
         // TODO: Trim $created so that only date is shown.
-    }
+    } ?>
 
-    for ($i=0; $i < count($posts); $i++):
+    <div class="content-slides-in">
+
+    <?php for ($i=0; $i < count($posts); $i++):
         $post = $posts[$i];
     ?>
     <article class="list">
@@ -88,7 +90,7 @@
         </div>
     </article>
 <?php endfor; ?>
+</div>
 
-
-<?php if($errorMessage) { echo $errorMessage; }
+<?php if ($errorMessage) { echo $errorMessage; }
 require_once "./templates/footer.php"; ?>
