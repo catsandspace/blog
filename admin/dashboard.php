@@ -13,6 +13,26 @@
 
     // This checks current user's permission level.
     $userPermission = convertPermissionToString($currentUsersPermission);
+
+    /*****************************************************************************
+    Trying to retreive data and display it - work in progress / Anders
+    *****************************************************************************/
+
+    $conn = NEW mysqli("localhost", "root", "", "catsandspace");
+
+    $resultSet = $conn->query("SELECT id FROM posts");
+
+    if ($resultSet->num_rows != 0){
+        while($rows = $resultSet->fetch_assoc()) {
+            $post_id = $rows['id'];
+
+
+            // echo count($post_id);
+
+        }
+    }
+
+    /***************************************************************************/
 ?>
 
 <main class="dark">
