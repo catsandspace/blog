@@ -15,21 +15,50 @@
     $userPermission = convertPermissionToString($currentUsersPermission);
 
     /*****************************************************************************
-    Trying to retreive data and display it - work in progress / Anders
+     Fetching and displaying total number of posts, comments and generally
+     how many comments on each posts.
     *****************************************************************************/
 
-    $resultSet = $conn->query("SELECT id FROM posts");
+    $NumberOfPosts = NULL;
+    $NumberOfComments = NULL;
+    $errorMessage = NULL;
 
-    if ($resultSet->num_rows != 0){
-        while($rows = $resultSet->fetch_assoc()) {
-            $post_id = $rows['id'];
+    // Fetching post row id from database
+    $query = "SELECT id FROM posts WHERE published = 1";
 
+    if ($stmt->prepare($query)) {
 
-            echo $post_id;
-
-        }
+        $stmt->execute();
+        $stmt->bind_result($id);
+    } else {
+        $errorMessage = "Något gick fel vid försök att hämta statistik";
     }
-    $numberOfPosts = NULL;
+    // Counting number of posts id and sums it up
+    while (mysqli_stmt_fetch($stmt)) {
+
+        $stmt->store_result();
+        // $numberOfPosts = mysqli_stmt_num_rows($stmt);
+        $NumberOfPosts++;
+    }
+    // Fetching comments row id from database
+     $query = "SELECT id FROM comments";
+
+    if ($stmt->prepare($query)) {
+
+        $stmt->execute();
+        $stmt->bind_result($id);
+    } else {
+        $errorMessage = "Något gick fel vid försök att hämta statistik";
+    }
+    // Counting number of comments id and sums it up
+    while (mysqli_stmt_fetch($stmt)) {
+
+        $stmt->store_result();
+        // $numberOfPosts = mysqli_stmt_num_rows($stmt);
+        $NumberOfComments++;
+    }
+    $avergarePostComments = $NumberOfComments / $NumberOfPosts;
+
     /***************************************************************************/
 ?>
 
@@ -40,9 +69,9 @@
         <div class="border-normal padding-normal relative-container relative-container--boxsizing margin-normal center-text ">
             <h3 class="center-text">Statistik</h3>
             <ul class="list-style-none">
-                <li>Totalt antal publicerade blogginlägg: </li>
-                <li>Totalt antal kommentarer:</li>
-                <li>Antal kommentarer i snitt på varje inlägg:</li>
+                <li>Totalt antal publicerade blogginlägg: <?php echo $NumberOfPosts; ?></li>
+                <li>Totalt antal kommentarer: <?php echo $NumberOfComments; ?></li>
+                <li>Antal kommentarer i snitt på varje inlägg: <?php echo $avergarePostComments; ?></li>
             </ul>
         </div>
         <?php endif; ?>
@@ -60,4 +89,7 @@
         <a href="../assets/logout.php" class="button link__button--error" target="_self">Logga ut</a>
     </div>
 </main>
-<?php require_once "../templates/footer.php"; ?>
+
+<?php if ($errorMessage) { echo $errorMessage;}
+ require_once "../templates/footer.php"; ?>
+
