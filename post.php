@@ -180,7 +180,7 @@
     <article class="smaller-font">
         <div class="relative-container">
             <img class="full-width-img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
-            <a class="relative-container__info" href="index.php?display=<?php echo $post["categoryid"] ?>">Kategori: <?php echo str_replace(' ', '', $post["categoryname"]); ?></a>
+            <a class="relative-container__info relative-container__link" href="index.php?display=<?php echo $post["categoryid"] ?>">Kategori: <?php echo str_replace(' ', '', $post["categoryname"]); ?></a>
         </div>
         <p class="saffron-text primary-brand-font">[Uppladdad av: <?php echo $post["username"]; ?>] [Publicerad: <?php echo $post["created"]; ?>] <?php if ($post["created"] != $post["updated"]): ?> [Uppdaterad: <?php echo $post["updated"]; ?>] <?php endif; ?></p>
         <h2><?php echo $title; ?></h2>
