@@ -54,15 +54,18 @@
         <div class="flex-list">
             <?php while (mysqli_stmt_fetch($stmt)): ?>
             <div class="flex-list__item border-normal">
-            <p><?php echo "Användarnamn: $userName"; ?></p>
-            <?php
-                // This checks current user's permission level.
-                $userPermission = strtolower(convertPermissionToString($permission));
-                $userPermission = utf8_encode($userPermission);
-            ?>
-            <p class="saffron-text primary-brand-font"><?php echo "Behörighet: $userPermission"; ?></p>
-            <input class="checkbox-margin" type="checkbox" name="checklist[]" value="<?php echo $userId; ?>">
-            <label for="checklist[]">Radera</label><br><br>
+                <p><?php echo "Användarnamn: $userName"; ?></p>
+                <?php
+                    // This checks current user's permission level.
+                    $userPermission = strtolower(convertPermissionToString($permission));
+                    $userPermission = utf8_encode($userPermission);
+                ?>
+                <p class="saffron-text primary-brand-font"><?php echo "Behörighet: $userPermission"; ?></p>
+                <div class="checkbox-wrapper">
+                    <input class="checkbox-wrapper__checkbox" type="checkbox" name="checklist[]" value="<?php echo $userId; ?>" id="checkbox[<?php echo $userId; ?>]">
+                    <label class="checkbox-wrapper__label" for="checkbox[<?php echo $userId; ?>]"></label>
+                    <p class="checkbox-wrapper__text">Radera</p>
+                </div>
             </div>
             <?php endwhile; ?>
         </div>
