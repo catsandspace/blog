@@ -181,17 +181,12 @@
         </div>
         <div class="edit-post-div">
             <label class="form-field__label" for="headline">Rubrik</label><br>
-            <input type="text" class="form-field edit-post__input" name="headline" id="headline" value="<?php echo $fields["headline"]; ?>" required><br>
+            <input type="text" class="form-field edit-post__input" name="headline" id="headline" value="<?php echo formatInnerHtml($fields["headline"]); ?>" required><br>
             <?php if (in_array("headline", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
             <label class="form-field__label" for="post-content">Beskrivning</label><br>
-            <textarea class="form-field edit-post__textarea" name="post-content" id="post-content" rows="10" cols="50" required>
-                <?php
-                    // FIXME: Figure out how to remove <br>.
-                    echo formatInnerHtml($fields["post-content"]);
-                ?>
-            </textarea><br>
+            <textarea class="form-field edit-post__textarea" name="post-content" id="post-content" rows="10" cols="50" required><?php echo formatInnerHtml($fields["post-content"]); ?></textarea><br>
             <?php if (in_array("post-content", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
@@ -212,7 +207,7 @@
         </div>
         <div class="flexbox-wrapper">
             <button class="button" type="submit" name="submit">Spara</button>
-            <a href="./dashboard.php" class="button error"><br>Gå till panelen</a>
+            <a href="./dashboard.php" class="button error"><br>Till kontrollpanelen</a>
         </div>
     </form>
 </main>
