@@ -187,7 +187,7 @@
         <p><?php echo formatInnerHtml($content); ?></p>
         <?php if (!isset ($_POST["new-comment"])): ?>
         <form method="post" action="#nav-comment-top">
-            <button type="submit" name="new-comment" value="true" class="button margin-bottom-l">Kommentera inlägget</button>
+            <button type="submit" name="new-comment" value="true" class="button margin-bottom-l" id="nav-comment-bottom">Kommentera inlägget</button>
         </form>
         <?php elseif (isset ($_POST["new-comment"])): ?>
         <div class="padding-normal margin-normal padding-top-xxl" id="nav-comment-top">
@@ -212,7 +212,7 @@
         </div>
         <?php endif; ?>
         <div class="padding-normal border-normal">
-            <h3 id="nav-comment-bottom">Kommentarer</h3>
+            <h3>Kommentarer</h3>
             <?php while (mysqli_stmt_fetch($stmt)): ?>
             <p><?php echo $commentContent; ?></p>
             <p class="saffron-text primary-brand-font comment__border-bottom">[Av: <?php echo $commentAuthor; ?>] [Skriven den: <?php echo $commentCreated; ?>]</p>
