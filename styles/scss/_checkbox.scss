@@ -1,51 +1,47 @@
 .checkbox-wrapper {
-    width: 2.5rem;
-    margin: 0 1rem 1rem 0;
+    display: block;
+    min-height: 2.5rem;
+    padding-left: calc(2.5rem + 1.3rem);
+    padding-top: 0.55rem;
     position: relative;
 }
 
-.checkbox-wrapper label {
+.checkbox-wrapper::before {
     cursor: pointer;
     position: absolute;
-    width: 25px;
-    height: 25px;
+    width: 2.5rem;
+    height: 2.5rem;
     top: 0;
     left: 0;
     background: $baseColor;
     border: 2px solid $primary;
+    content: '';
 }
 
-.checkbox-wrapper label:after {
-    opacity: 0.2;
-    content: '';
-    position: absolute;
-    width: 9px;
-    height: 5px;
+.checkbox-wrapper__icon {
     background: transparent;
-    top: 6px;
-    left: 7px;
     border: 3px solid $primary;
     border-top: none;
     border-right: none;
+    content: '';
+    height: 0.55rem;
+    left: 0.85rem;
+    opacity: 0.05;
+    position: absolute;
+    top: 0.8rem;
     transform: rotate(-45deg);
+    width: 0.9rem;
+    transition: opacity 125ms ease-in;
 }
 
-.checkbox-wrapper label {
-    margin-right: 3rem;
+.checkbox-wrapper__checkbox {
+    @include hidden-visually;
 }
 
-.checkbox-wrapper label:hover::after {
-    opacity: 0.5;
+.checkbox-wrapper:hover .checkbox-wrapper__icon {
+    opacity: 0.2;
 }
 
-.checkbox-wrapper input[type=checkbox]:checked + label:after {
+.checkbox-wrapper__checkbox:checked + .checkbox-wrapper__icon {
     opacity: 1;
-}
-
-.checkbox-wrapper__text {
-    display: inline;
-    margin-top: -1rem;
-    position: relative;
-    top: -1.3rem;
-    left: 4rem;
 }

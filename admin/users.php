@@ -61,11 +61,11 @@
                     $userPermission = utf8_encode($userPermission);
                 ?>
                 <p class="saffron-text primary-brand-font"><?php echo "Behörighet: $userPermission"; ?></p>
-                <div class="checkbox-wrapper">
-                    <input class="checkbox-wrapper__checkbox" type="checkbox" name="checklist[]" value="<?php echo $userId; ?>" id="checkbox[<?php echo $userId; ?>]">
-                    <label class="checkbox-wrapper__label" for="checkbox[<?php echo $userId; ?>]"></label>
-                    <p class="checkbox-wrapper__text">Radera</p>
-                </div>
+                <label class="checkbox-wrapper">
+                    <input class="checkbox-wrapper__checkbox" type="checkbox" name="checklist[]" value="<?php echo $userId; ?>">
+                    <i class="checkbox-wrapper__icon"></i>
+                    Radera
+                </label>
             </div>
             <?php endwhile; ?>
         </div>
