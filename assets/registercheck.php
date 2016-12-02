@@ -72,5 +72,6 @@
     else: // Button not pressed
             $feedbackMessage ="<p>Du har inte kommit till denna sida på rätt sätt! </p>";
     endif; // end if submit button not pressed
-    header("Location: ../admin/users.php? errorMessage=$feedbackMessage");
+    //header("Location: ../admin/users.php? errorMessage=$feedbackMessage");
+    header("Location: ../admin/users.php#nav-adduser");
 ?>
