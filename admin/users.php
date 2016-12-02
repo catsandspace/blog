@@ -18,7 +18,7 @@
 
     // Reset functions for the internal variables
     $addUser = FALSE;
-    $errorMessage = NULL;
+    //$errorMessage = NULL;
 
     // Set key for printing register form
     if (isset ($_POST["add-user"])) { $addUser = TRUE; }
@@ -55,7 +55,7 @@
 <main>
     <h2>Användare</h2>
     <div class="flexbox-wrapper">
-    <form method="post" action="users.php" class="list-wrapper">
+    <form method="post" action="#nav-adduser" class="list-wrapper">
         <div class="list">
             <div class="inner-list">
                 <?php while (mysqli_stmt_fetch($stmt)): ?>
@@ -74,7 +74,7 @@
             </div>
         </div>
         <button type="submit" value="Ta bort användare" name="remove-user" class="button error">Ta bort användare</button>
-        <button type="submit" value="Lägg till ny användare" name="add-user" class="button">Lägg till ny användare</button>
+        <button type="submit" value="Lägg till ny användare" name="add-user" class="button" id="nav-adduser">Lägg till ny användare</button>
     </form>
     <?php if ($addUser == TRUE): ?>
     <form method="post" action="../assets/registercheck.php">
@@ -103,10 +103,10 @@
     endif;
     // Printing error message
 
-    if (isset ($_GET["errorMessage"])):
-        if ($_GET["errorMessage"] != NULL):
-            echo $_GET["errorMessage"];
-        endif;
-    endif;
+    //if (isset ($_GET["errorMessage"])):
+       // if ($_GET["errorMessage"] != NULL):
+         //   echo $_GET["errorMessage"];
+       // endif;
+    // endif;
     include_once "../templates/footer.php"; // Footer.
 ?>
