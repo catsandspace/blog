@@ -18,7 +18,7 @@
     // If everything looks okay insert into db
     if (isset ($_POST["addCat"])):
         if (!empty($_POST["category"])): // Input given
-            $category = mysqli_real_escape_string($_POST["category"]);
+            $category = mysqli_real_escape_string($conn, $_POST["category"]);
             $query = "INSERT INTO categories VALUES (NULL, '$category')";
             if ($stmt->prepare($query)):
                 $stmt->execute();
@@ -67,7 +67,7 @@
                 $changeCategoryId = $selected;
             endif;
         elseif (!empty($_POST["categoryChange"])):
-            $category = mysqli_real_escape_string($_POST["categoryChange"]);
+            $category = mysqli_real_escape_string($conn, $_POST["categoryChange"]);
             $catId = $_POST["catId"];
             echo $category;
             echo $catId;

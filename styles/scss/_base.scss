@@ -6,6 +6,13 @@ body {
 START OF HEADER ELEMENT
 *******************************************************************************/
 
+main {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 10rem 3rem 3rem 3rem;
+    width: 100vw;
+}
+
 @keyframes menu-is-sliding-in {
     from {
         transform: translateY(0);
@@ -13,13 +20,6 @@ START OF HEADER ELEMENT
     to {
         transform: translateY(6.8rem);
     }
-}
-
-main {
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding: 10rem 3rem 3rem;
-    width: 100vw;
 }
 
 header {
@@ -51,6 +51,24 @@ header {
 /*******************************************************************************
     END OF HEADER ELEMENT
 *******************************************************************************/
+
+@keyframes add-margin-top {
+    from {
+        margin-top: 0;
+    }
+    to {
+        margin-top: 7.7rem;
+    }
+}
+
+.content-slides-in {
+    animation-name: add-margin-top;
+    animation-duration: 1.1s;
+    animation-delay: 0.3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+
+}
 
 /*******************************************************************************
     START OF POSTEDITOR
