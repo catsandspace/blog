@@ -47,31 +47,24 @@
         $stmt-> execute();
         $stmt -> bind_result($permission, $userName, $userId);
     }
-
-
-
-
 ?>
 <main>
     <h2>Användare</h2>
-    <div class="flexbox-wrapper">
-    <form method="post" action="#nav-adduser" class="list-wrapper">
-        <div class="list">
-            <div class="inner-list">
-                <?php while (mysqli_stmt_fetch($stmt)): ?>
-                <div class="padding-normal border-normal margin-bottom-l">
-                <p><?php echo "Användarnamn: $userName"; ?></p>
-                <?php
-                    // This checks current user's permission level.
-                    $userPermission = strtolower(convertPermissionToString($permission));
-                    $userPermission = utf8_encode($userPermission);
-                ?>
-                <p class="saffron-text primary-brand-font"><?php echo "Behörighet: $userPermission"; ?></p>
-                <input type="checkbox" name="checklist[]" value="<?php echo $userId; ?>">
-                <label for="checklist[]">Radera</label><br><br>
-                </div>
-                <?php endwhile; ?>
+    <form method="post" action="#nav-adduser">
+        <div class="flex-list">
+            <?php while (mysqli_stmt_fetch($stmt)): ?>
+            <div class="flex-list__item border-normal">
+            <p><?php echo "Användarnamn: $userName"; ?></p>
+            <?php
+                // This checks current user's permission level.
+                $userPermission = strtolower(convertPermissionToString($permission));
+                $userPermission = utf8_encode($userPermission);
+            ?>
+            <p class="saffron-text primary-brand-font"><?php echo "Behörighet: $userPermission"; ?></p>
+            <input class="checkbox-margin" type="checkbox" name="checklist[]" value="<?php echo $userId; ?>">
+            <label for="checklist[]">Radera</label><br><br>
             </div>
+            <?php endwhile; ?>
         </div>
         <button type="submit" value="Ta bort användare" name="remove-user" class="button error">Ta bort användare</button>
         <button type="submit" value="Lägg till ny användare" name="add-user" class="button" id="nav-adduser">Lägg till ny användare</button>
@@ -79,6 +72,7 @@
     <?php if ($addUser == TRUE): ?>
     <form method="post" action="../assets/registercheck.php">
         <fieldset>
+            <h2>Lägg till ny användare</h2>
             <legend class="hidden">Lägg till ny användare</legend>
             <label class="form-field__label" for="userName">Användarnamn</label>
             <input class="form-field" type="text" name="userName" id="userName" required>
@@ -97,7 +91,6 @@
             <button id="button" type="submit" name="register" value="Lägg till" class="button">Lägg till</button>
         </fieldset>
     </form>
-</div>
 </main>
 <?php
     endif;

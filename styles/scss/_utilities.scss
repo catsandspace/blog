@@ -25,6 +25,20 @@
     background-color: $baseColor;
 }
 
+.flex-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.flex-list__item {
+    box-sizing: border-box;
+    min-width: 27rem;
+    max-width: 27rem;
+    margin: 1em;
+    padding: 1rem;
+}
+
 .flex-item {
     box-sizing: border-box;
     margin: 0 auto;
@@ -57,19 +71,14 @@
     width: 1px;
 }
 
-.inner-list {
-    margin: 0 auto;
-    padding: 0.5em 0;
-}
-
 .inverted-text-color {
     color: $baseColor2;
 }
 
 .list-wrapper {
-    box-sizing: border-box;
-    margin: 0 auto;
-    width: 100%;
+        box-sizing: border-box;
+        margin: 0 auto;
+        width: 100%;
 }
 
 .list-style-none {
@@ -77,11 +86,17 @@
 }
 
 .list {
-    display: flex;
+    display: block;
     margin: 0 auto;
     justify-content: space-around;
     font-size: 2.0rem;
     width: 100%;
+}
+
+.list__inner-list {
+    box-sizing: border-box;
+    padding: 0.5em;
+    margin: 0 auto;
 }
 
 .margin-normal {
