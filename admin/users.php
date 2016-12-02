@@ -53,7 +53,7 @@
     <form method="post" action="#nav-adduser">
         <div class="flex-list">
             <?php while (mysqli_stmt_fetch($stmt)): ?>
-            <div class="flex-list__item border-normal">
+            <div class="flex-list__item">
                 <p><?php echo "Användarnamn: $userName"; ?></p>
                 <?php
                     // This checks current user's permission level.

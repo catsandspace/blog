@@ -27,15 +27,17 @@
 
 .flex-list {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 
 .flex-list__item {
+    border: 2px solid $primary;
     box-sizing: border-box;
-    min-width: 27rem;
-    max-width: 27rem;
-    margin: 1em;
+    // TODO: Width might need adjustment.
+    min-width: 29rem;
+    max-width: 29rem;
+    margin: 1rem;
     padding: 1rem;
 }
 
