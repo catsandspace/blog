@@ -14,9 +14,10 @@
     border-radius: 5px;
 }
 
-.box-shadow{
+.box-shadow {
     box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
 }
+
 .center-text {
     text-align: center;
 }
@@ -112,6 +113,12 @@
     padding-top: 8rem;
 }
 
+.pagination-text {
+    font-size: 2rem;
+    padding: 10px;
+    text-align: center;
+}
+
 .primary-color {
     color: $primary;
 }
@@ -121,6 +128,7 @@
     width: 100%;
     position: relative;
 }
+
 .relative-container--boxsizing {
     box-sizing: border-box;
 }
