@@ -192,8 +192,11 @@
         <div class="edit-post-div">
             <h3>Kategori</h3>
             <?php while (mysqli_stmt_fetch($stmt)): ?>
-            <input type="radio" name="category" value="<?php echo $id; ?>" required <?php if ($fields["category"] == $id) { echo "checked"; } ?> id="category">
-            <label class="form-field__label" for="category"><?php echo ucfirst($category); ?></label><br>
+            <label class="radiobutton-wrapper">
+                <input class="radiobutton-wrapper__button" type="radio" name="category" value="<?php echo $id; ?>" required <?php if ($fields["category"] == $id) { echo "checked"; } ?> >
+                <i class="radiobutton-wrapper__icon"></i>
+                <?php echo ucfirst($category); ?>
+            </label>
             <?php endwhile; $stmt->close();?>
             <?php if (in_array("category", $errors)) { echo $obligatoryField; } ?>
         </div>
