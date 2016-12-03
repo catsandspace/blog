@@ -81,18 +81,13 @@
     list-style-type: none;
 }
 
+
+/// TODO: Behövs denna klass?
 .list {
     display: block;
     margin: 0 auto;
-    justify-content: space-around;
     font-size: 2.0rem;
     width: 100%;
-}
-
-.list__inner-list {
-    box-sizing: border-box;
-    padding: 0.5em;
-    margin: 0 auto;
 }
 
 .margin-normal {
