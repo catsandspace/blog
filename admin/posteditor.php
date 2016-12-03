@@ -199,10 +199,16 @@
         </div>
         <div class="edit-post-div">
             <h3>Ska inlägget publiceras?</h3>
-            <input type="radio" name="publish" id="publish" value="1" required <?php if ($fields["publish"] == 1) { echo "checked"; } ?> >
-            <label class="form-field__label" for="publish">Publicera</label><br>
-            <input type="radio" name="publish" id="draft" value="2" required <?php if ($fields["publish"] == 2) { echo "checked"; } ?>>
-            <label class="form-field__label" for="draft">Spara som utkast</label><br>
+            <label class="radiobutton-wrapper">
+                <input class="radiobutton-wrapper__button" type="radio" name="publish" value="1" required <?php if ($fields["publish"] == 1) { echo "checked"; } ?> >
+                <i class="radiobutton-wrapper__icon"></i>
+                Publicera
+            </label>
+            <label class="radiobutton-wrapper">
+                <input class="radiobutton-wrapper__button" type="radio" name="publish" value="2" required <?php if ($fields["publish"] == 2) { echo "checked"; } ?>>
+                <i class="radiobutton-wrapper__icon"></i>
+                Spara som utkast
+            </label>
             <?php if (in_array("publish", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="flexbox-wrapper">
