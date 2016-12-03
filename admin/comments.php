@@ -55,10 +55,10 @@
         endif;
     endif;
 ?>
-<main class="dark">
-    <h2 class="inverted-text-color">Kommentarer</h2>
+<main>
+    <h2>Kommentarer</h2>
     <form method="POST" action="./comments.php">
-        <table class="table-listing--inverted">
+        <table>
             <thead class="hidden">
                 <td>Kommentar</td>
                 <td>Namn</td>
@@ -68,21 +68,21 @@
                 <td>Ta bort</td>
             </thead>
             <tbody>
-                <tr class="table-listing__row">
                     <?php while (mysqli_stmt_fetch($stmt)): ?>
-                        <td class="relative-container"><?php echo $content; ?></td>
-                        <td class="relative-container">Skriven av: <?php echo checkExistingOrReturnPredefined($name, $userName); ?></td>
-                        <td class="relative-container">E-postadress: <a href="mailto:<?php echo checkExistingOrReturnPredefined($email, $userMail); ?>"><?php echo checkExistingOrReturnPredefined($email, $userMail); ?></a></td>
-                        <td class="relative-container saffron-text primary-brand-font">[<?php echo $date; ?>] [Kommentar på inlägg:
-                            <?php
-                            // TODO: Change this to post title instead.
-                            echo $postId;
-                            ?>]</td>
-                        <td class="relative-container">
-                            <button type="submit" class="button error margin-bottom-xl" name="remove-comment" value="<?php echo $commentId; ?>">Ta bort kommentar</button>
-                        </td>
+                        <tr>
+                            <td class="inline-block"><?php echo $content; ?></td>
+                            <td class="inline-block">Skriven av: <?php echo checkExistingOrReturnPredefined($name, $userName); ?></td>
+                            <td class="inline-block">E-postadress: <a href="mailto:<?php echo checkExistingOrReturnPredefined($email, $userMail); ?>"><?php echo checkExistingOrReturnPredefined($email, $userMail); ?></a></td>
+                            <td class="inline-block saffron-text primary-brand-font">[<?php echo $date; ?>] [Kommentar på inlägg:
+                                <?php
+                                // TODO: Change this to post title instead.
+                                echo $postId;
+                                ?>]</td>
+                            <td class="inline-block">
+                                <button type="submit" class="button error margin-bottom-xl" name="remove-comment" value="<?php echo $commentId; ?>">Ta bort kommentar</button>
+                            </td>
+                        </tr>
                     <?php endwhile; ?>
-                </tr>
             </tbody>
         </table>
     </form>

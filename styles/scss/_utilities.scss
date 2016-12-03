@@ -67,6 +67,11 @@
     @include hidden-visually;
 }
 
+.inline-block {
+    display: inline-block;
+    width: 100%;
+}
+
 .inverted-text-color {
     color: $baseColor2;
 }
@@ -127,6 +132,7 @@
     width: 100%;
     position: relative;
 }
+
 .relative-container--boxsizing {
     box-sizing: border-box;
 }
