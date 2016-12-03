@@ -58,7 +58,7 @@
 <main>
     <h2>Kommentarer</h2>
     <form method="POST" action="./comments.php">
-        <table>
+        <table class="table-listing__centered-content">
             <thead class="hidden">
                 <td>Kommentar</td>
                 <td>Namn</td>
