@@ -25,6 +25,22 @@
     background-color: $baseColor;
 }
 
+.flex-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.flex-list__item {
+    border: 2px solid $primary;
+    box-sizing: border-box;
+    // TODO: Width might need adjustment.
+    min-width: 29rem;
+    max-width: 29rem;
+    margin: 1rem;
+    padding: 1rem;
+}
+
 .flex-item {
     box-sizing: border-box;
     margin: 0 auto;
@@ -48,18 +64,7 @@
 }
 
 .hidden {
-    border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-
-.inner-list {
-    margin: 0 auto;
-    padding: 0.5em 0;
+    @include hidden-visually;
 }
 
 .inverted-text-color {
@@ -67,9 +72,9 @@
 }
 
 .list-wrapper {
-    box-sizing: border-box;
-    margin: 0 auto;
-    width: 100%;
+        box-sizing: border-box;
+        margin: 0 auto;
+        width: 100%;
 }
 
 .list-style-none {
@@ -77,11 +82,17 @@
 }
 
 .list {
-    display: flex;
+    display: block;
     margin: 0 auto;
     justify-content: space-around;
     font-size: 2.0rem;
     width: 100%;
+}
+
+.list__inner-list {
+    box-sizing: border-box;
+    padding: 0.5em;
+    margin: 0 auto;
 }
 
 .margin-normal {

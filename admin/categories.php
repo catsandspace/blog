@@ -97,7 +97,7 @@
     <div class="flexbox-wrapper">
         <form method="post" action="categories.php" class="list-wrapper">
             <div class="list">
-                <div class="inner-list">
+                <div class="list__inner-list">
                 <?php while (mysqli_stmt_fetch($stmt)): ?>
                 <input type="checkbox" name="checklist[]" value="<?php echo $catId; ?>"> <?php echo ucfirst($category); ?><br>
                 <?php if ($catId == $changeCategoryId) {
