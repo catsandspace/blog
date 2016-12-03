@@ -96,18 +96,18 @@
     <h2>Kategorier</h2>
     <div class="flexbox-wrapper">
         <form method="post" action="categories.php" class="list-wrapper">
-            <div class="list">
-                <div class="list__inner-list">
-                <?php while (mysqli_stmt_fetch($stmt)): ?>
-                <input type="checkbox" name="checklist[]" value="<?php echo $catId; ?>"> <?php echo ucfirst($category); ?><br>
+            <?php while (mysqli_stmt_fetch($stmt)): ?>
+                <label class="checkbox-wrapper checkbox-wrapper--margin">
+                    <input class="checkbox-wrapper__checkbox" type="checkbox" name="checklist[]" value="<?php echo $catId; ?>">
+                    <i class="checkbox-wrapper__icon"></i>
+                    <?php echo ucfirst($category); ?>
+                </label>
                 <?php if ($catId == $changeCategoryId) {
                     $change = TRUE;
                     $changeCatId = $catId;
                     $changeCat = $cat;
                 }
-                endwhile; ?>
-                </div>
-            </div>
+            endwhile; ?>
             <?php if ($change): ?>
             <label class="form-field__label" for="categoryChange">Ändra kategori <?php echo $changeCat; ?>:</label>
             <input type="text" name="categoryChange">

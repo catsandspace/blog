@@ -20,6 +20,10 @@
     position: relative;
 }
 
+.checkbox-wrapper--margin {
+    margin-bottom: 0.5rem;
+}
+
 .checkbox-wrapper::before {
     background: $baseColor;
     border: 2px solid $primary;
