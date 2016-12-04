@@ -224,3 +224,4 @@
 
 <!-- TODO: Remove dev link when final -->
 <?php else: echo "<p class='error-msg'>".$errorMessage."</p>"; echo "<u><a href=\"?getpost=1\">for developers</a></u>"; endif; ?>
+<?php require_once "./templates/footer.php"; ?>
