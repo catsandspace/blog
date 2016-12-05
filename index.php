@@ -49,7 +49,7 @@
             <a href="post.php?getpost=<?php echo $post["id"] ?>"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>"></a>
             <div class="blogpost-wrapper__text">
                 <h2><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></h2>
-                <p class="tag">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [<?php echo $post["created"] ?>]</p>
+                <p class="tag">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [Publicerad: <?php echo formatDate($post["created"]); ?>]</p>
                 <div class="comment-bubble">
                     <div class="comment-bubble__show-comments">
                         <?php // START OF COMMENTS
