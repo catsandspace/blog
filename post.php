@@ -9,7 +9,8 @@
     //TODO: REMOVE DEV LINK
     //TODO: CHECK $stmt->close();
     //TODO: FIX CLASSES
-    //TODO: FIX ANCHOR LINK WITH TARGET WHEN COMMENTING.
+    //TODO: NEW COMMENTS NEED EMAIL AND WEBSITE URL.
+    //TODO: POST ALSO NEEDS AUTHOR NAME, AND AUTHOR'S WEBSITE URL.
 
 
     $post = array(
@@ -62,7 +63,6 @@
             //$stmt->close();
             //
 
-            // TODO: If we need to define these, use them down below.
             $post["id"] = $id;
             $post["userid"] = $userId;
             $post["created"] = $created;
@@ -76,7 +76,7 @@
 
             } else {
 
-                // TODO: 404?
+                // TODO: Replace with 404 page.
                 $errorMessage = "Något gick fel.";
             }
     }
