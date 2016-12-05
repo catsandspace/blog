@@ -61,10 +61,12 @@
     <form method="POST" action="./postlist.php">
         <table class="table-listing">
             <thead class="hidden">
-                <td>Foto</td>
-                <td>Rubrik</td>
-                <td>Redigera</td>
-                <td>Ta bort</td>
+                <tr>
+                    <td>Foto</td>
+                    <td>Rubrik</td>
+                    <td>Redigera</td>
+                    <td>Ta bort</td>
+                </tr>
             </thead>
             <tbody>
                 <?php while (mysqli_stmt_fetch($stmt)):
