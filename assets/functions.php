@@ -81,4 +81,14 @@ function formatInnerHtml($string) {
     return $newString;
 }
 
+/**
+ * The function formats a timestamp according to year-month-date.
+ * @param  int $timestamp       The timestamp returned from the database
+ * @return int $formattedDate   The date formatted as year-month-date.
+ */
+function formatDate($timestamp) {
+    $formattedDate = date('Y-m-d', strtotime($timestamp));
+    return $formattedDate;
+}
+
 ?>
