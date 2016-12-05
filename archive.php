@@ -28,9 +28,11 @@
     </form>
     <div class="list-wrapper">
         <h2>November 2016</h2>
+        <ul class="no-padding">
         <?php while (mysqli_stmt_fetch($stmt)): ?>
             <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo $created; ?>]</span> <?php echo $title; ?></li>
         <?php endwhile; ?>
+        </ul>
     </div>
 </main>
 <?php require_once "./templates/footer.php"; ?>
