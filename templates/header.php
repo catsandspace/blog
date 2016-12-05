@@ -32,7 +32,7 @@
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use>
             </svg>
         </a>
-       <h1 class="logo-title">Cats and Space</h1>
+       <span class="logo-title">Cats and Space</span>
        <nav class="hamburger">
             <ul class="list-style-none">
                 <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>

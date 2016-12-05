@@ -1,4 +1,6 @@
 <?php
+    // TODO: Right now, the div with comment bubble show comments is not used.
+    // Decision is needed!
 
     // File to include
     require_once "./templates/header.php";
@@ -53,8 +55,6 @@
                 <div class="comment-bubble">
                     <div class="comment-bubble__show-comments">
                         <?php // START OF COMMENTS
-                        // TODO: Right now, this div is not used. Delete if we don't want it.
-
                         $totalNumberOfComments = NULL;
                         $errorMessage = NULL;
 
@@ -80,14 +80,14 @@
 
                         endwhile;
                         ?>
-                    </div>
-                <?php if ($totalNumberOfComments): ?>
+                    </div> <!-- End of comment-bubble__show-comments -->
+                    <?php if ($totalNumberOfComments): ?>
                         <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
                         <p class="comment-bubble__number"><?php echo "$totalNumberOfComments" ?></p></a>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
+                    <?php endif; ?>
+                    </div> <!-- End of comment-bubble -->
+            </div> <!-- End of blogpost-wrapper__text -->
+        </div> <!-- End of blogpost-wrapper -->
     </article>
 <?php endfor; ?>
 </div>

@@ -28,6 +28,11 @@ h2 {
 }
 
 .logo-title {
+    font-family: $primaryBrandFont;
+    font-weight: $primaryBrandWeight;
+    font-size: 4rem;
+    margin: 0;
+    padding-top: 0.3rem;
     text-align: center;
 }
 
