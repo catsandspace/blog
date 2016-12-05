@@ -176,9 +176,8 @@
             <img src="../<?php echo $image; ?>" alt="Inläggets bild" class="border-xl full-width-img">
         </div>
         <?php endif; ?>
-            <?php if (in_array("file", $errors)) { echo $obligatoryField; } ?>
-            <?php if (!empty($fileError)) { echo "$fileError<br>"; } ?>
-        </div>
+        <?php if (in_array("file", $errors)) { echo $obligatoryField; } ?>
+        <?php if (!empty($fileError)) { echo "$fileError<br>"; } ?>
         <div class="edit-post-div">
             <label class="form-field__label" for="headline">Rubrik</label><br>
             <input type="text" class="form-field edit-post__input" name="headline" id="headline" value="<?php echo formatInnerHtml($fields["headline"]); ?>" required><br>
