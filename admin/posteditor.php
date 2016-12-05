@@ -160,9 +160,9 @@
 ?>
 <main>
     <?php if (isset($_GET["edit"])): ?>
-    <h2>Redigera inlägg</h2>
+    <h1 class="center-text">Redigera inlägg</h1>
     <?php else: ?>
-    <h2>Skapa nytt inlägg</h2>
+    <h1 class="center-text">Skapa nytt inlägg</h1>
     <?php endif; ?>
     <?php if (!empty($errors)) { echo "<p class=\"error-msg\">Ooops, något gick fel!</p>"; } ?>
     <form method="POST" enctype="multipart/form-data">
@@ -190,7 +190,7 @@
             <?php if (in_array("post-content", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
-            <h3>Kategori</h3>
+            <h2>Kategori</h2>
             <?php while (mysqli_stmt_fetch($stmt)): ?>
             <label class="radiobutton-wrapper">
                 <input class="radiobutton-wrapper__button" type="radio" name="category" value="<?php echo $id; ?>" required <?php if ($fields["category"] == $id) { echo "checked"; } ?> >
@@ -201,7 +201,7 @@
             <?php if (in_array("category", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
-            <h3>Ska inlägget publiceras?</h3>
+            <h2>Ska inlägget publiceras?</h2>
             <label class="radiobutton-wrapper">
                 <input class="radiobutton-wrapper__button" type="radio" name="publish" value="1" required <?php if ($fields["publish"] == 1) { echo "checked"; } ?> >
                 <i class="radiobutton-wrapper__icon"></i>

@@ -93,7 +93,7 @@
     $change = FALSE;
 ?>
 <main>
-    <h2>Kategorier</h2>
+    <h1 class="center-text margin-bottom-l">Kategorier</h1>
     <div class="flexbox-wrapper">
         <form method="post" action="categories.php" class="list-wrapper">
             <?php while (mysqli_stmt_fetch($stmt)): ?>

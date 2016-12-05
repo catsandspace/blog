@@ -56,7 +56,7 @@
     endif;
 ?>
 <main>
-    <h2>Kommentarer</h2>
+    <h1 class="center-text margin-bottom-l">Kommentarer</h1>
     <form method="POST" action="./comments.php">
         <table class="table-listing__centered-content">
             <thead class="hidden">

@@ -44,7 +44,7 @@
     FORM TO LOGIN USER
 *****************************************************************************-->
 <main>
-    <h2>Logga in</h2>
+    <h1>Logga in</h1>
     <form action="./login.php" method="POST">
        <fieldset>
             <legend class="hidden">Login</legend>
@@ -56,6 +56,5 @@
             <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
        </fieldset>
     </form>
-    
 </main>
 <?php require_once "./templates/footer.php"; ?>

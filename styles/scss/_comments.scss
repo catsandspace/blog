@@ -33,3 +33,13 @@
     border-bottom: 2px solid $primary;
     padding-bottom: 2rem;
 }
+
+.comment-container {
+    border: 2px solid $primary;
+    padding: 2rem;
+}
+
+.comment-container--xl-margin {
+    margin: 3rem 0;
+    padding: 8rem 2rem;
+}

@@ -49,7 +49,7 @@
     }
 ?>
 <main>
-    <h2>Användare</h2>
+    <h1 class="center-text margin-bottom-l">Användare</h1>
     <form method="post" action="#nav-adduser">
         <div class="flex-list">
             <?php while (mysqli_stmt_fetch($stmt)): ?>

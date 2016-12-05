@@ -11,7 +11,7 @@
 ?>
 <main>
     <div class="flexbox-wrapper">
-        <h2>Hurra!</h2>
+        <h1 class="center-text">Hurra!</h1>
         <?php if (isset($_GET["updated"])): ?>
         <p class="introduction-paragraph">Inlägget är uppdaterat. Vad vill du göra nu?</p>
         <?php else: ?>
