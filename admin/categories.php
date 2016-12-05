@@ -117,8 +117,8 @@
             <button type="submit" value="Ta bort" name="removeCat" class="button error">Ta bort</button>
         </form>
         <form method="post" action="categories.php" class="input-wrapper">
-            <label class="form-field__label" for="addCatagory">Lägg till kategori</label>
-            <input class="form-field" type="text" name="category" id="addCategory">
+            <label class="form-field__label" for="add-category">Lägg till kategori</label>
+            <input class="form-field" type="text" name="category" id="add-category">
             <button type="submit" value="Lägg till" name="addCat" class="button">Lägg till</button>
         </form>
     </div>
