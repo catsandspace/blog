@@ -10,18 +10,18 @@
     //TODO: CHECK $stmt->close();
     //TODO: FIX ALL REQUIRED FILLED
 
-    $post = array(
-        "id" => "",
-        "userid" => "",
-        "created" => "",
-        "updated" => "",
-        "image" => "",
-        "title" => "",
-        "content" => "",
-        "username" => "",
-        "categoryid" => "",
-        "categoryname" => ""
-    );
+    // $post = array(
+    //     "id" => "",
+    //     "userid" => "",
+    //     "created" => "",
+    //     "updated" => "",
+    //     "image" => "",
+    //     "title" => "",
+    //     "content" => "",
+    //     "username" => "",
+    //     "categoryid" => "",
+    //     "categoryname" => ""
+    // );
 
     $comment = array(
         "content" => "",
