@@ -8,28 +8,7 @@
     //TODO: REQUIRE ON INPUT-FIELDS
     //TODO: REMOVE DEV LINK
     //TODO: CHECK $stmt->close();
-    //TODO: POST ALSO NEEDS AUTHOR NAME, AND AUTHOR'S WEBSITE URL.
     //TODO: FIX ALL REQUIRED FILLED
-
-    $post = array(
-        "id" => "",
-        "userid" => "",
-        "created" => "",
-        "updated" => "",
-        "image" => "",
-        "title" => "",
-        "content" => "",
-        "username" => "",
-        "categoryid" => "",
-        "categoryname" => ""
-    );
-
-    $comment = array(
-        "content" => "",
-        "name" => "",
-        "email" => "",
-        "website" => ""
-    );
 
 /*******************************************************************************
    GET SELECTED POST WHERE ID = post.php?getpost[id]
@@ -42,7 +21,7 @@
         $query  =
         "SELECT posts.*,
         categories.name,
-        users.username
+        users.*
         FROM posts
         LEFT JOIN categories
         ON posts.categoryid = categories.id
@@ -53,19 +32,8 @@
 
             if ($stmt->prepare($query)) {
             $stmt->execute();
-            $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUsername);
+            $stmt->bind_result($postId, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUserId, $authorPermission, $authorName, $authorPassword, $authorEmail, $authorWebsite, $authorFirstname, $authorLastname, $authorimg, $authorDescription);
             $stmt->fetch();
-
-            $post["id"] = $id;
-            $post["userid"] = $userId;
-            $post["created"] = $created;
-            $post["updated"] = $updated;
-            $post["image"] = $image;
-            $post["title"] = $title;
-            $post["content"] = $content;
-            $post["categoryid"] = $categoryId;
-            $post["categoryname"] = $categoryName;
-            $post["username"] = $postUsername;
 
             } else {
                 // TODO: Replace with 404 page.
@@ -97,6 +65,14 @@
 *******************************************************************************/
 
     // FIXME: This does not seem to be working properly.
+
+    $comment = array(
+        "content" => "",
+        "name" => "",
+        "email" => "",
+        "website" => ""
+    );
+
     // This is used to stop user from leaving important fields empty.
     $allRequiredFilled = TRUE;
 
@@ -160,7 +136,7 @@
    ERROR MESSAGE
 *******************************************************************************/
 
-    if ($post["id"] == NULL) {
+    if ($postId == NULL) {
         // TODO: Show 404-page instead?
         $errorMessage = "Vi hittade inget inlägg med angivet id";
     }
@@ -170,13 +146,20 @@
 *******************************************************************************/
 ?>
 <main>
-<?php if ($post["id"] != NULL): ?>
+<?php if ($postId != NULL): ?>
     <article class="smaller-font">
         <div class="relative-container">
-            <img class="full-width-img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
-            <a class="relative-container__info relative-container__link" href="index.php?display=<?php echo $post["categoryid"] ?>">Kategori: <?php echo str_replace(' ', '', $post["categoryname"]); ?></a>
+            <img class="full-width-img" src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
+            <a class="relative-container__info relative-container__link" href="index.php?display=<?php echo $categoryId ?>">Kategori: <?php echo str_replace(' ', '', $categoryName); ?></a>
         </div>
-        <p class="saffron-text primary-brand-font">[Uppladdad av: <?php echo $post["username"]; ?>] [Publicerad: <?php echo formatDate($post["created"]); ?>] <?php if ($post["created"] != $post["updated"]): ?> [Uppdaterad: <?php echo formatDate($post["updated"]); ?>] <?php endif; ?></p>
+        <p class="author-info">[ Publicerad: <?php echo formatDate($created); ?> ]
+            <?php if (formatDate($created) != formatDate($updated)): ?>
+                [ Uppdaterad: <?php echo formatDate($updated); ?> ]
+            <?php endif; ?>
+            [ Uppladdad av: <?php echo $authorName; ?> ]
+            [ <a class="author-info__links" href="mailto:<?php echo $authorEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]
+            [ <a class="author-info__links" href="<?php echo $authorWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]
+        </p>
         <h1><?php echo $title; ?></h1>
         <p><?php echo formatInnerHtml($content); ?></p>
         <?php if (!isset ($_POST["new-comment"])): ?>
@@ -210,10 +193,10 @@
             <h2>Kommentarer</h2>
             <?php while (mysqli_stmt_fetch($stmt)): ?>
             <p><?php echo $commentContent; ?></p>
-            <p class="comment-container__author-info">[ Skriven: <?php
+            <p class="author-info author-info--border">[ Skriven: <?php
             echo formatDate($commentCreated); ?> ] [ Av: <?php echo $commentAuthor; ?>]<br> [
-            <a class="comment-container__author-links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ] [
-            <a class="comment-container__author-links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
+            <a class="author-info__links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ] [
+            <a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
             <?php endwhile; ?>
             <?php if ($commentId == NULL): echo "<p class=\"saffron-text primary-brand-font\">Detta inlägg har inga kommentarer ännu.</p>"; endif; ?>
         </div>
