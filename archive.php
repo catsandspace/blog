@@ -4,6 +4,24 @@
 
     $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
 
+    //Determine if a variable is set and is not NULL
+     $sort = "";
+    if(isset($_GET["sort"]) ) { //Avoids error message
+        $sort = $_GET["sort"];
+    }
+    // Sort post by name
+    if($sort == "name") {
+        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY title ASC";
+    }
+    // Sort post by lastest entry
+    if($sort == "asc") {
+        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created ASC";
+    }
+    // Sort post by the last one
+    if($sort == "desc") {
+        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
+    }
+
     if ($stmt->prepare($query)) {
         $stmt->execute();
         $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
@@ -15,12 +33,12 @@
 ?>
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
-    <form method="GET" action="">
+    <form method="GET" action="archive.php">
         <label for="sort">Sortera arkivet</label>
         <div class="select-arrows">
           <select class="form-field form-field__select" name="sort" id="sort">
-              <option value="desc">Senast publicerad först</option>
-              <option value="asc">Tidigast publicerad först</option>
+              <option value="desc">Senast publicerad</option>
+              <option value="asc">Tidigast publicerad</option>
               <option value="name">Sortera efter bokstavsordning (A-Z)</option>
           </select>
           <button class="button button--small border-radius margin-bottom-l" type="submit">Sortera</button>
@@ -38,8 +56,5 @@
         </ul>
     </div>
 </main>
-<?php
-var_dump($_GET);
-?>
 <?php require_once "./templates/footer.php"; ?>
 
