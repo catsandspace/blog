@@ -8,6 +8,8 @@
         header("Location: ../login.php");
     }
 
+    // TODO: Ta reda på om bildernas titlar ska vara h2 eller h1.
+
 /*******************************************************************************
    START OF FEEDBACK MESSAGE AND DATABASE UPDATE
 *******************************************************************************/
@@ -66,17 +68,19 @@
 ?>
 <main>
     <?php if ($_SESSION["permission"] == 1): ?>
-        <h2>Alla inlägg</h2>
+        <h1 class="center-text">Alla inlägg</h1>
     <?php else: ?>
-        <h2>Dina inlägg</h2>
+        <h1 class="center-text">Dina inlägg</h1>
     <?php endif; ?>
     <form method="POST" action="./postlist.php">
         <table class="table-listing">
             <thead class="hidden">
-                <td>Foto</td>
-                <td>Rubrik</td>
-                <td>Redigera</td>
-                <td>Ta bort</td>
+                <tr>
+                    <td>Foto</td>
+                    <td>Rubrik</td>
+                    <td>Redigera</td>
+                    <td>Ta bort</td>
+                </tr>
             </thead>
             <tbody>
                 <?php while (mysqli_stmt_fetch($stmt)):
@@ -93,7 +97,7 @@
                         <?php if ($draft) { echo $draftMessage; } ?>
                     </td>
                     <td class="relative-container">
-                        <h3 class="table-listing__title table-listing__title--on-img"><?php echo formatInnerHtml($title); ?></h3>
+                        <h2 class="table-listing__title--on-img"><?php echo formatInnerHtml($title); ?></h2>
                     </td>
                     <td class="relative-container">
                         <button type="submit" class="button" name="edit-post" value="<?php echo $id; ?>">Redigera</button>

@@ -49,7 +49,7 @@
     }
 ?>
 <main>
-    <h2>Användare</h2>
+    <h1 class="center-text margin-bottom-l">Användare</h1>
     <form method="post" action="#nav-adduser">
         <div class="flex-list">
             <?php while (mysqli_stmt_fetch($stmt)): ?>
@@ -73,30 +73,30 @@
         <button type="submit" value="Lägg till ny användare" name="add-user" class="button" id="nav-adduser">Lägg till ny användare</button>
     </form>
     <?php if ($addUser == TRUE): ?>
-    <form method="post" action="../assets/registercheck.php">
-        <fieldset>
-            <h2>Lägg till ny användare</h2>
-            <legend class="hidden">Lägg till ny användare</legend>
-            <label class="form-field__label" for="userName">Användarnamn</label>
-            <input class="form-field" type="text" name="userName" id="userName" required>
-            <label class="form-field__label" for="passWord">Lösenord</label>
-            <input class="form-field" type="password" name="passWord" id="passWord" required>
-            <label class="form-field__label" for="firstName">Förnamn</label>
-            <input class="form-field" type="text" name="firstName" id="firstName" required>
-            <label class="form-field__label" for="lastName">Efternamn</label>
-            <input class="form-field" type="text" name="lastName" id="lastName">
-            <label class="form-field__label" for="eMail">E-post</label>
-            <input class="form-field" type="email" name="eMail" id="eMail" required>
-            <label class="form-field__label" for="website">Webbplats</label>
-            <input class="form-field" type="text" name="website" id="website">
-            <label class="form-field__label" for="description">Beskrivning</label>
-            <textarea class="form-field" cols="25" rows="7" name="description" id="description"></textarea>
-            <button id="button" type="submit" name="register" value="Lägg till" class="button">Lägg till</button>
-        </fieldset>
-    </form>
+        <form method="post" action="../assets/registercheck.php">
+            <fieldset>
+                <h2>Lägg till ny användare</h2>
+                <legend class="hidden">Lägg till ny användare</legend>
+                <label class="form-field__label" for="userName">Användarnamn</label>
+                <input class="form-field" type="text" name="userName" id="userName" required>
+                <label class="form-field__label" for="passWord">Lösenord</label>
+                <input class="form-field" type="password" name="passWord" id="passWord" required>
+                <label class="form-field__label" for="firstName">Förnamn</label>
+                <input class="form-field" type="text" name="firstName" id="firstName" required>
+                <label class="form-field__label" for="lastName">Efternamn</label>
+                <input class="form-field" type="text" name="lastName" id="lastName">
+                <label class="form-field__label" for="eMail">E-post</label>
+                <input class="form-field" type="email" name="eMail" id="eMail" required>
+                <label class="form-field__label" for="website">Webbplats</label>
+                <input class="form-field" type="text" name="website" id="website">
+                <label class="form-field__label" for="description">Beskrivning</label>
+                <textarea class="form-field" cols="25" rows="7" name="description" id="description"></textarea>
+                <button id="button" type="submit" name="register" value="Lägg till" class="button">Lägg till</button>
+            </fieldset>
+        </form>
+    <?php endif; ?>
 </main>
 <?php
-    endif;
     // Printing error message
 
     //if (isset ($_GET["errorMessage"])):
