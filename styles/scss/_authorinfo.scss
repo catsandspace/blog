@@ -1,0 +1,17 @@
+.author-info {
+    color: $complimentary;
+    font-family: $primaryBrandFont;
+    padding-bottom: 2rem;
+}
+
+.author-info--border {
+    border-bottom: 2px solid $primary;
+}
+
+.author-info__links {
+    color: $complimentary;
+}
+
+.author-info__links:hover {
+    color: $complimentaryHover;
+}
