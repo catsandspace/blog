@@ -3,14 +3,11 @@
     require_once "./assets/functions.php";
 
     //TODO: ERROR-MESSAGES/404
-    //TODO: CHECK ARTICLE ELEMENT SEMANTICS
     //TODO: REMOVE DEV LINK
     //TODO: CHECK $stmt->close();
     //TODO: FIGURE OUT HOW "DIN WEBBPLATS" IS GOING TO WORK
     //TODO: MAKE SURE QUERIES ONLY GETS WHAT'S NECESSARY.
     //TODO: remove "novalidate" when finished debugging.
-
-    //FIXME: FIX ALL REQUIRED FILLED. DOES NOT WORK AT THE MOMENT.
 
 /*******************************************************************************
    GET SELECTED POST WHERE ID = post.php?getpost[id]
@@ -32,15 +29,15 @@
         WHERE published = 1
         AND posts.id = '{$getPost}'";
 
-            if ($stmt->prepare($query)) {
-            $stmt->execute();
-            $stmt->bind_result($postId, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUserId, $authorPermission, $authorName, $authorPassword, $authorEmail, $authorWebsite, $authorFirstname, $authorLastname, $authorimg, $authorDescription);
-            $stmt->fetch();
+        if ($stmt->prepare($query)) {
+        $stmt->execute();
+        $stmt->bind_result($postId, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUserId, $authorPermission, $authorName, $authorPassword, $authorEmail, $authorWebsite, $authorFirstname, $authorLastname, $authorimg, $authorDescription);
+        $stmt->fetch();
 
-            } else {
-                // TODO: Replace with 404 page.
-                $errorMessage = "Något gick fel när sidan skulle hämtas.";
-            }
+        } else {
+            // TODO: Replace with 404 page.
+            $errorMessage = "Något gick fel när sidan skulle hämtas.";
+        }
     }
 
 /*******************************************************************************
@@ -59,6 +56,7 @@
         ON comments.userid = users.id
         WHERE postid = '{$getPost}'
         ORDER BY date DESC";
+
         if ($stmt -> prepare($query)):
             $stmt-> execute();
             $stmt -> bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId, $userName, $userMail, $userWebsite);
@@ -85,43 +83,46 @@
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt</p><br>";
 
     if (isset($_POST["add-comment"])) {
+
+        // If user is logged in, the user only need to provide comment content.
         if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
             $requiredFields = array("content");
+
         } else {
             $requiredFields = array("content", "email", "name", "website");
         }
 
-            foreach ($fields as $key => $value) {
-                $isRequired = in_array($key, $requiredFields);
+        foreach ($fields as $key => $value) {
+            $isRequired = in_array($key, $requiredFields);
 
-                if (!array_key_exists($key, $_POST) || empty($_POST[$key])) {
-                    if ($isRequired) {
-                        $allRequiredFilled = FALSE;
-                        array_push($errors, $key);
-                    }
-                } else {
-                    $fields[$key] = mysqli_real_escape_string($conn, $_POST[$key]);
+            if (!array_key_exists($key, $_POST) || empty($_POST[$key])) {
+                if ($isRequired) {
+                    $allRequiredFilled = FALSE;
+                    array_push($errors, $key);
                 }
+            } else {
+                $fields[$key] = mysqli_real_escape_string($conn, $_POST[$key]);
             }
+        }
 
-            if ($allRequiredFilled)  {
+        if ($allRequiredFilled)  {
 
-                if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
-                    $uid = $_SESSION["userid"];
-                    $content = $_POST["content"];
-                    $query = "INSERT INTO comments VALUES ('', '{$uid}', now(), 'NULL', 'NULL', '{$content}', 'NULL', '{$getPost}')";
+            if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
+                $uid = $_SESSION["userid"];
+                $content = $_POST["content"];
+                $query = "INSERT INTO comments VALUES ('', '{$uid}', now(), 'NULL', 'NULL', '{$content}', 'NULL', '{$getPost}')";
 
-                    if ($stmt->prepare($query)) {
-                        $stmt->execute();
-                        $stmt->close();
-                        header("Location: ./post.php?getpost=$getPost#nav-comment-bottom");
+                if ($stmt->prepare($query)) {
+                    $stmt->execute();
+                    $stmt->close();
+                    header("Location: ./post.php?getpost=$getPost#nav-comment-bottom");
 
-                    } else {
-
-                        // TODO: 404?
-                        $errorMessage = "Det gick inte att lägga till kommentaren.";
-                    }
                 } else {
+
+                    // TODO: 404?
+                    $errorMessage = "Det gick inte att lägga till kommentaren.";
+                }
+            } else {
 
                 $query = "INSERT INTO comments VALUES ('', 'NULL', now(), '{$fields["email"]}', '{$fields["name"]}', '{$fields["content"]}', '{$fields["website"]}', '{$getPost}')";
 
@@ -167,7 +168,7 @@
             [ <a class="author-info__links" href="mailto:<?php echo $authorEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]
             [ <a class="author-info__links" href="<?php echo $authorWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]
         </p>
-        <h1><?php echo $title; ?></h1>
+        <h1><?php echo formatInnerHtml($title); ?></h1>
         <p><?php echo formatInnerHtml($content); ?></p>
         <?php if (isset($_POST["new-comment"]) || (isset($_POST["add-comment"]) && !$allRequiredFilled)): ?>
         <div class="comment-container comment-container--xl-margin" id="nav-comment-top">
@@ -194,7 +195,7 @@
                     <input class="form-field" type="url" name="website" id="website" value="<?php echo $fields['website']; ?>" required>
                     <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
                     <?php endif; ?>
-                        <button type="submit" class="button margin-bottom-l" name="add-comment">Lägg till</button>
+                    <button type="submit" class="button margin-bottom-l" name="add-comment">Lägg till</button>
                 </fieldset>
             </form>
         </div>
