@@ -7,6 +7,7 @@
 *****************************************************************************-->
 
 <?php
+    // FIXME: Varför används session_start här? Ska vi inte importera session.php istället?
     session_start();
 
     include_once "./db_connect.php"; // Database connection
