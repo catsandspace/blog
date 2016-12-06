@@ -91,7 +91,7 @@
     } ?>
     <!-- TODO: un-comment this one when responsive is OK -->
     <!-- <div class="content-slides-in"> -->
-    <main>
+    <main class="blogpost">
         <div class="pagination-wrapper">
             <div class="pagination-wrapper__text">
             <?php
@@ -99,8 +99,6 @@
             ?>
             </div>
         </div>
-
-        <div class="blogpost">
 
     <?php for ($i=0; $i < count($posts); $i++):
         $post = $posts[$i];
@@ -150,8 +148,7 @@
                 </div>
             </article>
     <?php endfor; ?>
-        </div>
-<!-- </div> -->
+        <!-- </div> -->
     </main>
 
 <?php
