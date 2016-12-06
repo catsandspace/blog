@@ -33,11 +33,10 @@ function checkUploadedFile($file) {
 */
 function storeUserInSession($id, $permission, $uname, $upass) {
     $_SESSION["logged-in"] = TRUE;
-	$_SESSION["userid"] = $id;
-	$_SESSION["permission"] = $permission;
-	$_SESSION["username"] = $uname;
-	$_SESSION["userpassword"] = $upass;
-
+    $_SESSION["userid"] = $id;
+    $_SESSION["permission"] = $permission;
+    $_SESSION["username"] = $uname;
+    $_SESSION["userpassword"] = $upass;
 }
 
 /**

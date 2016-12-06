@@ -40,22 +40,36 @@
    START OF QUERY AND STMT THAT IS USED TO PRINT POST LIST
 *******************************************************************************/
 
-    // SQL statement with LEFT JOIN table -> posts & categories.
     // TODO: Just get the variables you need.
-    $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id ORDER BY created DESC";
+
+    //  If logged in as super user, show all posts.
+    if ($_SESSION["permission"] == 1) {
+
+        $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id ORDER BY created DESC";
+    } else {
+        // If logged in as "redaktör", only show your posts.
+        $userId = $_SESSION["userid"];
+        $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE posts.userid = '{$userId}' ORDER BY created DESC";
+    }
 
     // Execute query.
     if ($stmt->prepare($query)) {
        $stmt->execute();
        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
+   } else {
+       $feedbackMessage = "Det går inte att ansluta till databasen just nu.";
    }
 
 /*******************************************************************************
   END OF QUERY AND STMT THAT IS USED TO PRINT POST LIST
 *******************************************************************************/
 ?>
-<main class="dark">
-    <h2 class="inverted-text-color">Alla inlägg</h2>
+<main>
+    <?php if ($_SESSION["permission"] == 1): ?>
+        <h2>Alla inlägg</h2>
+    <?php else: ?>
+        <h2>Dina inlägg</h2>
+    <?php endif; ?>
     <form method="POST" action="./postlist.php">
         <table class="table-listing">
             <thead class="hidden">

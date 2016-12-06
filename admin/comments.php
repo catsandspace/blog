@@ -38,7 +38,7 @@
         endif;
     endif;
 
-    // If user has permission "admin" only print the comments connected to the posts for that adminuser
+    // If user has permission "redaktör" only print the comments connected to the posts for that user.
     if ($_SESSION["permission"] == 0):
         $userId = $_SESSION["userid"];
         $query  = "SELECT comments.*, users.username, users.email
