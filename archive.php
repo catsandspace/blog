@@ -11,10 +11,11 @@
 
     // TODO: Seperating in different months needs to be handled by PHP and SQL.
     // TODO: Get the styling right on buttons, select and svg.
+
 ?>
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
-    <form method="GET" action="./index.php">
+    <form method="GET" action="">
         <label for="sort">Sortera arkivet</label>
         <div class="select-arrows">
           <select class="form-field form-field__select" name="sort" id="sort">
@@ -36,5 +37,8 @@
         </ul>
     </div>
 </main>
+<?php
+var_dump($_GET);
+?>
 <?php require_once "./templates/footer.php"; ?>
 
