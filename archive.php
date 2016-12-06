@@ -12,7 +12,7 @@
     // TODO: Get the styling right on buttons, select and svg.
 ?>
 <main>
-    <h2 class="margin-bottom-l">Arkiv</h2>
+    <h1 class="margin-bottom-l">Arkiv</h1>
     <form method="GET" action="./index.php">
         <label for="sort">Sortera arkivet</label>
         <div class="select-arrows">
@@ -27,10 +27,12 @@
         </div>
     </form>
     <div class="list-wrapper">
-        <h3>November 2016</h3>
+        <h2>November 2016</h2>
+        <ul class="no-padding">
         <?php while (mysqli_stmt_fetch($stmt)): ?>
             <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo $created; ?>]</span> <?php echo $title; ?></li>
         <?php endwhile; ?>
+        </ul>
     </div>
 </main>
 <?php require_once "./templates/footer.php"; ?>

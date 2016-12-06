@@ -19,14 +19,21 @@ h1, h2, h3 {
     font-size: 4rem;
     margin: 0;
     padding-top: 0.3rem;
-    text-align: center;
+    text-align: left;
 }
 
-h3 {
-    font-family: $secondaryBrandFont;
+h2 {
     font-size: 3rem;
     margin-bottom: 0.5em;
-    text-align: left;
+}
+
+.logo-title {
+    font-family: $primaryBrandFont;
+    font-weight: $primaryBrandWeight;
+    font-size: 4rem;
+    margin: 0;
+    padding-top: 0.3rem;
+    text-align: center;
 }
 
 a {
