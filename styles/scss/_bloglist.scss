@@ -1,6 +1,7 @@
 // TODO: This needs to be sorted out!
 // This wrapps the whole content in a post, including image.
 .blogpost {
+    padding: 10rem 0 3rem 0;
 
     @include desktop {
     margin: 0 auto;
@@ -19,7 +20,6 @@
     margin: 0 auto;
     font-size: 2.0rem;
     width: 100%;
-    border-style: solid;
 
     @include desktop {
         width: 300px;
