@@ -10,20 +10,7 @@
     //TODO: CHECK $stmt->close();
     //TODO: FIX ALL REQUIRED FILLED
 
-    // $post = array(
-    //     "id" => "",
-    //     "userid" => "",
-    //     "created" => "",
-    //     "updated" => "",
-    //     "image" => "",
-    //     "title" => "",
-    //     "content" => "",
-    //     "username" => "",
-    //     "categoryid" => "",
-    //     "categoryname" => ""
-    // );
-
-    $comment = array(
+    $fields = array(
         "content" => "",
         "name" => "",
         "email" => "",
@@ -101,7 +88,7 @@
             "website"
         );
 
-        foreach ($comment as $key => $value) {
+        foreach ($fields as $key => $value) {
             $isRequired = in_array($key, $requiredFields);
 
             if (!array_key_exists($key, $_POST) || empty($_POST[$key])) {
