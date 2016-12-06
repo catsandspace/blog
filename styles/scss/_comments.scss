@@ -1,5 +1,5 @@
 .comment-bubble {
-    float: right;
+    //float: right;
     position: relative;
     cursor: pointer;
 }
@@ -13,6 +13,8 @@
     position: absolute;
     top: 0.5rem;
     text-align: center;
+    margin: 0.2em 0;
+    line-height: 1.3em;
 }
 
 .comment-bubble__offset-text {
