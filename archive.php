@@ -20,7 +20,8 @@
         <div class="select-arrows">
           <select class="form-field form-field__select" name="sort" id="sort">
               <option value="desc">Senast publicerad först</option>
-              <option value="desc">Tidigast publicerad först</option>
+              <option value="asc">Tidigast publicerad först</option>
+              <option value="name">Sortera efter bokstavsordning (A-Z)</option>
           </select>
           <button class="button button--small border-radius margin-bottom-l" type="submit">Sortera</button>
           <!-- <svg class="icon select-arrows">
