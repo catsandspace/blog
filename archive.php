@@ -1,5 +1,6 @@
 <?php
     require_once "./templates/header.php";
+    require_once "./assets/functions.php";
 
     $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
 
