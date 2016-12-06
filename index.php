@@ -100,17 +100,17 @@
             </div>
         </div>
 
-        <div class="blogpost-holder">
+        <div class="blogpost">
 
     <?php for ($i=0; $i < count($posts); $i++):
         $post = $posts[$i];
     ?>
-            <article class="list">
+            <article class="blogpost-article">
                 <div class="blogpost-wrapper">
-                    <a href="post.php?getpost=<?php echo $post["id"] ?>"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>"></a>
-                    <div class="blogpost-wrapper__text">
+                    <a href="post.php?getpost=<?php echo $post["id"] ?>"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img"></a>
+                    <div class="blogpost-wrapper--text">
                         <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></href="">
-                        <p class="tag">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [Publicerad: <?php echo formatDate($post["created"]); ?>]</p>
+                        <p class="blogpost-wrapper--text__tags">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [Publicerad: <?php echo formatDate($post["created"]); ?>]</p>
                         <div class="comment-bubble">
                             <div class="comment-bubble__show-comments">
                                 <?php // START OF COMMENTS
