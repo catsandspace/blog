@@ -171,18 +171,18 @@
                     <fieldset>
                         <legend class="hidden">Skriv ny kommentar</legend>
                         <label class="form-field__label" for="content">Kommentar</label>
-                        <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required></textarea>
+                        <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required><?php echo $fields['content']; ?></textarea>
                         <!-- If user is logged in, no use to ask for user information -->
                         <?php  if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE) { ?>
                             <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
                             <label class="form-field__label" for="name">Ditt namn</label>
-                            <input class="form-field" type="text" name="name" id="name" required>
+                            <input class="form-field" type="text" name="name" id="name" required value="<?php echo $fields['name']; ?>">
                             <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
                             <label class="form-field__label" for="email">Din e-postadress</label>
-                            <input class="form-field" type="email" name="email" id="email" required>
+                            <input class="form-field" type="email" name="email" id="email" required value="<?php echo $fields['email']; ?>">
                             <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
                             <label class="form-field__label" for="website">Din webbplats</label>
-                            <input class="form-field" type="url" name="website" id="website" value="http://www." required>
+                            <input class="form-field" type="url" name="website" id="website" value=<?php echo $fields['website']; ?> required>
                             <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
                             <?php } ?>
                             <button type="submit" class="button margin-bottom-l" name="add-comment">Lägg till</button>
