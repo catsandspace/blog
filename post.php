@@ -47,18 +47,25 @@
 *******************************************************************************/
 
     if (isset($_GET['getpost'])) {
+        $query  =
+        "SELECT
+        comments.*,
+        users.username,
+        users.email,
+        users.website
+        FROM comments
+        LEFT JOIN users
+        ON comments.userid = users.id
+        WHERE postid = '{$getPost}'
+        ORDER BY date DESC";
+        if ($stmt -> prepare($query)):
+            $stmt-> execute();
+            $stmt -> bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId, $userName, $userMail, $userWebsite);
 
-        $query = "SELECT * FROM comments WHERE postid = '{$getPost}' ORDER BY date DESC";
-
-        if ($stmt->prepare($query)) {
-            $stmt->execute();
-            $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId);
-
-        } else {
-
+        else:
             // TODO: 404?
             $errorMessage = "Något gick fel när kommentarerna skulle hämtas.";
-        }
+        endif;
     }
 
 /*******************************************************************************
@@ -77,25 +84,10 @@
     $obligatoryField = "<p class=\"error-msg\">Obligatoriskt fält</p><br>";
 
     if (isset($_POST["add-comment"])) {
-
-        $requiredFields = array("content", "email", "name", "website");
-
-        foreach ($fields as $key => $value) {
-            $isRequired = in_array($key, $requiredFields);
-
-            if (!array_key_exists($key, $_POST) || empty($_POST[$key])) {
-                if ($isRequired) {
-                    $allRequiredFilled = FALSE;
-                    array_push($errors, $key);
-                }
-            } else {
-                $fields[$key] = mysqli_real_escape_string($conn, $_POST[$key]);
-            }
-        }
-
-        if ($allRequiredFilled = TRUE)  {
-
-            $query = "INSERT INTO comments VALUES ('', '', now(), '{$fields["email"]}', '{$fields["name"]}', '{$fields["content"]}', '{$fields["website"]}', '{$getPost}')";
+        if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
+            $uid = $_SESSION["userid"];
+            $content = $_POST["content"];
+            $query = "INSERT INTO comments VALUES ('', '{$uid}', now(), 'NULL', 'NULL', '{$content}', 'NULL', '{$getPost}')";
 
             if ($stmt->prepare($query)) {
                 $stmt->execute();
@@ -106,6 +98,38 @@
 
                 // TODO: 404?
                 $errorMessage = "Det gick inte att lägga till kommentaren.";
+            }
+        } else {
+
+            $requiredFields = array("content", "email", "name", "website");
+
+            foreach ($fields as $key => $value) {
+                $isRequired = in_array($key, $requiredFields);
+
+                if (!array_key_exists($key, $_POST) || empty($_POST[$key])) {
+                    if ($isRequired) {
+                        $allRequiredFilled = FALSE;
+                        array_push($errors, $key);
+                    }
+                } else {
+                    $fields[$key] = mysqli_real_escape_string($conn, $_POST[$key]);
+                }
+            }
+
+            if ($allRequiredFilled = TRUE)  {
+
+                $query = "INSERT INTO comments VALUES ('', 'NULL', now(), '{$fields["email"]}', '{$fields["name"]}', '{$fields["content"]}', '{$fields["website"]}', '{$getPost}')";
+
+                if ($stmt->prepare($query)) {
+                    $stmt->execute();
+                    $stmt->close();
+                    header("Location: ./post.php?getpost=$getPost#nav-comment-bottom");
+
+                } else {
+
+                    // TODO: 404?
+                    $errorMessage = "Det gick inte att lägga till kommentaren.";
+                }
             }
         }
     }
@@ -152,16 +176,19 @@
                     <legend class="hidden">Skriv ny kommentar</legend>
                     <label class="form-field__label" for="content">Kommentar</label>
                     <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required></textarea>
-                    <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
-                    <label class="form-field__label" for="name">Ditt namn</label>
-                    <input class="form-field" type="text" name="name" id="name" required>
-                    <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
-                    <label class="form-field__label" for="email">Din e-postadress</label>
-                    <input class="form-field" type="email" name="email" id="email" required>
-                    <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
-                    <label class="form-field__label" for="website">Din webbplats</label>
-                    <input class="form-field" type="url" name="website" id="website" value="http://www." required>
-                    <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
+                    <!-- If user is logged in, no use to ask for user information -->
+                    <?php  if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE) { ?>
+                        <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
+                        <label class="form-field__label" for="name">Ditt namn</label>
+                        <input class="form-field" type="text" name="name" id="name" required>
+                        <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
+                        <label class="form-field__label" for="email">Din e-postadress</label>
+                        <input class="form-field" type="email" name="email" id="email" required>
+                        <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
+                        <label class="form-field__label" for="website">Din webbplats</label>
+                        <input class="form-field" type="url" name="website" id="website" value="http://www." required>
+                        <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
+                    <?php } ?>
                     <button type="submit" class="button margin-bottom-l" name="add-comment" value="Lägg till">Lägg till</button>
                 </fieldset>
             </form>
@@ -169,7 +196,13 @@
         <?php endif; ?>
         <div class="comment-container">
             <h2>Kommentarer</h2>
-            <?php while (mysqli_stmt_fetch($stmt)): ?>
+            <?php while (mysqli_stmt_fetch($stmt)):
+            // TODO: gör liknande comments.php och använd checkExistingOrReturnPredefined($alternative, $predefined); vilket inte fungerar för tillfället
+            if ($commentUserId != NULL):
+                $commentEmail = $userMail;
+                $commentAuthor = $userName;
+                $commentWebsite = $userWebsite;
+            endif; ?>
             <p><?php echo $commentContent; ?></p>
             <p class="author-info author-info--border">[ Skriven: <?php
             echo formatDate($commentCreated); ?> ] [ Av: <?php echo $commentAuthor; ?>]<br> [
