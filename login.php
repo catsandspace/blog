@@ -27,7 +27,7 @@
                 $stmt->bind_result($id, $permission, $uname, $upass, $email, $website, $fname, $lname, $pic, $desc);
                 $stmt->fetch();
 
-                if ($pass == $upass) {
+                if (password_verify($pass, $upass)) {
                     // function, stores users id, username, userpassword in session variables - functions.php
                     storeUserInSession($id, $permission, $uname, $upass);
                     header("Location: ./admin/dashboard.php");
