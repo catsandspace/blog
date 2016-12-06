@@ -85,7 +85,11 @@
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt</p><br>";
 
     if (isset($_POST["add-comment"])) {
+        if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
+            $requiredFields = array("content");
+        } else {
             $requiredFields = array("content", "email", "name", "website");
+        }
 
             foreach ($fields as $key => $value) {
                 $isRequired = in_array($key, $requiredFields);
@@ -177,9 +181,9 @@
                         <legend class="hidden">Skriv ny kommentar</legend>
                         <label class="form-field__label" for="content">Kommentar</label>
                         <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required><?php echo $fields['content']; ?></textarea>
-                        <!-- If user is logged in, no use to ask for user information -->
+                        <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
+                        <!-- Only ask visitors that are not logged in to provide info -->
                         <?php  if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE) { ?>
-                            <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
                             <label class="form-field__label" for="name">Ditt namn</label>
                             <input class="form-field" type="text" name="name" id="name" required value="<?php echo $fields['name']; ?>">
                             <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
