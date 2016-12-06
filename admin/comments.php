@@ -31,7 +31,8 @@
                     ON comments.userid = users.id";
         if ($stmt -> prepare($query)):
             $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $postId, $userName, $userMail);
+            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail);
+
         else:
             echo "wrong query";
         endif;
@@ -49,7 +50,8 @@
                     WHERE posts.userid = '{$userId}'";
         if ($stmt -> prepare($query)):
             $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $postId, $userName, $userMail);
+            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail);
+
         else:
             echo "wrong query";
         endif;
