@@ -100,54 +100,57 @@
             </div>
         </div>
 
+        <div class="blogpost-holder">
+
     <?php for ($i=0; $i < count($posts); $i++):
         $post = $posts[$i];
     ?>
-        <article class="list">
-            <div class="blogpost-wrapper">
-                <a href="post.php?getpost=<?php echo $post["id"] ?>"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>"></a>
-                <div class="blogpost-wrapper__text">
-                    <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></href="">
-                    <p class="tag">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [Publicerad: <?php echo formatDate($post["created"]); ?>]</p>
-                    <div class="comment-bubble">
-                        <div class="comment-bubble__show-comments">
-                            <?php // START OF COMMENTS
+            <article class="list">
+                <div class="blogpost-wrapper">
+                    <a href="post.php?getpost=<?php echo $post["id"] ?>"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>"></a>
+                    <div class="blogpost-wrapper__text">
+                        <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></href="">
+                        <p class="tag">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [Publicerad: <?php echo formatDate($post["created"]); ?>]</p>
+                        <div class="comment-bubble">
+                            <div class="comment-bubble__show-comments">
+                                <?php // START OF COMMENTS
 
-                            // TODO: Right now, this div is not used. Delete if we don't want it.
+                                // TODO: Right now, this div is not used. Delete if we don't want it.
 
-                            $totalNumberOfComments = 0;
-                            $errorMessage = NULL;
+                                $totalNumberOfComments = 0;
+                                $errorMessage = NULL;
 
-                            $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
+                                $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
 
-                            if ($stmt->prepare($query)) {
-                                $stmt->execute();
-                                $stmt->bind_result($commentId, $userId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
-                            } else {
-                                $errorMessage = "Något gick fel.";
-                            }
-
-                            while (mysqli_stmt_fetch($stmt)):
-                                $stmt->store_result();
-                                $numberOfComments = mysqli_stmt_num_rows($stmt);
-
-                                if ($post["id"] == $postId) {
-                                    // TODO: If we want to show these, use styling from utilities.scss.
-                                    echo "<p class=\"comment-bubble__comment-content\">$commentContent</p>";
-                                    echo "<p class=\"comment-bubble__comment-author\">$commentAuthor</p>";
-                                    $totalNumberOfComments++;
+                                if ($stmt->prepare($query)) {
+                                    $stmt->execute();
+                                    $stmt->bind_result($commentId, $userId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
+                                } else {
+                                    $errorMessage = "Något gick fel.";
                                 }
 
-                            endwhile;
-                            ?>
-                    </div>
-                        <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
-                        <p class="comment-bubble__number"><?php echo "$totalNumberOfComments" ?></p></a>
+                                while (mysqli_stmt_fetch($stmt)):
+                                    $stmt->store_result();
+                                    $numberOfComments = mysqli_stmt_num_rows($stmt);
+
+                                    if ($post["id"] == $postId) {
+                                        // TODO: If we want to show these, use styling from utilities.scss.
+                                        echo "<p class=\"comment-bubble__comment-content\">$commentContent</p>";
+                                        echo "<p class=\"comment-bubble__comment-author\">$commentAuthor</p>";
+                                        $totalNumberOfComments++;
+                                    }
+
+                                endwhile;
+                                ?>
+                        </div>
+                            <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
+                            <p class="comment-bubble__number"><?php echo "$totalNumberOfComments" ?></p></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </article>
-<?php endfor; ?>
+            </article>
+    <?php endfor; ?>
+        </div>
 <!-- </div> -->
     </main>
 
