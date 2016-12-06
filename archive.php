@@ -31,9 +31,10 @@
         <h2>November 2016</h2>
         <ul class="no-padding">
         <?php while (mysqli_stmt_fetch($stmt)): ?>
-            <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($created); ?>]</span> <?php echo $title; ?></li>
+            <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($created); ?>]</span><a href="post.php?getpost=<?php echo $id ?>"><?php echo $title; ?></a></li>
         <?php endwhile; ?>
         </ul>
     </div>
 </main>
 <?php require_once "./templates/footer.php"; ?>
+
