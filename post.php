@@ -10,13 +10,6 @@
     //TODO: CHECK $stmt->close();
     //TODO: FIX ALL REQUIRED FILLED
 
-    $fields = array(
-        "content" => "",
-        "name" => "",
-        "email" => "",
-        "website" => ""
-    );
-
 /*******************************************************************************
    GET SELECTED POST WHERE ID = post.php?getpost[id]
 *******************************************************************************/
@@ -72,21 +65,23 @@
    START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
 *******************************************************************************/
 
-    // FIXME: This does not seem to be working properly.
-    // This is used to stop user from leaving important fields empty.
-    $allRequiredFilled = TRUE;
+    // FIXME: This doesn't work right now. Checkout posteditor.php to see a working version.
 
-    // $obligatoryField is used to print out error message to user
+    $fields = array(
+        "content" => "",
+        "name" => "",
+        "email" => "",
+        "website" => ""
+    );
+
+    $allRequiredFilled = TRUE;
     $errors = array();
     $obligatoryField = "<p class=\"error-msg\">Obligatoriskt fält</p><br>";
+
+
     if (isset($_POST["add-comment"])) {
 
-        $requiredFields = array(
-            "comment",
-            "email",
-            "name",
-            "website"
-        );
+        $requiredFields = array("content", "email", "name", "website");
 
         foreach ($fields as $key => $value) {
             $isRequired = in_array($key, $requiredFields);
@@ -100,15 +95,8 @@
                 $fields[$key] = mysqli_real_escape_string($conn, $_POST[$key]);
             }
         }
-    }
 
-/*******************************************************************************
-   INSERTING VALUES FROM FORM TO DATABASE
-*******************************************************************************/
-
-    if ($allRequiredFilled) {
-
-        if (isset($_POST["add-comment"])) {
+        if ($allRequiredFilled)  {
 
             $content = mysqli_real_escape_string($conn, $_POST["content"]);
             $name = mysqli_real_escape_string($conn, $_POST["name"]);
