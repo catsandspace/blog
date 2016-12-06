@@ -8,6 +8,7 @@
     //TODO: CHECK $stmt->close();
     //TODO: FIGURE OUT HOW "DIN WEBBPLATS" IS GOING TO WORK
     //TODO: MAKE SURE QUERIES ONLY GETS WHAT'S NECESSARY.
+    //TODO: remove "novalidate" when finished debugging.
 
     //FIXME: FIX ALL REQUIRED FILLED. DOES NOT WORK AT THE MOMENT.
 
@@ -81,7 +82,7 @@
 
     $allRequiredFilled = TRUE;
     $errors = array();
-    $obligatoryField = "<p class=\"error-msg\">Obligatoriskt fält</p><br>";
+    $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt</p><br>";
 
     if (isset($_POST["add-comment"])) {
             $requiredFields = array("content", "email", "name", "website");
@@ -167,7 +168,11 @@
         <?php if (isset($_POST["new-comment"]) || (isset($_POST["add-comment"]) && !$allRequiredFilled)): ?>
             <div class="comment-container comment-container--xl-margin" id="nav-comment-top">
                 <h2>Skriv ny kommentar</h2>
+                <?php if (isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == TRUE): ?>
+                <p class="author-info">Kommentera som: @<?php echo $_SESSION["username"]; ?></p>
+                <?php endif; ?>
                 <form method="post" novalidate>
+                    <?php if (!empty($errors)) { echo "<p class=\"error-msg\">Ooops, något gick fel.</p>"; } ?>
                     <fieldset>
                         <legend class="hidden">Skriv ny kommentar</legend>
                         <label class="form-field__label" for="content">Kommentar</label>
@@ -182,7 +187,7 @@
                             <input class="form-field" type="email" name="email" id="email" required value="<?php echo $fields['email']; ?>">
                             <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
                             <label class="form-field__label" for="website">Din webbplats</label>
-                            <input class="form-field" type="url" name="website" id="website" value=<?php echo $fields['website']; ?> required>
+                            <input class="form-field" type="url" name="website" id="website" value="<?php echo $fields['website']; ?>" required>
                             <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
                             <?php } ?>
                             <button type="submit" class="button margin-bottom-l" name="add-comment">Lägg till</button>
