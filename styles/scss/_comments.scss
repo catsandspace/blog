@@ -39,6 +39,22 @@
     padding: 2rem;
 }
 
+
+.comment-container__author-info {
+    border-bottom: 2px solid $primary;
+    color: $complimentary;
+    font-family: $primaryBrandFont;
+    padding-bottom: 2rem;
+}
+
+.comment-container__author-email {
+    color: $complimentary;
+}
+
+.comment-container__author-email:hover {
+    color: $complimentaryHover;
+}
+
 .comment-container--xl-margin {
     margin: 3rem 0;
     padding: 8rem 2rem;

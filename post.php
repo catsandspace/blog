@@ -85,16 +85,12 @@
             $stmt->execute();
             $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId);
 
-
-
-
         } else {
 
             // TODO: 404?
             $errorMessage = "Något gick fel.";
         }
     }
-
 
 /*******************************************************************************
    START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
@@ -214,8 +210,8 @@
             <h2>Kommentarer</h2>
             <?php while (mysqli_stmt_fetch($stmt)): ?>
             <p><?php echo $commentContent; ?></p>
-            <p class="saffron-text primary-brand-font comment__border-bottom">[Skriven: <?php
-            echo formatDate($commentCreated); ?>] [Av: <a class="saffron-text" href="mailto:<?php echo $commentEmail; ?>"><?php echo $commentAuthor; ?></a>] [Webbplats: <a class="saffron-text" href="<?php echo $commentWebsite; ?>"><?php echo $commentWebsite; ?></a>]</p>
+            <p class="comment-container__author-info">[Skriven: <?php
+            echo formatDate($commentCreated); ?>] [Av: <?php echo $commentAuthor; ?> | <a class="comment-container__author-email" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i></a> | ] [Webbplats: <a class="saffron-text" href="<?php echo $commentWebsite; ?>"><?php echo $commentWebsite; ?></a>]</p>
             <?php endwhile; ?>
             <?php if ($commentId == NULL): echo "<p class=\"saffron-text primary-brand-font\">Detta inlägg har inga kommentarer ännu.</p>"; endif; ?>
         </div>
