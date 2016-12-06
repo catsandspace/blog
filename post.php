@@ -8,9 +8,8 @@
     //TODO: REQUIRE ON INPUT-FIELDS
     //TODO: REMOVE DEV LINK
     //TODO: CHECK $stmt->close();
-    //TODO: FIX CLASSES
-    //TODO: FIX ANCHOR LINK WITH TARGET WHEN COMMENTING.
-
+    //TODO: POST ALSO NEEDS AUTHOR NAME, AND AUTHOR'S WEBSITE URL.
+    //TODO: FIX ALL REQUIRED FILLED
 
     $post = array(
         "id" => "",
@@ -26,13 +25,10 @@
     );
 
     $comment = array(
-        //"id" => "",
-        //"userid" => "",
-        //"created" => "",
-        "email" => "",
+        "content" => "",
         "name" => "",
-        "content" => ""
-        //"postid" => ""
+        "email" => "",
+        "website" => ""
     );
 
 /*******************************************************************************
@@ -59,10 +55,7 @@
             $stmt->execute();
             $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUsername);
             $stmt->fetch();
-            //$stmt->close();
-            //
 
-            // TODO: If we need to define these, use them down below.
             $post["id"] = $id;
             $post["userid"] = $userId;
             $post["created"] = $created;
@@ -75,8 +68,7 @@
             $post["username"] = $postUsername;
 
             } else {
-
-                // TODO: 404?
+                // TODO: Replace with 404 page.
                 $errorMessage = "Något gick fel.";
             }
     }
@@ -91,7 +83,10 @@
 
         if ($stmt->prepare($query)) {
             $stmt->execute();
-            $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
+            $stmt->bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId);
+
+
+
 
         } else {
 
@@ -100,23 +95,27 @@
         }
     }
 
+
 /*******************************************************************************
    START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
 *******************************************************************************/
 
+    // FIXME: This does not seem to be working properly.
     // This is used to stop user from leaving important fields empty.
     $allRequiredFilled = TRUE;
 
-    // If a required field is left empty, info about the key will be inserted in $errors
     // $obligatoryField is used to print out error message to user
     $errors = array();
     $obligatoryField = "<p class=\"error-msg\">Obligatoriskt fält</p><br>";
     if (isset($_POST["add-comment"])) {
 
-        // These variables are used for checking if all fields are filled.
-        $requiredFields = array("email", "name", "content");
+        $requiredFields = array(
+            "comment",
+            "email",
+            "name",
+            "website"
+        );
 
-        // This checks if all required fields are filled.
         foreach ($comment as $key => $value) {
             $isRequired = in_array($key, $requiredFields);
 
@@ -139,11 +138,12 @@
 
         if (isset($_POST["add-comment"])) {
 
+            $content = mysqli_real_escape_string($conn, $_POST["content"]);
             $name = mysqli_real_escape_string($conn, $_POST["name"]);
             $email = mysqli_real_escape_string($conn, $_POST["email"]);
-            $content = mysqli_real_escape_string($conn, $_POST["content"]);
+            $website = mysqli_real_escape_string($conn, $_POST["website"]);
 
-            $query = "INSERT INTO comments VALUES ('', '', now(), '{$email}', '{$name}', '{$content}', '{$getPost}')";
+            $query = "INSERT INTO comments VALUES ('', '', now(), '{$email}', '{$name}', '{$content}', '{$website}', '{$getPost}')";
 
             if ($stmt->prepare($query)) {
                 $stmt->execute();
@@ -153,7 +153,7 @@
             } else {
 
                 // TODO: 404?
-                $errorMessage = "Något gick fel.";
+                $errorMessage = "Det gick inte att lägga till kommentaren.";
             }
 
         }
@@ -174,15 +174,13 @@
 *******************************************************************************/
 ?>
 <main>
-
 <?php if ($post["id"] != NULL): ?>
-<!-- TODO: Make this semantic -->
     <article class="smaller-font">
         <div class="relative-container">
             <img class="full-width-img" src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>">
             <a class="relative-container__info relative-container__link" href="index.php?display=<?php echo $post["categoryid"] ?>">Kategori: <?php echo str_replace(' ', '', $post["categoryname"]); ?></a>
         </div>
-        <p class="saffron-text primary-brand-font">[Uppladdad av: <?php echo $post["username"]; ?>] [Publicerad: <?php echo $post["created"]; ?>] <?php if ($post["created"] != $post["updated"]): ?> [Uppdaterad: <?php echo $post["updated"]; ?>] <?php endif; ?></p>
+        <p class="saffron-text primary-brand-font">[Uppladdad av: <?php echo $post["username"]; ?>] [Publicerad: <?php echo formatDate($post["created"]); ?>] <?php if ($post["created"] != $post["updated"]): ?> [Uppdaterad: <?php echo formatDate($post["updated"]); ?>] <?php endif; ?></p>
         <h1><?php echo $title; ?></h1>
         <p><?php echo formatInnerHtml($content); ?></p>
         <?php if (!isset ($_POST["new-comment"])): ?>
@@ -195,27 +193,29 @@
             <form method="post">
                 <fieldset>
                     <legend class="hidden">Skriv ny kommentar</legend>
-                    <!-- TODO: REQUIRE ON INPUTS WHEN FINAL-->
                     <label class="form-field__label" for="content">Kommentar</label>
-                    <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7"></textarea>
+                    <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required></textarea>
                     <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
                     <label class="form-field__label" for="name">Ditt namn</label>
-                    <input class="form-field" type="text" name="name" id="name">
+                    <input class="form-field" type="text" name="name" id="name" required>
                     <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
                     <label class="form-field__label" for="email">Din e-postadress</label>
-                    <input class="form-field" type="email" name="email" id="email">
+                    <input class="form-field" type="email" name="email" id="email" required>
                     <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
+                    <label class="form-field__label" for="website">Din webbplats</label>
+                    <input class="form-field" type="url" name="website" id="website" required>
+                    <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
                     <button type="submit" class="button margin-bottom-l" name="add-comment" value="Lägg till">Lägg till</button>
                 </fieldset>
             </form>
-            <!-- FORM END -->
         </div>
         <?php endif; ?>
         <div class="comment-container">
             <h2>Kommentarer</h2>
             <?php while (mysqli_stmt_fetch($stmt)): ?>
             <p><?php echo $commentContent; ?></p>
-            <p class="saffron-text primary-brand-font comment__border-bottom">[Av: <?php echo $commentAuthor; ?>] [Skriven den: <?php echo $commentCreated; ?>]</p>
+            <p class="saffron-text primary-brand-font comment__border-bottom">[Skriven: <?php
+            echo formatDate($commentCreated); ?>] [Av: <a class="saffron-text" href="mailto:<?php echo $commentEmail; ?>"><?php echo $commentAuthor; ?></a>] [Webbplats: <a class="saffron-text" href="<?php echo $commentWebsite; ?>"><?php echo $commentWebsite; ?></a>]</p>
             <?php endwhile; ?>
             <?php if ($commentId == NULL): echo "<p class=\"saffron-text primary-brand-font\">Detta inlägg har inga kommentarer ännu.</p>"; endif; ?>
         </div>

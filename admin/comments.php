@@ -8,8 +8,6 @@
         header("Location: ../login.php");
     endif;
 
-
-
     // If-statement to check if button for removing comments is set
     if (isset ($_POST["remove-comment"])):
         $commentToDelete = $_POST["remove-comment"];
@@ -31,13 +29,14 @@
                     ON comments.userid = users.id";
         if ($stmt -> prepare($query)):
             $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $postId, $userName, $userMail);
+            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail);
+
         else:
             echo "wrong query";
         endif;
     endif;
 
-    // If user has permission "admin" only print the comments connected to the posts for that adminuser
+    // If user has permission "redaktör" only print the comments connected to the posts for that user.
     if ($_SESSION["permission"] == 0):
         $userId = $_SESSION["userid"];
         $query  = "SELECT comments.*, users.username, users.email
@@ -49,14 +48,19 @@
                     WHERE posts.userid = '{$userId}'";
         if ($stmt -> prepare($query)):
             $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $postId, $userName, $userMail);
+            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail);
+
         else:
             echo "wrong query";
         endif;
     endif;
 ?>
 <main>
-    <h1 class="center-text margin-bottom-l">Kommentarer</h1>
+    <?php if ($_SESSION["permission"] == 1): ?>
+        <h1 class="center-text margin-bottom-l">Alla kommentarer</h1>
+    <?php else: ?>
+        <h1 class="center-text margin-bottom-l">Kommentarer på dina inlägg</h1>
+    <?php endif; ?>
     <form method="POST" action="./comments.php">
         <table class="table-listing__centered-content">
             <thead class="hidden">

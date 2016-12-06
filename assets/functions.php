@@ -33,11 +33,10 @@ function checkUploadedFile($file) {
 */
 function storeUserInSession($id, $permission, $uname, $upass) {
     $_SESSION["logged-in"] = TRUE;
-	$_SESSION["userid"] = $id;
-	$_SESSION["permission"] = $permission;
-	$_SESSION["username"] = $uname;
-	$_SESSION["userpassword"] = $upass;
-
+    $_SESSION["userid"] = $id;
+    $_SESSION["permission"] = $permission;
+    $_SESSION["username"] = $uname;
+    $_SESSION["userpassword"] = $upass;
 }
 
 /**
@@ -79,6 +78,16 @@ function formatInnerHtml($string) {
     $newString = str_replace('\\\'', "'", $newString);
     $newString = str_replace('\\"', '"', $newString);
     return $newString;
+}
+
+/**
+ * The function formats a timestamp according to year-month-date.
+ * @param  int $timestamp       The timestamp returned from the database
+ * @return int $formattedDate   The date formatted as year-month-date.
+ */
+function formatDate($timestamp) {
+    $formattedDate = date('Y-m-d', strtotime($timestamp));
+    return $formattedDate;
 }
 
 ?>
