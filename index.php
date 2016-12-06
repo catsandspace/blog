@@ -10,16 +10,19 @@
 
     // Pagination, display 2 posts per page
     // TODO: change to 5
-    $postPage = 2;
+    $postPage = 5;
 
     // Query to check number of rows in table posts
-    $query = "SELECT * FROM posts";
+    $query = "SELECT id FROM posts WHERE published = 1";
 
     // Execute query.
     if ($stmt->prepare($query)) {
         $stmt->execute();
         $stmt->store_result();
         $rows = $stmt->num_rows; // Number of rows in posts
+    }
+    else {
+        $errorMessage = "Fel på query.";
     }
     $last = ceil($rows/$postPage); // Round up
     // If less posts than number on each page
@@ -87,6 +90,14 @@
 
     <div class="content-slides-in">
 
+        <div class="pagination-wrapper">
+            <div class="pagination-wrapper__text">
+            <?php
+                echo $paginationCtrls;
+            ?>
+            </div>
+        </div>
+
     <?php for ($i=0; $i < count($posts); $i++):
         $post = $posts[$i];
     ?>
@@ -140,7 +151,7 @@
     if ($errorMessage) { echo $errorMessage; }
 ?>
 <div class="pagination-wrapper">
-    <div class="pagination-text">
+    <div class="pagination-wrapper__text">
 <?php
     echo $paginationCtrls;
 ?>
