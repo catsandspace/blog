@@ -58,7 +58,11 @@
     endif;
 ?>
 <main>
-    <h2>Kommentarer</h2>
+    <?php if ($_SESSION["permission"] == 1): ?>
+        <h1>Alla kommentarer</h1>
+    <?php else: ?>
+        <h1>Kommentarer på dina inlägg</h1>
+    <?php endif; ?>
     <form method="POST" action="./comments.php">
         <table class="table-listing__centered-content">
             <thead class="hidden">
