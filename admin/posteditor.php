@@ -87,10 +87,10 @@
         if ($allRequiredFilled) {
 
             $userid = $_SESSION["userid"];
-            $publish = mysqli_real_escape_string($conn, $fields["publish"]);
-            $headline = mysqli_real_escape_string($conn, $fields["headline"]);
-            $content = mysqli_real_escape_string($conn, $fields["post-content"]);
-            $category = mysqli_real_escape_string($conn, $fields["category"]);
+            $publish = $fields["publish"];
+            $headline = $fields["headline"];
+            $content = $fields["post-content"];
+            $category = $fields["category"];
 
             $query = "INSERT INTO posts VALUES ('', '{$userid}', now(), '', '', '{$headline}', '{$content}', '{$publish}', '{$category}')";
 
