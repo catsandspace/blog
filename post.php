@@ -10,6 +10,26 @@
     //TODO: CHECK $stmt->close();
     //TODO: FIX ALL REQUIRED FILLED
 
+    $post = array(
+        "id" => "",
+        "userid" => "",
+        "created" => "",
+        "updated" => "",
+        "image" => "",
+        "title" => "",
+        "content" => "",
+        "username" => "",
+        "categoryid" => "",
+        "categoryname" => ""
+    );
+
+    $comment = array(
+        "content" => "",
+        "name" => "",
+        "email" => "",
+        "website" => ""
+    );
+
 /*******************************************************************************
    GET SELECTED POST WHERE ID = post.php?getpost[id]
 *******************************************************************************/
@@ -34,6 +54,7 @@
             $stmt->execute();
             $stmt->bind_result($postId, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUserId, $authorPermission, $authorName, $authorPassword, $authorEmail, $authorWebsite, $authorFirstname, $authorLastname, $authorimg, $authorDescription);
             $stmt->fetch();
+
 
             } else {
                 // TODO: Replace with 404 page.
@@ -65,14 +86,6 @@
 *******************************************************************************/
 
     // FIXME: This does not seem to be working properly.
-
-    $comment = array(
-        "content" => "",
-        "name" => "",
-        "email" => "",
-        "website" => ""
-    );
-
     // This is used to stop user from leaving important fields empty.
     $allRequiredFilled = TRUE;
 
