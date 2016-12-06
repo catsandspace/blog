@@ -2,13 +2,14 @@
     require_once "./templates/header.php";
     require_once "./assets/functions.php";
 
-    //TODO: CLEAN UP ARRAYS
     //TODO: ERROR-MESSAGES/404
     //TODO: CHECK ARTICLE ELEMENT SEMANTICS
-    //TODO: REQUIRE ON INPUT-FIELDS
     //TODO: REMOVE DEV LINK
     //TODO: CHECK $stmt->close();
-    //TODO: FIX ALL REQUIRED FILLED
+    //TODO: FIGURE OUT HOW "DIN WEBBPLATS" IS GOING TO WORK
+    //TODO: MAKE SURE QUERIES ONLY GETS WHAT'S NECESSARY.
+
+    //FIXME: FIX ALL REQUIRED FILLED. DOES NOT WORK AT THE MOMENT.
 
 /*******************************************************************************
    GET SELECTED POST WHERE ID = post.php?getpost[id]
@@ -35,10 +36,9 @@
             $stmt->bind_result($postId, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUserId, $authorPermission, $authorName, $authorPassword, $authorEmail, $authorWebsite, $authorFirstname, $authorLastname, $authorimg, $authorDescription);
             $stmt->fetch();
 
-
             } else {
                 // TODO: Replace with 404 page.
-                $errorMessage = "Något gick fel.";
+                $errorMessage = "Något gick fel när sidan skulle hämtas.";
             }
     }
 
@@ -57,15 +57,13 @@
         } else {
 
             // TODO: 404?
-            $errorMessage = "Något gick fel.";
+            $errorMessage = "Något gick fel när kommentarerna skulle hämtas.";
         }
     }
 
 /*******************************************************************************
    START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
 *******************************************************************************/
-
-    // FIXME: This doesn't work right now. Checkout posteditor.php to see a working version.
 
     $fields = array(
         "content" => "",
@@ -77,7 +75,6 @@
     $allRequiredFilled = TRUE;
     $errors = array();
     $obligatoryField = "<p class=\"error-msg\">Obligatoriskt fält</p><br>";
-
 
     if (isset($_POST["add-comment"])) {
 
@@ -96,14 +93,9 @@
             }
         }
 
-        if ($allRequiredFilled)  {
+        if ($allRequiredFilled = TRUE)  {
 
-            $content = mysqli_real_escape_string($conn, $_POST["content"]);
-            $name = mysqli_real_escape_string($conn, $_POST["name"]);
-            $email = mysqli_real_escape_string($conn, $_POST["email"]);
-            $website = mysqli_real_escape_string($conn, $_POST["website"]);
-
-            $query = "INSERT INTO comments VALUES ('', '', now(), '{$email}', '{$name}', '{$content}', '{$website}', '{$getPost}')";
+            $query = "INSERT INTO comments VALUES ('', '', now(), '{$fields["email"]}', '{$fields["name"]}', '{$fields["content"]}', '{$fields["website"]}', '{$getPost}')";
 
             if ($stmt->prepare($query)) {
                 $stmt->execute();
@@ -115,9 +107,7 @@
                 // TODO: 404?
                 $errorMessage = "Det gick inte att lägga till kommentaren.";
             }
-
         }
-
     }
 
 /*******************************************************************************
@@ -170,7 +160,7 @@
                     <input class="form-field" type="email" name="email" id="email" required>
                     <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
                     <label class="form-field__label" for="website">Din webbplats</label>
-                    <input class="form-field" type="url" name="website" id="website" required>
+                    <input class="form-field" type="url" name="website" id="website" value="http://www." required>
                     <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
                     <button type="submit" class="button margin-bottom-l" name="add-comment" value="Lägg till">Lägg till</button>
                 </fieldset>
