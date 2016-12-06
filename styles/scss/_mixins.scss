@@ -7,3 +7,35 @@
     position: absolute;
     width: 1px;
 }
+
+
+/*******************************************************************************
+    MEDIA QUERIES / RESPONSIVE DESIGN
+    _variables.scss
+*******************************************************************************/
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+/* Compiles to: */
+
+// @media (min-width: 768px) and (max-width: 1024px) {}
+
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+/* Compiles to: */
+
+// @media (min-width: 1024px) {}
+
+
+/* Use it like this: */
+
+// @include desktop {}
