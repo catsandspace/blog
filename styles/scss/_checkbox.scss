@@ -1,0 +1,69 @@
+@keyframes checkbox-wrapper__icon--pop {
+    0% {
+        transform: scale(1) rotate(-45deg);
+    }
+
+    50% {
+        transform: scale(2) rotate(-45deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(-45deg);
+    }
+}
+
+.checkbox-wrapper {
+    display: block;
+    min-height: 2.5rem;
+    padding-left: calc(2.5rem + 1.3rem);
+    padding-top: 0.55rem;
+    position: relative;
+}
+
+.checkbox-wrapper--margin {
+    margin-bottom: 0.5rem;
+}
+
+.checkbox-wrapper::before {
+    background: $baseColor;
+    border: 2px solid $primary;
+    content: '';
+    cursor: pointer;
+    height: 2.5rem;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 2.5rem;
+}
+
+.checkbox-wrapper__icon {
+    background: transparent;
+    border: 3px solid $primary;
+    border-top: none;
+    border-right: none;
+    content: '';
+    height: 0.55rem;
+    left: 0.85rem;
+    opacity: 0.05;
+    position: absolute;
+    top: 0.8rem;
+    transition: opacity 125ms ease-in;
+    transform: rotate(-45deg);
+    width: 0.9rem;
+}
+
+.checkbox-wrapper__checkbox {
+    @include hidden-visually;
+}
+
+.checkbox-wrapper:hover .checkbox-wrapper__icon {
+    opacity: 0.2;
+}
+
+.checkbox-wrapper__checkbox:checked + .checkbox-wrapper__icon {
+    animation-name: checkbox-wrapper__icon--pop;
+    animation-duration: 200ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(.49,.01,.26,.99);
+    opacity: 1;
+}

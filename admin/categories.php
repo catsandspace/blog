@@ -93,21 +93,21 @@
     $change = FALSE;
 ?>
 <main>
-    <h2>Kategorier</h2>
+    <h1 class="center-text margin-bottom-l">Kategorier</h1>
     <div class="flexbox-wrapper">
         <form method="post" action="categories.php" class="list-wrapper">
-            <div class="list">
-                <div class="inner-list">
-                <?php while (mysqli_stmt_fetch($stmt)): ?>
-                <input type="checkbox" name="checklist[]" value="<?php echo $catId; ?>"> <?php echo ucfirst($category); ?><br>
+            <?php while (mysqli_stmt_fetch($stmt)): ?>
+                <label class="checkbox-wrapper checkbox-wrapper--margin">
+                    <input class="checkbox-wrapper__checkbox" type="checkbox" name="checklist[]" value="<?php echo $catId; ?>">
+                    <i class="checkbox-wrapper__icon"></i>
+                    <?php echo ucfirst($category); ?>
+                </label>
                 <?php if ($catId == $changeCategoryId) {
                     $change = TRUE;
                     $changeCatId = $catId;
                     $changeCat = $cat;
                 }
-                endwhile; ?>
-                </div>
-            </div>
+            endwhile; ?>
             <?php if ($change): ?>
             <label class="form-field__label" for="categoryChange">Ändra kategori <?php echo $changeCat; ?>:</label>
             <input type="text" name="categoryChange">
@@ -117,8 +117,8 @@
             <button type="submit" value="Ta bort" name="removeCat" class="button error">Ta bort</button>
         </form>
         <form method="post" action="categories.php" class="input-wrapper">
-            <label class="form-field__label" for="addCatagory">Lägg till kategori</label>
-            <input class="form-field" type="text" name="category" id="addCategory">
+            <label class="form-field__label" for="add-category">Lägg till kategori</label>
+            <input class="form-field" type="text" name="category" id="add-category">
             <button type="submit" value="Lägg till" name="addCat" class="button">Lägg till</button>
         </form>
     </div>

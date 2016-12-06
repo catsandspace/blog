@@ -1,4 +1,6 @@
 <?php
+    // TODO: Right now, the div with comment bubble show comments is not used.
+    // Decision is needed!
 
     // File to include
     require_once "./templates/header.php";
@@ -105,11 +107,12 @@
         <div class="blogpost-wrapper">
             <a href="post.php?getpost=<?php echo $post["id"] ?>"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>"></a>
             <div class="blogpost-wrapper__text">
-                <h2><?php echo formatInnerHtml($post["title"]); ?></h2>
+                <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></h1>
                 <p class="tag">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [<?php echo $post["created"] ?>]</p>
                 <div class="comment-bubble">
                     <div class="comment-bubble__show-comments">
                         <?php // START OF COMMENTS
+
                         // TODO: Right now, this div is not used. Delete if we don't want it.
 
                         $totalNumberOfComments = 0;

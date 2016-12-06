@@ -1,14 +1,18 @@
-.table-listing--inverted {
-    color: $baseColor2;
-    margin: 0 auto;
-}
-
 // TODO: When styling for desktop, change to flex and rows.
 .table-listing__row {
     display: block;
-    margin: 1.5em 0;
+    margin: 7.5rem 0;
     padding-bottom: 1em;
     width: 100%;
+}
+
+.table-listing__centered-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.table-listing__title {
+    font-size: 4rem;
 }
 
 .table-listing__title--on-img {

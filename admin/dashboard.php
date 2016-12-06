@@ -61,12 +61,12 @@
     /***************************************************************************/
 ?>
 
-<main class="dark">
+<main>
     <div class="flexbox-wrapper">
-        <h2 class="inverted-text-color">Hej @<?php echo $currentUser; ?></h2>
+        <h1 class="center-text margin-bottom-l">Hej @<?php echo $currentUser; ?></h1>
         <?php if (isset($_GET['statistics'])): ?>
         <div class="border-normal padding-normal relative-container relative-container--boxsizing margin-normal center-text ">
-            <h3 class="center-text">Statistik</h3>
+            <h2 class="center-text">Statistik</h2>
             <ul class="list-style-none no-padding">
                 <li>Totalt antal publicerade blogginlägg: <?php echo $NumberOfPosts; ?></li>
                 <li>Totalt antal kommentarer: <?php echo $NumberOfComments; ?></li>
@@ -88,7 +88,5 @@
         <a href="../assets/logout.php" class="button link__button--error" target="_self">Logga ut</a>
     </div>
 </main>
-
 <?php if ($errorMessage) { echo $errorMessage;}
  require_once "../templates/footer.php"; ?>
-
