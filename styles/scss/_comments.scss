@@ -4,8 +4,8 @@
     //float: right;
     position: relative;
     cursor: pointer;
-    display: flex;
-    justify-content: flex-end;
+    @include flexbox();
+    @include flexboxJustifyContent(flex-end)
 }
 
 .comment-bubble__number {
