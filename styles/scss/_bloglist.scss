@@ -45,7 +45,11 @@
     color: $primary;
     font-size: 1.8rem;
     font-family: $primaryBrandFont;
-    //margin-bottom: 0.4em;
+
+    @include mobile-s {
+        font-size: 1.5rem;
+    }
+    
     a {
         color: $primary;
     }
