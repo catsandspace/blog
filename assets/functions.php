@@ -62,8 +62,9 @@ function convertPermissionToString($permission) {
 function checkExistingOrReturnPredefined($alternative, $predefined) {
     if ($alternative != NULL) {
         return $alternative;
+    } else {
+        return $predefined;
     }
-    return $predefined;
 }
 
 /**
