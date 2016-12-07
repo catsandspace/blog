@@ -7,3 +7,46 @@
     position: absolute;
     width: 1px;
 }
+
+
+/*******************************************************************************
+    MEDIA QUERIES / RESPONSIVE DESIGN
+    _variables.scss
+*******************************************************************************/
+// TODO: Clean up comments.
+
+@mixin mobile {
+@media (max-width: #{$tablet-width - 1px}) {
+  @content;
+}
+}
+
+/* Compiles to: */
+
+// @media (max-width: 767px) {}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+/* Compiles to: */
+
+// @media (min-width: 768px) and (max-width: 1023px) {}
+
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+/* Compiles to: */
+
+// @media (min-width: 1024px) {}
+
+
+/* Use it like this: */
+
+// @include desktop {}
