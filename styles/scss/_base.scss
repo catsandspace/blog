@@ -23,20 +23,20 @@ main {
 }
 
 header {
-    animation-name: menu-is-sliding-in;
-    animation-duration: 1.2s;
-    animation-delay: 0.2s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
+    // animation-name: menu-is-sliding-in;
+    // animation-duration: 1.2s;
+    // animation-delay: 0.2s;
+    // animation-iteration-count: 1;
+    // animation-fill-mode: forwards;
     background-color: $baseColorSemiTransparent;
     box-sizing: border-box;
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
     color: $baseColor2;
-    display: flex;
-    justify-content: space-between;
+    @include flexbox();
+    @include flexboxJustifyContent(space-between);
     padding: 0.8rem 2rem;
     position: fixed;
-    top: -6.8rem;
+    //top: -6.8rem;
     width: 100%;
     z-index: 2;
     -webkit-backdrop-filter: blur(5px);
@@ -46,6 +46,9 @@ header {
 .logo {
     height: 3em;
     width: 3em;
+    @include mobile-s {
+        display: none;
+    }
 }
 
 /*******************************************************************************
