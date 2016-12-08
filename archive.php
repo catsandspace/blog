@@ -12,7 +12,11 @@
     }
     // Sort post by name
     if($sort == "name") {
+        if(month == "all") {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY title ASC";
+        } else {
+        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = 11 ORDER BY created ASC";
+        }
     }
     // Sort post by lastest entry
     if($sort == "asc") {
@@ -23,16 +27,16 @@
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
     }
 
-    if($month == "all") {
-        $query = "SELECT posts.*,
-        categories.name
-        FROM posts
-        LEFT JOIN categories
-        ON posts.categoryid = categories.id
-        WHERE published = 1
-        AND EXTRACT(MONTH FROM created) = 11
-        ORDER BY created DESC";
-    }
+    // if($month == "all") {
+    //     $query = "SELECT posts.*,
+    //     categories.name
+    //     FROM posts
+    //     LEFT JOIN categories
+    //     ON posts.categoryid = categories.id
+    //     WHERE published = 1
+    //     AND EXTRACT(MONTH FROM created) = 11
+    //     ORDER BY created DESC";
+    //}
 
     if ($stmt->prepare($query)) {
         $stmt->execute();
