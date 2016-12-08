@@ -110,7 +110,7 @@
             if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
                 $uid = $_SESSION["userid"];
                 $content = $_POST["content"];
-                $query = "INSERT INTO comments VALUES ('', '{$uid}', now(), 'NULL', 'NULL', '{$content}', 'NULL', '{$getPost}')";
+                $query = "INSERT INTO comments VALUES ('', '{$uid}', now(), '', '', '{$content}', '', '{$getPost}')";
 
                 if ($stmt->prepare($query)) {
                     $stmt->execute();
@@ -124,7 +124,7 @@
                 }
             } else {
 
-                $query = "INSERT INTO comments VALUES ('', 'NULL', now(), '{$fields["email"]}', '{$fields["name"]}', '{$fields["content"]}', '{$fields["website"]}', '{$getPost}')";
+                $query = "INSERT INTO comments VALUES ('', '', now(), '{$fields["email"]}', '{$fields["name"]}', '{$fields["content"]}', '{$fields["website"]}', '{$getPost}')";
 
                 if ($stmt->prepare($query)) {
                     $stmt->execute();
