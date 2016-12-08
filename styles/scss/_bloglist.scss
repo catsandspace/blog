@@ -45,11 +45,11 @@
     color: $primary;
     font-size: 1.6rem;
     font-family: $primaryBrandFont;
+}
 
-    a {
-        color: $primary;
-    }
-    a:hover {
-        color: $primaryAlternative;
-    }
+.blogpost-wrapper__links {
+    color: $primary;
+}
+.blogpost-wrapper__links:hover {
+    color: $primaryAlternative;
 }
