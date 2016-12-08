@@ -93,7 +93,7 @@
                 ?>
                 <tr class="table-listing__row">
                     <td class="relative-container">
-                        <img src="../<?php echo $image; ?>" alt="Image of cats and space" class="full-width-img <?php if ($draft) { echo $modifier; } ?>">
+                        <a href="./posteditor.php?edit=<?php echo $id;?>"><img src="../<?php echo $image; ?>" alt="Image of cats and space" class="full-width-img <?php if ($draft) { echo $modifier; } ?>"></a>
                         <?php if ($draft) { echo $draftMessage; } ?>
                     </td>
                     <td class="relative-container">
