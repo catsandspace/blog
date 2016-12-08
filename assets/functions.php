@@ -70,7 +70,7 @@ function checkExistingOrReturnPredefined($alternative, $predefined) {
 /**
  * The function removes special characters and format string as HTML markup.
  * @param  string $string The string that needs formatting.
- * @return string         HTML markup.
+ * @return string         HTML markup with replaced special characters.
  */
 function formatInnerHtml($string) {
     $newString = str_replace("\n", "<br>", $string);
@@ -78,6 +78,11 @@ function formatInnerHtml($string) {
     return replaceSpecialCharacters($newString);
 }
 
+/**
+ * The function replaces special characters.
+ * @param  string $string The string that needs to be formatted.
+ * @return string         The string with replaced special characters.
+ */
 function replaceSpecialCharacters($string) {
     $newString = str_replace('\n', "\n", $string);
     $newString = str_replace('\r', "\r", $newString);
