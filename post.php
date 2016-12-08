@@ -116,23 +116,25 @@
             }
         }
 
-        // This checks if email is written correctly. If not, return an error message.
         // TODO: Don't repeat yourself! Check if you can make this more dry.
-        if ($key = 'email') {
-                if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
-                    $allRequiredFilled = FALSE;
-                    array_push($errors, $key);
+        // This checks if email is written correctly. If not, return an error message.
+        if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
+
+            if ($key = 'email') {
+                    if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
+                        $allRequiredFilled = FALSE;
+                        array_push($errors, $key);
+                    }
+                }
+
+            // This checks if website is written correctly. If not, return an error message.
+            if ($key = 'website') {
+                    if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+                        $allRequiredFilled = FALSE;
+                        array_push($errors, $key);
+                    }
                 }
             }
-
-        // This checks if website is written correctly. If not, return an error message.
-        if ($key = 'website') {
-                if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
-                    $allRequiredFilled = FALSE;
-                    array_push($errors, $key);
-                }
-            }
-
 
         if ($allRequiredFilled)  {
 
