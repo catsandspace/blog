@@ -66,6 +66,7 @@
         Otherwise generate link to previous page. */
         if ($pagenum > 1) {
             $previous = $pagenum - 1;
+            $first = 1;
             $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
             $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
         }
