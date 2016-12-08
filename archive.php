@@ -23,7 +23,7 @@
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
     }
 
-    if($month == "11") {
+    if(isset($_GET["month"])) {
         $query = "SELECT posts.*,
         categories.name
         FROM posts
