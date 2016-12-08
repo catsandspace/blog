@@ -46,7 +46,7 @@ header {
 .logo {
     height: 3em;
     width: 3em;
-    @include mobile-s {
+    @include mobileSizeSmall {
         display: none;
     }
 }

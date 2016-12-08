@@ -28,30 +28,30 @@
 *******************************************************************************/
 // TODO: Clean up comments.
 
-@mixin mobile-s {
-    @media (max-width: #{$mobile-m-width - 1px}) {
+@mixin mobileSizeSmall {
+    @media (max-width: #{$widthMobileMedium - 1px}) {
         @content;
     }
 }
 
-@mixin mobile-m {
-    @media (min-width: #{$mobile-m-width}) and (max-width: #{$tablet-width - 1px}) {
+@mixin mobileSizeMedium {
+    @media (min-width: #{$widthMobileMedium}) and (max-width: #{$widthTablet - 1px}) {
         @content;
     }
 }
 
-@mixin tablet {
-    @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+@mixin sizeTablet {
+    @media (min-width: #{$widthTablet}) and (max-width: #{$widthDesktop - 1px}) {
         @content;
     }
 }
 
-@mixin desktop {
-    @media (min-width: #{$desktop-width}) {
+@mixin sizeDesktop {
+    @media (min-width: #{$widthDesktop}) {
         @content;
     }
 }
 
 /* Use it like this: */
 
-// @include desktop {}
+// @include sizeDesktop {}
