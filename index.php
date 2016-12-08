@@ -113,7 +113,6 @@
                         <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></href="">
                         <p class="blogpost-wrapper__tags">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>" class="blogpost-wrapper__links"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [Publicerad: <?php echo formatDate($post["created"]); ?>]</p>
                         <div class="comment-bubble">
-                            <div class="comment-bubble__show-comments">
                                 <?php // START OF COMMENTS
 
                                 // TODO: Right now, this div is not used. Delete if we don't want it.
@@ -125,7 +124,7 @@
 
                                 if ($stmt->prepare($query)) {
                                     $stmt->execute();
-                                    $stmt->bind_result($commentId, $userId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
+                                    $stmt->bind_result($commentId, $userId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId);
                                 } else {
                                     $errorMessage = "Något gick fel.";
                                 }
@@ -135,15 +134,11 @@
                                     $numberOfComments = mysqli_stmt_num_rows($stmt);
 
                                     if ($post["id"] == $postId) {
-                                        // TODO: If we want to show these, use styling from utilities.scss.
-                                        echo "<p class=\"comment-bubble__comment-content\">$commentContent</p>";
-                                        echo "<p class=\"comment-bubble__comment-author\">$commentAuthor</p>";
                                         $totalNumberOfComments++;
                                     }
 
                                 endwhile;
                                 ?>
-                        </div>
                             <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
                             <p class="comment-bubble__number"><?php echo "$totalNumberOfComments" ?></p></a>
                         </div>
