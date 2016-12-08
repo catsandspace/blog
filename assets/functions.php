@@ -78,6 +78,8 @@ function formatInnerHtml($string) {
     $newString = str_replace('\r', "", $newString);
     $newString = str_replace('\\\'', "'", $newString);
     $newString = str_replace('\\"', '"', $newString);
+    $newString = str_replace('>', '&gt;', $newString);
+    $newString = str_replace('<', '&lt;', $newString);
     return $newString;
 }
 
