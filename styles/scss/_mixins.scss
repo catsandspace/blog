@@ -7,3 +7,51 @@
     position: absolute;
     width: 1px;
 }
+
+@mixin flexbox() {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+@mixin flexboxJustifyContent($value) {
+    -webkit-justify-content: $value;
+    justify-content: $value;
+}
+
+
+/*******************************************************************************
+    MEDIA QUERIES / RESPONSIVE DESIGN
+    _variables.scss
+*******************************************************************************/
+// TODO: Clean up comments.
+
+@mixin mobile-s {
+    @media (max-width: #{$mobile-m-width - 1px}) {
+        @content;
+    }
+}
+
+@mixin mobile-m {
+    @media (min-width: #{$mobile-m-width}) and (max-width: #{$tablet-width - 1px}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: #{$desktop-width}) {
+        @content;
+    }
+}
+
+/* Use it like this: */
+
+// @include desktop {}
