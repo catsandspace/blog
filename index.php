@@ -105,12 +105,12 @@
     <?php for ($i=0; $i < count($posts); $i++):
         $post = $posts[$i];
     ?>
-            <article class="blogpost-article">
+            <article class="blogpost__article">
                 <div class="blogpost-wrapper">
                     <a href="post.php?getpost=<?php echo $post["id"] ?>"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img"></a>
-                    <div class="blogpost-wrapper--text">
+                    <div class="blogpost-wrapper__text">
                         <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></href="">
-                        <p class="blogpost-wrapper--text__tags">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [Publicerad: <?php echo formatDate($post["created"]); ?>]</p>
+                        <p class="blogpost-wrapper__tags">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>" class="blogpost-wrapper__links"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [Publicerad: <?php echo formatDate($post["created"]); ?>]</p>
                         <div class="comment-bubble">
                             <div class="comment-bubble__show-comments">
                                 <?php // START OF COMMENTS
