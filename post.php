@@ -79,7 +79,19 @@
 
     $allRequiredFilled = TRUE;
     $errors = array();
-    $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt</p><br>";
+
+// Variables regarding error messages ******************************************
+
+    $errorInfo = "<p class=\"error-msg\">Ooops, något gick fel! Se felmeddelanden nedan.</p>";
+
+    $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
+
+    $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
+
+    $obligatoryFieldWebsite = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt. Formatera enligt: <br>
+    https://www.catsandspace.com/ eller http://www.catsandspace.com/</p>";
+
+// End of variables regarding error messages ***********************************
 
     if (isset($_POST["add-comment"])) {
 
@@ -105,6 +117,7 @@
         }
 
         // This checks if email is written correctly. If not, return an error message.
+        // TODO: Don't repeat yourself! Check if you can make this more dry.
         if ($key = 'email') {
                 if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
                     $allRequiredFilled = FALSE;
@@ -189,7 +202,7 @@
         <?php if (isset($_POST["new-comment"]) || (isset($_POST["add-comment"]) && !$allRequiredFilled)): ?>
         <div class="comment-container comment-container--xl-margin" id="nav-comment-top">
             <h2>Skriv ny kommentar</h2>
-            <?php if (!empty($errors)) { echo "<p class=\"error-msg\">Ooops, något gick fel!</p>"; } ?>
+            <?php if (!empty($errors)) { echo $errorInfo; } ?>
             <?php if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
             <p class="author-info">Du kommenterar som: @<?php echo $_SESSION["username"]; ?></p>
             <?php endif; ?>
@@ -206,10 +219,10 @@
                     <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
                     <label class="form-field__label" for="email">Din e-postadress</label>
                     <input class="form-field" type="email" name="email" id="email" required value="<?php echo $fields['email']; ?>">
-                    <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
+                    <?php if (in_array("email", $errors)) { echo $obligatoryFieldEmail; } ?>
                     <label class="form-field__label" for="website">Din webbplats</label>
-                    <input class="form-field" type="url" name="website" id="website" value="<?php echo $fields['website']; ?>" required>
-                    <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
+                    <input class="form-field" type="url" name="website" id="website" required value="<?php echo $fields['website']; ?>">
+                    <?php if (in_array("website", $errors)) { echo $obligatoryFieldWebsite; } ?>
                     <?php endif; ?>
                     <button type="submit" class="button margin-bottom-l" name="add-comment">Lägg till</button>
                 </fieldset>
