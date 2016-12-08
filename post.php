@@ -6,7 +6,6 @@
     //TODO: REMOVE DEV LINK
     //TODO: CHECK $stmt->close();
     //TODO: FIGURE OUT HOW "DIN WEBBPLATS" IS GOING TO WORK
-    //TODO: MAKE SURE QUERIES ONLY GETS WHAT'S NECESSARY.
     //TODO: remove "novalidate" when finished debugging.
 
 /*******************************************************************************
@@ -20,7 +19,7 @@
         $query  =
         "SELECT posts.*,
         categories.name,
-        users.*
+        users.id, users.username, users.email, users.website
         FROM posts
         LEFT JOIN categories
         ON posts.categoryid = categories.id
@@ -30,9 +29,9 @@
         AND posts.id = '{$getPost}'";
 
         if ($stmt->prepare($query)) {
-        $stmt->execute();
-        $stmt->bind_result($postId, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUserId, $authorPermission, $authorName, $authorPassword, $authorEmail, $authorWebsite, $authorFirstname, $authorLastname, $authorimg, $authorDescription);
-        $stmt->fetch();
+            $stmt->execute();
+            $stmt->bind_result($postId, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUserId, $authorName, $authorEmail, $authorWebsite);
+            $stmt->fetch();
 
         } else {
             // TODO: Replace with 404 page.
@@ -230,7 +229,6 @@
         </div>
     </article>
 </main>
-
 <!-- TODO: Remove dev link when final -->
 <?php else: echo "<p class='error-msg'>".$errorMessage."</p>"; echo "<u><a href=\"?getpost=1\">for developers</a></u>"; endif; ?>
 <?php require_once "./templates/footer.php"; ?>
