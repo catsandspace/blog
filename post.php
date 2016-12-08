@@ -116,23 +116,25 @@
             }
         }
 
-        // This checks if email is written correctly. If not, return an error message.
         // TODO: Don't repeat yourself! Check if you can make this more dry.
-        if ($key = 'email') {
-                if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
-                    $allRequiredFilled = FALSE;
-                    array_push($errors, $key);
+        // This checks if email is written correctly. If not, return an error message.
+        if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
+
+            if ($key = 'email') {
+                    if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
+                        $allRequiredFilled = FALSE;
+                        array_push($errors, $key);
+                    }
+                }
+
+            // This checks if website is written correctly. If not, return an error message.
+            if ($key = 'website') {
+                    if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+                        $allRequiredFilled = FALSE;
+                        array_push($errors, $key);
+                    }
                 }
             }
-
-        // This checks if website is written correctly. If not, return an error message.
-        if ($key = 'website') {
-                if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
-                    $allRequiredFilled = FALSE;
-                    array_push($errors, $key);
-                }
-            }
-
 
         if ($allRequiredFilled)  {
 
@@ -210,7 +212,7 @@
                 <fieldset>
                     <legend class="hidden">Skriv ny kommentar</legend>
                     <label class="form-field__label" for="content">Kommentar</label>
-                    <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required><?php echo $fields['content']; ?></textarea>
+                    <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required><?php echo removeLinebreaks($fields['content']); ?></textarea>
                     <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
                     <!-- Only ask visitors that are not logged in to provide info -->
                     <?php  if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE): ?>
