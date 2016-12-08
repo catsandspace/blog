@@ -104,6 +104,14 @@
             }
         }
 
+        // This checks if email is written correctly. If not, return an error message.
+        if ($key = 'email') {
+                if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
+                    $allRequiredFilled = FALSE;
+                    array_push($errors, $key);
+                }
+            }
+
         if ($allRequiredFilled)  {
 
             if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
