@@ -112,6 +112,15 @@
                 }
             }
 
+        // This checks if website is written correctly. If not, return an error message.
+        if ($key = 'website') {
+                if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+                    $allRequiredFilled = FALSE;
+                    array_push($errors, $key);
+                }
+            }
+
+
         if ($allRequiredFilled)  {
 
             if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
