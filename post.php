@@ -215,7 +215,14 @@
             endif; ?>
             <p><?php echo $commentContent; ?></p>
             <p class="author-info author-info--border">[ Skriven: <?php
-            echo formatDate($commentCreated); ?> ] [ Av: <?php echo $commentAuthor; ?>]<br> [
+            echo formatDate($commentCreated); ?> ] [ Av:
+            <?php
+                echo $commentAuthor;
+                // if $commentAuthor is an administrator, print string.
+                if ($commentUserId != NULL) {
+                    echo " (administratör)";
+                };
+            ?> ]<br>[
             <a class="author-info__links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ] [
             <a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
             <?php endwhile; ?>
