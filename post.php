@@ -212,7 +212,7 @@
                 <fieldset>
                     <legend class="hidden">Skriv ny kommentar</legend>
                     <label class="form-field__label" for="content">Kommentar</label>
-                    <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required><?php echo removeLinebreaks($fields['content']); ?></textarea>
+                    <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required><?php echo $fields['content']; ?></textarea>
                     <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
                     <!-- Only ask visitors that are not logged in to provide info -->
                     <?php  if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE): ?>
@@ -238,13 +238,12 @@
         <div class="comment-container">
             <h2>Kommentarer</h2>
             <?php while (mysqli_stmt_fetch($stmt)):
-            // TODO: gör liknande comments.php och använd checkExistingOrReturnPredefined($alternative, $predefined); vilket inte fungerar för tillfället
             if ($commentUserId != NULL):
                 $commentEmail = $userMail;
                 $commentAuthor = $userName;
                 $commentWebsite = $userWebsite;
             endif; ?>
-            <p><?php echo $commentContent; ?></p>
+            <p><?php echo formatInnerHtml($commentContent); ?></p>
             <p class="author-info author-info--border">[ Skriven: <?php
             echo formatDate($commentCreated); ?> ] [ Av:
             <?php
