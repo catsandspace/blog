@@ -23,7 +23,7 @@
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
     }
 
-    if(isset($_GET["month"])) {
+    if($month == "all") {
         $query = "SELECT posts.*,
         categories.name
         FROM posts
@@ -48,8 +48,8 @@
     <form method="GET" action="archive.php">
         <label for="sort">Sortera arkivet</label>
         <div class="select-arrows">
-        <select class="form-field form-field__select" name="sort" id="sort">
-            <option value="month">Alla</option>
+        <select class="form-field form-field__select" name="month" id="sort">
+            <option value="all">Alla</option>
             <option value="month">hjhj</option>
         </select>
           <select class="form-field form-field__select" name="sort" id="sort">
