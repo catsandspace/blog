@@ -8,6 +8,7 @@
      $sort = "";
     if(isset($_GET["sort"]) ) { //Avoids error message
         $sort = $_GET["sort"];
+        $month = $_GET["month"];
     }
     // Sort post by name
     if($sort == "name") {
@@ -20,6 +21,17 @@
     // Sort post by the last one
     if($sort == "desc") {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
+    }
+
+    if($month == "11") {
+        $query = "SELECT posts.*,
+        categories.name
+        FROM posts
+        LEFT JOIN categories
+        ON posts.categoryid = categories.id
+        WHERE published = 1
+        AND EXTRACT(MONTH FROM created) = 11
+        ORDER BY created DESC";
     }
 
     if ($stmt->prepare($query)) {
@@ -57,4 +69,3 @@
     </div>
 </main>
 <?php require_once "./templates/footer.php"; ?>
-
