@@ -73,23 +73,18 @@ function checkExistingOrReturnPredefined($alternative, $predefined) {
  * @return string         HTML markup.
  */
 function formatInnerHtml($string) {
-    // TODO: Make this DRY!
-    $newString = str_replace('\n', "<br>", $string);
-    $newString = str_replace('\r', "", $newString);
-    $newString = str_replace('\\\'', "'", $newString);
-    $newString = str_replace('\\"', '"', $newString);
-    return $newString;
+    $newString = str_replace("\n", "<br>", $string);
+    $newString = str_replace("\r", "", $newString);
+    return replaceSpecialCharacters($newString);
 }
 
-/**
- * The function removes linebreaks from $string.
- * @param  string $string The string that needs formatting.
- * @return string         HTML markup.
- */
-function removeLinebreaks($string) {
-    $newString =  str_replace("<br>", " ", $string);
-    $newString = str_replace('\n', " ", $newString);
-    $newString = str_replace('\r', " ", $newString);
+function replaceSpecialCharacters($string) {
+    $newString = str_replace('\n', "\n", $string);
+    $newString = str_replace('\r', "\r", $newString);
+    $newString = str_replace('\t', "\t", $newString);
+    $newString = str_replace('\\\'', "'", $newString);
+    $newString = str_replace('\\"', '"', $newString);
+    $newString = str_replace('\\', "", $newString);
     return $newString;
 }
 
