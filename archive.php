@@ -48,6 +48,10 @@
     <form method="GET" action="archive.php">
         <label for="sort">Sortera arkivet</label>
         <div class="select-arrows">
+        <select class="form-field form-field__select" name="sort" id="sort">
+            <option value="month">Alla</option>
+            <option value="month">hjhj</option>
+        </select>
           <select class="form-field form-field__select" name="sort" id="sort">
               <option value="desc">Senast publicerad</option>
               <option value="asc">Tidigast publicerad</option>
