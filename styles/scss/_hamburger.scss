@@ -6,6 +6,9 @@
     margin: 0;
     padding: 0;
     position: relative;
+    @include sizeDesktop {
+    @include hidden-visually;
+    }
 }
 
 .hamburger:after,
