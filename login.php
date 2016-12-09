@@ -9,40 +9,38 @@
    // Redirect to dashboard.php if there is already an active session.
    if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
 
-       // session.php is used to start the session.
        header("Location: ./admin/dashboard.php");
     }
 
-   // if statement that checks if user has filled in username and password
    if (isset($_POST["login"]) ) {
 
         if (!empty($_POST["username"]) && !empty($_POST["password"]) ) {
 
             $user = mysqli_real_escape_string($conn, $_POST["username"]);
-            $pass = mysqli_real_escape_string($conn, $_POST["password"]);
+            $password = mysqli_real_escape_string($conn, $_POST["password"]);
 
-            if ($stmt->prepare("SELECT * FROM users WHERE username = '{$user}' ") ) {
+            if ($stmt->prepare("SELECT id, permission, username, password FROM users WHERE username = '{$user}' ") ) {
 
                 $stmt->execute();
-                $stmt->bind_result($id, $permission, $uname, $upass, $email, $website, $fname, $lname, $pic, $desc);
+                $stmt->bind_result($id, $permission, $userName, $userPassword);
                 $stmt->fetch();
 
-                if (password_verify($pass, $upass)) {
-                    // function, stores users id, username, userpassword in session variables - functions.php
-                    storeUserInSession($id, $permission, $uname, $upass);
+                if (password_verify($password, $userPassword)) {
+
+                    storeUserInSession($id, $permission, $userName, $userPassword);
                     header("Location: ./admin/dashboard.php");
+
                 } else {
+
                $errorMessage = "Felaktigt användarnamn eller lösenord";
                 }
             }
+
         } else {
             $errorMessage = "Misslyckades att logga in!";
         }
     }
 ?>
-<!--****************************************************************************
-    FORM TO LOGIN USER
-*****************************************************************************-->
 <main>
     <h1>Logga in</h1>
     <form action="./login.php" method="POST">
