@@ -6,13 +6,14 @@
 
     //Determine if a variable is set and is not NULL
      $sort = "";
+     $month = "";
     if(isset($_GET["sort"]) ) { //Avoids error message
         $sort = $_GET["sort"];
         $month = $_GET["month"];
     }
     // Sort post by name
     if($sort == "name") {
-        if(month == "all") {
+        if($month == "all") {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY title ASC";
         } else {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = 11 ORDER BY created ASC";
@@ -20,7 +21,7 @@
     }
     // Sort post by lastest entry
     if($sort == "asc") {
-        if(month == "all") {
+        if($month == "all") {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created ASC";
         }else {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = 11 ORDER BY created ASC";
@@ -28,7 +29,7 @@
     }
     // Sort post by the last one
     if($sort == "desc") {
-        if(month == "all") {
+        if($month == "all") {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
         }else {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = 11 ORDER BY created DESC";
