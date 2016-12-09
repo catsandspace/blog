@@ -9,13 +9,22 @@
     // Variables
     $display = NULL; // To avoid "undefined variable".
     $numberOfComments = NULL;
+    $errorMessage = NULL;
+
 
     // Pagination, display 2 posts per page
     // TODO: change to 5
-    $postPage = 5;
+    $postPage = 2;
 
     // Query to check number of rows in table posts
     $query = "SELECT id FROM posts WHERE published = 1";
+
+    // If GET request "display" is set.
+    if (isset($_GET["display"])) {
+        $display = $_GET["display"];
+        // New SQL statement WHERE categories.category = $display.
+        $query = "SELECT posts.id, categories.id FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}' AND published = 1";
+    }
 
     // Execute query.
     if ($stmt->prepare($query)) {
@@ -67,15 +76,27 @@
         if ($pagenum > 1) {
             $previous = $pagenum - 1;
             $first = 1;
-            $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
-            $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
+            // Diffent strings depending on if categories set
+            if ($display) {
+                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'&display='.$display.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
+                $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
+            } else {
+                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
+                $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
+            }
         }
 
         // This does the same as above, only checking if we are on the last page
         if ($pagenum != $last) {
             $next = $pagenum + 1;
-            $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
-            $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
+            // Diffent strings depending on if categories set
+            if ($display) {
+                $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'&display='.$display.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
+                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'&display='.$display.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
+            } else {
+                $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
+                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
+            }
         }
     }
 
