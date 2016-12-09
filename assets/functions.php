@@ -82,6 +82,18 @@ function formatInnerHtml($string) {
 }
 
 /**
+ * The function removes linebreaks from $string.
+ * @param  string $string The string that needs formatting.
+ * @return string         HTML markup.
+ */
+function removeLinebreaks($string) {
+    $newString =  str_replace("<br>", " ", $string);
+    $newString = str_replace('\n', " ", $newString);
+    $newString = str_replace('\r', " ", $newString);
+    return $newString;
+}
+
+/**
  * The function formats a timestamp according to year-month-date.
  * @param  int $timestamp       The timestamp returned from the database
  * @return int $formattedDate   The date formatted as year-month-date.
