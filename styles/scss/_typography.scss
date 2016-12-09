@@ -35,13 +35,13 @@ h2 {
     padding-top: 0.8rem;
     text-align: center;
 
-    @include tablet {
+    @include sizeTablet {
         font-size: 4rem;
         margin: 0;
         padding-top: 0.3rem;
     }
 
-    @include desktop {
+    @include sizeDesktop {
         font-size: 4rem;
         margin: 0;
         padding-top: 0.3rem;
@@ -60,5 +60,6 @@ a {
 }
 
 .smaller-font {
-    font-size: 1.4rem;
+    font-size: 2rem;
+    //font-size: 1.4rem;
 }

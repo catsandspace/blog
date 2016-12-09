@@ -6,7 +6,6 @@
     //TODO: REMOVE DEV LINK
     //TODO: CHECK $stmt->close();
     //TODO: FIGURE OUT HOW "DIN WEBBPLATS" IS GOING TO WORK
-    //TODO: MAKE SURE QUERIES ONLY GETS WHAT'S NECESSARY.
     //TODO: remove "novalidate" when finished debugging.
 
 /*******************************************************************************
@@ -20,7 +19,7 @@
         $query  =
         "SELECT posts.*,
         categories.name,
-        users.*
+        users.id, users.username, users.email, users.website
         FROM posts
         LEFT JOIN categories
         ON posts.categoryid = categories.id
@@ -30,9 +29,9 @@
         AND posts.id = '{$getPost}'";
 
         if ($stmt->prepare($query)) {
-        $stmt->execute();
-        $stmt->bind_result($postId, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUserId, $authorPermission, $authorName, $authorPassword, $authorEmail, $authorWebsite, $authorFirstname, $authorLastname, $authorimg, $authorDescription);
-        $stmt->fetch();
+            $stmt->execute();
+            $stmt->bind_result($postId, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName, $postUserId, $authorName, $authorEmail, $authorWebsite);
+            $stmt->fetch();
 
         } else {
             // TODO: Replace with 404 page.
@@ -80,7 +79,19 @@
 
     $allRequiredFilled = TRUE;
     $errors = array();
-    $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt</p><br>";
+
+// Variables regarding error messages ******************************************
+
+    $errorInfo = "<p class=\"error-msg\">Ooops, något gick fel! Se felmeddelanden nedan.</p>";
+
+    $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
+
+    $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
+
+    $obligatoryFieldWebsite = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt. Formatera enligt: <br>
+    https://www.catsandspace.com/ eller http://www.catsandspace.com/</p>";
+
+// End of variables regarding error messages ***********************************
 
     if (isset($_POST["add-comment"])) {
 
@@ -105,12 +116,32 @@
             }
         }
 
+        // TODO: Don't repeat yourself! Check if you can make this more dry.
+        // This checks if email is written correctly. If not, return an error message.
+        if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
+
+            if ($key = 'email') {
+                    if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
+                        $allRequiredFilled = FALSE;
+                        array_push($errors, $key);
+                    }
+                }
+
+            // This checks if website is written correctly. If not, return an error message.
+            if ($key = 'website') {
+                    if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+                        $allRequiredFilled = FALSE;
+                        array_push($errors, $key);
+                    }
+                }
+            }
+
         if ($allRequiredFilled)  {
 
             if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
                 $uid = $_SESSION["userid"];
                 $content = $_POST["content"];
-                $query = "INSERT INTO comments VALUES ('', '{$uid}', now(), 'NULL', 'NULL', '{$content}', 'NULL', '{$getPost}')";
+                $query = "INSERT INTO comments VALUES ('', '{$uid}', now(), '', '', '{$content}', '', '{$getPost}')";
 
                 if ($stmt->prepare($query)) {
                     $stmt->execute();
@@ -124,7 +155,7 @@
                 }
             } else {
 
-                $query = "INSERT INTO comments VALUES ('', 'NULL', now(), '{$fields["email"]}', '{$fields["name"]}', '{$fields["content"]}', '{$fields["website"]}', '{$getPost}')";
+                $query = "INSERT INTO comments VALUES ('', '', now(), '{$fields["email"]}', '{$fields["name"]}', '{$fields["content"]}', '{$fields["website"]}', '{$getPost}')";
 
                 if ($stmt->prepare($query)) {
                     $stmt->execute();
@@ -160,20 +191,19 @@
             <img class="full-width-img" src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
             <a class="relative-container__info relative-container__link" href="index.php?display=<?php echo $categoryId ?>">Kategori: <?php echo str_replace(' ', '', $categoryName); ?></a>
         </div>
-        <p class="author-info">[ Publicerad: <?php echo formatDate($created); ?> ]
-            <?php if (formatDate($created) != formatDate($updated)): ?>
-                [ Uppdaterad: <?php echo formatDate($updated); ?> ]
+        <p class="author-info">[ Publicerad: <?php echo formatDate($created); ?> ]</p>
+        <p class="author-info"><?php if (formatDate($created) != formatDate($updated)): ?>
+                [ Uppdaterad: <?php echo formatDate($updated); ?> ]</p>
             <?php endif; ?>
-            [ Uppladdad av: <?php echo $authorName; ?> ]
-            [ <a class="author-info__links" href="mailto:<?php echo $authorEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]
-            [ <a class="author-info__links" href="<?php echo $authorWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]
-        </p>
-        <h1><?php echo formatInnerHtml($title); ?></h1>
+        <p class="author-info">[ Uppladdad av: <?php echo $authorName; ?> ]</p>
+        <p class="author-info">[ <a class="author-info__links" href="mailto:<?php echo $authorEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]</p>
+        <p class="author-info">[ <a class="author-info__links" href="<?php echo $authorWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
+        <h1 class="padding-top-l"><?php echo formatInnerHtml($title); ?></h1>
         <p><?php echo formatInnerHtml($content); ?></p>
         <?php if (isset($_POST["new-comment"]) || (isset($_POST["add-comment"]) && !$allRequiredFilled)): ?>
-        <div class="comment-container comment-container--xl-margin" id="nav-comment-top">
+        <div class="comment-container margin-bottom-l" id="nav-comment-top">
             <h2>Skriv ny kommentar</h2>
-            <?php if (!empty($errors)) { echo "<p class=\"error-msg\">Ooops, något gick fel!</p>"; } ?>
+            <?php if (!empty($errors)) { echo $errorInfo; } ?>
             <?php if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
             <p class="author-info">Du kommenterar som: @<?php echo $_SESSION["username"]; ?></p>
             <?php endif; ?>
@@ -190,10 +220,10 @@
                     <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
                     <label class="form-field__label" for="email">Din e-postadress</label>
                     <input class="form-field" type="email" name="email" id="email" required value="<?php echo $fields['email']; ?>">
-                    <?php if (in_array("email", $errors)) { echo $obligatoryField; } ?>
+                    <?php if (in_array("email", $errors)) { echo $obligatoryFieldEmail; } ?>
                     <label class="form-field__label" for="website">Din webbplats</label>
-                    <input class="form-field" type="url" name="website" id="website" value="<?php echo $fields['website']; ?>" required>
-                    <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
+                    <input class="form-field" type="url" name="website" id="website" required value="<?php echo $fields['website']; ?>">
+                    <?php if (in_array("website", $errors)) { echo $obligatoryFieldWebsite; } ?>
                     <?php endif; ?>
                     <button type="submit" class="button margin-bottom-l" name="add-comment">Lägg till</button>
                 </fieldset>
@@ -207,23 +237,21 @@
         <div class="comment-container">
             <h2>Kommentarer</h2>
             <?php while (mysqli_stmt_fetch($stmt)):
-            // TODO: gör liknande comments.php och använd checkExistingOrReturnPredefined($alternative, $predefined); vilket inte fungerar för tillfället
             if ($commentUserId != NULL):
                 $commentEmail = $userMail;
                 $commentAuthor = $userName;
                 $commentWebsite = $userWebsite;
             endif; ?>
-            <p><?php echo $commentContent; ?></p>
-            <p class="author-info author-info--border">[ Skriven: <?php
-            echo formatDate($commentCreated); ?> ] [ Av: <?php echo $commentAuthor; ?>]<br> [
-            <a class="author-info__links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ] [
-            <a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
+            <p class="author-info">[ Av: <?php echo $commentAuthor; if ($commentUserId != NULL) { echo " (administratör)";}; ?> ]</p>
+            <p class="author-info">[ Skriven: <?php echo formatDate($commentCreated); ?> ]</p>
+            <p class="author-info">[<a class="author-info__links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]</p>
+            <p class="author-info">[<a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
+            <p class="margin-normal author-info--border"><?php echo formatInnerHtml($commentContent); ?></p>
             <?php endwhile; ?>
             <?php if ($commentId == NULL): echo "<p class=\"saffron-text primary-brand-font\">Detta inlägg har inga kommentarer ännu.</p>"; endif; ?>
         </div>
     </article>
 </main>
-
 <!-- TODO: Remove dev link when final -->
 <?php else: echo "<p class='error-msg'>".$errorMessage."</p>"; echo "<u><a href=\"?getpost=1\">for developers</a></u>"; endif; ?>
 <?php require_once "./templates/footer.php"; ?>
