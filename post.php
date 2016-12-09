@@ -192,8 +192,7 @@
             <a class="relative-container__info relative-container__link" href="index.php?display=<?php echo $categoryId ?>">Kategori: <?php echo str_replace(' ', '', $categoryName); ?></a>
         </div>
         <p class="author-info">[ Publicerad: <?php echo formatDate($created); ?> ]</p>
-        <p class="author-info"><?php if (formatDate($created) != formatDate($updated)): ?>
-                [ Uppdaterad: <?php echo formatDate($updated); ?> ]</p>
+        <p class="author-info"><?php if (formatDate($created) != formatDate($updated)): ?>[ Uppdaterad: <?php echo formatDate($updated); ?> ]</p>
             <?php endif; ?>
         <p class="author-info">[ Uppladdad av: <?php echo $authorName; ?> ]</p>
         <p class="author-info">[ <a class="author-info__links" href="mailto:<?php echo $authorEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]</p>
