@@ -32,14 +32,12 @@
 
         //TODO: Keep this DRY
     @include sizeTablet {
-        //TODO: use some kind of clear to fill empty space (when amount of users = odd number)
         @include flexboxJustifyContent(center);
         @include flexboxFlexDirection(row);
         @include flexboxFlexWrap(wrap);
     }
 
     @include sizeDesktop {
-        //TODO: use some kind of clear to fill empty space (when amount of users = odd number)
         @include flexboxJustifyContent(center);
         @include flexboxFlexDirection(row);
         @include flexboxFlexWrap(wrap);
@@ -55,9 +53,18 @@
     max-width: 29rem;
     margin: 1rem auto;
     padding: 1rem;
+    @include flex(1);
 
-    @include sizeTablet {
+    @include sizeTablet  {
         margin: 1rem;
+        min-width: 50%;
+        max-width: 100%;
+    }
+
+    @include sizeDesktop {
+        margin: 1rem;
+        min-width: 33.33%;
+        max-width: 100%;
     }
 }
 
