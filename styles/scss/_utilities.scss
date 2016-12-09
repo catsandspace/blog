@@ -29,10 +29,21 @@
 .flex-list {
     @include flexbox();
     @include flexboxFlexDirection(column);
-    justify-content: center;
-    //TODO: use these on tablet
-    //@include flexboxJustifyContent(flex-start);
-    //@include flexboxFlexWrap(flex-wrap);
+
+        //TODO: Keep this DRY
+    @include sizeTablet {
+        //TODO: use some kind of clear to fill empty space (when amount of users = odd number)
+        @include flexboxJustifyContent(center);
+        @include flexboxFlexDirection(row);
+        @include flexboxFlexWrap(wrap);
+    }
+
+    @include sizeDesktop {
+        //TODO: use some kind of clear to fill empty space (when amount of users = odd number)
+        @include flexboxJustifyContent(center);
+        @include flexboxFlexDirection(row);
+        @include flexboxFlexWrap(wrap);
+    }
 
 }
 
@@ -44,7 +55,10 @@
     max-width: 29rem;
     margin: 1rem auto;
     padding: 1rem;
-    width: 100%;
+
+    @include sizeTablet {
+        margin: 1rem;
+    }
 }
 
 .flex-item {
