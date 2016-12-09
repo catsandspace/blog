@@ -41,6 +41,16 @@ header {
     z-index: 2;
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
+
+    @include sizeDesktop {
+        position: absolute;
+    }
+}
+
+
+.header_logotext {
+    display: flex;
+    align-content: baseline;
 }
 
 .logo {
@@ -57,6 +67,31 @@ header {
     filter: saturate(5);
 }
 
+.navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigation_ul {
+    padding: 0 2rem 0 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    min-width: 40rem;
+
+    @include mobileSizeSmall {
+    @include hidden-visually;
+    }
+
+    @include mobileSizeMedium {
+    @include hidden-visually;
+    }
+
+    @include sizeTablet {
+    @include hidden-visually;
+    }
+
+}
 /*******************************************************************************
     END OF HEADER ELEMENT
 *******************************************************************************/
