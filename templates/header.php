@@ -11,6 +11,13 @@
         $stmt->bind_result($id, $category);
    }
 
+   //TODO: Now when this variable is included in header we can remove it from dashbord etc.
+   if (isset($_SESSION["permission"])) {
+   $currentUsersPermission = $_SESSION["permission"];
+   } else {
+       $currentUsersPermission = NULL;
+   }
+
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -33,13 +40,45 @@
 </head>
 <body>
     <header>
-        <a href="<?php echo $path.'./index.php'; ?>">
-            <svg class="logo">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use>
-            </svg>
-        </a>
-       <span class="logo-title">Cats and Space</span>
-       <nav class="hamburger">
+        <div class="header-logotext">
+            <a href="<?php echo $path.'./index.php'; ?>">
+                <svg class="header-logotext__logo">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use>
+                </svg>
+            </a>
+            <span class="header-logotext__text">Cats and Space</span>
+        </div>
+        <nav class="nav-desktop">
+            <ul class="nav-desktop__list">
+                <a href="<?php echo $path; ?>index.php" class="nav-desktop__list-item"><li>Start</li></a>
+                <li class="nav-desktop__list-item">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    <ul class="nav-desktop__dropdown">
+                        <?php while (mysqli_stmt_fetch($stmt)): ?>
+                        <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav-desktop__dropdown-item"><li><?php echo ucfirst($category); ?></li></a>
+                        <?php endwhile?>
+                    </ul>
+                </li>
+                <a href="<?php echo $path; ?>archive.php" class="nav-desktop__list-item"><li>Arkiv</li></a>
+
+                <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
+                <li class="nav-desktop__list-item"><i class="fa fa-cog" aria-hidden="true"></i> Kontrollpanel
+                    <ul class="nav-desktop__dropdown">
+                        <a href="<?php echo $path; ?>admin/posteditor.php" class="nav-desktop__dropdown-item"><li>Skapa nytt inlägg</li></a>
+                        <a href="<?php echo $path; ?>admin/postlist.php" class="nav-desktop__dropdown-item"><li>Se alla inlägg</li></a>
+                        <a href="<?php echo $path; ?>admin/comments.php" class="nav-desktop__dropdown-item"><li>Se alla kommentarer</li></a>
+                        <?php if ($currentUsersPermission == 1): ?>
+                        <a href="<?php echo $path; ?>admin/categories.php" class="nav-desktop__dropdown-item"><li>Hantera kategorier</li></a>
+                        <a href="<?php echo $path; ?>admin/users.php" class="nav-desktop__dropdown-item"><li>Hantera användare</li></a>
+                        <?php endif; ?>
+                        <a href="<?php echo $path; ?>admin/dashboard.php?statistics=true" class="nav-desktop__dropdown-item"><li>Se statistik</li></a>
+                        <a href="<?php echo $path; ?>assets/logout.php" class="nav-desktop__dropdown-item"><li>Logga ut</li></a>
+                    </ul>
+                </li>
+                <?php endif; ?>
+                <a href="<?php echo $path; ?>contact.php" class="nav-desktop__list-item"><li>Kontakt</li></a>
+            </ul>
+        </nav>
+        <nav class="hamburger">
             <ul class="list-style-none">
                 <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
                     <ul class="list-style-none box-shadow">
