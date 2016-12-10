@@ -6,6 +6,9 @@
     margin: 0;
     padding: 0;
     position: relative;
+    @include sizeDesktop {
+    @include hidden-visually;
+    }
 }
 
 .hamburger:after,
@@ -57,5 +60,5 @@
     font-size: 1.2rem;
 }
 .hamburger-menu--categories {
-    background: #1d7f72;
+    background: $primaryAlternative2;
 }
