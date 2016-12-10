@@ -11,6 +11,8 @@ main {
     margin: 0 auto;
     padding: 10rem 1.5rem 3rem 1.5rem;
     //width: 100vw;
+
+    //TODO: Edit this width if it looks bad
     @include sizeDesktop {
         max-width: 102.4rem;
     }
