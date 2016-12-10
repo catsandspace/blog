@@ -36,6 +36,7 @@
         }
     }
 
+
     // if($month == "all") {
     //     $query = "SELECT posts.*,
     //     categories.name
@@ -55,6 +56,21 @@
     // TODO: Seperating in different months needs to be handled by PHP and SQL.
     // TODO: Get the styling right on buttons, select and svg.
 
+    $month = array(
+        array("Januari", 01),
+        array("Februari", 02),
+        array("Mars", 03),
+        array("April", 04),
+        array("Maj", 05),
+        array("Juni", 06),
+        array("Juli", 07),
+        array("Augusti", 08),
+        array("September", 09),
+        array("Oktober", 10),
+        array("November", 11),
+        array("December", 12)
+        );
+
 ?>
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
@@ -63,7 +79,9 @@
         <div class="select-arrows">
         <select class="form-field form-field__select" name="month" id="sort">
             <option value="all">Alla</option>
-            <option value="month">hjhj</option>
+            <?php foreach($month as $actualMonth): ?>
+             <option value="month"><?php echo $actualMonth[0]; ?></option>
+            <?php endforeach; ?>
         </select>
           <select class="form-field form-field__select" name="sort" id="sort">
               <option value="desc">Senast publicerad</option>
