@@ -94,48 +94,48 @@ header {
 // BEM styling dosent seem to work on li ul..
 
 .nav-desktop__list li {
-  display: inline-block;
-  margin-right: -0.4rem;
-  position: relative;
-  padding: 1.5rem 2rem;
-  cursor: pointer;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  -ms-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
+    display: inline-block;
+    margin-right: -0.4rem;
+    position: relative;
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
 }
 
 .nav-desktop__list li:hover {
-  background: $primary;
-  color: #fff;
+    background: $primary;
+    color: #fff;
 }
 
 .nav-desktop__list li ul {
-  padding: 0;
-  position: absolute;
-  top: 4.8rem;
-  left: 0;
-  min-width: 18rem;
-  max-width: 25rem;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  display: none;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transiton: opacity 0.2s;
-  -moz-transition: opacity 0.2s;
-  -ms-transition: opacity 0.2s;
-  -o-transition: opacity 0.2s;
-  -transition: opacity 0.2s;
+    padding: 0;
+    position: absolute;
+    top: 4.8rem;
+    left: 0;
+    min-width: 18rem;
+    max-width: 25rem;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transiton: opacity 0.2s;
+    -moz-transition: opacity 0.2s;
+    -ms-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    -transition: opacity 0.2s;
 }
 
 .nav-desktop__list li ul li {
-  background: $primaryAlternative2;
-  display: block;
-  color: #fff;
-  text-shadow: 0 -0.1rem 0 #000;
+    background: $primaryAlternative2;
+    display: block;
+    color: #fff;
+    text-shadow: 0 -0.1rem 0 #000;
 }
 
 .nav-desktop__list li ul li:hover {
@@ -143,10 +143,12 @@ header {
 }
 
 .nav-desktop__list li:hover ul {
-  display: block;
-  opacity: 1;
-  visibility: visible;
+    display: block;
+    opacity: 1;
+    visibility: visible;
 }
+
+//TODO: change logut style
 
 /*******************************************************************************
     END OF HEADER ELEMENT
