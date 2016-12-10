@@ -29,10 +29,19 @@
 .flex-list {
     @include flexbox();
     @include flexboxFlexDirection(column);
-    justify-content: center;
-    //TODO: use these on tablet
-    //@include flexboxJustifyContent(flex-start);
-    //@include flexboxFlexWrap(flex-wrap);
+
+        //TODO: Keep this DRY
+    @include sizeTablet {
+        @include flexboxJustifyContent(center);
+        @include flexboxFlexDirection(row);
+        @include flexboxFlexWrap(wrap);
+    }
+
+    @include sizeDesktop {
+        @include flexboxJustifyContent(center);
+        @include flexboxFlexDirection(row);
+        @include flexboxFlexWrap(wrap);
+    }
 
 }
 
@@ -44,7 +53,19 @@
     max-width: 29rem;
     margin: 1rem auto;
     padding: 1rem;
-    width: 100%;
+    @include flex(1);
+
+    @include sizeTablet  {
+        margin: 1rem;
+        min-width: 50%;
+        max-width: 100%;
+    }
+
+    @include sizeDesktop {
+        margin: 1rem;
+        min-width: 33.33%;
+        max-width: 100%;
+    }
 }
 
 .flex-item {

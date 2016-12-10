@@ -8,6 +8,8 @@
     width: 1px;
 }
 
+// TODO: Check these we are proberly missing some perfixes.
+
 @mixin flexbox() {
     display: -webkit-box;
     display: -moz-box;
@@ -29,6 +31,13 @@
 @mixin flexboxFlexWrap($value) {
     -webkit-flex-wrap: $value;
     flex-wrap: $value;
+}
+
+@mixin flex($value) {
+    -webkit-box-flex: $value;
+    -webkit-flex: $value;
+    -ms-flex: $value;
+    flex: $value;
 }
 
 

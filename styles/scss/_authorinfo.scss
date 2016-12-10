@@ -2,6 +2,9 @@
     color: $complimentary;
     font-family: $primaryBrandFont;
     margin: 0.5rem 0;
+    @include sizeTablet {
+        display: inline;
+    }
 }
 
 .author-info--border {
