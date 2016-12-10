@@ -51,7 +51,7 @@
         <nav class="nav-desktop">
             <ul class="nav-desktop__list">
                 <a href="<?php echo $path; ?>index.php" class="nav-desktop__list-item"><li>Start</li></a>
-                <li class="nav-desktop__list-item">Kategorier
+                <li class="nav-desktop__list-item">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i>
                     <ul class="nav-desktop__dropdown">
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
                         <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav-desktop__dropdown-item"><li><?php echo ucfirst($category); ?></li></a>
@@ -61,7 +61,7 @@
                 <a href="<?php echo $path; ?>archive.php" class="nav-desktop__list-item"><li>Arkiv</li></a>
 
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                <li class="nav-desktop__list-item">Kontrollpanel
+                <li class="nav-desktop__list-item"><i class="fa fa-cog" aria-hidden="true"></i> Kontrollpanel
                     <ul class="nav-desktop__dropdown">
                         <a href="<?php echo $path; ?>admin/posteditor.php" class="nav-desktop__dropdown-item"><li>Skapa nytt inlägg</li></a>
                         <a href="<?php echo $path; ?>admin/postlist.php" class="nav-desktop__dropdown-item"><li>Se alla inlägg</li></a>
@@ -75,8 +75,7 @@
                     </ul>
                 </li>
                 <?php endif; ?>
-
-                <a href="<?php echo $path; ?>archive.php" class="nav-desktop__list-item"><li>Kontakt</li></a>
+                <a href="<?php echo $path; ?>contact.php" class="nav-desktop__list-item"><li>Kontakt</li></a>
             </ul>
         </nav>
         <nav class="hamburger">
