@@ -21,6 +21,16 @@
     justify-content: $value;
 }
 
+@mixin flexboxFlexDirection($value) {
+    -webkit-flex-direction: $value;
+    flex-direction: $value;
+}
+
+@mixin flexboxFlexWrap($value) {
+    -webkit-flex-wrap: $value;
+    flex-wrap: $value;
+}
+
 
 /*******************************************************************************
     MEDIA QUERIES / RESPONSIVE DESIGN

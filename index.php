@@ -9,13 +9,22 @@
     // Variables
     $display = NULL; // To avoid "undefined variable".
     $numberOfComments = NULL;
+    $errorMessage = NULL;
+
 
     // Pagination, display 2 posts per page
     // TODO: change to 5
-    $postPage = 5;
+    $postPage = 2;
 
     // Query to check number of rows in table posts
     $query = "SELECT id FROM posts WHERE published = 1";
+
+    // If GET request "display" is set.
+    if (isset($_GET["display"])) {
+        $display = $_GET["display"];
+        // New SQL statement WHERE categories.category = $display.
+        $query = "SELECT posts.id, categories.id FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}' AND published = 1";
+    }
 
     // Execute query.
     if ($stmt->prepare($query)) {
@@ -66,15 +75,28 @@
         Otherwise generate link to previous page. */
         if ($pagenum > 1) {
             $previous = $pagenum - 1;
-            $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
-            $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
+            $first = 1;
+            // Diffent strings depending on if categories set
+            if ($display) {
+                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'&display='.$display.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
+                $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
+            } else {
+                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
+                $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
+            }
         }
 
         // This does the same as above, only checking if we are on the last page
         if ($pagenum != $last) {
             $next = $pagenum + 1;
-            $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
-            $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
+            // Diffent strings depending on if categories set
+            if ($display) {
+                $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'&display='.$display.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
+                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'&display='.$display.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
+            } else {
+                $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
+                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
+            }
         }
     }
 
@@ -112,7 +134,6 @@
                         <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></href="">
                         <p class="blogpost-wrapper__tags">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>" class="blogpost-wrapper__links"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [Publicerad: <?php echo formatDate($post["created"]); ?>]</p>
                         <div class="comment-bubble">
-                            <div class="comment-bubble__show-comments">
                                 <?php // START OF COMMENTS
 
                                 // TODO: Right now, this div is not used. Delete if we don't want it.
@@ -124,7 +145,7 @@
 
                                 if ($stmt->prepare($query)) {
                                     $stmt->execute();
-                                    $stmt->bind_result($commentId, $userId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $postId);
+                                    $stmt->bind_result($commentId, $userId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId);
                                 } else {
                                     $errorMessage = "Något gick fel.";
                                 }
@@ -134,15 +155,11 @@
                                     $numberOfComments = mysqli_stmt_num_rows($stmt);
 
                                     if ($post["id"] == $postId) {
-                                        // TODO: If we want to show these, use styling from utilities.scss.
-                                        echo "<p class=\"comment-bubble__comment-content\">$commentContent</p>";
-                                        echo "<p class=\"comment-bubble__comment-author\">$commentAuthor</p>";
                                         $totalNumberOfComments++;
                                     }
 
                                 endwhile;
                                 ?>
-                        </div>
                             <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
                             <p class="comment-bubble__number"><?php echo "$totalNumberOfComments" ?></p></a>
                         </div>

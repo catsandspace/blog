@@ -13,10 +13,11 @@ input:-webkit-autofill {
 .form-field {
     border: 0;
     border-bottom: 2px solid $primary;
+    box-sizing: border-box;
     background-color: transparent;
     color: $baseColor2;
     font-family: $secondaryBrandFont;
-    font-size: 4rem;
+    font-size: 1.6rem;
     height: 4rem;
     margin: 0.5em 0;
     outline: none;
@@ -54,7 +55,7 @@ input:-webkit-autofill {
 // TODO: Get the styling right!
 .form-field.edit-post__input {
     height: 3rem;
-    font-size: 3rem;
+    font-size: 1.6rem;
 }
 
 .edit-post__textarea {

@@ -191,18 +191,16 @@
             <img class="full-width-img" src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
             <a class="relative-container__info relative-container__link" href="index.php?display=<?php echo $categoryId ?>">Kategori: <?php echo str_replace(' ', '', $categoryName); ?></a>
         </div>
-        <p class="author-info">[ Publicerad: <?php echo formatDate($created); ?> ]
-            <?php if (formatDate($created) != formatDate($updated)): ?>
-                [ Uppdaterad: <?php echo formatDate($updated); ?> ]
+        <p class="author-info">[ Publicerad: <?php echo formatDate($created); ?> ]</p>
+        <p class="author-info"><?php if (formatDate($created) != formatDate($updated)): ?>[ Uppdaterad: <?php echo formatDate($updated); ?> ]</p>
             <?php endif; ?>
-            [ Uppladdad av: <?php echo $authorName; ?> ]
-            [ <a class="author-info__links" href="mailto:<?php echo $authorEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]
-            [ <a class="author-info__links" href="<?php echo $authorWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]
-        </p>
-        <h1><?php echo formatInnerHtml($title); ?></h1>
+        <p class="author-info">[ Uppladdad av: <?php echo $authorName; ?> ]</p>
+        <p class="author-info">[ <a class="author-info__links" href="mailto:<?php echo $authorEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]</p>
+        <p class="author-info">[ <a class="author-info__links" href="<?php echo $authorWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
+        <h1 class="padding-top-l"><?php echo formatInnerHtml($title); ?></h1>
         <p><?php echo formatInnerHtml($content); ?></p>
         <?php if (isset($_POST["new-comment"]) || (isset($_POST["add-comment"]) && !$allRequiredFilled)): ?>
-        <div class="comment-container comment-container--xl-margin" id="nav-comment-top">
+        <div class="comment-container margin-bottom-l" id="nav-comment-top">
             <h2>Skriv ny kommentar</h2>
             <?php if (!empty($errors)) { echo $errorInfo; } ?>
             <?php if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
@@ -212,7 +210,7 @@
                 <fieldset>
                     <legend class="hidden">Skriv ny kommentar</legend>
                     <label class="form-field__label" for="content">Kommentar</label>
-                    <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required><?php echo removeLinebreaks($fields['content']); ?></textarea>
+                    <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required><?php echo $fields['content']; ?></textarea>
                     <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
                     <!-- Only ask visitors that are not logged in to provide info -->
                     <?php  if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE): ?>
@@ -238,24 +236,16 @@
         <div class="comment-container">
             <h2>Kommentarer</h2>
             <?php while (mysqli_stmt_fetch($stmt)):
-            // TODO: gör liknande comments.php och använd checkExistingOrReturnPredefined($alternative, $predefined); vilket inte fungerar för tillfället
             if ($commentUserId != NULL):
                 $commentEmail = $userMail;
                 $commentAuthor = $userName;
                 $commentWebsite = $userWebsite;
             endif; ?>
-            <p><?php echo $commentContent; ?></p>
-            <p class="author-info author-info--border">[ Skriven: <?php
-            echo formatDate($commentCreated); ?> ] [ Av:
-            <?php
-                echo $commentAuthor;
-                // if $commentAuthor is an administrator, print string.
-                if ($commentUserId != NULL) {
-                    echo " (administratör)";
-                };
-            ?> ]<br>[
-            <a class="author-info__links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ] [
-            <a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
+            <p class="author-info">[ Av: <?php echo $commentAuthor; if ($commentUserId != NULL) { echo " (administratör)";}; ?> ]</p>
+            <p class="author-info">[ Skriven: <?php echo formatDate($commentCreated); ?> ]</p>
+            <p class="author-info">[<a class="author-info__links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]</p>
+            <p class="author-info">[<a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
+            <p class="margin-normal author-info--border"><?php echo formatInnerHtml($commentContent); ?></p>
             <?php endwhile; ?>
             <?php if ($commentId == NULL): echo "<p class=\"saffron-text primary-brand-font\">Detta inlägg har inga kommentarer ännu.</p>"; endif; ?>
         </div>

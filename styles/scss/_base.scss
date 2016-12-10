@@ -9,7 +9,7 @@ START OF HEADER ELEMENT
 main {
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 10rem 3rem 3rem 3rem;
+    padding: 10rem 1.5rem 3rem 1.5rem;
     //width: 100vw;
 }
 
@@ -44,11 +44,17 @@ header {
 }
 
 .logo {
+    clip: unset;
     height: 3em;
     width: 3em;
     @include mobileSizeSmall {
         display: none;
     }
+}
+
+.logo:hover {
+    -webkit-filter: saturate(5);
+    filter: saturate(5);
 }
 
 /*******************************************************************************

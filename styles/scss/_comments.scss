@@ -31,10 +31,6 @@
     color: $primaryAlternative;
 }
 
-.comment-bubble__show-comments {
-    display: none;
-}
-
 .comment__border-bottom {
     border-bottom: 2px solid $primary;
     padding-bottom: 2rem;
@@ -45,6 +41,7 @@
     padding: 2rem;
 }
 
+//TODO: use this one on desktop/tablet
 .comment-container--xl-margin {
     margin: 3rem 0;
     padding: 8rem 2rem;
