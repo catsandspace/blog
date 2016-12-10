@@ -11,6 +11,9 @@ main {
     margin: 0 auto;
     padding: 10rem 1.5rem 3rem 1.5rem;
     //width: 100vw;
+    @include sizeDesktop {
+        max-width: 102.4rem;
+    }
 }
 
 @keyframes menu-is-sliding-in {
