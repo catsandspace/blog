@@ -69,21 +69,7 @@ header {
     filter: saturate(5);
 }
 
-.nav-desktop_list {
-    // padding: 0 2rem 0 0;
-    // list-style: none;
-    // display: flex;
-    // justify-content: space-between;
-    // min-width: 40rem;
-    text-align: left;
-    display: inline;
-    margin: 0;
-    padding: 15px 4px 17px 0;
-    list-style: none;
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-
+.nav-desktop {
     @include mobileSizeSmall {
         @include hidden-visually;
     }
@@ -95,16 +81,23 @@ header {
     @include sizeTablet {
         @include hidden-visually;
     }
+}
 
+.nav-desktop__list {
+    text-align: left;
+    display: inline;
+    margin: 0;
+    padding: 1.5rem 0.4rem 1.7rem 0;
+    list-style: none;
 }
 
 // BEM styling dosent seem to work on li ul..
 
-.nav-desktop_list li {
+.nav-desktop__list li {
   display: inline-block;
-  margin-right: -4px;
+  margin-right: -0.4rem;
   position: relative;
-  padding: 15px 20px;
+  padding: 1.5rem 2rem;
   cursor: pointer;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
@@ -113,17 +106,18 @@ header {
   transition: all 0.2s;
 }
 
-.nav-desktop_list li:hover {
-  background: #555;
+.nav-desktop__list li:hover {
+  background: $primary;
   color: #fff;
 }
 
-.nav-desktop_list li ul {
+.nav-desktop__list li ul {
   padding: 0;
   position: absolute;
-  top: 48px;
+  top: 4.8rem;
   left: 0;
-  width: 150px;
+  min-width: 18rem;
+  max-width: 25rem;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -137,18 +131,18 @@ header {
   -transition: opacity 0.2s;
 }
 
-.nav-desktop_list li ul li {
-  background: #555;
+.nav-desktop__list li ul li {
+  background: $primaryAlternative2;
   display: block;
   color: #fff;
-  text-shadow: 0 -1px 0 #000;
+  text-shadow: 0 -0.1rem 0 #000;
 }
 
-.nav-desktop_list li ul li:hover {
-    background: #666;
+.nav-desktop__list li ul li:hover {
+    background: $primaryAlternative;
 }
 
-.nav-desktop_list li:hover ul {
+.nav-desktop__list li:hover ul {
   display: block;
   opacity: 1;
   visibility: visible;
