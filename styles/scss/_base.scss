@@ -70,11 +70,19 @@ header {
 }
 
 .nav-desktop_list {
-    padding: 0 2rem 0 0;
+    // padding: 0 2rem 0 0;
+    // list-style: none;
+    // display: flex;
+    // justify-content: space-between;
+    // min-width: 40rem;
+    text-align: left;
+    display: inline;
+    margin: 0;
+    padding: 15px 4px 17px 0;
     list-style: none;
-    display: flex;
-    justify-content: space-between;
-    min-width: 40rem;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 
     @include mobileSizeSmall {
         @include hidden-visually;
@@ -89,6 +97,63 @@ header {
     }
 
 }
+
+// BEM styling dosent seem to work on li ul..
+
+.nav-desktop_list li {
+  display: inline-block;
+  margin-right: -4px;
+  position: relative;
+  padding: 15px 20px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.nav-desktop_list li:hover {
+  background: #555;
+  color: #fff;
+}
+
+.nav-desktop_list li ul {
+  padding: 0;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  width: 150px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transiton: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  -ms-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  -transition: opacity 0.2s;
+}
+
+.nav-desktop_list li ul li {
+  background: #555;
+  display: block;
+  color: #fff;
+  text-shadow: 0 -1px 0 #000;
+}
+
+.nav-desktop_list li ul li:hover {
+    background: #666;
+}
+
+.nav-desktop_list li:hover ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
 /*******************************************************************************
     END OF HEADER ELEMENT
 *******************************************************************************/

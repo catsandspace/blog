@@ -44,7 +44,13 @@
         <nav class="nav-desktop">
             <ul class="nav-desktop_list">
                 <li class="nav-desktop_list-item">Start</li>
-                <li class="nav-desktop_list-item">Kategorier</li>
+                <li class="nav-desktop_list-item">Kategorier
+                    <ul class="nav-desktop_dropdown">
+                        <li class="nav-desktop_dropdown-item">Cats</li>
+                        <li class="nav-desktop_dropdown-item"></li>
+                        <li class="nav-desktop_dropdown-item"></li>
+                    </ul>
+                </li>
                 <li class="nav-desktop_list-item">Arkiv</li>
                 <li class="nav-desktop_list-item">Kontrollpanel</li>
                 <li class="nav-desktop_list-item">Kontakt</li>
