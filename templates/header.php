@@ -42,20 +42,20 @@
             <span class="header-logotext__text">Cats and Space</span>
         </div>
         <nav class="nav-desktop">
-            <ul class="nav-desktop_list">
-                <li class="nav-desktop_list-item">Start</li>
-                <li class="nav-desktop_list-item">Kategorier
-                    <ul class="nav-desktop_dropdown">
-                        <li class="nav-desktop_dropdown-item">Cats</li>
-                        <li class="nav-desktop_dropdown-item"></li>
-                        <li class="nav-desktop_dropdown-item"></li>
+            <ul class="nav-desktop__list">
+                <li class="nav-desktop__list-item">Start</li>
+                <li class="nav-desktop__list-item">Kategorier
+                    <ul class="nav-desktop__dropdown">
+                        <?php while (mysqli_stmt_fetch($stmt)): ?>
+                        <li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav-desktop__dropdown-item"><?php echo ucfirst($category); ?></a></li>
+                        <?php endwhile?>
                     </ul>
                 </li>
-                <li class="nav-desktop_list-item">Arkiv</li>
-                <li class="nav-desktop_list-item">Kontrollpanel</li>
-                <li class="nav-desktop_list-item">Kontakt</li>
+                <li class="nav-desktop__list-item">Arkiv</li>
+                <li class="nav-desktop__list-item">Kontrollpanel</li>
+                <li class="nav-desktop__list-item">Kontakt</li>
             </ul>
-        </div>
+        </nav>
         <nav class="hamburger">
             <ul class="list-style-none">
                 <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
