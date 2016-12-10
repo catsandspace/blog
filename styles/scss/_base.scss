@@ -48,31 +48,28 @@ header {
 }
 
 
-.header_logotext {
+.header-logotext {
     display: flex;
     align-content: baseline;
 }
 
-.logo {
+.header-logotext__logo {
     clip: unset;
     height: 3em;
     width: 3em;
+
     @include mobileSizeSmall {
         display: none;
     }
+
 }
 
-.logo:hover {
+.header-logotext__logo:hover {
     -webkit-filter: saturate(5);
     filter: saturate(5);
 }
 
-.navigation {
-    display: flex;
-    justify-content: space-between;
-}
-
-.navigation_ul {
+.nav-desktop_list {
     padding: 0 2rem 0 0;
     list-style: none;
     display: flex;
@@ -80,15 +77,15 @@ header {
     min-width: 40rem;
 
     @include mobileSizeSmall {
-    @include hidden-visually;
+        @include hidden-visually;
     }
 
     @include mobileSizeMedium {
-    @include hidden-visually;
+        @include hidden-visually;
     }
 
     @include sizeTablet {
-    @include hidden-visually;
+        @include hidden-visually;
     }
 
 }

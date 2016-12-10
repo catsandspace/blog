@@ -33,41 +33,39 @@
 </head>
 <body>
     <header>
-        <div class="header_logotext">
+        <div class="header-logotext">
             <a href="<?php echo $path.'./index.php'; ?>">
-                <svg class="logo">
+                <svg class="header-logotext__logo">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use>
                 </svg>
             </a>
-            <span class="logo-title">Cats and Space</span>
+            <span class="header-logotext__text">Cats and Space</span>
         </div>
-        <div class="navigation">
-            <div class="navigation-2">
-                <ul class="navigation_ul">
-                    <li>Start</li>
-                    <li>Kategorier</li>
-                    <li>Arkiv</li>
-                    <li>Kontrollpanel</li>
-                    <li>Kontakt</li>
-                </ul>
-            </div>
-           <nav class="hamburger">
-                <ul class="list-style-none">
-                    <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
-                        <ul class="list-style-none box-shadow">
-                            <li><a href="<?php echo $path; ?>index.php" class="hamburger-menu">Start</a></li>
-                            <?php while (mysqli_stmt_fetch($stmt)): ?>
-                            <li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="hamburger-menu hamburger-menu--categories">Kategori: <?php echo ucfirst($category); ?></a></li>
-                            <?php endwhile?>
-                            <li><a href="<?php echo $path; ?>archive.php" class="hamburger-menu">Arkiv</a></li>
-                            <li><a href="<?php echo $path; ?>contact.php" class="hamburger-menu <?php if(!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE): ?>border-none<?php endif; ?>">Kontakt</a></li>
-                            <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                            <li><a href="<?php echo $path; ?>admin/dashboard.php" class="hamburger-menu">Kontrollpanel</a></li>
-                            <li><a href="<?php echo $path; ?>assets/logout.php" class="hamburger-menu border-none">Logga ut</a></li>
-                            <?php endif; ?>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+        <nav class="nav-desktop">
+            <ul class="nav-desktop_list">
+                <li class="nav-desktop_list-item">Start</li>
+                <li class="nav-desktop_list-item">Kategorier</li>
+                <li class="nav-desktop_list-item">Arkiv</li>
+                <li class="nav-desktop_list-item">Kontrollpanel</li>
+                <li class="nav-desktop_list-item">Kontakt</li>
+            </ul>
         </div>
+        <nav class="hamburger">
+            <ul class="list-style-none">
+                <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
+                    <ul class="list-style-none box-shadow">
+                        <li><a href="<?php echo $path; ?>index.php" class="hamburger-menu">Start</a></li>
+                        <?php while (mysqli_stmt_fetch($stmt)): ?>
+                        <li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="hamburger-menu hamburger-menu--categories">Kategori: <?php echo ucfirst($category); ?></a></li>
+                        <?php endwhile?>
+                        <li><a href="<?php echo $path; ?>archive.php" class="hamburger-menu">Arkiv</a></li>
+                        <li><a href="<?php echo $path; ?>contact.php" class="hamburger-menu <?php if(!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE): ?>border-none<?php endif; ?>">Kontakt</a></li>
+                        <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
+                        <li><a href="<?php echo $path; ?>admin/dashboard.php" class="hamburger-menu">Kontrollpanel</a></li>
+                        <li><a href="<?php echo $path; ?>assets/logout.php" class="hamburger-menu border-none">Logga ut</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
     </header>
