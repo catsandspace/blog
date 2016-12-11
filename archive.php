@@ -7,8 +7,11 @@
     //Determine if a variable is set and is not NULL
      $sort = "";
      $month = "";
-
-    if(isset($_GET["sort"]) ) { //Avoids error message
+     /*******************************************************************************
+        if statement that sorts and diplay post by month, lastest created, last
+        created and by name
+     ********************************************************************************/
+    if(isset($_GET["sort"]) ) {
         $sort = $_GET["sort"];
         $month = $_GET["month"];
 
@@ -20,7 +23,6 @@
                 $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created ASC";
             }
         }
-
         // Sort post by the last one
         if($sort == "desc") {
             if($month == "all") {
@@ -29,7 +31,6 @@
                 $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created DESC";
             }
         }
-
         // Sort post by name
         if($sort == "name") {
             if($month == "all") {
@@ -38,7 +39,6 @@
                 $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY title ASC";
             }
         }
-
     } else {
         $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created DESC";
     }
@@ -48,9 +48,9 @@
         $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
     }
 
-    // TODO: Seperating in different months needs to be handled by PHP and SQL.
-    // TODO: Get the styling right on buttons, select and svg.
+    // TODO: Get the styling right on buttons, select and svg. Unclear if this one is done or not
 
+    // Array that contains months and number for sorting posts
     $month = array(
         array("Januari", "01"),
         array("Februari", "02"),
@@ -90,6 +90,7 @@
         </div>
     </form>
     <div class="list-wrapper">
+        <!-- TODO: Fix so that correct months displays with actual posts -->
         <h2><?php echo $actualMonth[0]; ?></h2>
         <ul class="no-padding">
         <?php while (mysqli_stmt_fetch($stmt)): ?>
