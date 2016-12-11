@@ -6,6 +6,12 @@
     margin: 0;
 }
 
+@mixin introduction-text {
+    font-size: 2rem;
+    margin: 0.7em 0 1.5em;
+    text-align: center;
+}
+
 @mixin hidden-visually {
     border: 0;
     clip: rect(1px, 1px, 1px, 1px);

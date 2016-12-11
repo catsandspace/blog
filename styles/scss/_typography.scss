@@ -61,7 +61,5 @@ a {
 }
 
 .introduction-paragraph {
-    font-size: 2rem;
-    margin: 0.7em 0 1.5em;
-    text-align: center;
+    @include introduction-text;
 }
