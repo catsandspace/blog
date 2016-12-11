@@ -1,7 +1,6 @@
 //TODO: change comment-bubble to background-img or something else..
 
 .comment-bubble {
-    //float: right;
     position: relative;
     cursor: pointer;
     @include flexbox();
@@ -39,6 +38,11 @@
 .comment-container {
     border: 2px solid $primary;
     padding: 2rem;
+}
+
+.comment-container__text {
+    margin: 0;
+    padding: 1em 0 0.5em;
 }
 
 //TODO: use this one on desktop/tablet

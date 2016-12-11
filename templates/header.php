@@ -35,7 +35,6 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $path.'styles/css/main.css';?>">
-
     <title>Cats and Space</title>
 </head>
 <body>
@@ -46,7 +45,9 @@
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use>
                 </svg>
             </a>
-            <span class="header-logotext__text">Cats and Space</span>
+            <a href="<?php echo $path.'./index.php'; ?>">
+                <span class="header-logotext__text">Cats and Space</span>
+            </a>
         </div>
         <nav class="nav-desktop">
             <ul class="nav-desktop__list">

@@ -1,3 +1,17 @@
+@mixin complimentaryText {
+    color: $complimentary;
+    display: inline-block;
+    font-family: $primaryBrandFont;
+    line-height: 1.2;
+    margin: 0;
+}
+
+@mixin introductionText {
+    font-size: 2rem;
+    margin: 0.7em 0 1.5em;
+    text-align: center;
+}
+
 @mixin hidden-visually {
     border: 0;
     clip: rect(1px, 1px, 1px, 1px);

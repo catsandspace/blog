@@ -1,10 +1,10 @@
 html {
-    font-family: $secondaryBrandFont;
     font-size: 62.5%;
 }
 
 body {
     color: $baseColor2;
+    font-family: $secondaryBrandFont;
     font-size: 1.6rem;
 }
 
@@ -31,26 +31,27 @@ h2 {
     font-family: $primaryBrandFont;
     font-weight: $primaryBrandWeight;
     font-size: 2.5rem;
-    margin: 0;
+    line-height: 1.8;
+    margin-top: 0;
     padding: 1rem 0 0 0.2rem;
 
     //TODO: Make these DRY
     @include mobileSizeMedium {
         font-size: 3rem;
         margin: 0;
-        padding: 0.8rem 0 0 0.8rem;
+        padding: 0.8rem 0 0 1rem;
     }
 
     @include sizeTablet {
         font-size: 3rem;
         margin: 0;
-        padding: 0.8rem 0 0 0.8rem;
+        padding: 0.8rem 0 0 1rem;
     }
 
     @include sizeDesktop {
         font-size: 3rem;
         margin: 0;
-        padding: 0.8rem 0 0 0.8rem;
+        padding: 0.8rem 0 0 1rem;
     }
 }
 
@@ -60,12 +61,5 @@ a {
 }
 
 .introduction-paragraph {
-    font-size: 2rem;
-    margin: 0.7em 0 1.5em;
-    text-align: center;
-}
-
-.smaller-font {
-    font-size: 1.6rem;
-    //font-size: 1.4rem;
+    @include introductionText;
 }

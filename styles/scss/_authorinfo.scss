@@ -1,18 +1,5 @@
-.author-info {
-    color: $complimentary;
-    font-family: $primaryBrandFont;
-    margin: 0.5rem 0;
-    @include sizeTablet {
-        display: inline;
-    }
-}
-
-.author-info--border {
-    border-bottom: 2px solid $primary;
-}
-
-.author-info__links {
-    color: $complimentary;
+.author-info, .author-info__links {
+    @include complimentaryText;
 }
 
 .author-info__links:hover {
