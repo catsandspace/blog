@@ -11,6 +11,11 @@ main {
     margin: 0 auto;
     padding: 10rem 1.5rem 3rem 1.5rem;
     //width: 100vw;
+
+    //TODO: Edit this width if it looks bad
+    @include sizeDesktop {
+        max-width: 102.4rem;
+    }
 }
 
 @keyframes menu-is-sliding-in {
@@ -41,21 +46,115 @@ header {
     z-index: 2;
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-}
 
-.logo {
-    clip: unset;
-    height: 3em;
-    width: 3em;
-    @include mobileSizeSmall {
-        display: none;
+    @include sizeDesktop {
+        position: absolute;
+        padding: 1.8rem 2rem;
     }
 }
 
-.logo:hover {
+
+.header-logotext {
+    display: flex;
+    align-content: baseline;
+}
+
+.header-logotext__logo {
+    clip: unset;
+    height: 3em;
+    width: 3em;
+
+    @include mobileSizeSmall {
+        display: none;
+    }
+
+}
+
+.header-logotext__logo:hover {
     -webkit-filter: saturate(5);
     filter: saturate(5);
 }
+
+.nav-desktop {
+    @include mobileSizeSmall {
+        @include hidden-visually;
+    }
+
+    @include mobileSizeMedium {
+        @include hidden-visually;
+    }
+
+    @include sizeTablet {
+        @include hidden-visually;
+    }
+}
+
+.nav-desktop__list {
+    text-align: left;
+    display: inline;
+    margin: 0;
+    padding: 1.5rem 0.4rem 1.7rem 0;
+    list-style: none;
+}
+
+// BEM styling dosent seem to work on li ul..
+
+.nav-desktop__list li {
+    display: inline-block;
+    margin-right: -0.4rem;
+    position: relative;
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.nav-desktop__list li:hover {
+    background: $primary;
+    color: #fff;
+}
+
+.nav-desktop__list li ul {
+    padding: 0;
+    position: absolute;
+    top: 4.8rem;
+    left: 0;
+    min-width: 18rem;
+    max-width: 25rem;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transiton: opacity 0.2s;
+    -moz-transition: opacity 0.2s;
+    -ms-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    -transition: opacity 0.2s;
+}
+
+.nav-desktop__list li ul li {
+    background: $primaryAlternative2;
+    display: block;
+    color: #fff;
+    text-shadow: 0 -0.1rem 0 #000;
+}
+
+.nav-desktop__list li ul li:hover {
+    background: $primaryAlternative;
+}
+
+.nav-desktop__list li:hover ul {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+//TODO: change logut style
 
 /*******************************************************************************
     END OF HEADER ELEMENT
