@@ -27,6 +27,9 @@ main {
     }
 }
 
+
+// TODO: Maybe header should have no padding, when full navigation is showing?
+// So that hover state covers 100 % of height. Lets talk about it!
 header {
     // animation-name: menu-is-sliding-in;
     // animation-duration: 1.2s;
@@ -90,11 +93,12 @@ header {
 }
 
 .nav-desktop__list {
-    text-align: left;
     display: inline;
     margin: 0;
-    padding: 1.5rem 0.4rem 1.7rem 0;
+    line-height: 1.8;
     list-style: none;
+    padding: 1.5rem 0.4rem 1.7rem 0;
+    text-align: left;
 }
 
 // BEM styling dosent seem to work on li ul..

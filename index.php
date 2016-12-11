@@ -1,5 +1,6 @@
 <?php
     // TODO: Right now, the div with comment bubble show comments is not used.
+    // TODO: Sort out styling on pagination. Let's talk about it!
     // Decision is needed!
 
     // File to include
@@ -78,11 +79,11 @@
             $first = 1;
             // Diffent strings depending on if categories set
             if ($display) {
-                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'&display='.$display.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
-                $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'&display='.$display.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"> <i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a>; ';
             } else {
-                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
-                $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"> <i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> ';
             }
         }
 
@@ -91,11 +92,11 @@
             $next = $pagenum + 1;
             // Diffent strings depending on if categories set
             if ($display) {
-                $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'&display='.$display.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'&display='.$display.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
                 $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'&display='.$display.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
             } else {
-                $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
-                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'">Nästa <i class="fa fa-angle-right" aria-hidden="true"></i></a> ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
             }
         }
     }
@@ -117,11 +118,9 @@
     <!-- <div class="content-slides-in"> -->
     <main class="blogpost">
         <div class="pagination-wrapper">
-            <div class="pagination-wrapper__text">
             <?php
                 echo $paginationCtrls;
             ?>
-            </div>
         </div>
 
     <?php for ($i=0; $i < count($posts); $i++):
@@ -131,8 +130,8 @@
                 <div class="blogpost-wrapper">
                     <a href="post.php?getpost=<?php echo $post["id"] ?>"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img"></a>
                     <div class="blogpost-wrapper__text">
-                        <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></href="">
-                        <p class="blogpost-wrapper__tags">[Tags: <a href="?display=<?php echo $post["categoryId"] ?>" class="blogpost-wrapper__links"><?php echo str_replace(' ', '', $post["categoryName"]); ?>]</a> [Publicerad: <?php echo formatDate($post["created"]); ?>]</p>
+                        <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></h1>
+                        <p class="blogpost-wrapper__tags">[ Tags: <a href="?display=<?php echo $post["categoryId"] ?>" class="blogpost-wrapper__links"><?php echo str_replace(' ', '', $post["categoryName"]); ?> ]</a> [ Publicerad: <?php echo formatDate($post["created" ]); ?> ]</p>
                         <div class="comment-bubble">
                                 <?php // START OF COMMENTS
 
