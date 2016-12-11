@@ -2,14 +2,11 @@
     require_once "./templates/header.php";
     require_once "./assets/functions.php";
 
-    $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
+    $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created DESC";
 
     //Determine if a variable is set and is not NULL
      $sort = "";
      $month = "";
-     $monthNumber = "";
-
-    //$monthNumber = $month[1];
 
     if(isset($_GET["sort"]) ) { //Avoids error message
         $sort = $_GET["sort"];
@@ -18,25 +15,28 @@
     // Sort post by name
     if($sort == "name") {
         if($month == "all") {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY title ASC";
+        $query = "SELECT * FROM posts WHERE published = 1 ORDER BY title ASC";
         } else {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = {'$monthNumber'} ORDER BY created ASC";
+        $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created ASC";
+        echo $month;
         }
     }
     // Sort post by lastest entry
     if($sort == "asc") {
         if($month == "all") {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created ASC";
+        $query = "SELECT * FROM posts WHERE published = 1 ORDER BY title ASC";
         }else {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = {'$monthNumber'} ORDER BY created ASC";
+        $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created ASC";
+        echo $month;
         }
     }
     // Sort post by the last one
     if($sort == "desc") {
         if($month == "all") {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
+        $query = "SELECT * FROM posts WHERE published = 1 ORDER BY title DESC";
         }else {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = {'$monthNumber'} ORDER BY created DESC";
+        $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created DESC";
+        echo $month;
         }
     }
 
@@ -54,7 +54,7 @@
 
     if ($stmt->prepare($query)) {
         $stmt->execute();
-        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
+        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
     }
 
     // TODO: Seperating in different months needs to be handled by PHP and SQL.
