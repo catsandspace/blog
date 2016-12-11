@@ -105,15 +105,18 @@
                 <?php if ($catId == $changeCategoryId) {
                     $change = TRUE;
                     $changeCatId = $catId;
-                    $changeCat = $cat;
+                    $changeCat = $category;
                 }
             endwhile; ?>
+            <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
             <?php if ($change): ?>
-            <label class="form-field__label" for="categoryChange">Ändra kategori <?php echo $changeCat; ?>:</label>
-            <input type="text" name="categoryChange">
-            <input type="hidden" name="catId" value="<?php echo $changeCatId; ?>">
-            <?php endif; ?>
+            <label class="form-field__label" for="categoryChange">Ändra kategori <?php echo $changeCat; ?></label>
+            <input class="form-field" type="text" name="categoryChange">
+            <input class="form-field" type="hidden" name="catId" value="<?php echo $changeCatId; ?>">
+            <button type="submit" value="Ändra" name="change-category" class="button">Genomför ändring</button>
+            <?php else: ?>
             <button type="submit" value="Ändra" name="change-category" class="button">Ändra</button>
+            <?php endif; ?>
             <button type="submit" value="Ta bort" name="removeCat" class="button error">Ta bort</button>
         </form>
         <form method="post" action="categories.php" class="input-wrapper">
@@ -122,6 +125,5 @@
             <button type="submit" value="Lägg till" name="addCat" class="button">Lägg till</button>
         </form>
     </div>
-    <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
 </main>
 <?php include_once "../templates/footer.php"; ?>
