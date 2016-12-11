@@ -7,6 +7,10 @@
     //Determine if a variable is set and is not NULL
      $sort = "";
      $month = "";
+     $monthNumber = "";
+
+    //$monthNumber = $month[1];
+
     if(isset($_GET["sort"]) ) { //Avoids error message
         $sort = $_GET["sort"];
         $month = $_GET["month"];
@@ -16,7 +20,7 @@
         if($month == "all") {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY title ASC";
         } else {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = 11 ORDER BY created ASC";
+        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = {'$monthNumber'} ORDER BY created ASC";
         }
     }
     // Sort post by lastest entry
@@ -24,7 +28,7 @@
         if($month == "all") {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created ASC";
         }else {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = 11 ORDER BY created ASC";
+        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = {'$monthNumber'} ORDER BY created ASC";
         }
     }
     // Sort post by the last one
@@ -32,7 +36,7 @@
         if($month == "all") {
         $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
         }else {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = 11 ORDER BY created DESC";
+        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = {'$monthNumber'} ORDER BY created DESC";
         }
     }
 
@@ -80,7 +84,7 @@
         <select class="form-field form-field__select" name="month" id="sort">
             <option value="all">Alla</option>
             <?php foreach($month as $actualMonth): ?>
-             <option value="month"><?php echo $actualMonth[0]; ?></option>
+             <option value="<?php echo $actualMonth[1]; ?>"><?php echo $actualMonth[0]; ?></option>
             <?php endforeach; ?>
         </select>
           <select class="form-field form-field__select" name="sort" id="sort">
