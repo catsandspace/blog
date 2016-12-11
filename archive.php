@@ -57,18 +57,18 @@
     // TODO: Get the styling right on buttons, select and svg.
 
     $month = array(
-        array("Januari", 01),
-        array("Februari", 02),
-        array("Mars", 03),
-        array("April", 04),
-        array("Maj", 05),
-        array("Juni", 06),
-        array("Juli", 07),
-        array("Augusti", 08),
-        array("September", 09),
-        array("Oktober", 10),
-        array("November", 11),
-        array("December", 12)
+        array("Januari", "01"),
+        array("Februari", "02"),
+        array("Mars", "03"),
+        array("April", "04"),
+        array("Maj", "05"),
+        array("Juni", "06"),
+        array("Juli", "07"),
+        array("augusti", "08"),
+        array("September", "09"),
+        array("Oktober", "10"),
+        array("November", "11"),
+        array("December", "12")
         );
 
 ?>
