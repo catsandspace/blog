@@ -186,7 +186,7 @@
 ?>
 <main>
 <?php if ($postId != NULL): ?>
-    <article class="smaller-font">
+    <article>
         <div class="relative-container">
             <img class="full-width-img" src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
             <a class="relative-container__info relative-container__link" href="index.php?display=<?php echo $categoryId ?>">Kategori: <?php echo str_replace(' ', '', $categoryName); ?></a>
