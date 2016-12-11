@@ -1,5 +1,17 @@
 .pagination-wrapper__text {
+    @include complimentaryText;
     font-size: 2rem;
-    padding: 10px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.pagination-wrapper__text:hover {
+    color: $complimentaryHover;
+}
+
+
+.pagination-wrapper {
+    width: 100%;
+    padding-bottom: 1rem;
     text-align: center;
 }

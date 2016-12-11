@@ -1,7 +1,6 @@
 //TODO: change comment-bubble to background-img or something else..
 
 .comment-bubble {
-    //float: right;
     position: relative;
     cursor: pointer;
     @include flexbox();

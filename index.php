@@ -1,5 +1,6 @@
 <?php
     // TODO: Right now, the div with comment bubble show comments is not used.
+    // TODO: Sort out styling on pagination. Let's talk about it!
     // Decision is needed!
 
     // File to include
@@ -78,11 +79,11 @@
             $first = 1;
             // Diffent strings depending on if categories set
             if ($display) {
-                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'&display='.$display.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
-                $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'&display='.$display.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"> <i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a>; ';
             } else {
-                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
-                $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> &nbsp; &nbsp; ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"> <i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> ';
             }
         }
 
@@ -91,11 +92,11 @@
             $next = $pagenum + 1;
             // Diffent strings depending on if categories set
             if ($display) {
-                $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'&display='.$display.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'&display='.$display.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
                 $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'&display='.$display.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
             } else {
-                $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
-                $paginationCtrls .= '<a href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'">Nästa <i class="fa fa-angle-right" aria-hidden="true"></i></a> ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
             }
         }
     }
@@ -117,11 +118,9 @@
     <!-- <div class="content-slides-in"> -->
     <main class="blogpost">
         <div class="pagination-wrapper">
-            <div class="pagination-wrapper__text">
             <?php
                 echo $paginationCtrls;
             ?>
-            </div>
         </div>
 
     <?php for ($i=0; $i < count($posts); $i++):
