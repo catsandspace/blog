@@ -46,7 +46,9 @@
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use>
                 </svg>
             </a>
-            <span class="header-logotext__text">Cats and Space</span>
+            <a href="<?php echo $path.'./index.php'; ?>">
+                <span class="header-logotext__text">Cats and Space</span>
+            </a>
         </div>
         <nav class="nav-desktop">
             <ul class="nav-desktop__list">
