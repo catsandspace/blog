@@ -241,11 +241,13 @@
                 $commentAuthor = $userName;
                 $commentWebsite = $userWebsite;
             endif; ?>
-            <p class="author-info">[ Av: <?php echo $commentAuthor; if ($commentUserId != NULL) { echo " (administratör)";}; ?> ]</p>
-            <p class="author-info">[ Skriven: <?php echo formatDate($commentCreated); ?> ]</p>
-            <p class="author-info">[<a class="author-info__links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]</p>
-            <p class="author-info">[<a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
-            <p class="margin-normal author-info--border"><?php echo formatInnerHtml($commentContent); ?></p>
+            <p class="comment-container__text"><?php echo formatInnerHtml($commentContent); ?></p>
+            <div class="comment__border-bottom">
+                <p class="author-info">[ Av: <?php echo $commentAuthor; if ($commentUserId != NULL) { echo " (administratör)";}; ?> ]</p>
+                <p class="author-info">[ Skriven: <?php echo formatDate($commentCreated); ?> ]</p>
+                <p class="author-info">[ <a class="author-info__links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]</p>
+                <p class="author-info"> [ <a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
+            </div>
             <?php endwhile; ?>
             <?php if ($commentId == NULL): echo "<p class=\"saffron-text primary-brand-font\">Detta inlägg har inga kommentarer ännu.</p>"; endif; ?>
         </div>
