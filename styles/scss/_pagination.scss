@@ -1,8 +1,6 @@
 .pagination-wrapper__text {
     @include complimentaryText;
-    font-size: 2rem;
-    text-align: center;
-    margin: 0 auto;
+    @include introductionText;
 }
 
 .pagination-wrapper__text:hover {
