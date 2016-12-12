@@ -93,7 +93,7 @@
                 endif;
             endforeach;
         else:
-            $errorMessage = "fellist";
+            $errorMessage = "Det gick inte att radera användare just nu.";
         endif;
     endif;
 
