@@ -2,73 +2,68 @@
     require_once "./templates/header.php";
     require_once "./assets/functions.php";
 
-    $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
+    $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created DESC";
 
     //Determine if a variable is set and is not NULL
      $sort = "";
      $month = "";
-    if(isset($_GET["sort"]) ) { //Avoids error message
+     /*******************************************************************************
+        if statement that sorts and diplay post by month, lastest created, last
+        created and by name
+     ********************************************************************************/
+    if(isset($_GET["sort"]) ) {
         $sort = $_GET["sort"];
         $month = $_GET["month"];
-    }
-    // Sort post by name
-    if($sort == "name") {
-        if($month == "all") {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY title ASC";
-        } else {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = 11 ORDER BY created ASC";
-        }
-    }
-    // Sort post by lastest entry
-    if($sort == "asc") {
-        if($month == "all") {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created ASC";
-        }else {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = 11 ORDER BY created ASC";
-        }
-    }
-    // Sort post by the last one
-    if($sort == "desc") {
-        if($month == "all") {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC";
-        }else {
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 AND EXTRACT(MONTH FROM created) = 11 ORDER BY created DESC";
-        }
-    }
 
-
-    // if($month == "all") {
-    //     $query = "SELECT posts.*,
-    //     categories.name
-    //     FROM posts
-    //     LEFT JOIN categories
-    //     ON posts.categoryid = categories.id
-    //     WHERE published = 1
-    //     AND EXTRACT(MONTH FROM created) = 11
-    //     ORDER BY created DESC";
-    //}
+        // Sort post by lastest entry
+        if($sort == "asc") {
+            if($month == "all") {
+                $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created ASC";
+            } else {
+                $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created ASC";
+            }
+        }
+        // Sort post by the last one
+        if($sort == "desc") {
+            if($month == "all") {
+                $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created DESC";
+            } else {
+                $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created DESC";
+            }
+        }
+        // Sort post by name
+        if($sort == "name") {
+            if($month == "all") {
+                $query = "SELECT * FROM posts WHERE published = 1 ORDER BY title ASC";
+            } else {
+                $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY title ASC";
+            }
+        }
+    } else {
+        $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created DESC";
+    }
 
     if ($stmt->prepare($query)) {
         $stmt->execute();
-        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
+        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
     }
 
-    // TODO: Seperating in different months needs to be handled by PHP and SQL.
-    // TODO: Get the styling right on buttons, select and svg.
+    // TODO: Get the styling right on buttons, select and svg. Unclear if this one is done or not
 
+    // Array that contains months and number for sorting posts
     $month = array(
-        array("Januari", 01),
-        array("Februari", 02),
-        array("Mars", 03),
-        array("April", 04),
-        array("Maj", 05),
-        array("Juni", 06),
-        array("Juli", 07),
-        array("Augusti", 08),
-        array("September", 09),
-        array("Oktober", 10),
-        array("November", 11),
-        array("December", 12)
+        array("Januari", "01"),
+        array("Februari", "02"),
+        array("Mars", "03"),
+        array("April", "04"),
+        array("Maj", "05"),
+        array("Juni", "06"),
+        array("Juli", "07"),
+        array("augusti", "08"),
+        array("September", "09"),
+        array("Oktober", "10"),
+        array("November", "11"),
+        array("December", "12")
         );
 
 ?>
@@ -80,7 +75,7 @@
         <select class="form-field form-field__select" name="month" id="sort">
             <option value="all">Alla</option>
             <?php foreach($month as $actualMonth): ?>
-             <option value="month"><?php echo $actualMonth[0]; ?></option>
+             <option value="<?php echo $actualMonth[1]; ?>"><?php echo $actualMonth[0]; ?></option>
             <?php endforeach; ?>
         </select>
           <select class="form-field form-field__select" name="sort" id="sort">
@@ -95,7 +90,8 @@
         </div>
     </form>
     <div class="list-wrapper">
-        <h2>November 2016</h2>
+        <!-- TODO: Fix so that correct months displays with actual posts -->
+        <h2><?php echo $actualMonth[0]; ?></h2>
         <ul class="no-padding">
         <?php while (mysqli_stmt_fetch($stmt)): ?>
             <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($created); ?>]</span><a href="post.php?getpost=<?php echo $id ?>"><?php echo $title; ?></a></li>
