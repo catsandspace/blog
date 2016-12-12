@@ -17,7 +17,7 @@
     // If-statement to check if button for adding new categories is set
     // If everything looks okay insert into db
     if (isset ($_POST["addCat"])):
-        if (!empty($_POST["category"])): // Input given
+        if (!empty($_POST["category"])):
             $category = mysqli_real_escape_string($conn, $_POST["category"]);
             $query = "INSERT INTO categories VALUES (NULL, '$category')";
             if ($stmt->prepare($query)):
@@ -26,13 +26,13 @@
                 $errorMessage ="Faulty query in addCat";
             endif;
         else:
-            $errorMessage ="Du måste ange en kategori"; // No input given
+            $errorMessage ="Du måste ange en kategori";
         endif;
     endif;
 
     // If-statement to check if button for removing categories is set
     // If button is pressed continue to check through the array  and
-    // for each category checked, remove it frpm the db
+    // for each category checked, remove it from the db
     if (isset ($_POST["removeCat"])):
         if (!empty($_POST["checklist"])):
             foreach ($_POST['checklist'] as $selected):
@@ -82,7 +82,7 @@
         endif;
     endif;
 
-    // Select all rows from the database categories
+
     $query = "SELECT * FROM categories";
 
     if ($stmt->prepare($query)):
