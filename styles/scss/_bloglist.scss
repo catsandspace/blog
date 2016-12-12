@@ -10,6 +10,12 @@
     width: 100%;
 }
 
+.blogpost__message {
+    text-align: center;
+    // margin: 0 auto;
+    font-size: 3rem;
+}
+
 .blogpost-wrapper {
     margin-bottom: 0.2rem;
     position: relative;
@@ -20,7 +26,8 @@
     margin: 0 auto;
     width: 100%;
 }
-    // This wrapps all the text in a post, both paragraphs and headline.
+
+// This wrapps all the text in a post, both paragraphs and headline.
 .blogpost-wrapper__text {
     box-sizing: border-box;
     bottom: 5px;
@@ -48,6 +55,7 @@
 .blogpost-wrapper__links {
     color: $primary;
 }
+
 .blogpost-wrapper__links:hover {
     color: $primaryAlternative;
 }
