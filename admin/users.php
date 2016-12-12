@@ -12,11 +12,6 @@
         header("Location: ./dashboard.php");
     }
 
-    // Don't print out HTML from "header.php" before login check is done.
-    // FIXME: Since we are doing a redirect further down, this is still not working fully.
-    require_once "../templates/header.php";
-
-
     // Reset functions for the internal variables
     $addUser = FALSE;
     //$errorMessage = NULL;
@@ -109,6 +104,9 @@
             }
         }
     }
+
+    // This prints out HTML from header.php.
+    require_once "../templates/header.php";
 
     // If-statement to check if button for removing users is set
     // If button is pressed continue to check through the array and
