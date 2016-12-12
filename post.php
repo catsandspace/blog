@@ -33,7 +33,7 @@
         }
     }
 
-    // If no postid is present, redirect to index.php.
+    // If no postid, redirect to index.php.
     if ($postId == NULL) {
         header("Location: ./index.php");
     }
@@ -56,10 +56,8 @@
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
 
-
     if (isset($_POST["add-comment"])) {
 
-        // If user is logged in, the user only need to provide comment content.
         if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
             $requiredFields = array("content");
 
@@ -105,7 +103,6 @@
 
                 } else {
 
-                    // TODO: 404?
                     $errorMessage = "Det gick inte att lägga till kommentaren.";
                 }
             } else {
@@ -119,7 +116,6 @@
 
                 } else {
 
-                    // TODO: 404?
                     $errorMessage = "Det gick inte att lägga till kommentaren.";
                 }
             }
