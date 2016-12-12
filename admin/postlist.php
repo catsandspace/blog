@@ -8,11 +8,6 @@
         header("Location: ../login.php");
     }
 
-    // Don't print out HTML from "header.php" before login check is done.
-    require_once "../templates/header.php";
-
-    // TODO: Ta reda på om bildernas titlar ska vara h2 eller h1.
-
 /*******************************************************************************
    START OF FEEDBACK MESSAGE AND DATABASE UPDATE
 *******************************************************************************/
@@ -36,6 +31,9 @@
             $feedbackMessage = "Du har tagit bort inlägget";
         }
     }
+
+    // Don't print out HTML from "header.php" before login check is done.
+    require_once "../templates/header.php";
 
 /*******************************************************************************
    END OF FEEDBACK MESSAGE AND DATABASE UPDATE
