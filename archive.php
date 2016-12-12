@@ -67,6 +67,27 @@
         );
 
 ?>
+<?php
+
+    $totalNumberOfMonthPosts = NULL;
+    $errorMessage = NULL;
+
+    // $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
+
+    if ($stmt->prepare($query)) {
+        $stmt->execute();
+        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
+        $stmt->store_result();
+    } else {
+        $errorMessage = "Något gick fel.";
+    }
+
+    while (mysqli_stmt_fetch($stmt)) {
+
+            $totalNumberOfMonthPosts++;
+    }
+
+?>
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
     <form method="GET" action="archive.php">
@@ -75,7 +96,7 @@
         <select class="form-field form-field__select" name="month" id="sort">
             <option value="all">Alla</option>
             <?php foreach($month as $actualMonth): ?>
-             <option value="<?php echo $actualMonth[1]; ?>"><?php echo $actualMonth[0]; ?></option>
+             <option value="<?php echo $actualMonth[1]; ?>"><?php echo $actualMonth[0]; echo $totalNumberOfMonthPosts; ?></option>
             <?php endforeach; ?>
         </select>
           <select class="form-field form-field__select" name="sort" id="sort">
@@ -89,9 +110,33 @@
           </svg> -->
         </div>
     </form>
+
     <div class="list-wrapper">
         <!-- TODO: Fix so that correct months displays with actual posts -->
-        <h2><?php echo $actualMonth[0]; ?></h2>
+        <h2><?php echo $actualMonth[0];?></h2>
+
+        <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
+    <!-- <?php
+        // $totalNumberOfComments = 0;
+        // $errorMessage = NULL;
+
+        // $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
+
+        // if ($stmt->prepare($query)) {
+        //     $stmt->execute();
+        //     $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
+        //     $stmt->store_result();
+        // } else {
+        //     $errorMessage = "Något gick fel.";
+        // }
+
+        // while (mysqli_stmt_fetch($stmt)) {
+
+        //         $totalNumberOfComments++;
+        //     }
+
+    ?>-->
+        <p><?php echo $totalNumberOfMonthPosts; ?></p> <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
         <ul class="no-padding">
         <?php while (mysqli_stmt_fetch($stmt)): ?>
             <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($created); ?>]</span><a href="post.php?getpost=<?php echo $id ?>"><?php echo $title; ?></a></li>
