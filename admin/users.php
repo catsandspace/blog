@@ -31,7 +31,7 @@
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
 
-    // Check if user has tried to fill in information about new user.
+    // Check if user has pressed button "register".
     if (isset ($_POST["register"])) {
 
         $requiredFields = array("username", "password", "firstname", "lastname", "email", "website");
@@ -49,7 +49,7 @@
             }
         }
 
-        // This checks if email is written correctly. If not, return an error message.
+        // This checks if email is written correctly.
         if ($key = 'email') {
             if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
                 $allRequiredFilled = FALSE;
@@ -134,21 +134,27 @@
                 <h2>Lägg till ny användare</h2>
                 <?php if (!empty($errors)) { echo $errorInfo; } ?>
                 <legend class="hidden">Lägg till ny användare</legend>
+
                 <label class="form-field__label" for="username">Användarnamn</label>
                 <input class="form-field" type="text" name="username" id="username" required value="<?php echo $fields['username']; ?>">
                 <?php if (in_array("username", $errors)) { echo $obligatoryField; } ?>
+
                 <label class="form-field__label" for="password">Lösenord</label>
                 <input class="form-field" type="password" name="password" id="password" required value="<?php echo $fields['password']; ?>">
                 <?php if (in_array("password", $errors)) { echo $obligatoryField; } ?>
+
                 <label class="form-field__label" for="firstname">Förnamn</label>
                 <input class="form-field" type="text" name="firstname" id="firstname" required value="<?php echo $fields['firstname']; ?>">
                 <?php if (in_array("firstname", $errors)) { echo $obligatoryField; } ?>
+
                 <label class="form-field__label" for="lastname">Efternamn</label>
                 <input class="form-field" type="text" name="lastname" id="lastname" required value="<?php echo $fields['lastname']; ?>">
                 <?php if (in_array("lastname", $errors)) { echo $obligatoryField; } ?>
+
                 <label class="form-field__label" for="email">E-post</label>
                 <input class="form-field" type="email" name="email" id="email" required value="<?php echo $fields['email']; ?>">
                 <?php if (in_array("email", $errors)) { echo $obligatoryFieldEmail; } ?>
+
                 <label class="form-field__label" for="website">Webbplats</label>
                 <input class="form-field" type="text" name="website" id="website" required value="<?php echo $fields['website']; ?>">
                 <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
