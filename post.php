@@ -33,9 +33,9 @@
         }
     }
 
+    // If no postid is present, redirect to index.php.
     if ($postId == NULL) {
-        // TODO: Show 404-page instead?
-        $errorMessage = "Vi hittade inget inlägg med angivet id";
+        header("Location: ./index.php");
     }
 
 /*******************************************************************************
@@ -159,7 +159,6 @@
 *******************************************************************************/
 ?>
 <main>
-<?php if ($postId != NULL): ?>
     <article>
         <div class="relative-container">
             <img class="full-width-img" src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
@@ -180,24 +179,30 @@
             <?php if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
             <p class="author-info">Du kommenterar som: @<?php echo $_SESSION["username"]; ?></p>
             <?php endif; ?>
-            <form method="post" novalidate>
+            <form method="post">
                 <fieldset>
                     <legend class="hidden">Skriv ny kommentar</legend>
+
                     <label class="form-field__label" for="content">Kommentar</label>
                     <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required><?php echo $fields['content']; ?></textarea>
                     <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
-                    <!-- Only ask visitors that are not logged in to provide info -->
+
                     <?php  if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE): ?>
-                    <label class="form-field__label" for="name">Ditt namn</label>
-                    <input class="form-field" type="text" name="name" id="name" required value="<?php echo $fields['name']; ?>">
-                    <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
-                    <label class="form-field__label" for="email">Din e-postadress</label>
-                    <input class="form-field" type="email" name="email" id="email" required value="<?php echo $fields['email']; ?>">
-                    <?php if (in_array("email", $errors)) { echo $obligatoryFieldEmail; } ?>
-                    <label class="form-field__label" for="website">Din webbplats</label>
-                    <input class="form-field" type="url" name="website" id="website" required value="<?php echo $fields['website']; ?>">
-                    <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
+
+                        <label class="form-field__label" for="name">Ditt namn</label>
+                        <input class="form-field" type="text" name="name" id="name" required value="<?php echo $fields['name']; ?>">
+                        <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
+
+                        <label class="form-field__label" for="email">Din e-postadress</label>
+                        <input class="form-field" type="email" name="email" id="email" required value="<?php echo $fields['email']; ?>">
+                        <?php if (in_array("email", $errors)) { echo $obligatoryFieldEmail; } ?>
+
+                        <label class="form-field__label" for="website">Din webbplats</label>
+                        <input class="form-field" type="url" name="website" id="website" required value="<?php echo $fields['website']; ?>">
+                        <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
+
                     <?php endif; ?>
+
                     <button type="submit" class="button margin-bottom-l" name="add-comment">Lägg till</button>
                 </fieldset>
             </form>
@@ -210,29 +215,26 @@
         <div class="comment-container">
             <h2>Kommentarer</h2>
             <?php while (mysqli_stmt_fetch($stmt)):
-            if ($commentUserId != NULL):
-                $commentEmail = $userMail;
-                $commentAuthor = $userName;
-                $commentWebsite = $userWebsite;
-            endif; ?>
-            <p class="comment-container__text"><?php echo formatInnerHtml($commentContent); ?></p>
-            <div class="comment__border-bottom">
-                <p class="author-info">[ Av: <?php echo $commentAuthor; if ($commentUserId != NULL) { echo " (administratör)";}; ?> ]</p>
-                <p class="author-info">[ Skriven: <?php echo formatDate($commentCreated); ?> ]</p>
-                <p class="author-info">[ <a class="author-info__links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]</p>
-                <p class="author-info"> [ <a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
-            </div>
+                if ($commentUserId != NULL):
+                    $commentEmail = $userMail;
+                    $commentAuthor = $userName;
+                    $commentWebsite = $userWebsite;
+                endif; ?>
+                <p class="comment-container__text"><?php echo formatInnerHtml($commentContent); ?></p>
+                <div class="comment__border-bottom">
+                    <p class="author-info">[ Av: <?php echo $commentAuthor; if ($commentUserId != NULL) { echo " (administratör)";}; ?> ]</p>
+                    <p class="author-info">[ Skriven: <?php echo formatDate($commentCreated); ?> ]</p>
+                    <p class="author-info">[ <a class="author-info__links" href="mailto:<?php echo $commentEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]</p>
+                    <p class="author-info"> [ <a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
+                </div>
             <?php endwhile; ?>
-            <?php if ($commentId == NULL): echo "<p class=\"saffron-text primary-brand-font\">Detta inlägg har inga kommentarer ännu.</p>"; endif; ?>
+            <?php if ($commentId == NULL): ?>
+                <p class="saffron-text primary-brand-font">Detta inlägg har inga kommentarer ännu.</p>
+            <?php endif; ?>
         </div>
     </article>
 </main>
-<!-- TODO: Remove dev link when final -->
-<?php else: ?>
-    <p class="error-msg"><?php echo $errorMessage; ?></p>
-    <u><a href=\"?getpost=1\">for developers</a></u>
 <?php
-    endif;
     $stmt -> close();
     $conn -> close();
     require_once "./templates/footer.php";
