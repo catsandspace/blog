@@ -1,5 +1,4 @@
 <?php
-    require_once "../templates/header.php";
     require_once "../assets/db_connect.php";
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
@@ -8,6 +7,9 @@
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
     }
+
+    // Don't print out HTML from "header.php" before login check is done.
+    require_once "../templates/header.php";
 
     // This is used to populate input fields.
     $fields = array(

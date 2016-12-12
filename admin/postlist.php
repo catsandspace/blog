@@ -1,5 +1,5 @@
 <?php
-    require_once "../templates/header.php";
+    require_once "../assets/db_connect.php";
     require_once "../assets/session.php";
     require_once "../assets/functions.php";
 
@@ -7,6 +7,9 @@
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
         header("Location: ../login.php");
     }
+
+    // Don't print out HTML from "header.php" before login check is done.
+    require_once "../templates/header.php";
 
     // TODO: Ta reda på om bildernas titlar ska vara h2 eller h1.
 

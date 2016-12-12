@@ -1,5 +1,6 @@
 <?php
-    require_once "../templates/header.php";
+    require_once "../assets/db_connect.php";
+    require_once "../assets/session.php";
     require_once "../assets/functions.php";
 
     // Redirect to login.php if no session active.
@@ -10,6 +11,11 @@
     } elseif ($_SESSION["permission"] != 1) {
         header("Location: ./dashboard.php");
     }
+
+    // Don't print out HTML from "header.php" before login check is done.
+    // FIXME: Since we are doing a redirect further down, this is still not working fully.
+    require_once "../templates/header.php";
+
 
     // Reset functions for the internal variables
     $addUser = FALSE;
@@ -128,6 +134,7 @@
         $stmt-> execute();
         $stmt -> bind_result($permission, $userName, $userId);
     }
+
 
 /*******************************************************************************
    START OF HTML
