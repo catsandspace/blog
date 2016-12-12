@@ -3,53 +3,38 @@
     require_once "../assets/session.php";
     require_once "../assets/functions.php";
 
-    // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
 
-    // Redirect to .dashboard.php if user is not a superadmin.
     } elseif ($_SESSION["permission"] != 1) {
         header("Location: ./dashboard.php");
     }
 
-    // Reset functions for the internal variables
-    $addUser = FALSE;
-    //$errorMessage = NULL;
-
 /*******************************************************************************
-   START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
+   CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED STARTS HERE
 *******************************************************************************/
 
     $fields = array(
-        "userName" => "",
-        "passWord" => "",
-        "firstName" => "",
-        "lastName" => "",
-        "eMail" => "",
+        "username" => "",
+        "password" => "",
+        "firstname" => "",
+        "lastname" => "",
+        "email" => "",
         "website" => ""
     );
 
     $allRequiredFilled = TRUE;
     $errors = array();
 
-    // Variables regarding error messages ******************************************
-    $errorInfo = "<p class=\"error-msg\">Ooops, något gick fel! Se felmeddelanden nedan.</p>";
-
+    // Variables regarding error message.
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
-
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
 
-    // Set key for printing register form
-    if (isset ($_POST["add-user"])) {
-        $addUser = TRUE;
-    }
-
-    // Button pressed for sending register form
+    // Check if user has tried to fill in information about new user.
     if (isset ($_POST["register"])) {
-        $requiredFields = array("userName", "passWord", "firstName", "lastName", "eMail", "website");
 
-        // Check to see that all required fields are filled
-        // Information is stored in an array
+        $requiredFields = array("username", "password", "firstname", "lastname", "email", "website");
+
         foreach ($fields as $key => $value) {
             $isRequired = in_array($key, $requiredFields);
 
@@ -64,30 +49,26 @@
         }
 
         // This checks if email is written correctly. If not, return an error message.
-        if ($key = 'eMail') {
-            if (!filter_var($fields['eMail'], FILTER_VALIDATE_EMAIL)) {
+        if ($key = 'email') {
+            if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
                 $allRequiredFilled = FALSE;
                 array_push($errors, $key);
             }
         }
 
-        // If all requied fields are filled, continue to store information in database
         if ($allRequiredFilled)  {
 
-            // Generate hashed password, salt included
-            $upHash = password_hash($fields["passWord"], PASSWORD_DEFAULT);
+            $upHash = password_hash($fields["password"], PASSWORD_DEFAULT);
 
-            $query = "INSERT INTO users VALUES (NULL, '0', '{$fields["userName"]}', '{$upHash}', '{$fields["eMail"]}', '{$fields["website"]}', '{$fields["firstName"]}', '{$fields["lastName"]}')";
+            $query = "INSERT INTO users VALUES (NULL, '0', '{$fields["username"]}', '{$upHash}', '{$fields["email"]}', '{$fields["website"]}', '{$fields["firstname"]}', '{$fields["lastname"]}')";
 
             if ($stmt->prepare($query)) {
                 $stmt->execute();
                 $stmt->close();
                 header("Location: ./users.php?getusers=$getUser#nav-adduser");
 
-
             } else {
 
-                // TODO: 404?
                 $errorMessage = "Det gick inte att lägga till användare.";
             }
         }
@@ -96,9 +77,10 @@
     // This prints out HTML from header.php.
     require_once "../templates/header.php";
 
-    // If-statement to check if button for removing users is set
-    // If button is pressed continue to check through the array and
-    // for each category checked, remove it fromm the db
+/*******************************************************************************
+   REMOVE A USER STARTS HERE
+*******************************************************************************/
+
     if (isset ($_POST["remove-user"])):
         if (!empty($_POST["checklist"])):
             foreach ($_POST["checklist"] as $selected):
@@ -107,28 +89,22 @@
                 if ($stmt -> prepare($query)):
                     $stmt->execute();
                 else:
-                    echo "fel";
+                    $errorMessage = "Det gick inte att ta bort användare.";
                 endif;
             endforeach;
         else:
-            echo "fellist";
+            $errorMessage = "fellist";
         endif;
     endif;
 
     $query = "SELECT permission, username, id FROM users";
     if ($stmt -> prepare($query)) {
-        $stmt-> execute();
+        $stmt -> execute();
         $stmt -> bind_result($permission, $userName, $userId);
     }
-
-
-/*******************************************************************************
-   START OF HTML
-*******************************************************************************/
 ?>
 <main>
     <h1 class="center-text margin-bottom-l">Användare</h1>
-    <!-- Form prints all registered users an gives the possibility to remove user -->
     <form method="post" action="#nav-adduser">
         <div class="flex-list">
             <?php while (mysqli_stmt_fetch($stmt)): ?>
@@ -150,33 +126,28 @@
         </div>
         <button type="submit" value="Ta bort användare" name="remove-user" class="button error">Ta bort användare</button>
     </form>
-
-    <!-- If button for adding a new user or if someone is trying to submit a new user but not
-        all required fields are filled, print form for registration.
-        If any error is noted an error message is printed for that input field.-->
-    <?php if ($addUser == TRUE || (isset($_POST["register"]) && !$allRequiredFilled)): ?>
+    <?php if (isset ($_POST["add-user"]) || (isset($_POST["register"]) && !$allRequiredFilled)): ?>
     <div id="nav-users-top">
-        <form method="post" novalidate>
+        <form method="post">
             <fieldset>
                 <h2>Lägg till ny användare</h2>
                 <?php if (!empty($errors)) { echo "<p class=\"error-msg\">Ooops, något gick fel!</p>"; } ?>
-
                 <legend class="hidden">Lägg till ny användare</legend>
-                <label class="form-field__label" for="userName">Användarnamn</label>
-                <input class="form-field" type="text" name="userName" id="userName" required value="<?php echo $fields['userName']; ?>">
-                <?php if (in_array("userName", $errors)) { echo $obligatoryField; } ?>
-                <label class="form-field__label" for="passWord">Lösenord</label>
-                <input class="form-field" type="password" name="passWord" id="passWord" required value="<?php echo $fields['passWord']; ?>">
-                <?php if (in_array("passWord", $errors)) { echo $obligatoryField; } ?>
-                <label class="form-field__label" for="firstName">Förnamn</label>
-                <input class="form-field" type="text" name="firstName" id="firstName" required value="<?php echo $fields['firstName']; ?>">
-                <?php if (in_array("firstName", $errors)) { echo $obligatoryField; } ?>
-                <label class="form-field__label" for="lastName">Efternamn</label>
-                <input class="form-field" type="text" name="lastName" id="lastName" required value="<?php echo $fields['lastName']; ?>">
-                <?php if (in_array("lastName", $errors)) { echo $obligatoryField; } ?>
-                <label class="form-field__label" for="eMail">E-post</label>
-                <input class="form-field" type="email" name="eMail" id="eMail" required value="<?php echo $fields['eMail']; ?>">
-                <?php if (in_array("eMail", $errors)) { echo $obligatoryFieldEmail; } ?>
+                <label class="form-field__label" for="username">Användarnamn</label>
+                <input class="form-field" type="text" name="username" id="username" required value="<?php echo $fields['username']; ?>">
+                <?php if (in_array("username", $errors)) { echo $obligatoryField; } ?>
+                <label class="form-field__label" for="password">Lösenord</label>
+                <input class="form-field" type="password" name="password" id="password" required value="<?php echo $fields['password']; ?>">
+                <?php if (in_array("password", $errors)) { echo $obligatoryField; } ?>
+                <label class="form-field__label" for="firstname">Förnamn</label>
+                <input class="form-field" type="text" name="firstname" id="firstname" required value="<?php echo $fields['firstname']; ?>">
+                <?php if (in_array("firstname", $errors)) { echo $obligatoryField; } ?>
+                <label class="form-field__label" for="lastname">Efternamn</label>
+                <input class="form-field" type="text" name="lastname" id="lastname" required value="<?php echo $fields['lastname']; ?>">
+                <?php if (in_array("lastname", $errors)) { echo $obligatoryField; } ?>
+                <label class="form-field__label" for="email">E-post</label>
+                <input class="form-field" type="email" name="email" id="email" required value="<?php echo $fields['email']; ?>">
+                <?php if (in_array("email", $errors)) { echo $obligatoryFieldEmail; } ?>
                 <label class="form-field__label" for="website">Webbplats</label>
                 <input class="form-field" type="text" name="website" id="website" required value="<?php echo $fields['website']; ?>">
                 <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
@@ -191,4 +162,8 @@
     </form>
     <?php endif; ?>
 </main>
-<?php include_once "../templates/footer.php"; ?>
+<?php
+    $stmt -> close();
+    $conn -> close();
+    include_once "../templates/footer.php";
+?>
