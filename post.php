@@ -56,7 +56,6 @@
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
 
-// End of variables regarding error messages ***********************************
 
     if (isset($_POST["add-comment"])) {
 
@@ -229,5 +228,12 @@
     </article>
 </main>
 <!-- TODO: Remove dev link when final -->
-<?php else: echo "<p class='error-msg'>".$errorMessage."</p>"; echo "<u><a href=\"?getpost=1\">for developers</a></u>"; endif; ?>
-<?php require_once "./templates/footer.php"; ?>
+<?php else: ?>
+    <p class="error-msg"><?php echo $errorMessage; ?></p>
+    <u><a href=\"?getpost=1\">for developers</a></u>
+<?php
+    endif;
+    $stmt -> close();
+    $conn -> close();
+    require_once "./templates/footer.php";
+?>
