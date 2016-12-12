@@ -39,10 +39,6 @@
 
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
 
-    $obligatoryFieldWebsite = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt. Formatera enligt: <br>
-    https://www.catsandspace.com/ eller http://www.catsandspace.com/</p>";
-
-
     // Set key for printing register form
     if (isset ($_POST["add-user"])) {
         $addUser = TRUE;
@@ -70,14 +66,6 @@
         // This checks if email is written correctly. If not, return an error message.
         if ($key = 'eMail') {
             if (!filter_var($fields['eMail'], FILTER_VALIDATE_EMAIL)) {
-                $allRequiredFilled = FALSE;
-                array_push($errors, $key);
-            }
-        }
-
-        // This checks if website is written correctly. If not, return an error message.
-        if ($key = 'website') {
-            if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
                 $allRequiredFilled = FALSE;
                 array_push($errors, $key);
             }
@@ -191,19 +179,16 @@
                 <?php if (in_array("eMail", $errors)) { echo $obligatoryFieldEmail; } ?>
                 <label class="form-field__label" for="website">Webbplats</label>
                 <input class="form-field" type="text" name="website" id="website" required value="<?php echo $fields['website']; ?>">
-                <?php if (in_array("website", $errors)) { echo $obligatoryFieldWebsite; } ?>
+                <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
 
                 <button type="submit" name="register" value="Lägg till" class="button" id="nav-adduser-end">Lägg till</button>
             </fieldset>
         </form>
     </div>
     <?php else: ?>
-    <!-- Form to add new users -->
     <form method="post" action="#nav-users-top">
         <button type="submit" name="add-user" value="true" class="button margin-bottom-l" id="nav-adduser">Lägg till ny användare</button>
     </form>
     <?php endif; ?>
 </main>
-<?php
-    include_once "../templates/footer.php"; // Footer.
-?>
+<?php include_once "../templates/footer.php"; ?>
