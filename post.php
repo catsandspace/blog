@@ -1,12 +1,7 @@
 <?php
-    require_once "./templates/header.php";
+    require_once "./assets/db_connect.php";
+    require_once "./assets/session.php";
     require_once "./assets/functions.php";
-
-    //TODO: ERROR-MESSAGES/404
-    //TODO: REMOVE DEV LINK
-    //TODO: CHECK $stmt->close();
-    //TODO: FIGURE OUT HOW "DIN WEBBPLATS" IS GOING TO WORK
-    //TODO: remove "novalidate" when finished debugging.
 
 /*******************************************************************************
    GET SELECTED POST WHERE ID = post.php?getpost[id]
@@ -34,36 +29,13 @@
             $stmt->fetch();
 
         } else {
-            // TODO: Replace with 404 page.
             $errorMessage = "Något gick fel när sidan skulle hämtas.";
         }
     }
 
-/*******************************************************************************
-   GET COMMENTS ASSOCIATING WITH POST
-*******************************************************************************/
-
-    if (isset($_GET['getpost'])) {
-        $query  =
-        "SELECT
-        comments.*,
-        users.username,
-        users.email,
-        users.website
-        FROM comments
-        LEFT JOIN users
-        ON comments.userid = users.id
-        WHERE postid = '{$getPost}'
-        ORDER BY date DESC";
-
-        if ($stmt -> prepare($query)):
-            $stmt-> execute();
-            $stmt -> bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId, $userName, $userMail, $userWebsite);
-
-        else:
-            // TODO: 404?
-            $errorMessage = "Något gick fel när kommentarerna skulle hämtas.";
-        endif;
+    if ($postId == NULL) {
+        // TODO: Show 404-page instead?
+        $errorMessage = "Vi hittade inget inlägg med angivet id";
     }
 
 /*******************************************************************************
@@ -80,16 +52,9 @@
     $allRequiredFilled = TRUE;
     $errors = array();
 
-// Variables regarding error messages ******************************************
-
     $errorInfo = "<p class=\"error-msg\">Ooops, något gick fel! Se felmeddelanden nedan.</p>";
-
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
-
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
-
-    $obligatoryFieldWebsite = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt. Formatera enligt: <br>
-    https://www.catsandspace.com/ eller http://www.catsandspace.com/</p>";
 
 // End of variables regarding error messages ***********************************
 
@@ -116,20 +81,11 @@
             }
         }
 
-        // TODO: Don't repeat yourself! Check if you can make this more dry.
-        // This checks if email is written correctly. If not, return an error message.
-        if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
+        // Check if email is correctly formatted.
+        if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE) {
 
             if ($key = 'email') {
                     if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
-                        $allRequiredFilled = FALSE;
-                        array_push($errors, $key);
-                    }
-                }
-
-            // This checks if website is written correctly. If not, return an error message.
-            if ($key = 'website') {
-                    if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
                         $allRequiredFilled = FALSE;
                         array_push($errors, $key);
                     }
@@ -140,8 +96,8 @@
 
             if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
                 $uid = $_SESSION["userid"];
-                $content = $_POST["content"];
-                $query = "INSERT INTO comments VALUES ('', '{$uid}', now(), '', '', '{$content}', '', '{$getPost}')";
+                $commentContent = $_POST["content"];
+                $query = "INSERT INTO comments VALUES ('', '{$uid}', now(), '', '', '{$commentContent}', '', '{$getPost}')";
 
                 if ($stmt->prepare($query)) {
                     $stmt->execute();
@@ -171,13 +127,32 @@
         }
     }
 
+    require_once "./templates/header.php";
+
 /*******************************************************************************
-   ERROR MESSAGE
+   GET COMMENTS ASSOCIATING WITH POST
 *******************************************************************************/
 
-    if ($postId == NULL) {
-        // TODO: Show 404-page instead?
-        $errorMessage = "Vi hittade inget inlägg med angivet id";
+    if (isset($_GET['getpost'])) {
+        $query  =
+        "SELECT
+        comments.*,
+        users.username,
+        users.email,
+        users.website
+        FROM comments
+        LEFT JOIN users
+        ON comments.userid = users.id
+        WHERE postid = '{$getPost}'
+        ORDER BY date DESC";
+
+        if ($stmt -> prepare($query)):
+            $stmt-> execute();
+            $stmt -> bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId, $userName, $userMail, $userWebsite);
+
+        else:
+            $errorMessage = "Något gick fel när kommentarerna skulle hämtas.";
+        endif;
     }
 
 /*******************************************************************************
@@ -222,7 +197,7 @@
                     <?php if (in_array("email", $errors)) { echo $obligatoryFieldEmail; } ?>
                     <label class="form-field__label" for="website">Din webbplats</label>
                     <input class="form-field" type="url" name="website" id="website" required value="<?php echo $fields['website']; ?>">
-                    <?php if (in_array("website", $errors)) { echo $obligatoryFieldWebsite; } ?>
+                    <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
                     <?php endif; ?>
                     <button type="submit" class="button margin-bottom-l" name="add-comment">Lägg till</button>
                 </fieldset>
