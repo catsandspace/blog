@@ -1,4 +1,4 @@
-<?php require_once "./templates/header.php"; // Header content. ?>
+<?php require_once "./templates/header.php"; ?>
 <!--************************************************************************************
                                     CONTACT INFORMATION
 *************************************************************************************-->
@@ -36,4 +36,4 @@
     </div>
 </main>
 
- <?php require_once "./templates/footer.php"; ?> <!-- Footer content -->
+ <?php require_once "./templates/footer.php"; ?>
