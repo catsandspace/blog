@@ -80,7 +80,7 @@
             // Diffent strings depending on if categories set
             if ($display) {
                 $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'&display='.$display.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"> <i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a>; ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"> <i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a>';
             } else {
                 $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
                 $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"> <i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> ';
