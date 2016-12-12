@@ -58,9 +58,8 @@
     // Variables with function that devide comments on posts
     $averagePostComments = $NumberOfComments / $NumberOfPosts;
     $roundAverageNumber = number_format($averagePostComments, 2,',', ' ');
-    /***************************************************************************/
-?>
 
+?>
 <main>
     <div class="flexbox-wrapper">
         <h1 class="center-text margin-bottom-l">Hej @<?php echo $currentUser; ?></h1>
@@ -83,7 +82,6 @@
         <?php endif; ?>
         <form method="get">
             <button type="submit" name="statistics" value="true" class="button">Se statistik </button>
-
         </form>
         <a href="../assets/logout.php" class="button link__button--error" target="_self">Logga ut</a>
     </div>
