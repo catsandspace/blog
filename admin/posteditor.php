@@ -8,9 +8,6 @@
         header("Location: ../login.php");
     }
 
-    // Don't print out HTML from "header.php" before login check is done.
-    require_once "../templates/header.php";
-
     // This is used to populate input fields.
     $fields = array(
         "publish" => "",
@@ -145,6 +142,9 @@
             }
         }
     }
+
+    // This prints out HTML from header.php.
+    require_once "../templates/header.php";
 
 /*******************************************************************************
    START OF QUERY THAT PRINTS CATEGORIES
