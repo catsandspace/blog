@@ -27,6 +27,7 @@
     $errors = array();
 
     // Variables regarding error message.
+    $errorInfo = "<p class=\"error-msg\">Ooops, något gick fel!</p>";
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
 
@@ -131,7 +132,7 @@
         <form method="post">
             <fieldset>
                 <h2>Lägg till ny användare</h2>
-                <?php if (!empty($errors)) { echo "<p class=\"error-msg\">Ooops, något gick fel!</p>"; } ?>
+                <?php if (!empty($errors)) { echo $errorInfo; } ?>
                 <legend class="hidden">Lägg till ny användare</legend>
                 <label class="form-field__label" for="username">Användarnamn</label>
                 <input class="form-field" type="text" name="username" id="username" required value="<?php echo $fields['username']; ?>">
