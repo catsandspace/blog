@@ -1,5 +1,4 @@
 <?php
-   require_once "./templates/header.php";
    require_once "./assets/db_connect.php";
    require_once "./assets/functions.php";
    require_once "./assets/session.php";
@@ -40,6 +39,9 @@
             $errorMessage = "Misslyckades att logga in!";
         }
     }
+
+    // Don't print out HTML from "header.php" before login check is done.
+    require_once "./templates/header.php";
 ?>
 <main>
     <h1>Logga in</h1>

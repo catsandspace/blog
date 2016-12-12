@@ -1,14 +1,20 @@
 <?php
-    require_once "../templates/header.php";
+    require_once "../assets/db_connect.php";
+    require_once "../assets/functions.php";
+    require_once "../assets/session.php";
 
     // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
 
+
     // Redirect to .dashboard.php if user is not a superadmin.
     } elseif ($_SESSION["permission"] != 1) {
         header("Location: ./dashboard.php");
     }
+
+    // Don't print out HTML from "header.php" before login check is done.
+    require_once "../templates/header.php";
 
     // Reset functions for the internal variables
     $changeCategoryId = NULL;
@@ -91,6 +97,7 @@
     endif;
 
     $change = FALSE;
+
 ?>
 <main>
     <h1 class="center-text margin-bottom-l">Kategorier</h1>
