@@ -151,7 +151,7 @@
     ?>
             <article class="blogpost__article">
                 <div class="blogpost-wrapper">
-                    <a href="post.php?getpost=<?php echo $post["id"] ?>"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img"></a>
+                    <a href="post.php?getpost=<?php echo $post["id"] ?>"><div class="blogpost-wrapper__img-container"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img"></div></a>
                     <div class="comment-bubble">
                         <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
                         <p class="comment-bubble__number <?php echo $bubbleClass; ?>"><?php echo "$totalNumberOfComments" ?></p></a>
