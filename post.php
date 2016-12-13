@@ -194,7 +194,7 @@
                         <?php if (in_array("email", $errors)) { echo $obligatoryFieldEmail; } ?>
 
                         <label class="form-field__label" for="website">Din webbplats</label>
-                        <input class="form-field" type="url" name="website" id="website" required value="<?php echo $fields['website']; ?>">
+                        <input class="form-field" type="text" name="website" id="website" required value="<?php echo $fields['website']; ?>">
                         <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
 
                     <?php endif; ?>

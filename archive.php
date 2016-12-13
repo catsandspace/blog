@@ -48,8 +48,6 @@
         $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
     }
 
-    // TODO: Get the styling right on buttons, select and svg. Unclear if this one is done or not
-
     // Array that contains months and number for sorting posts
     $month = array(
         array("Januari", "01"),
@@ -59,13 +57,46 @@
         array("Maj", "05"),
         array("Juni", "06"),
         array("Juli", "07"),
-        array("augusti", "08"),
+        array("Augusti", "08"),
         array("September", "09"),
         array("Oktober", "10"),
         array("November", "11"),
         array("December", "12")
         );
 
+?>
+<?php
+
+    $totalNumberOfMonthPosts = NULL;
+    $errorMessage = NULL;
+
+    // $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
+
+    if ($stmt->prepare($query)) {
+        $stmt->execute();
+        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
+        $stmt->store_result();
+    } else {
+        $errorMessage = "Något gick fel.";
+    }
+
+    while (mysqli_stmt_fetch($stmt)) {
+
+            $totalNumberOfMonthPosts++;
+    }
+    /********************************************************************
+                    Start of page headline info
+    ********************************************************************/
+    $headLine = "Alla inlägg";
+    if(isset($_GET["month"])) {
+
+        foreach($month as $actualMonth) {
+
+            if ($actualMonth[1] == $_GET["month"]) {
+                $headLine = $actualMonth[0];
+            }
+        }
+    }
 ?>
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
@@ -74,24 +105,54 @@
         <div class="select-arrows">
         <select class="form-field form-field__select" name="month" id="sort">
             <option value="all">Alla</option>
-            <?php foreach($month as $actualMonth): ?>
-             <option value="<?php echo $actualMonth[1]; ?>"><?php echo $actualMonth[0]; ?></option>
+            <?php foreach($month as $actualMonth):
+                $selectedAttribute = "";
+                if(isset($_GET["month"]) && $_GET["month"] == $actualMonth[1]) {
+                    $selectedAttribute = "selected";
+                }
+            ?>
+             <option value="<?php echo $actualMonth[1]; ?>" <?php echo $selectedAttribute; ?>><?php echo $actualMonth[0]; ?></option>
             <?php endforeach; ?>
         </select>
-          <select class="form-field form-field__select" name="sort" id="sort">
-              <option value="desc">Senast publicerad</option>
-              <option value="asc">Tidigast publicerad</option>
-              <option value="name">Sortera efter bokstavsordning (A-Z)</option>
-          </select>
+        <select class="form-field form-field__select" name="sort" id="sort">
+            <?php
+                $selected = "";
+                if (isset($_GET["sort"])) {
+                    $selected = $_GET["sort"];
+                }
+            ?>
+          <option value="desc" <?php if ($selected == "desc") { echo "selected"; } ?> >Senast publicerad</option>
+          <option value="asc" <?php if ($selected == "asc") { echo "selected"; } ?> >Tidigast publicerad</option>
+          <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Sortera efter bokstavsordning (A-Z)</option>
+        </select>
           <button class="button button--small border-radius margin-bottom-l" type="submit">Sortera</button>
-          <!-- <svg class="icon select-arrows">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-arrows"></use>
-          </svg> -->
         </div>
     </form>
     <div class="list-wrapper">
-        <!-- TODO: Fix so that correct months displays with actual posts -->
-        <h2><?php echo $actualMonth[0]; ?></h2>
+        <h1><?php echo $headLine; ?></h1>
+
+        <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
+    <!-- <?php
+        // $totalNumberOfComments = 0;
+        // $errorMessage = NULL;
+
+        // $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
+
+        // if ($stmt->prepare($query)) {
+        //     $stmt->execute();
+        //     $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
+        //     $stmt->store_result();
+        // } else {
+        //     $errorMessage = "Något gick fel.";
+        // }
+
+        // while (mysqli_stmt_fetch($stmt)) {
+
+        //         $totalNumberOfComments++;
+        //     }
+
+    ?>-->
+        <p><?php echo $totalNumberOfMonthPosts; ?></p> <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
         <ul class="no-padding">
         <?php while (mysqli_stmt_fetch($stmt)): ?>
             <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($created); ?>]</span><a href="post.php?getpost=<?php echo $id ?>"><?php echo $title; ?></a></li>
@@ -99,4 +160,8 @@
         </ul>
     </div>
 </main>
+<?php if($errorMessage) {
+    echo $errorMessage;
+}
+?>
 <?php require_once "./templates/footer.php"; ?>
