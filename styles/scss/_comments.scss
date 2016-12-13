@@ -2,7 +2,7 @@
 .comment-bubble {
     position: absolute;
     bottom: 1rem;
-    right: 1rem;
+    right: 1.5rem;
     cursor: pointer;
     @include flexbox();
     @include flexboxJustifyContent(flex-end)

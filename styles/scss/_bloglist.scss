@@ -11,6 +11,7 @@
     @include sizeDesktop {
         width: 32%;
         margin-bottom: 10px;
+        background-color: #13171A;
     }
 }
 
@@ -18,6 +19,7 @@
 .blogpost__article:last-child {
     @include sizeDesktop {
         width: 100%;
+        background-color: transparent;
     }
 }
 
@@ -46,6 +48,21 @@
 .blogpost-wrapper__img:hover {
     @include sizeDesktop {
         filter: grayscale(0);
+    }
+}
+
+.blogpost-wrapper__img-container {
+    @include sizeDesktop {
+        max-height: 50vh;
+        overflow: hidden;
+        padding: 1rem 1rem 0 1rem;
+    }
+}
+
+.blogpost-wrapper__img-container:first-child,
+.blogpost-wrapper__img-container:last-child {
+    @include sizeDesktop {
+        max-height: 100%;
     }
 }
 
