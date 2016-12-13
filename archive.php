@@ -48,35 +48,57 @@
         $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
     }
 
+    $months = array();
+    while (mysqli_stmt_fetch($stmt)) {
+        array_push($months, array(
+            //"id" => $id,
+            //"userid" => $userId,
+            "name" => date("F", strtotime($created)),
+            "number" => date("n", strtotime($created))
+            //"updated" => $updated,
+            //"image" => $image,
+            //"title" => $title,
+            //"content" => $content,
+            //"published" => $published,
+            //"categoryid" => $categoryId
+        ));
+    }
+
+    for ($i=0; $i < count($months); $i++):
+        $month = $months[$i];
+        echo $month["name"]." ".$month["number"]."<br>";
+    endfor;
+
     // Array that contains months and number for sorting posts
-    $month = array(
-        array("Januari", "01"),
-        array("Februari", "02"),
-        array("Mars", "03"),
-        array("April", "04"),
-        array("Maj", "05"),
-        array("Juni", "06"),
-        array("Juli", "07"),
-        array("Augusti", "08"),
-        array("September", "09"),
-        array("Oktober", "10"),
-        array("November", "11"),
-        array("December", "12")
-        );
+
+    // $month = array(
+    //     array("Januari", "01"),
+    //     array("Februari", "02"),
+    //     array("Mars", "03"),
+    //     array("April", "04"),
+    //     array("Maj", "05"),
+    //     array("Juni", "06"),
+    //     array("Juli", "07"),
+    //     array("Augusti", "08"),
+    //     array("September", "09"),
+    //     array("Oktober", "10"),
+    //     array("November", "11"),
+    //     array("December", "12")
+    //     );
 
     /********************************************************************
                     Start of page headline info
     ********************************************************************/
-    $headLine = "Alla inlägg";
-    if(isset($_GET["month"])) {
-
-        foreach($month as $actualMonth) {
-
-            if ($actualMonth[1] == $_GET["month"]) {
-                $headLine = $actualMonth[0];
-            }
-        }
-    }
+    // $headLine = "Alla inlägg";
+    // if(isset($_GET["month"])) {
+    //
+    //     foreach($month as $actualMonth) {
+    //
+    //         if ($actualMonth[1] == $_GET["month"]) {
+    //             $headLine = $actualMonth[0];
+    //         }
+    //     }
+    // }
 ?>
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
@@ -85,14 +107,17 @@
         <div class="select-arrows">
         <select class="form-field form-field__select" name="month" id="sort">
             <option value="all">Alla</option>
-            <?php foreach($month as $actualMonth):
+
+            <?php for ($i=0; $i < count($months); $i++):
+                $month = $months[$i];
                 $selectedAttribute = "";
-                if(isset($_GET["month"]) && $_GET["month"] == $actualMonth[1]) {
+                if(isset($_GET["month"]) && $_GET["month"] == $actualMonth[0]) {
                     $selectedAttribute = "selected";
                 }
             ?>
-             <option value="<?php echo $actualMonth[1]; ?>" <?php echo $selectedAttribute; ?>><?php echo $actualMonth[0]; ?></option>
-            <?php endforeach; ?>
+
+             <option value="<?php echo $month["number"]; ?>" <?php echo $selectedAttribute; ?>><?php echo $month["name"]; ?></option>
+            <?php endfor; ?>
         </select>
         <select class="form-field form-field__select" name="sort" id="sort">
             <?php
@@ -116,26 +141,7 @@
             <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($created); ?>]</span><a href="post.php?getpost=<?php echo $id ?>"><?php echo $title; ?></a></li>
         <?php endwhile; ?>
         </ul>
-            <?php
-                $totalNumberOfMonthPosts = NULL;
-                $errorMessage = NULL;
 
-                // $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
-
-                if ($stmt->prepare($query)) {
-                    $stmt->execute();
-                    $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
-                    $stmt->store_result();
-                } else {
-                    $errorMessage = "Något gick fel.";
-                }
-
-                while (mysqli_stmt_fetch($stmt)) {
-
-                        $totalNumberOfMonthPosts++;
-                }
-                echo $totalNumberOfMonthPosts;
-            ?>
     </div>
 </main>
 <?php if($errorMessage) {
