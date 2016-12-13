@@ -8,6 +8,17 @@
     display: block;
     margin: 0 auto;
     width: 100%;
+    @include sizeDesktop {
+        width: 32%;
+        margin-bottom: 10px;
+    }
+}
+
+.blogpost__article:first-child,
+.blogpost__article:last-child {
+    @include sizeDesktop {
+        width: 100%;
+    }
 }
 
 .blogpost__message {
@@ -25,6 +36,12 @@
 .blogpost-wrapper__img {
     margin: 0 auto;
     width: 100%;
+}
+
+.blogpost-wrapper__img:hover {
+    @include sizeDesktop {
+        filter: invert(30%);
+    }
 }
 
 // This wrapps all the text in a post, both paragraphs and headline.
@@ -58,4 +75,11 @@
 
 .blogpost-wrapper__links:hover {
     color: $primaryAlternative;
+}
+
+.blogpost__flex-list {
+    @include sizeDesktop {
+        @include flexbox();
+        @include flexboxFlexWrap(wrap);
+    }
 }

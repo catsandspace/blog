@@ -9,9 +9,8 @@
     $errorMessage = NULL;
 
 
-    // Pagination, display 2 posts per page
-    // TODO: change to 5
-    $postPage = 2;
+    // Pagination, display 5 posts per page
+    $postPage = 5;
 
     // Query to check number of rows in table posts
     $query = "SELECT id FROM posts WHERE published = 1";
@@ -125,6 +124,7 @@
                 }
             } else {
         ?>
+        <div class="blogpost__flex-list">
     <?php for ($i=0; $i < count($posts); $i++):
         $post = $posts[$i];
     ?>
@@ -168,6 +168,8 @@
                 </div>
             </article>
     <?php endfor; ?>
+        </div>
+
         <!-- </div> -->
         <div class="pagination-wrapper">
     <div class="pagination-wrapper__text pagination-wrapper__text_bottom">
