@@ -36,11 +36,12 @@
 .blogpost-wrapper__img {
     margin: 0 auto;
     width: 100%;
+    filter: grayscale(100%);
 }
 
 .blogpost-wrapper__img:hover {
     @include sizeDesktop {
-        filter: invert(30%);
+        filter: grayscale(0);
     }
 }
 
