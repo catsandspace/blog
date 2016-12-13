@@ -114,17 +114,17 @@
              <option value="<?php echo $actualMonth[1]; ?>" <?php echo $selectedAttribute; ?>><?php echo $actualMonth[0]; ?></option>
             <?php endforeach; ?>
         </select>
-          <select class="form-field form-field__select" name="sort" id="sort">
-              <?php
-                  $selected = "";
-                  if (isset($_GET["sort"])) {
+        <select class="form-field form-field__select" name="sort" id="sort">
+            <?php
+                $selected = "";
+                if (isset($_GET["sort"])) {
                     $selected = $_GET["sort"];
-                  }
-              ?>
-              <option value="desc" <?php if ($selected == "desc") { echo "selected"; } ?> >Senast publicerad</option>
-              <option value="asc" <?php if ($selected == "asc") { echo "selected"; } ?> >Tidigast publicerad</option>
-              <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Sortera efter bokstavsordning (A-Z)</option>
-          </select>
+                }
+            ?>
+          <option value="desc" <?php if ($selected == "desc") { echo "selected"; } ?> >Senast publicerad</option>
+          <option value="asc" <?php if ($selected == "asc") { echo "selected"; } ?> >Tidigast publicerad</option>
+          <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Sortera efter bokstavsordning (A-Z)</option>
+        </select>
           <button class="button button--small border-radius margin-bottom-l" type="submit">Sortera</button>
         </div>
     </form>
