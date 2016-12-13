@@ -63,10 +63,13 @@
             //"categoryid" => $categoryId
         ));
     }
+    //var_dump($months);
+    //$months = array_map("unserialize", array_unique(array_map("serialize", $months)));
 
     for ($i=0; $i < count($months); $i++):
         $month = $months[$i];
-        echo $month["name"]." ".$month["number"]."<br>";
+        print_r(array_unique($month));
+        //echo $month["name"]." ".$month["number"]."<br>";
     endfor;
 
     // Array that contains months and number for sorting posts
