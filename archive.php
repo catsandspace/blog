@@ -57,7 +57,7 @@
         array("Maj", "05"),
         array("Juni", "06"),
         array("Juli", "07"),
-        array("augusti", "08"),
+        array("Augusti", "08"),
         array("September", "09"),
         array("Oktober", "10"),
         array("November", "11"),
