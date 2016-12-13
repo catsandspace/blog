@@ -1,5 +1,4 @@
 //TODO: change comment-bubble to background-img or something else..
-
 .comment-bubble {
     position: relative;
     cursor: pointer;
@@ -12,12 +11,23 @@
     font-family: $primaryBrandFont;
     font-size: 2.4rem;
     font-weight: 600;
-    right: 2rem;
     position: absolute;
     top: 0.5rem;
     text-align: center;
     margin: 0.2em 0;
     line-height: 1.3em;
+}
+
+.comment-bubble__number-one {
+    right: 2rem;
+}
+
+.comment-bubble__number-two {
+    right: 1.3rem;
+}
+
+.comment-bubble__number-three {
+    right: 0.7rem;
 }
 
 .comment-bubble__offset-text {
