@@ -60,7 +60,7 @@
                 </li>
                 <a href="<?php echo $path; ?>archive.php" class="nav-desktop__list-item"><li>Arkiv</li></a>
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                <li class="nav-desktop__list-item"><i class="fa fa-cog" aria-hidden="true"></i> Kontrollpanel
+                <a href="<?php echo $path; ?>admin/dashboard.php" class="nav-desktop__list-item"><li class="nav-desktop__list-item"><i class="fa fa-cog" aria-hidden="true"></i> Kontrollpanel</a>
                     <ul class="nav-desktop__dropdown">
                         <a href="<?php echo $path; ?>admin/posteditor.php" class="nav-desktop__dropdown-item"><li>Skapa nytt inlägg</li></a>
                         <a href="<?php echo $path; ?>admin/postlist.php" class="nav-desktop__dropdown-item"><li>Se alla inlägg</li></a>
