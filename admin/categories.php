@@ -28,31 +28,41 @@
     if (isset ($_POST["change-category"])):
         if (!empty($_POST["checklist"])):
             $count = 0;
+
             foreach ($_POST['checklist'] as $selected):
                 $catId = $selected;
                 $count ++;
             endforeach;
+
             if ($count > 1):
                 $errorMessage = "Du kan bara ändra en kategori åt gången.";
                 $catId = NULL;
+
             else:
                 $changeCategoryId = $selected;
+
             endif;
+
         elseif (!empty($_POST["categoryChange"])):
+
             $category = mysqli_real_escape_string($conn, $_POST["categoryChange"]);
             $catId = $_POST["catId"];
-            echo $category;
-            echo $catId;
-            $query = "UPDATE categories SET name = '$category' WHERE id = '$catId'";
+            $query = "UPDATE categories SET name = '{$category}' WHERE id = '{$catId}'";
+
             if ($stmt -> prepare($query)):
                 $stmt->execute();
                 header("Location: ./categories.php");
+
             else:
                 $errorMessage = $queryFailed;
+
             endif;
+
         else:
             $errorMessage = "Du måste välja vilken kategori du vill ändra.";
+
         endif;
+
     endif;
 
 /*******************************************************************************
@@ -60,10 +70,13 @@
 *******************************************************************************/
 
     if (isset($_POST["removeCat"])):
+
         if (!empty($_POST["checklist"])):
+
             foreach ($_POST['checklist'] as $selected):
                 $catId = $selected;
-                $query = "DELETE FROM categories WHERE id=$catId";
+                $query = "DELETE FROM categories WHERE id = '{$catId}'";
+
                 if ($stmt->prepare($query)):
                     $stmt->execute();
                     header("Location: ./categories.php");
@@ -85,7 +98,7 @@
         if (!empty($_POST["category"])):
 
             $category = mysqli_real_escape_string($conn, $_POST["category"]);
-            $query = "INSERT INTO categories VALUES (NULL, '$category')";
+            $query = "INSERT INTO categories VALUES (NULL, '{$category}')";
 
             if ($stmt->prepare($query)):
                 $stmt->execute();
