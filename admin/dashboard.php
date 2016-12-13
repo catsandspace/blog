@@ -8,12 +8,8 @@
       header("Location: ../login.php");
     }
 
-    $currentUser = $_SESSION["username"];
-    $currentUsersPermission = $_SESSION["permission"];
-    $userPermission = convertPermissionToString($currentUsersPermission);
-
 /*******************************************************************************
-    START OF GETTING OVERALL BLOG STATISTICS
+    START OF OVERALL BLOG STATISTICS
 *******************************************************************************/
 
     $NumberOfPosts = NULL;
@@ -63,12 +59,15 @@
     $averagePostComments = $NumberOfComments / $NumberOfPosts;
     $roundAverageNumber = number_format($averagePostComments, 2,',', ' ');
 
-    // Print out HTML from header.php ------------------------------------------
+/*******************************************************************************
+    GET HEADER INFO
+*******************************************************************************/
+
     require_once "../templates/header.php";
 ?>
 <main>
     <div class="flexbox-wrapper">
-        <h1 class="center-text margin-bottom-l">Hej @<?php echo $currentUser; ?></h1>
+        <h1 class="center-text margin-bottom-l">Hej @<?php echo $_SESSION["username"]; ?></h1>
         <?php if ($errorMessage): ?>
             <p class="error-msg"><?php echo $errorMessage; ?></p>
         <?php endif; ?>
@@ -85,7 +84,7 @@
         <a href="./posteditor.php" class="button link__button">Skapa nytt inlägg</a>
         <a href="./postlist.php" class="button link__button">Se alla inlägg</a>
         <a href="./comments.php" class="button link__button">Se alla kommentarer</a>
-        <?php if ($currentUsersPermission == 1): ?>
+        <?php if ($currentUserPermission == 1): ?>
         <a href="./categories.php" class="button link__button">Hantera kategorier</a>
         <a href="./users.php" class="button link__button">Hantera användare</a>
         <?php endif; ?>

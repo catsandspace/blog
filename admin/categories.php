@@ -115,6 +115,8 @@
                     $changeCat = $category;
                 }
             endwhile; ?>
+
+
             <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
             <?php if ($change): ?>
             <label class="form-field__label" for="categoryChange">Ändra kategori <?php echo $changeCat; ?></label>
