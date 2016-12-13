@@ -21,15 +21,19 @@
     START OF QUERY TO REMOVE COMMENT
 *******************************************************************************/
 
-    // If-statement to check if button for removing comments is set
     if (isset ($_POST["remove-comment"])):
+
         $commentToDelete = $_POST["remove-comment"];
         $query = "DELETE FROM comments WHERE id = '{$commentToDelete}'";
+
         if ($stmt->prepare($query)):
             $stmt->execute();
+
         else:
             $errorMessage = $queryFailed;
+
         endif;
+
     endif;
 
 /*******************************************************************************
@@ -38,18 +42,22 @@
 
     if ($_SESSION["permission"] == 1):
 
-        // select all comments and username and email from user
-        $query  = "SELECT comments.*, users.username, users.email
+        $query = "SELECT comments.*, users.username, users.email, posts.title
                     FROM comments
                     LEFT JOIN users
-                    ON comments.userid = users.id";
+                    ON comments.userid = users.id
+                    LEFT JOIN posts
+                    ON comments.postid = posts.id";
+
         if ($stmt -> prepare($query)):
             $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail);
+            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail, $postTitle);
 
         else:
             $errorMessage = $queryFailed;
+
         endif;
+
     endif;
 
 /*******************************************************************************
@@ -57,21 +65,26 @@
 *******************************************************************************/
 
     if ($_SESSION["permission"] == 0):
+
         $userId = $_SESSION["userid"];
-        $query  = "SELECT comments.*, users.username, users.email
+
+        $query  = "SELECT comments.*, users.username, users.email, posts.title
                     FROM comments
                     LEFT JOIN users
                     ON comments.userid = users.id
                     LEFT JOIN posts
                     ON comments.postid = posts.id
                     WHERE posts.userid = '{$userId}'";
+
         if ($stmt -> prepare($query)):
             $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail);
+            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail, $postTitle);
 
         else:
             $errorMessage = $queryFailed;
+
         endif;
+
     endif;
 ?>
 <main>
@@ -103,7 +116,7 @@
                         [Kommentar på inlägg:
                             <?php
                             // TODO: Change this to post title instead.
-                            echo $postId;
+                            echo $postTitle;
                             ?>]
                         </td>
                         <td class="inline-block">
