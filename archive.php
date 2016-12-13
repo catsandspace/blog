@@ -87,7 +87,7 @@
             $totalNumberOfMonthPosts++;
     }
     /********************************************************************
-      Start of page headline info
+                    Start of page headline info
     ********************************************************************/
     $headLine = "Alla inlägg";
     if(isset($_GET["month"])) {
