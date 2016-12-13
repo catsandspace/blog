@@ -8,19 +8,16 @@
       header("Location: ../login.php");
     }
 
-    // Don't print out HTML from "header.php" before login check is done.
-    require_once "../templates/header.php";
 
     $currentUser = $_SESSION["username"];
     $currentUsersPermission = $_SESSION["permission"];
-
-    // This checks current user's permission level.
     $userPermission = convertPermissionToString($currentUsersPermission);
 
-    /*****************************************************************************
-     Fetching and displaying total number of posts, comments and generally
-     how many comments on each posts.
-    *****************************************************************************/
+    require_once "../templates/header.php";
+
+/*****************************************************************************
+    START OF GETTING BLOG STATISTICS
+*****************************************************************************/
 
     $NumberOfPosts = NULL;
     $NumberOfComments = NULL;
