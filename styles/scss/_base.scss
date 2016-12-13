@@ -118,7 +118,7 @@ header {
 
 .nav-desktop__list li:hover {
     background: $primary;
-    color: #fff;
+    color: $primaryTextcolor;
 }
 
 .nav-desktop__list li ul {
@@ -144,7 +144,7 @@ header {
 .nav-desktop__list li ul li {
     background: $primaryAlternative2;
     display: block;
-    color: #fff;
+    color: $primaryTextcolor;
     text-shadow: 0 -0.1rem 0 #000;
     padding: 2.5rem 2rem;
 }
