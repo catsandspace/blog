@@ -61,7 +61,7 @@
     START OF QUERIES TO PRINT OUT VARIABLES ON PAGE
 *******************************************************************************/
 
-    $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC $limit";
+    $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC $limit";
 
     if (isset($_GET["display"])) {
         $display = $_GET["display"];
@@ -138,44 +138,42 @@
 ?>
 <main class="blogpost">
     <div class="pagination-wrapper">
-        <?php
-            echo $paginationCtrls;
-        ?>
+        <?php echo $paginationCtrls; ?>
     </div>
-    <?php if (count($posts)<1){
-            if ($display != NULL) {
-                echo "<p class='blogpost__message'>Det finns inga inlägg i vald kategori!</p>";
-            } else {
-                echo "<p class='blogpost__message'>Det finns inga inlägg!</p>";
-            }
-        } else {
-    ?>
+    <?php if (count($posts) < 1):
+        if ($display != NULL): ?>
+            <h1 class="center-text">Det finns inga inlägg i vald kategori.</h1>
+        <?php else: ?>
+            <h1 class="center-text">Det finns inga inlägg.</h1>
+        <?php endif; ?>
+    <?php else: ?>
+
     <div class="blogpost__flex-list">
-<?php for ($i=0; $i < count($posts); $i++):
-    $post = $posts[$i];
-    $id = $post["id"];
-    $totalNumberOfComments = 0;
-    $errorMessage = NULL;
+        <?php for ($i = 0; $i < count($posts); $i++):
+            $post = $posts[$i];
+            $id = $post["id"];
+            $totalNumberOfComments = 0;
+            $errorMessage = NULL;
 
-    $query = "SELECT id FROM comments WHERE postid = '{$id}'";
-    // Execute query.
-    if ($stmt->prepare($query)) {
-        $stmt->execute();
-        $stmt->store_result();
-        $totalNumberOfComments = $stmt->num_rows; // Number of rows in comments for post
-    }
-    else {
-        $errorMessage = "Fel på query.";
-    }
+            $query = "SELECT id FROM comments WHERE postid = '{$id}'";
 
-    if ($totalNumberOfComments<10) {
-        $bubbleClass = "comment-bubble__number-one";
-    } else if ($totalNumberOfComments<100) {
-        $bubbleClass = "comment-bubble__number-two";
-    } else {
-        $bubbleClass = "comment-bubble__number-three";
-    }
-?>
+            if ($stmt->prepare($query)) {
+                $stmt->execute();
+                $stmt->store_result();
+                $totalNumberOfComments = $stmt->num_rows;
+            } else {
+                $errorMessage = $queryFailed;
+            }
+
+            // Choose class on comment bubble depending on number of comments.
+            if ($totalNumberOfComments < 10) {
+                $bubbleClass = "comment-bubble__number-one";
+            } elseif ($totalNumberOfComments < 100) {
+                $bubbleClass = "comment-bubble__number-two";
+            } else {
+                $bubbleClass = "comment-bubble__number-three";
+            }
+        ?>
         <article class="blogpost__article">
             <div class="blogpost-wrapper">
                 <a href="post.php?getpost=<?php echo $post["id"] ?>"><div class="blogpost-wrapper__img-container"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img"></div></a>
@@ -189,26 +187,14 @@
                 </div>
             </div>
         </article>
-<?php endfor; ?>
+        <?php endfor; ?>
     </div>
-
-    <!-- </div> -->
     <div class="pagination-wrapper">
-<div class="pagination-wrapper__text pagination-wrapper__text_bottom">
-<?php
-    echo $paginationCtrls;
-?>
+        <div class="pagination-wrapper__text pagination-wrapper__text_bottom">
+            <?php echo $paginationCtrls; ?>
+        </div>
     </div>
-</div>
-<?php
-    }
-?>
+    <?php endif; ?>
+    <?php if ($errorMessage) { echo $errorMessage; } ?>
 </main>
-
-<?php
-    if ($errorMessage) { echo $errorMessage; }
-?>
-
-<?php
-    require_once "./templates/footer.php";
-?>
+<?php require_once "./templates/footer.php"; ?>

@@ -1,5 +1,14 @@
+// This should be hierarchically structured. We have some renaming to do.
 .blogpost {
     padding: 10rem 0 3rem 0;
+}
+
+.blogpost__flex-list {
+    @include sizeDesktop {
+        margin: 0 -5px;
+        @include flexbox();
+        @include flexboxFlexWrap(wrap);
+    }
 }
 
 .blogpost__article {
@@ -19,15 +28,6 @@
         padding: 0;
         width: 100%;
     }
-}
-
-.blogpost__link:hover {
-    color: $complimentary;
-}
-
-.blogpost__message {
-    text-align: center;
-    font-size: 3rem;
 }
 
 .blogpost-wrapper {
@@ -87,7 +87,7 @@
 }
 
 .blogpost-wrapper__tags {
-    margin: 0.2em 0;
+    margin: 0.2em 0 4rem;
     line-height: 1.3em;
     color: $primary;
     font-family: $primaryBrandFont;
@@ -101,10 +101,6 @@
     color: $primaryAlternative;
 }
 
-.blogpost__flex-list {
-    @include sizeDesktop {
-        margin: 0 -5px;
-        @include flexbox();
-        @include flexboxFlexWrap(wrap);
-    }
+.blogpost__link:hover {
+    color: $complimentary;
 }
