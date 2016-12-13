@@ -1,7 +1,4 @@
 <?php require_once "./templates/header.php"; ?>
-<!--************************************************************************************
-                                    CONTACT INFORMATION
-*************************************************************************************-->
 <main>
     <h1 class="center-text">Kontaktinformation</h1>
     <div class="flexbox-wrapper">
@@ -35,5 +32,4 @@
         </div>
     </div>
 </main>
-
  <?php require_once "./templates/footer.php"; ?>
