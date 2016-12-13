@@ -1,15 +1,20 @@
 .pagination-wrapper__text {
     @include complimentaryText;
     @include introductionText;
+    font-size: 2.5rem;
+    margin: 0 0 0.7rem 0;
+}
+
+.pagination-wrapper__text_bottom {
+    margin: 0;
 }
 
 .pagination-wrapper__text:hover {
     color: $complimentaryHover;
 }
 
-
 .pagination-wrapper {
     width: 100%;
-    padding-bottom: 1rem;
+    // padding-bottom: 1rem;
     text-align: center;
 }

@@ -1,8 +1,4 @@
 <?php
-    // TODO: Right now, the div with comment bubble show comments is not used.
-    // TODO: Sort out styling on pagination. Let's talk about it!
-    // Decision is needed!
-
     // File to include
     require_once "./templates/header.php";
     require_once "./assets/functions.php";
@@ -79,11 +75,11 @@
             $first = 1;
             // Diffent strings depending on if categories set
             if ($display) {
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'&display='.$display.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"> <i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a>; ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'&display='.$display.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;</a> ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående &nbsp;</a> ';
             } else {
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>';
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"> <i class="fa fa-angle-left" aria-hidden="true"></i> Föregående</a> ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;</a> ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående &nbsp;</a> ';
             }
         }
 
@@ -92,11 +88,11 @@
             $next = $pagenum + 1;
             // Diffent strings depending on if categories set
             if ($display) {
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'&display='.$display.'">Nästa  <i class="fa fa-angle-right" aria-hidden="true"></i> </a> ';
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'&display='.$display.'"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'&display='.$display.'"> Nästa <i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;</a> ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'&display='.$display.'"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a> ';
             } else {
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'">Nästa <i class="fa fa-angle-right" aria-hidden="true"></i></a> ';
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'"> Nästa <i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;</a> ';
+                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a> ';
             }
         }
     }
@@ -112,7 +108,6 @@
             "created" => $created,
             "categoryName" => $categoryName
         ));
-        // TODO: Trim $created so that only date is shown.
     } ?>
     <!-- TODO: un-comment this one when responsive is OK -->
     <!-- <div class="content-slides-in"> -->
@@ -122,7 +117,14 @@
                 echo $paginationCtrls;
             ?>
         </div>
-
+        <?php if (count($posts)<1){
+                if ($display != NULL) {
+                    echo "<p class='blogpost__message'>Det finns inga inlägg i vald kategori!</p>";
+                } else {
+                    echo "<p class='blogpost__message'>Det finns inga inlägg!</p>";
+                }
+            } else {
+        ?>
     <?php for ($i=0; $i < count($posts); $i++):
         $post = $posts[$i];
     ?>
@@ -167,18 +169,22 @@
             </article>
     <?php endfor; ?>
         <!-- </div> -->
-    </main>
-
-<?php
-    if ($errorMessage) { echo $errorMessage; }
-?>
-<div class="pagination-wrapper">
-    <div class="pagination-wrapper__text">
+        <div class="pagination-wrapper">
+    <div class="pagination-wrapper__text pagination-wrapper__text_bottom">
 <?php
     echo $paginationCtrls;
 ?>
     </div>
 </div>
+<?php
+    }
+?>
+    </main>
+
+<?php
+    if ($errorMessage) { echo $errorMessage; }
+?>
+
 <?php
     require_once "./templates/footer.php";
 ?>
