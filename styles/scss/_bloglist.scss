@@ -21,6 +21,10 @@
     }
 }
 
+.blogpost__link:hover {
+    color: $complimentaryHover;
+}
+
 .blogpost__message {
     text-align: center;
     // margin: 0 auto;
@@ -36,11 +40,12 @@
 .blogpost-wrapper__img {
     margin: 0 auto;
     width: 100%;
+    filter: grayscale(100%);
 }
 
 .blogpost-wrapper__img:hover {
     @include sizeDesktop {
-        filter: invert(30%);
+        filter: grayscale(0);
     }
 }
 
@@ -50,9 +55,10 @@
     bottom: 5px;
     color: $baseColor2;
     display: block;
+    float: left;
     left: 0;
     position: relative;
-    padding: 1em 0.7em 0;
+    padding: 0.2em 0.4em 0;
     width: 100%;
 }
 

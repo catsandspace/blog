@@ -108,8 +108,7 @@
             "categoryName" => $categoryName
         ));
     } ?>
-    <!-- TODO: un-comment this one when responsive is OK -->
-    <!-- <div class="content-slides-in"> -->
+
     <main class="blogpost">
         <div class="pagination-wrapper">
             <?php
@@ -127,43 +126,39 @@
         <div class="blogpost__flex-list">
     <?php for ($i=0; $i < count($posts); $i++):
         $post = $posts[$i];
+        $id = $post["id"];
+        $totalNumberOfComments = 0;
+        $errorMessage = NULL;
+
+        $query = "SELECT id FROM comments WHERE postid = '{$id}'";
+        // Execute query.
+        if ($stmt->prepare($query)) {
+            $stmt->execute();
+            $stmt->store_result();
+            $totalNumberOfComments = $stmt->num_rows; // Number of rows in comments for post
+        }
+        else {
+            $errorMessage = "Fel på query.";
+        }
+
+        if ($totalNumberOfComments<10) {
+            $bubbleClass = "comment-bubble__number-one";
+        } else if ($totalNumberOfComments<100) {
+            $bubbleClass = "comment-bubble__number-two";
+        } else {
+            $bubbleClass = "comment-bubble__number-three";
+        }
     ?>
             <article class="blogpost__article">
                 <div class="blogpost-wrapper">
                     <a href="post.php?getpost=<?php echo $post["id"] ?>"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img"></a>
+                    <div class="comment-bubble">
+                        <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
+                        <p class="comment-bubble__number <?php echo $bubbleClass; ?>"><?php echo "$totalNumberOfComments" ?></p></a>
+                    </div>
                     <div class="blogpost-wrapper__text">
-                        <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></h1>
+                        <h1><a href="post.php?getpost=<?php echo $post["id"] ?>" class="blogpost__link"><?php echo formatInnerHtml($post["title"]); ?></a></h1>
                         <p class="blogpost-wrapper__tags">[ Tags: <a href="?display=<?php echo $post["categoryId"] ?>" class="blogpost-wrapper__links"><?php echo str_replace(' ', '', $post["categoryName"]); ?> ]</a> [ Publicerad: <?php echo formatDate($post["created" ]); ?> ]</p>
-                        <div class="comment-bubble">
-                                <?php // START OF COMMENTS
-
-                                // TODO: Right now, this div is not used. Delete if we don't want it.
-
-                                $totalNumberOfComments = 0;
-                                $errorMessage = NULL;
-
-                                $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
-
-                                if ($stmt->prepare($query)) {
-                                    $stmt->execute();
-                                    $stmt->bind_result($commentId, $userId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId);
-                                } else {
-                                    $errorMessage = "Något gick fel.";
-                                }
-
-                                while (mysqli_stmt_fetch($stmt)):
-                                    $stmt->store_result();
-                                    $numberOfComments = mysqli_stmt_num_rows($stmt);
-
-                                    if ($post["id"] == $postId) {
-                                        $totalNumberOfComments++;
-                                    }
-
-                                endwhile;
-                                ?>
-                            <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
-                            <p class="comment-bubble__number"><?php echo "$totalNumberOfComments" ?></p></a>
-                        </div>
                     </div>
                 </div>
             </article>

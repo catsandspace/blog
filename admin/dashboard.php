@@ -8,61 +8,69 @@
       header("Location: ../login.php");
     }
 
-
-    $currentUser = $_SESSION["username"];
-    $currentUsersPermission = $_SESSION["permission"];
-    $userPermission = convertPermissionToString($currentUsersPermission);
-
-    require_once "../templates/header.php";
-
-/*****************************************************************************
-    START OF GETTING BLOG STATISTICS
-*****************************************************************************/
+/*******************************************************************************
+    START OF OVERALL BLOG STATISTICS
+*******************************************************************************/
 
     $NumberOfPosts = NULL;
     $NumberOfComments = NULL;
     $errorMessage = NULL;
+    $errorStatistics = "Något gick fel vid försök att hämta statistik";
 
-    // Fetching post row id from database
+
+    // Get postid from all published posts -------------------------------------
     $query = "SELECT id FROM posts WHERE published = 1";
 
     if ($stmt->prepare($query)) {
 
         $stmt->execute();
         $stmt->bind_result($id);
+
     } else {
-        $errorMessage = "Något gick fel vid försök att hämta statistik";
+
+        $errorMessage = $errorStatistics;
     }
-    // Counting number of posts id and sums it up
+
     while (mysqli_stmt_fetch($stmt)) {
 
         $stmt->store_result();
         $NumberOfPosts++;
     }
-    // Fetching comments row id from database
-     $query = "SELECT id FROM comments";
+
+    // Get id from all comments ------------------------------------------------
+    $query = "SELECT id FROM comments";
 
     if ($stmt->prepare($query)) {
 
         $stmt->execute();
         $stmt->bind_result($id);
+
     } else {
-        $errorMessage = "Något gick fel vid försök att hämta statistik";
+
+        $errorMessage = $errorStatistics;
     }
-    // Counting number of comments id and sums it up
+
     while (mysqli_stmt_fetch($stmt)) {
 
         $stmt->store_result();
         $NumberOfComments++;
     }
-    // Variables with function that devide comments on posts
+
     $averagePostComments = $NumberOfComments / $NumberOfPosts;
     $roundAverageNumber = number_format($averagePostComments, 2,',', ' ');
 
+/*******************************************************************************
+    GET HEADER INFO
+*******************************************************************************/
+
+    require_once "../templates/header.php";
 ?>
 <main>
     <div class="flexbox-wrapper">
-        <h1 class="center-text margin-bottom-l">Hej @<?php echo $currentUser; ?></h1>
+        <h1 class="center-text margin-bottom-l">Hej @<?php echo $_SESSION["username"]; ?></h1>
+        <?php if ($errorMessage): ?>
+            <p class="error-msg"><?php echo $errorMessage; ?></p>
+        <?php endif; ?>
         <?php if (isset($_GET['statistics'])): ?>
         <div class="border-normal padding-normal relative-container relative-container--boxsizing margin-normal center-text ">
             <h2 class="center-text">Statistik</h2>
@@ -76,7 +84,7 @@
         <a href="./posteditor.php" class="button link__button">Skapa nytt inlägg</a>
         <a href="./postlist.php" class="button link__button">Se alla inlägg</a>
         <a href="./comments.php" class="button link__button">Se alla kommentarer</a>
-        <?php if ($currentUsersPermission == 1): ?>
+        <?php if ($currentUserPermission == 1): ?>
         <a href="./categories.php" class="button link__button">Hantera kategorier</a>
         <a href="./users.php" class="button link__button">Hantera användare</a>
         <?php endif; ?>
@@ -86,5 +94,4 @@
         <a href="../assets/logout.php" class="button link__button--error" target="_self">Logga ut</a>
     </div>
 </main>
-<?php if ($errorMessage) { echo $errorMessage;}
- require_once "../templates/footer.php"; ?>
+<?php require_once "../templates/footer.php"; ?>
