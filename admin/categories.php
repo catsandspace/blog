@@ -43,10 +43,10 @@
 
             endif;
 
-        elseif (!empty($_POST["categoryChange"])):
+        elseif (!empty($_POST["category-change"])):
 
-            $category = mysqli_real_escape_string($conn, $_POST["categoryChange"]);
-            $catId = $_POST["catId"];
+            $category = mysqli_real_escape_string($conn, $_POST["category-change"]);
+            $catId = $_POST["category-id"];
             $query = "UPDATE categories SET name = '{$category}' WHERE id = '{$catId}'";
 
             if ($stmt -> prepare($query)):
@@ -128,6 +128,7 @@
         $stmt->bind_result($catId, $category);
     endif;
 ?>
+
 <main>
     <h1 class="center-text margin-bottom-l">Kategorier</h1>
     <div class="flexbox-wrapper">
@@ -144,25 +145,23 @@
                     $changeCat = $category;
                 }
             endwhile; ?>
-
             <?php if ($errorMessage): ?>
                 <p class="error-msg"><?php echo $errorMessage; ?></p>
             <?php endif; ?>
-
             <?php if ($change): ?>
-            <label class="form-field__label" for="categoryChange">Ändra kategori <?php echo $changeCat; ?></label>
-            <input class="form-field" type="text" name="categoryChange">
-            <input class="form-field" type="hidden" name="catId" value="<?php echo $changeCatId; ?>">
-            <button type="submit" value="Ändra" name="change-category" class="button">Genomför ändring</button>
+                <label class="form-field__label" for="category-change">Ändra kategori <?php echo $changeCat; ?></label>
+                <input class="form-field" type="text" name="category-change">
+                <input class="form-field" type="hidden" name="category-id" value="<?php echo $changeCatId; ?>">
+                <button type="submit" value="Ändra" name="change-category" class="button">Genomför ändring</button>
             <?php else: ?>
-            <button type="submit" value="Ändra" name="change-category" class="button">Ändra</button>
+                <button type="submit" name="change-category" class="button">Ändra</button>
             <?php endif; ?>
-            <button type="submit" value="Ta bort" name="removeCat" class="button error">Ta bort</button>
+            <button type="submit" name="removeCat" class="button error">Ta bort</button>
         </form>
         <form method="post" action="categories.php" class="input-wrapper">
             <label class="form-field__label" for="add-category">Lägg till kategori</label>
             <input class="form-field" type="text" name="category" id="add-category">
-            <button type="submit" value="Lägg till" name="addCat" class="button">Lägg till</button>
+            <button type="submit" name="addCat" class="button">Lägg till</button>
         </form>
     </div>
 </main>
