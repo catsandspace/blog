@@ -64,26 +64,6 @@
         array("December", "12")
         );
 
-?>
-<?php
-
-    $totalNumberOfMonthPosts = NULL;
-    $errorMessage = NULL;
-
-    // $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
-
-    if ($stmt->prepare($query)) {
-        $stmt->execute();
-        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
-        $stmt->store_result();
-    } else {
-        $errorMessage = "Något gick fel.";
-    }
-
-    while (mysqli_stmt_fetch($stmt)) {
-
-            $totalNumberOfMonthPosts++;
-    }
     /********************************************************************
                     Start of page headline info
     ********************************************************************/
@@ -130,34 +110,32 @@
     </form>
     <div class="list-wrapper">
         <h1><?php echo $headLine; ?></h1>
-
-        <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
-    <!-- <?php
-        // $totalNumberOfComments = 0;
-        // $errorMessage = NULL;
-
-        // $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
-
-        // if ($stmt->prepare($query)) {
-        //     $stmt->execute();
-        //     $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
-        //     $stmt->store_result();
-        // } else {
-        //     $errorMessage = "Något gick fel.";
-        // }
-
-        // while (mysqli_stmt_fetch($stmt)) {
-
-        //         $totalNumberOfComments++;
-        //     }
-
-    ?>-->
-        <p><?php echo $totalNumberOfMonthPosts; ?></p> <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
+        <p><?php //echo $totalNumberOfMonthPosts; ?></p> <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
         <ul class="no-padding">
         <?php while (mysqli_stmt_fetch($stmt)): ?>
             <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($created); ?>]</span><a href="post.php?getpost=<?php echo $id ?>"><?php echo $title; ?></a></li>
         <?php endwhile; ?>
         </ul>
+            <?php
+                $totalNumberOfMonthPosts = NULL;
+                $errorMessage = NULL;
+
+                // $query = "SELECT comments.* FROM comments LEFT JOIN posts ON comments.postid = posts.id";
+
+                if ($stmt->prepare($query)) {
+                    $stmt->execute();
+                    $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
+                    $stmt->store_result();
+                } else {
+                    $errorMessage = "Något gick fel.";
+                }
+
+                while (mysqli_stmt_fetch($stmt)) {
+
+                        $totalNumberOfMonthPosts++;
+                }
+                echo $totalNumberOfMonthPosts;
+            ?>
     </div>
 </main>
 <?php if($errorMessage) {
