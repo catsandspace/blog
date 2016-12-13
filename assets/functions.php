@@ -1,4 +1,20 @@
 <?php
+
+/**
+ * The function checks if an alternative variable exists and return either that or a
+ * predefined variable.
+ * @param  string $alternative The optional alternative variable.
+ * @param  string $predefined  The predefined variable.
+ * @return string              Return one of the two.
+ */
+function checkExistingOrReturnPredefined($alternative, $predefined) {
+    if ($alternative != NULL) {
+        return $alternative;
+    } else {
+        return $predefined;
+    }
+}
+
 /**
  * The function checks size and type on uploaded files.
  * @param  string $file The uploaded file.
@@ -24,30 +40,6 @@ function checkUploadedFile($file) {
 }
 
 /**
-* The functions stores variables in the session
-* @param 	int    $id            The users id
-* @param 	int    $permission    The users permission level
-* @param 	string $uname         The users username
-* @param 	string $upass         The users password
-*/
-function storeUserInSession($id, $permission, $uname, $upass) {
-    $_SESSION["logged-in"] = TRUE;
-    $_SESSION["userid"] = $id;
-    $_SESSION["permission"] = $permission;
-    $_SESSION["username"] = $uname;
-    $_SESSION["userpassword"] = $upass;
-}
-
-/**
- * The function unsets and destroy cookies stored in a session.
- */
-function logout() {
-    unset($_SESSION["logged-in"]);
-    setcookie("session_catsandspace", "", time()-(60*60*24), "/");
-    session_destroy();
-}
-
-/**
  * The function converts permission int to string.
  * @param  int      $permission     The user's permission level.
  * @return string                   The user's permission level as string.
@@ -62,18 +54,13 @@ function convertPermissionToString($permission) {
 }
 
 /**
- * The function checks if an alternative variable exists and return either that or a
- * predefined variable.
- * @param  string $alternative The optional alternative variable.
- * @param  string $predefined  The predefined variable.
- * @return string              Return one of the two.
+ * The function formats a timestamp according to year-month-date.
+ * @param  int $timestamp       The timestamp returned from the database
+ * @return int $formattedDate   The date formatted as year-month-date.
  */
-function checkExistingOrReturnPredefined($alternative, $predefined) {
-    if ($alternative != NULL) {
-        return $alternative;
-    } else {
-        return $predefined;
-    }
+function formatDate($timestamp) {
+    $formattedDate = date('Y-m-d', strtotime($timestamp));
+    return $formattedDate;
 }
 
 /**
@@ -85,6 +72,15 @@ function formatInnerHtml($string) {
     $newString = str_replace("\n", "<br>", $string);
     $newString = str_replace("\r", "", $newString);
     return replaceSpecialCharacters($newString);
+}
+
+/**
+ * The function unsets and destroy cookies stored in a session.
+ */
+function logout() {
+    unset($_SESSION["logged-in"]);
+    setcookie("session_catsandspace", "", time()-(60*60*24), "/");
+    session_destroy();
 }
 
 /**
@@ -103,13 +99,17 @@ function replaceSpecialCharacters($string) {
 }
 
 /**
- * The function formats a timestamp according to year-month-date.
- * @param  int $timestamp       The timestamp returned from the database
- * @return int $formattedDate   The date formatted as year-month-date.
- */
-function formatDate($timestamp) {
-    $formattedDate = date('Y-m-d', strtotime($timestamp));
-    return $formattedDate;
+* The functions stores variables in the session
+* @param 	int    $id            The users id
+* @param 	int    $permission    The users permission level
+* @param 	string $uname         The users username
+* @param 	string $upass         The users password
+*/
+function storeUserInSession($id, $permission, $uname, $upass) {
+    $_SESSION["logged-in"] = TRUE;
+    $_SESSION["userid"] = $id;
+    $_SESSION["permission"] = $permission;
+    $_SESSION["username"] = $uname;
+    $_SESSION["userpassword"] = $upass;
 }
-
 ?>
