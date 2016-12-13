@@ -48,8 +48,6 @@
         $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
     }
 
-    // TODO: Get the styling right on buttons, select and svg. Unclear if this one is done or not
-
     // Array that contains months and number for sorting posts
     $month = array(
         array("Januari", "01"),
@@ -128,14 +126,9 @@
               <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Sortera efter bokstavsordning (A-Z)</option>
           </select>
           <button class="button button--small border-radius margin-bottom-l" type="submit">Sortera</button>
-          <!-- <svg class="icon select-arrows">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-arrows"></use>
-          </svg> -->
         </div>
     </form>
-
     <div class="list-wrapper">
-        <!-- TODO: Fix so that correct months displays with actual posts -->
         <h2><?php echo $headLine; ?></h2>
 
         <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
