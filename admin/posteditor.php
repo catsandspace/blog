@@ -1,5 +1,4 @@
 <?php
-    require_once "../templates/header.php";
     require_once "../assets/db_connect.php";
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
@@ -143,6 +142,9 @@
             }
         }
     }
+
+    // This prints out HTML from header.php.
+    require_once "../templates/header.php";
 
 /*******************************************************************************
             QUERY THAT PRINTS CATEGORIES

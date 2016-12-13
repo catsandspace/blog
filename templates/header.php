@@ -1,5 +1,4 @@
 <?php
-
    // Database connection
    require_once __DIR__."/../assets/db_connect.php";
    require_once __DIR__."/../assets/session.php";
@@ -11,7 +10,7 @@
         $stmt->bind_result($id, $category);
    }
 
-   //TODO: Now when this variable is included in header we can remove it from dashbord etc.
+   // TODO: Now when this variable is included in header we can remove it from dashboard
    if (isset($_SESSION["permission"])) {
    $currentUsersPermission = $_SESSION["permission"];
    } else {
