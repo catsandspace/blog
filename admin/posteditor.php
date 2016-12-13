@@ -113,16 +113,16 @@
                     $stmt->execute();
                     $imageId = $stmt->insert_id; // Catches the created post.id for later use
 
-                    // Now lets start working with the uploaded file
-                    $fileName = basename($_FILES["post-img"]["name"]); // The name of the file
+                    // Working with the uploaded file
+                    $fileName = basename($_FILES["post-img"]["name"]);
                     $temporaryFile = $_FILES["post-img"]["tmp_name"]; // The temporary file path
-                    $type = pathinfo($fileName, PATHINFO_EXTENSION); // The file type
+                    $type = pathinfo($fileName, PATHINFO_EXTENSION);
                     $fileError = checkUploadedFile($_FILES["post-img"]); // A function to check file errors
                     $targetName = "../uploads/postimg/" . basename("postimg_") . $imageId . ".$type"; // The new file path connected with post.id column
 
                     // Move uploaded file to "uploads/postimg/ and update $targetName to a appropiate path in table posts.image
                     if (!$fileError) {
-                        move_uploaded_file($temporaryFile, $targetName); // Move file from temp to new file path
+                        move_uploaded_file($temporaryFile, $targetName);
                         $targetName = "uploads/postimg/". basename("postimg_") . $imageId . ".$type"; // Renames the file path
                         $updateQuery = "UPDATE posts SET image ='{$targetName}' WHERE id ='{$imageId}' "; // Inserts correct file path into db column posts.image
 
@@ -136,7 +136,7 @@
                         header("Location: ./confirmation.php");
                     }
                 } else {
-                    // If problem occurs, create variable $databaseError
+
                     $databaseError = "<p class=\"error-msg\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
                 }
             }
@@ -147,7 +147,7 @@
     require_once "../templates/header.php";
 
 /*******************************************************************************
-   START OF QUERY THAT PRINTS CATEGORIES
+            QUERY THAT PRINTS CATEGORIES
 *******************************************************************************/
 
     $query = "SELECT * FROM categories";
@@ -155,10 +155,6 @@
         $stmt->execute();
         $stmt->bind_result($id, $category);
     }
-
-/*******************************************************************************
-   START OF HTML
-*******************************************************************************/
 ?>
 <main>
     <?php if (isset($_GET["edit"])): ?>
