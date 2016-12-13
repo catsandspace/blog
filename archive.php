@@ -86,9 +86,20 @@
 
             $totalNumberOfMonthPosts++;
     }
+    /********************************************************************
+      Start of page headline info
+    ********************************************************************/
+    $headLine = "Alla inlägg";
+    if(isset($_GET["month"])) {
 
+        foreach($month as $actualMonth) {
+
+            if ($actualMonth[1] == $_GET["month"]) {
+                $headLine = $actualMonth[0];
+            }
+        }
+    }
 ?>
-
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
     <form method="GET" action="archive.php">
@@ -125,7 +136,7 @@
 
     <div class="list-wrapper">
         <!-- TODO: Fix so that correct months displays with actual posts -->
-        <h2><?php echo $actualMonth[0];?></h2>
+        <h2><?php echo $headLine; ?></h2>
 
         <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
     <!-- <?php
