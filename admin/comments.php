@@ -8,8 +8,18 @@
         header("Location: ../login.php");
     endif;
 
-    // Don't print out HTML from "header.php" before login check is done.
     require_once "../templates/header.php";
+
+/*******************************************************************************
+    START OF VARIABLES USED ON PAGE
+*******************************************************************************/
+
+    $errorMessage = NULL;
+    $queryFailed = "Det blev något fel. Försök igen senare.";
+
+/*******************************************************************************
+    START OF QUERY TO REMOVE COMMENT
+*******************************************************************************/
 
     // If-statement to check if button for removing comments is set
     if (isset ($_POST["remove-comment"])):
@@ -18,11 +28,14 @@
         if ($stmt->prepare($query)):
             $stmt->execute();
         else:
-            echo "Fel på queryn";
+            $errorMessage = $queryFailed;
         endif;
     endif;
 
-        // For superuser print all comments
+/*******************************************************************************
+    START OF QUERY TO PRINT ALL COMMENTS (ONLY FOR SUPERUSERS)
+*******************************************************************************/
+
     if ($_SESSION["permission"] == 1):
 
         // select all comments and username and email from user
@@ -35,11 +48,14 @@
             $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail);
 
         else:
-            echo "wrong query";
+            $errorMessage = $queryFailed;
         endif;
     endif;
 
-    // If user has permission "redaktör" only print the comments connected to the posts for that user.
+/*******************************************************************************
+    START OF QUERY TO PRINT COMMENTS CONNECTED TO CURRENT USER
+*******************************************************************************/
+
     if ($_SESSION["permission"] == 0):
         $userId = $_SESSION["userid"];
         $query  = "SELECT comments.*, users.username, users.email
@@ -54,7 +70,7 @@
             $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail);
 
         else:
-            echo "wrong query";
+            $errorMessage = $queryFailed;
         endif;
     endif;
 ?>
@@ -98,6 +114,8 @@
             </tbody>
         </table>
     </form>
-    <?php if (!empty($_GET["errorMessage"])) { echo $_GET["errorMessage"]; } ?>
+    <?php if ($errorMessage): ?>
+        <p class="error-msg"><?php echo $errorMessage; ?></p>
+    <?php endif; ?>
 </main>
 <?php require_once "../templates/footer.php"; ?>
