@@ -157,7 +157,7 @@
                         <p class="comment-bubble__number <?php echo $bubbleClass; ?>"><?php echo "$totalNumberOfComments" ?></p></a>
                     </div>
                     <div class="blogpost-wrapper__text">
-                        <h1><a href="post.php?getpost=<?php echo $post["id"] ?>" class="blogpost__link"><?php echo formatInnerHtml($post["title"]); ?></a></h1>
+                        <h1 class="blogpost-wrapper__headline"><a href="post.php?getpost=<?php echo $post["id"] ?>" class="blogpost__link"><?php echo formatInnerHtml($post["title"]); ?></a></h1>
                         <p class="blogpost-wrapper__tags">[ Tags: <a href="?display=<?php echo $post["categoryId"] ?>" class="blogpost-wrapper__links"><?php echo str_replace(' ', '', $post["categoryName"]); ?> ]</a> [ Publicerad: <?php echo formatDate($post["created" ]); ?> ]</p>
                     </div>
                 </div>

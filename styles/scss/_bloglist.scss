@@ -5,31 +5,33 @@
 }
 
 .blogpost__article {
+    box-sizing: border-box;
     display: block;
     margin: 0 auto;
     width: 100%;
     @include sizeDesktop {
-        width: 32%;
+        width: calc(100%/3);
         margin-bottom: 10px;
-        background-color: #13171A;
+        background-color: $baseColor;
     }
 }
 
 .blogpost__article:first-child,
 .blogpost__article:last-child {
     @include sizeDesktop {
+        border: none;
+        padding: 0;
         width: 100%;
         background-color: transparent;
     }
 }
 
 .blogpost__link:hover {
-    color: $complimentaryHover;
+    color: $complimentary;
 }
 
 .blogpost__message {
     text-align: center;
-    // margin: 0 auto;
     font-size: 3rem;
 }
 
@@ -79,10 +81,10 @@
     width: 100%;
 }
 
-.blogpost-wrapper__text:hover {
-    background: $baseColorTransparent;
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
+
+.blogpost-wrapper__headline {
+    padding-top: 2rem;
+    line-height: 2rem;
 }
 
 .blogpost-wrapper__tags {
