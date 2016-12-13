@@ -88,6 +88,7 @@
     }
 
 ?>
+
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
     <form method="GET" action="archive.php">
@@ -95,14 +96,25 @@
         <div class="select-arrows">
         <select class="form-field form-field__select" name="month" id="sort">
             <option value="all">Alla</option>
-            <?php foreach($month as $actualMonth): ?>
-             <option value="<?php echo $actualMonth[1]; ?>"><?php echo $actualMonth[0]; echo $totalNumberOfMonthPosts; ?></option>
+            <?php foreach($month as $actualMonth):
+                $selectedAttribute = "";
+                if(isset($_GET["month"]) && $_GET["month"] == $actualMonth[1]) {
+                    $selectedAttribute = "selected";
+                }
+            ?>
+             <option value="<?php echo $actualMonth[1]; ?>" <?php echo $selectedAttribute; ?>><?php echo $actualMonth[0]; ?></option>
             <?php endforeach; ?>
         </select>
           <select class="form-field form-field__select" name="sort" id="sort">
-              <option value="desc">Senast publicerad</option>
-              <option value="asc">Tidigast publicerad</option>
-              <option value="name">Sortera efter bokstavsordning (A-Z)</option>
+              <?php
+                  $selected = "";
+                  if (isset($_GET["sort"])) {
+                    $selected = $_GET["sort"];
+                  }
+              ?>
+              <option value="desc" <?php if ($selected == "desc") { echo "selected"; } ?> >Senast publicerad</option>
+              <option value="asc" <?php if ($selected == "asc") { echo "selected"; } ?> >Tidigast publicerad</option>
+              <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Sortera efter bokstavsordning (A-Z)</option>
           </select>
           <button class="button button--small border-radius margin-bottom-l" type="submit">Sortera</button>
           <!-- <svg class="icon select-arrows">
@@ -144,4 +156,8 @@
         </ul>
     </div>
 </main>
+<?php if($errorMessage) {
+    echo $errorMessage;
+}
+?>
 <?php require_once "./templates/footer.php"; ?>
