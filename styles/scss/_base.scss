@@ -52,7 +52,7 @@ header {
 
     @include sizeDesktop {
         position: absolute;
-        padding: 1.8rem 2rem;
+        padding: 0;
     }
 }
 
@@ -107,7 +107,7 @@ header {
     display: inline-block;
     margin-right: -0.4rem;
     position: relative;
-    padding: 1.5rem 2rem;
+    padding: 2.5rem 2rem;
     cursor: pointer;
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
@@ -124,7 +124,7 @@ header {
 .nav-desktop__list li ul {
     padding: 0;
     position: absolute;
-    top: 4.8rem;
+    top: 7.8rem;
     left: 0;
     min-width: 18rem;
     max-width: 25rem;
@@ -146,6 +146,7 @@ header {
     display: block;
     color: #fff;
     text-shadow: 0 -0.1rem 0 #000;
+    padding: 2.5rem 2rem;
 }
 
 .nav-desktop__list li ul li:hover {
