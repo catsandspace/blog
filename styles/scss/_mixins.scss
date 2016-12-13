@@ -59,7 +59,6 @@
     MEDIA QUERIES / RESPONSIVE DESIGN
     _variables.scss
 *******************************************************************************/
-// TODO: Clean up comments.
 
 @mixin mobileSizeSmall {
     @media (max-width: #{$widthMobileMedium - 1px}) {

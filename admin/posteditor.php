@@ -99,7 +99,7 @@
                 if ($stmt->prepare($query)) {
                     $stmt->execute();
                 } else {
-                    // If problem occurs, create variable $databaseError
+
                     $databaseError = "<p class=\"error-msg\">Det gick inte att uppdatera inlägget i databasen. Försök igen.</p>";
                 }
 
@@ -143,7 +143,6 @@
         }
     }
 
-    // This prints out HTML from header.php.
     require_once "../templates/header.php";
 
 /*******************************************************************************
