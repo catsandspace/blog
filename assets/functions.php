@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The function checks size and type on uploaded files.
  * @param  string $file The uploaded file.
@@ -48,7 +47,11 @@ function logout() {
     session_destroy();
 }
 
-// TODO: Describe what this function does!
+/**
+ * The function converts permission int to string.
+ * @param  int      $permission     The user's permission level.
+ * @return string                   The user's permission level as string.
+ */
 function convertPermissionToString($permission) {
     if ($permission == 0) {
         return utf8_decode("Redaktör");
@@ -58,7 +61,13 @@ function convertPermissionToString($permission) {
     return NULL;
 }
 
-// TODO: Describe what this does!
+/**
+ * The function checks if an alternative variable exists and return either that or a
+ * predefined variable.
+ * @param  string $alternative The optional alternative variable.
+ * @param  string $predefined  The predefined variable.
+ * @return string              Return one of the two.
+ */
 function checkExistingOrReturnPredefined($alternative, $predefined) {
     if ($alternative != NULL) {
         return $alternative;
