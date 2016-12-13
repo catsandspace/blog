@@ -1,6 +1,8 @@
 //TODO: change comment-bubble to background-img or something else..
 .comment-bubble {
-    position: relative;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
     cursor: pointer;
     @include flexbox();
     @include flexboxJustifyContent(flex-end)
@@ -16,6 +18,7 @@
     text-align: center;
     margin: 0.2em 0;
     line-height: 1.3em;
+    float: right;
 }
 
 .comment-bubble__number-one {
