@@ -89,6 +89,10 @@
                 }
             }
 
+/*******************************************************************************
+   WHEN $ALLREQUIREDFILLED IS TRUE, BEGIN DATABASE QUERY
+*******************************************************************************/
+
         if ($allRequiredFilled)  {
 
             if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
@@ -98,7 +102,6 @@
 
                 if ($stmt->prepare($query)) {
                     $stmt->execute();
-                    $stmt->close();
                     header("Location: ./post.php?getpost=$getPost#nav-comment-bottom");
 
                 } else {
@@ -111,7 +114,6 @@
 
                 if ($stmt->prepare($query)) {
                     $stmt->execute();
-                    $stmt->close();
                     header("Location: ./post.php?getpost=$getPost#nav-comment-bottom");
 
                 } else {
@@ -160,15 +162,19 @@
             <img class="full-width-img" src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
             <a class="relative-container__info relative-container__link" href="index.php?display=<?php echo $categoryId ?>">Kategori: <?php echo str_replace(' ', '', $categoryName); ?></a>
         </div>
+
         <p class="author-info">[ Publicerad: <?php echo formatDate($created); ?> ]</p>
         <p class="author-info"><?php if (formatDate($created) != formatDate($updated)): ?>[ Uppdaterad: <?php echo formatDate($updated); ?> ]</p>
             <?php endif; ?>
         <p class="author-info">[ Uppladdad av: <?php echo $authorName; ?> ]</p>
         <p class="author-info">[ <a class="author-info__links" href="mailto:<?php echo $authorEmail; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> Skicka e-post</a> ]</p>
         <p class="author-info">[ <a class="author-info__links" href="<?php echo $authorWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
+
         <h1 class="padding-top-l"><?php echo formatInnerHtml($title); ?></h1>
         <p><?php echo formatInnerHtml($content); ?></p>
+
         <?php if (isset($_POST["new-comment"]) || (isset($_POST["add-comment"]) && !$allRequiredFilled)): ?>
+
         <div class="comment-container margin-bottom-l" id="nav-comment-top">
             <h2>Skriv ny kommentar</h2>
             <?php if (!empty($errors)) { echo $errorInfo; } ?>
