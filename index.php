@@ -134,8 +134,8 @@
                     <div class="blogpost-wrapper__text">
                         <h1><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo formatInnerHtml($post["title"]); ?></a></h1>
                         <p class="blogpost-wrapper__tags">[ Tags: <a href="?display=<?php echo $post["categoryId"] ?>" class="blogpost-wrapper__links"><?php echo str_replace(' ', '', $post["categoryName"]); ?> ]</a> [ Publicerad: <?php echo formatDate($post["created" ]); ?> ]</p>
-                        <div class="comment-bubble">
-                                <?php // START OF COMMENTS
+
+                        <?php // START OF COMMENTS
 
                                 // TODO: Right now, this div is not used. Delete if we don't want it.
 
@@ -160,9 +160,19 @@
                                     }
 
                                 endwhile;
+                                if ($totalNumberOfComments<10) {
+                                    $bubbleClass = "comment-bubble__number-one";
+                                } else if ($totalNumberOfComments<100) {
+                                    $bubbleClass = "comment-bubble__number-two";
+                                } else {
+                                    $bubbleClass = "comment-bubble__number-three";
+                                }
+
                                 ?>
+                        <div class="comment-bubble">
+
                             <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
-                            <p class="comment-bubble__number"><?php echo "$totalNumberOfComments" ?></p></a>
+                            <p class="comment-bubble__number <?php echo $bubbleClass; ?>"><?php echo "$totalNumberOfComments" ?></p></a>
                         </div>
                     </div>
                 </div>
