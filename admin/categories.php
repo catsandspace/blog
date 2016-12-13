@@ -12,8 +12,6 @@
         header("Location: ./dashboard.php");
     }
 
-    require_once "../templates/header.php";
-
 /*******************************************************************************
     START OF VARIABLES USED ON PAGE
 *******************************************************************************/
@@ -22,17 +20,6 @@
     $change = FALSE;
     $errorMessage = NULL;
     $queryFailed = "Det blev något fel. Försök igen senare.";
-
-/*******************************************************************************
-    START OF QUERY USED TO PRINT OUT CATEGORIES
-*******************************************************************************/
-
-    $query = "SELECT * FROM categories";
-
-    if ($stmt->prepare($query)):
-        $stmt->execute();
-        $stmt->bind_result($catId, $category);
-    endif;
 
 /*******************************************************************************
     START OF QUERY TO CHANGE CATEGORY
@@ -59,6 +46,7 @@
             $query = "UPDATE categories SET name = '$category' WHERE id = '$catId'";
             if ($stmt -> prepare($query)):
                 $stmt->execute();
+                header("Location: ./categories.php");
             else:
                 $errorMessage = $queryFailed;
             endif;
@@ -78,6 +66,7 @@
                 $query = "DELETE FROM categories WHERE id=$catId";
                 if ($stmt->prepare($query)):
                     $stmt->execute();
+                    header("Location: ./categories.php");
                 else:
                     $errorMessage = $queryFailed;
                 endif;
@@ -100,6 +89,7 @@
 
             if ($stmt->prepare($query)):
                 $stmt->execute();
+                header("Location: ./categories.php");
             else:
                 $errorMessage = $queryFailed;
             endif;
@@ -108,6 +98,22 @@
         endif;
     endif;
 
+/*******************************************************************************
+    GET HEADER WHICH (AMONG OTHER THINGS) PRINTS HTMLS
+*******************************************************************************/
+
+    require_once "../templates/header.php";
+
+/*******************************************************************************
+    START OF QUERY USED TO PRINT OUT CATEGORIES
+*******************************************************************************/
+
+    $query = "SELECT * FROM categories";
+
+    if ($stmt->prepare($query)):
+        $stmt->execute();
+        $stmt->bind_result($catId, $category);
+    endif;
 ?>
 <main>
     <h1 class="center-text margin-bottom-l">Kategorier</h1>
