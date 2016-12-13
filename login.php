@@ -5,7 +5,7 @@
 
    $errorMessage = NULL;
 
-   // Redirect to dashboard.php if there is already an active session.
+   // Redirect to dashboard.php if session is active.
    if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
 
        header("Location: ./admin/dashboard.php");
@@ -30,31 +30,34 @@
                     header("Location: ./admin/dashboard.php");
 
                 } else {
-
-               $errorMessage = "Felaktigt användarnamn eller lösenord";
+                    $errorMessage = "Felaktigt användarnamn eller lösenord";
                 }
             }
-
         } else {
             $errorMessage = "Misslyckades att logga in!";
         }
     }
 
-    // Don't print out HTML from "header.php" before login check is done.
     require_once "./templates/header.php";
 ?>
 <main>
     <h1>Logga in</h1>
     <form action="./login.php" method="POST">
-       <fieldset>
+       <fieldset class="no-padding">
             <legend class="hidden">Login</legend>
-            <label class="form-field__label" for="username">Användarnamn</label><br>
-            <input class="form-field" type="text" name="username" id="username"><br>
-            <label class="form-field__label" for="password">Lösenord</label><br>
-            <input class="form-field" type="password" name="password" id="password"><br>
+            <label class="form-field__label" for="username">Användarnamn</label>
+            <input class="form-field" type="text" name="username" id="username" required>
+            <label class="form-field__label" for="password">Lösenord</label>
+            <input class="form-field" type="password" name="password" id="password">
             <button type="submit" name="login" class="button">Logga in</button>
-            <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
        </fieldset>
     </form>
+    <?php if ($errorMessage): ?>
+        <p class="error-msg"><?php echo $errorMessage; ?></p>
+    <?php endif; ?>
 </main>
-<?php require_once "./templates/footer.php"; ?>
+<?php
+    $stmt -> close();
+    $conn -> close();
+    require_once "./templates/footer.php";
+?>
