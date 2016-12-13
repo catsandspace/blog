@@ -129,7 +129,7 @@
         </div>
     </form>
     <div class="list-wrapper">
-        <h2><?php echo $headLine; ?></h2>
+        <h1><?php echo $headLine; ?></h1>
 
         <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
     <!-- <?php
