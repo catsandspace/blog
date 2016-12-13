@@ -37,10 +37,10 @@
     endif;
 
 /*******************************************************************************
-    START OF QUERY TO PRINT ALL COMMENTS (ONLY FOR SUPERUSERS)
+    START OF QUERY TO PRINT COMMENTS (ALL FOR SUPERUSERS)
 *******************************************************************************/
 
-    if ($_SESSION["permission"] == 1):
+    if ($_SESSION["permission"] == 1) {
 
         $query = "SELECT comments.*, users.username, users.email, posts.title
                     FROM comments
@@ -49,22 +49,7 @@
                     LEFT JOIN posts
                     ON comments.postid = posts.id";
 
-        if ($stmt -> prepare($query)):
-            $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail, $postTitle);
-
-        else:
-            $errorMessage = $queryFailed;
-
-        endif;
-
-    endif;
-
-/*******************************************************************************
-    START OF QUERY TO PRINT COMMENTS CONNECTED TO CURRENT USER
-*******************************************************************************/
-
-    if ($_SESSION["permission"] == 0):
+    } elseif ($_SESSION["permission"] == 0) {
 
         $userId = $_SESSION["userid"];
 
@@ -75,17 +60,20 @@
                     LEFT JOIN posts
                     ON comments.postid = posts.id
                     WHERE posts.userid = '{$userId}'";
+    }
 
-        if ($stmt -> prepare($query)):
-            $stmt-> execute();
-            $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail, $postTitle);
+    if ($stmt -> prepare($query)):
+        $stmt-> execute();
+        $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail, $postTitle);
 
-        else:
-            $errorMessage = $queryFailed;
-
-        endif;
+    else:
+        $errorMessage = $queryFailed;
 
     endif;
+
+/*******************************************************************************
+    START OF HTML
+*******************************************************************************/
 ?>
 <main>
     <?php if ($_SESSION["permission"] == 1): ?>
@@ -111,12 +99,10 @@
                         <td class="inline-block"><?php echo $content; ?></td>
                         <td class="inline-block">Skriven av: <?php echo checkExistingOrReturnPredefined($name, $userName); ?></td>
                         <td class="inline-block">E-postadress: <a href="mailto:<?php echo checkExistingOrReturnPredefined($email, $userMail); ?>"><?php echo checkExistingOrReturnPredefined($email, $userMail); ?></a></td>
-
-                        <td class="author-info">[<?php echo $date; ?>]</td>
+                        <td class="author-info">[ <?php echo $date; ?> ]</td>
                         <td class="author-info">
-                        [Kommentar på inlägg: <a class="author-info__links" href="../post.php?getpost=<?php echo $postId; ?>"><?php echo $postTitle; ?></a>]
+                        [ Kommentar på inlägg: <a class="author-info__links" href="../post.php?getpost=<?php echo $postId; ?>"><?php echo $postTitle; ?></a> ]
                         </td>
-
                         <td class="inline-block">
                             <button type="submit" class="button error margin-bottom-xl" name="remove-comment" value="<?php echo $commentId; ?>">Ta bort kommentar</button>
                         </td>
