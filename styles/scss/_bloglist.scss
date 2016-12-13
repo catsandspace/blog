@@ -1,5 +1,3 @@
-// TODO: This needs to be sorted out!
-// This wrapps the whole content in a post, including image.
 .blogpost {
     padding: 10rem 0 3rem 0;
 }
@@ -11,18 +9,15 @@
     width: 100%;
     @include sizeDesktop {
         width: calc(100%/3);
-        margin-bottom: 10px;
-        background-color: $baseColor;
+        border: 5px solid transparent;
     }
 }
 
 .blogpost__article:first-child,
 .blogpost__article:last-child {
     @include sizeDesktop {
-        border: none;
         padding: 0;
         width: 100%;
-        background-color: transparent;
     }
 }
 
@@ -36,15 +31,20 @@
 }
 
 .blogpost-wrapper {
-    margin-bottom: 0.2rem;
+    box-sizing: border-box;
     position: relative;
     width: 100%;
 }
 
 .blogpost-wrapper__img {
+    filter: grayscale(100%);
     margin: 0 auto;
     width: 100%;
-    filter: grayscale(100%);
+    @include sizeDesktop {
+        left: 0;
+        position: absolute;
+        top: 0;
+    }
 }
 
 .blogpost-wrapper__img:hover {
@@ -55,9 +55,9 @@
 
 .blogpost-wrapper__img-container {
     @include sizeDesktop {
-        max-height: 50vh;
+        padding-bottom: 56.25%;
         overflow: hidden;
-        padding: 1rem 1rem 0 1rem;
+        position: relative;
     }
 }
 
@@ -81,10 +81,9 @@
     width: 100%;
 }
 
-
 .blogpost-wrapper__headline {
     padding-top: 2rem;
-    line-height: 2rem;
+    line-height: 3.2rem;
 }
 
 .blogpost-wrapper__tags {
@@ -104,6 +103,7 @@
 
 .blogpost__flex-list {
     @include sizeDesktop {
+        margin: 0 -5px;
         @include flexbox();
         @include flexboxFlexWrap(wrap);
     }
