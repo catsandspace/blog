@@ -2,7 +2,7 @@
     require_once "./templates/header.php";
     require_once "./assets/functions.php";
 
-    $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created ASC";
+    $query = "SELECT * FROM posts WHERE published = 1 ORDER BY EXTRACT(MONTH FROM created) ASC";
 
     //Determine if a variable is set and is not NULL
      $sort = "";
@@ -18,9 +18,13 @@
     }
 
     $months = array();
+
+    //echo strftime("%A %d %B %Y");
     while (mysqli_stmt_fetch($stmt)) {
+        setlocale(LC_ALL, 'sv_SE');
         array_push($months, array(
-            "name" => date("F", strtotime($created)),
+            //"name" => utf8_encode(strftime("%B", strtotime($created))),
+            "name" => strftime("%B", strtotime($created)),
             "number" => date("n", strtotime($created))
         ));
     }
@@ -88,7 +92,7 @@
                     START OF PAGE HEADLINE INFO
     ********************************************************************/
 
-    $headLine = "Alla inlägg";
+    //$headLine = "Alla inlägg";
 
     if(isset($_GET["month"])) {
     $monthTitle = $_GET["month"];
@@ -146,7 +150,7 @@
             <h1><?php echo $headLine; ?></h1>
             <ul class="no-padding">
             <?php for ($i=0; $i < count($posts); $i++): $post = $posts[$i]; ?>
-                <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($post["created"]); ?>]</span><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo $post["title"]; ?></a></li>
+                <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($post["created"]); ?>] </span><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo $post["title"]; ?></a></li>
             <?php endfor; ?>
             </ul>
         </div>
