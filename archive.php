@@ -4,12 +4,12 @@
 
     $query = "SELECT * FROM posts WHERE published = 1 ORDER BY EXTRACT(MONTH FROM created) ASC";
 
-    //Determine if a variable is set and is not NULL
+    // Determine if a variable is set and is not NULL
      $sort = "";
      $month = "";
 
     /********************************************************************
-                    START OF MONTH LOOP
+                    START OF MONTH ARRAY
     ********************************************************************/
 
     if ($stmt->prepare($query)) {
@@ -32,37 +32,37 @@
     }
 
     /********************************************************************
-                    END OF MONTH LOOP
+                    END OF MONTH ARRAY
     ********************************************************************/
 
 
     /********************************************************************
-                    START OF POST LOOP
+                    START OF POST ARRAY
     ********************************************************************/
 
-    if(isset($_GET["sort"]) ) {
+    if (isset($_GET["sort"]) ) {
         $sort = $_GET["sort"];
         $month = $_GET["month"];
 
         // Sort post by lastest entry
-        if($sort == "asc") {
-            if($month == "all") {
+        if ($sort == "asc") {
+            if ($month == "all") {
                 $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created ASC";
             } else {
                 $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created ASC";
             }
         }
         // Sort post by the last one
-        if($sort == "desc") {
-            if($month == "all") {
+        if ($sort == "desc") {
+            if ($month == "all") {
                 $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created DESC";
             } else {
                 $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created DESC";
             }
         }
         // Sort post by name
-        if($sort == "name") {
-            if($month == "all") {
+        if ($sort == "name") {
+            if ($month == "all") {
                 $query = "SELECT * FROM posts WHERE published = 1 ORDER BY title ASC";
             } else {
                 $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY title ASC";
@@ -87,7 +87,7 @@
     }
 
     /********************************************************************
-                    END OF POST LOOP
+                    END OF POST ARRAY
     ********************************************************************/
 
     /********************************************************************
@@ -96,12 +96,11 @@
 
     //$headLine = "Alla inlägg";
 
-    if(isset($_GET["month"])) {
-    $monthTitle = $_GET["month"];
-
+    if (isset($_GET["month"])) {
+        $monthTitle = $_GET["month"];
     }
 
-    if(isset($monthTitle) && $monthTitle <= 12 && $monthTitle >= 1) {
+    if (isset($monthTitle) && $monthTitle <= 12 && $monthTitle >= 1) {
         $headLine = date('F', mktime(0, 0, 0, $_GET["month"], 10));
 
     } else {
@@ -120,14 +119,12 @@
             <select class="form-field form-field__select" name="month" id="sort">
                 <option value="all">Alla</option>
                 <?php for ($i=0; $i < count($months); $i++):
-
                     $month = $months[$i];
                     $selectedAttribute = "";
-
-                    if(isset($_GET["month"]) && $_GET["month"] == $month["number"]) {
+                    if (isset($_GET["month"]) && $_GET["month"] == $month["number"]) {
                         $selectedAttribute = "selected";
                     }
-                    // Function that send mutliple values from array and returns one value
+                    // Takes existing array and returns a new array without duplicate values.
                     $months = uniqueArray($months,'number');
                 ?>
                  <option value="<?php echo $month["number"]; ?>" <?php echo $selectedAttribute; ?>><?php echo $month["name"]; ?></option>
@@ -135,7 +132,7 @@
             </select>
             <select class="form-field form-field__select" name="sort" id="sort">
                 <?php
-                    // Makes sure that selected value in dropdown meny stays selected after reloading page
+                    // Makes sure that selected value in dropdown menu stays selected after reloading page
                     $selected = "";
                     if (isset($_GET["sort"])) {
                         $selected = $_GET["sort"];
