@@ -65,6 +65,7 @@
     if ($stmt -> prepare($query)):
         $stmt-> execute();
         $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail, $postTitle);
+        $stmt->store_result();
         $rows = $stmt->num_rows;
     else:
         $errorMessage = $queryFailed;
@@ -76,6 +77,7 @@
 *******************************************************************************/
 ?>
 <main>
+    <?php echo $rows; ?>
     <?php if ($rows == 0): ?>
         <h1 class="center-text">Det finns inga kommentarer!</h1>
     <?php else: ?>

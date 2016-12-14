@@ -49,6 +49,7 @@
     if ($stmt->prepare($query)) {
        $stmt->execute();
        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
+       $stmt->store_result();
        $rows = $stmt->num_rows;
    } else {
        $feedbackMessage = "Det går inte att ansluta till databasen just nu.";
