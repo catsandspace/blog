@@ -68,7 +68,7 @@
 
     for ($i=0; $i < count($months); $i++):
         $month = $months[$i];
-        print_r(array_unique($month));
+        //print_r(array_unique($month));
         //echo $month["name"]." ".$month["number"]."<br>";
     endfor;
 
