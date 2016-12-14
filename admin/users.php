@@ -167,8 +167,4 @@
     </form>
     <?php endif; ?>
 </main>
-<?php
-    $stmt -> close();
-    $conn -> close();
-    require_once "../templates/footer.php";
-?>
+<?php require_once "../templates/footer.php"; ?>

@@ -28,12 +28,17 @@
 .hamburger .has-sub ul {
     display: none;
     position: absolute;
-    width: 200px;
+    width: 20rem;
     top: 100%;
     right: 0;
 }
+
 .hamburger .has-sub ul li:hover a {
     background: $primaryAlternative;
+}
+
+.hamburger .has-sub ul .error-link:hover a {
+    background: $error;
 }
 
 .hamburger .has-sub .has-sub:hover>ul {
@@ -53,12 +58,16 @@
 
 .hamburger-menu {
     background: $primary;
-    border-bottom: 1px solid $baseColor;
+    border-bottom: 1px solid $baseColorTransparent;
+    font-family: $primaryBrandFont;
+    font-weight: 600;
     display: block;
     line-height: 160%;
-    padding: 15px 10px;
-    font-size: 1.2rem;
+    padding: 1.5rem 1rem;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
 }
+
 .hamburger-menu--categories {
     background: $primaryAlternative2;
 }
