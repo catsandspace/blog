@@ -49,12 +49,16 @@
     if ($stmt->prepare($query)) {
        $stmt->execute();
        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
-
+       $stmt->store_result();
+       $rows = $stmt->num_rows;
    } else {
        $feedbackMessage = "Det går inte att ansluta till databasen just nu.";
    }
 ?>
 <main>
+    <?php if ($rows == 0): ?>
+        <h1 class="center-text">Det finns inga inlägg!</h1>
+    <?php else: ?>
     <?php if ($_SESSION["permission"] == 1): ?>
         <h1 class="center-text">Alla inlägg</h1>
     <?php else: ?>
@@ -101,5 +105,6 @@
             </tbody>
         </table>
     </form>
+<?php endif; ?>
 </main>
 <?php require_once "../templates/footer.php"; ?>

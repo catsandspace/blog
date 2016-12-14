@@ -65,7 +65,8 @@
     if ($stmt -> prepare($query)):
         $stmt-> execute();
         $stmt -> bind_result($commentId, $userId, $date, $email, $name, $content, $website, $postId, $userName, $userMail, $postTitle);
-
+        $stmt->store_result();
+        $rows = $stmt->num_rows;
     else:
         $errorMessage = $queryFailed;
 
@@ -76,6 +77,10 @@
 *******************************************************************************/
 ?>
 <main>
+    <?php echo $rows; ?>
+    <?php if ($rows == 0): ?>
+        <h1 class="center-text">Det finns inga kommentarer!</h1>
+    <?php else: ?>
     <?php if ($_SESSION["permission"] == 1): ?>
         <h1 class="center-text margin-bottom-l">Alla kommentarer</h1>
     <?php else: ?>
@@ -114,5 +119,6 @@
     <?php if ($errorMessage): ?>
         <p class="error-msg"><?php echo $errorMessage; ?></p>
     <?php endif; ?>
+<?php endif; ?>
 </main>
 <?php require_once "../templates/footer.php"; ?>
