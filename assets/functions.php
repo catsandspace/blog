@@ -118,18 +118,18 @@ function storeUserInSession($id, $permission, $uname, $upass) {
  */
 
 function uniqueArray($array, $key) {
-    $temp_array = array();
+    $tempArray = array();
     $i = 0;
-    $key_array = array();
+    $keyArray = array();
 
-    foreach ($array as $val) {
-        if (!in_array($val[$key], $key_array)) {
-            $key_array[$i] = $val[$key];
-            $temp_array[$i] = $val;
+    foreach ($array as $value) {
+        if (!in_array($value[$key], $keyArray)) {
+            $keyArray[$i] = $value[$key];
+            $tempArray[$i] = $value;
         }
         $i++;
     }
-    return $temp_array;
+    return $tempArray;
 }
 
 ?>
