@@ -19,11 +19,13 @@
 
     $months = array();
 
-    //echo strftime("%A %d %B %Y");
     while (mysqli_stmt_fetch($stmt)) {
+        // WINDOWS
+        setlocale(LC_ALL, 'swedish');
+        // MAC
         setlocale(LC_ALL, 'sv_SE');
+
         array_push($months, array(
-            //"name" => utf8_encode(strftime("%B", strtotime($created))),
             "name" => strftime("%B", strtotime($created)),
             "number" => date("n", strtotime($created))
         ));
