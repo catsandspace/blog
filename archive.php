@@ -89,10 +89,8 @@
                     END OF POST LOOP
     ********************************************************************/
 
-
-
     /********************************************************************
-                    Start of page headline info
+                    START OF PAGE HEADLINE INFO
     ********************************************************************/
 
     $headLine = "Alla inlägg";
@@ -107,7 +105,6 @@
 
     } else {
         $headLine = "Alla inlägg";
-        //header("Location: ./archive.php");
     }
 ?>
 <main>
@@ -117,17 +114,17 @@
         <div class="select-arrows">
         <select class="form-field form-field__select" name="month" id="sort">
             <option value="all">Alla</option>
-
             <?php for ($i=0; $i < count($months); $i++):
+
                 $month = $months[$i];
                 $selectedAttribute = "";
+
                 if(isset($_GET["month"]) && $_GET["month"] == $month["number"]) {
                     $selectedAttribute = "selected";
                 }
+                // Function that send mutliple values from array and returns one value
                 $months = uniqueArray($months,'number');
             ?>
-
-
              <option value="<?php echo $month["number"]; ?>" <?php echo $selectedAttribute; ?>><?php echo $month["name"]; ?></option>
             <?php endfor; ?>
         </select>
@@ -147,21 +144,11 @@
     </form>
     <div class="list-wrapper">
         <h1><?php echo $headLine; ?></h1>
-        <p><?php //echo $totalNumberOfMonthPosts; ?></p> <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
         <ul class="no-padding">
-
         <?php for ($i=0; $i < count($posts); $i++): $post = $posts[$i]; ?>
             <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($post["created"]); ?>]</span><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo $post["title"]; ?></a></li>
         <?php endfor; ?>
-
-
-
         </ul>
-
     </div>
 </main>
-<?php //if($errorMessage) {
-    //echo $errorMessage;
-//}
-?>
 <?php require_once "./templates/footer.php"; ?>
