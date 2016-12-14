@@ -176,13 +176,20 @@
         ?>
         <article class="blogpost__article">
             <div class="blogpost-wrapper">
-                <a href="post.php?getpost=<?php echo $post["id"] ?>"><div class="blogpost-wrapper__img-container"><img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img"></div></a>
-                <div class="comment-bubble">
-                    <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
-                    <p class="comment-bubble__number <?php echo $bubbleClass; ?>"><?php echo "$totalNumberOfComments" ?></p></a>
-                </div>
+                <a href="post.php?getpost=<?php echo $post["id"] ?>">
+                    <div class="blogpost-wrapper__img-container">
+                        <img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img">
+                        <div class="comment-bubble">
+                            <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
+                            <p class="comment-bubble__number <?php echo $bubbleClass; ?>"><?php echo "$totalNumberOfComments" ?></p></a>
+                        </div>
+                    </div>
+                </a>
                 <div class="blogpost-wrapper__text">
-                    <h1 class="blogpost-wrapper__headline"><a href="post.php?getpost=<?php echo $post["id"] ?>" class="blogpost__link"><?php echo formatInnerHtml($post["title"]); ?></a></h1>
+                    <h1 class="blogpost-wrapper__headline">
+                        <a href="post.php?getpost=<?php echo $post["id"] ?>" class="blogpost__link"><?php echo formatInnerHtml($post["title"]); ?>
+                        </a>
+                    </h1>
                     <p class="blogpost-wrapper__tags">[ Tags: <a href="?display=<?php echo $post["categoryId"] ?>" class="blogpost-wrapper__links"><?php echo str_replace(' ', '', $post["categoryName"]); ?> ]</a> [ Publicerad: <?php echo formatDate($post["created" ]); ?> ]</p>
                 </div>
             </div>
