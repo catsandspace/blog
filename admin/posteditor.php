@@ -193,7 +193,7 @@
                 <i class="radiobutton-wrapper__icon"></i>
                 <?php echo ucfirst($category); ?>
             </label>
-            <?php endwhile; $stmt->close();?>
+            <?php endwhile; ?>
             <?php if (in_array("category", $errors)) { echo $obligatoryField; } ?>
         </div>
         <div class="edit-post-div">
