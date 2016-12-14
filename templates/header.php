@@ -1,14 +1,20 @@
 <?php
-   // Database connection
    require_once __DIR__."/../assets/db_connect.php";
    require_once __DIR__."/../assets/session.php";
 
-   // Execute categories query
+/*******************************************************************************
+    QUERY TO PRINT OUT CATEGORIES
+*******************************************************************************/
+
    $query = "SELECT * FROM categories";
    if ($stmt->prepare($query)) {
         $stmt->execute();
         $stmt->bind_result($id, $category);
    }
+
+/*******************************************************************************
+    SET USER PERMISSION
+*******************************************************************************/
 
    if (isset($_SESSION["permission"])) {
        $currentUserPermission = $_SESSION["permission"];
@@ -48,17 +54,26 @@
         </div>
         <nav class="nav-desktop">
             <ul class="nav-desktop__list">
-                <a href="<?php echo $path; ?>index.php" class="nav-desktop__list-item"><li>Start</li></a>
-                <li class="nav-desktop__list-item">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i>
+
+                <li class="nav-desktop__list-item"><a href="<?php echo $path; ?>index.php" class="nav-desktop__link">Start</a></li>
+
+                <li class="nav-desktop__list-item"><span class="nav-desktop__link">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i>
                     <ul class="nav-desktop__dropdown">
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
                         <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav-desktop__dropdown-item"><li><?php echo ucfirst($category); ?></li></a>
                         <?php endwhile?>
                     </ul>
+                </span>
                 </li>
-                <a href="<?php echo $path; ?>archive.php" class="nav-desktop__list-item"><li>Arkiv</li></a>
+
+                <li class="nav-desktop__list-item"><a href="<?php echo $path; ?>archive.php" class="nav-desktop__link">Arkiv</a></li>
+
+                <li class="nav-desktop__list-item"><a href="<?php echo $path; ?>contact.php" class="nav-desktop__link">Kontakt</a></li>
+
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                <a href="<?php echo $path; ?>admin/dashboard.php" class="nav-desktop__list-item"><li class="nav-desktop__list-item"><i class="fa fa-cog" aria-hidden="true"></i> Kontrollpanel</a>
+
+                <li class="nav-desktop__list-item"><a href="<?php echo $path; ?>admin/dashboard.php" class="nav-desktop__link"><i class="fa fa-cog" aria-hidden="true"></i> Kontrollpanel</a>
+
                     <ul class="nav-desktop__dropdown">
                         <a href="<?php echo $path; ?>admin/posteditor.php" class="nav-desktop__dropdown-item"><li>Skapa nytt inlägg</li></a>
                         <a href="<?php echo $path; ?>admin/postlist.php" class="nav-desktop__dropdown-item"><li>Se alla inlägg</li></a>
@@ -70,9 +85,9 @@
                         <a href="<?php echo $path; ?>admin/dashboard.php?statistics=true" class="nav-desktop__dropdown-item"><li>Se statistik</li></a>
                         <a href="<?php echo $path; ?>assets/logout.php" class="nav-desktop__dropdown-item"><li>Logga ut</li></a>
                     </ul>
+
                 </li>
                 <?php endif; ?>
-                <a href="<?php echo $path; ?>contact.php" class="nav-desktop__list-item"><li>Kontakt</li></a>
             </ul>
         </nav>
         <nav class="hamburger">
