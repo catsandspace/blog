@@ -28,7 +28,7 @@
 .hamburger .has-sub ul {
     display: none;
     position: absolute;
-    width: 200px;
+    width: 20rem;
     top: 100%;
     right: 0;
 }
@@ -53,11 +53,15 @@
 
 .hamburger-menu {
     background: $primary;
-    border-bottom: 1px solid $baseColor;
+    border-bottom: 1px solid $baseColorTransparent;
+    font-family: $primaryBrandFont;
+    font-weight: 600;
     display: block;
     line-height: 160%;
-    padding: 15px 10px;
+    padding: 1.5rem 1rem;
     font-size: 1.2rem;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
 }
 .hamburger-menu--categories {
     background: $primaryAlternative2;

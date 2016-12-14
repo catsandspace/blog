@@ -39,7 +39,7 @@ header {
     color: $baseColor2;
     @include flexbox();
     @include flexboxJustifyContent(space-between);
-    padding: 0.8rem 2rem;
+    padding: 1.2rem 2rem;
     position: fixed;
     width: 100%;
     z-index: 2;
@@ -55,6 +55,10 @@ header {
 .header-logotext {
     display: flex;
     align-content: baseline;
+
+    @include sizeDesktop {
+        padding: 1.3rem 3rem 0;
+    }
 }
 
 .header-logotext__logo {
@@ -102,7 +106,3 @@ header {
     box-sizing: border-box;
     margin: 2em 0;
 }
-
-/*******************************************************************************
-    END OF POSTEDITOR
-*******************************************************************************/
