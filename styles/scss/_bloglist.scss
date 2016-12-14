@@ -37,7 +37,6 @@
 }
 
 .blogpost-wrapper__img {
-    filter: grayscale(100%);
     margin: 0 auto;
     width: 100%;
     @include sizeDesktop {
@@ -48,14 +47,14 @@
 }
 
 .blogpost-wrapper__img:hover {
+    filter: blur(1px) grayscale(30%);
     @include sizeDesktop {
-        filter: grayscale(0);
     }
 }
 
 .blogpost-wrapper__img-container {
     @include sizeDesktop {
-        padding-bottom: 56.25%;
+        padding-top: 56.25%;
         overflow: hidden;
         position: relative;
     }
