@@ -12,6 +12,7 @@
 }
 
 .blogpost__article {
+    @include clearfix();
     box-sizing: border-box;
     display: block;
     margin: 0 auto;
@@ -31,14 +32,16 @@
 }
 
 .blogpost-wrapper {
-    box-sizing: border-box;
     position: relative;
+    box-sizing: border-box;
     width: 100%;
+    z-index: 0;
 }
 
 .blogpost-wrapper__img {
     margin: 0 auto;
     width: 100%;
+    z-index: 0;
     @include sizeDesktop {
         left: 0;
         position: absolute;
@@ -68,6 +71,7 @@
 }
 
 // This wrapps all the text in a post, both paragraphs and headline.
+// TODO: Revisit this when time. Do we really need float left on this?
 .blogpost-wrapper__text {
     box-sizing: border-box;
     bottom: 5px;
@@ -93,6 +97,7 @@
 }
 
 .blogpost-wrapper__links {
+
     color: $primary;
 }
 
