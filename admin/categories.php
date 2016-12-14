@@ -7,87 +7,119 @@
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
 
-
-    // Redirect to .dashboard.php if user is not a superadmin.
+    // Redirect if user is not a superadmin.
     } elseif ($_SESSION["permission"] != 1) {
         header("Location: ./dashboard.php");
     }
 
-    // Don't print out HTML from "header.php" before login check is done.
-    require_once "../templates/header.php";
+/*******************************************************************************
+    START OF VARIABLES USED ON PAGE
+*******************************************************************************/
 
-    // Reset functions for the internal variables
     $changeCategoryId = NULL;
+    $change = FALSE;
     $errorMessage = NULL;
+    $queryFailed = "Det blev något fel. Försök igen senare.";
 
-    // If-statement to check if button for adding new categories is set
-    // If everything looks okay insert into db
-    if (isset ($_POST["addCat"])):
-        if (!empty($_POST["category"])):
-            $category = mysqli_real_escape_string($conn, $_POST["category"]);
-            $query = "INSERT INTO categories VALUES (NULL, '$category')";
-            if ($stmt->prepare($query)):
-                $stmt->execute();
-            else:
-                $errorMessage ="Faulty query in addCat";
-            endif;
-        else:
-            $errorMessage ="Du måste ange en kategori";
-        endif;
-    endif;
+/*******************************************************************************
+    START OF QUERY TO CHANGE CATEGORY
+*******************************************************************************/
 
-    // If-statement to check if button for removing categories is set
-    // If button is pressed continue to check through the array  and
-    // for each category checked, remove it from the db
-    if (isset ($_POST["removeCat"])):
-        if (!empty($_POST["checklist"])):
-            foreach ($_POST['checklist'] as $selected):
-                $catId = $selected;
-                $query = "DELETE FROM categories WHERE id=$catId";
-                if ($stmt->prepare($query)):
-                    $stmt->execute();
-                else:
-                    $errorMessage ="Faulty query in removeCat";
-                endif;
-            endforeach;
-        else:
-            $errorMessage ="Ange kategori att radera!";
-        endif;
-    endif;
-
-    // If-statement to check if button for changing categories is set
-    // A counter is set to see if only one category is checked
-    // The id for the checked category is memorized, if nothing is
-    // checked the category id is set to NULL
     if (isset ($_POST["change-category"])):
         if (!empty($_POST["checklist"])):
             $count = 0;
+
             foreach ($_POST['checklist'] as $selected):
                 $catId = $selected;
                 $count ++;
             endforeach;
+
             if ($count > 1):
-                $errorMessage ="Du kan bara välja en kategori att ändra.";
+                $errorMessage = "Du kan bara ändra en kategori åt gången.";
                 $catId = NULL;
+
             else:
                 $changeCategoryId = $selected;
+
             endif;
-        elseif (!empty($_POST["categoryChange"])):
-            $category = mysqli_real_escape_string($conn, $_POST["categoryChange"]);
-            $catId = $_POST["catId"];
-            echo $category;
-            echo $catId;
-            $query = "UPDATE categories SET name = '$category' WHERE id = '$catId'";
+
+        elseif (!empty($_POST["category-change"])):
+
+            $category = mysqli_real_escape_string($conn, $_POST["category-change"]);
+            $catId = $_POST["category-id"];
+            $query = "UPDATE categories SET name = '{$category}' WHERE id = '{$catId}'";
+
             if ($stmt -> prepare($query)):
                 $stmt->execute();
+                header("Location: ./categories.php");
+
             else:
-                $errorMessage ="Faulty query in change-category2";
+                $errorMessage = $queryFailed;
+
             endif;
+
         else:
-            $errorMessage = "Du måste ange en kategori!";
+            $errorMessage = "Du måste välja vilken kategori du vill ändra.";
+
+        endif;
+
+    endif;
+
+/*******************************************************************************
+    START OF QUERY TO REMOVE CATEGORY
+*******************************************************************************/
+
+    if (isset($_POST["removeCat"])):
+
+        if (!empty($_POST["checklist"])):
+
+            foreach ($_POST['checklist'] as $selected):
+                $catId = $selected;
+                $query = "DELETE FROM categories WHERE id = '{$catId}'";
+
+                if ($stmt->prepare($query)):
+                    $stmt->execute();
+                    header("Location: ./categories.php");
+                else:
+                    $errorMessage = $queryFailed;
+                endif;
+            endforeach;
+        else:
+            $errorMessage = "Du måste välja vilken kategori du vill radera.";
         endif;
     endif;
 
+/*******************************************************************************
+    START OF QUERY TO ADD NEW CATEGORY
+*******************************************************************************/
+
+    if (isset($_POST["addCat"])):
+
+        if (!empty($_POST["category"])):
+
+            $category = mysqli_real_escape_string($conn, $_POST["category"]);
+            $query = "INSERT INTO categories VALUES (NULL, '{$category}')";
+
+            if ($stmt->prepare($query)):
+                $stmt->execute();
+                header("Location: ./categories.php");
+            else:
+                $errorMessage = $queryFailed;
+            endif;
+        else:
+            $errorMessage = "Du måste döpa din kategori till något.";
+        endif;
+    endif;
+
+/*******************************************************************************
+    GET HEADER WHICH (AMONG OTHER THINGS) PRINTS HTMLS
+*******************************************************************************/
+
+    require_once "../templates/header.php";
+
+/*******************************************************************************
+    START OF QUERY USED TO PRINT OUT CATEGORIES
+*******************************************************************************/
 
     $query = "SELECT * FROM categories";
 
@@ -95,10 +127,8 @@
         $stmt->execute();
         $stmt->bind_result($catId, $category);
     endif;
-
-    $change = FALSE;
-
 ?>
+
 <main>
     <h1 class="center-text margin-bottom-l">Kategorier</h1>
     <div class="flexbox-wrapper">
@@ -115,21 +145,23 @@
                     $changeCat = $category;
                 }
             endwhile; ?>
-            <?php if ($errorMessage) { echo "<p class='error-msg'>".$errorMessage."</p>"; } ?>
-            <?php if ($change): ?>
-            <label class="form-field__label" for="categoryChange">Ändra kategori <?php echo $changeCat; ?></label>
-            <input class="form-field" type="text" name="categoryChange">
-            <input class="form-field" type="hidden" name="catId" value="<?php echo $changeCatId; ?>">
-            <button type="submit" value="Ändra" name="change-category" class="button">Genomför ändring</button>
-            <?php else: ?>
-            <button type="submit" value="Ändra" name="change-category" class="button">Ändra</button>
+            <?php if ($errorMessage): ?>
+                <p class="error-msg"><?php echo $errorMessage; ?></p>
             <?php endif; ?>
-            <button type="submit" value="Ta bort" name="removeCat" class="button error">Ta bort</button>
+            <?php if ($change): ?>
+                <label class="form-field__label" for="category-change">Ändra kategori <?php echo $changeCat; ?></label>
+                <input class="form-field" type="text" name="category-change">
+                <input class="form-field" type="hidden" name="category-id" value="<?php echo $changeCatId; ?>">
+                <button type="submit" value="Ändra" name="change-category" class="button">Genomför ändring</button>
+            <?php else: ?>
+                <button type="submit" name="change-category" class="button">Ändra</button>
+            <?php endif; ?>
+            <button type="submit" name="removeCat" class="button error">Ta bort</button>
         </form>
         <form method="post" action="categories.php" class="input-wrapper">
             <label class="form-field__label" for="add-category">Lägg till kategori</label>
             <input class="form-field" type="text" name="category" id="add-category">
-            <button type="submit" value="Lägg till" name="addCat" class="button">Lägg till</button>
+            <button type="submit" name="addCat" class="button">Lägg till</button>
         </form>
     </div>
 </main>

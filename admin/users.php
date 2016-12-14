@@ -26,7 +26,7 @@
     $allRequiredFilled = TRUE;
     $errors = array();
 
-    // Variables regarding error message.
+
     $errorInfo = "<p class=\"error-msg\">Ooops, något gick fel!</p>";
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
@@ -75,7 +75,6 @@
         }
     }
 
-    // This prints out HTML from header.php.
     require_once "../templates/header.php";
 
 /*******************************************************************************
@@ -172,5 +171,5 @@
 <?php
     $stmt -> close();
     $conn -> close();
-    include_once "../templates/footer.php";
+    require_once "../templates/footer.php";
 ?>

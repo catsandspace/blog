@@ -10,13 +10,11 @@
         $stmt->bind_result($id, $category);
    }
 
-   // TODO: Now when this variable is included in header we can remove it from dashboard
    if (isset($_SESSION["permission"])) {
-   $currentUsersPermission = $_SESSION["permission"];
+       $currentUserPermission = $_SESSION["permission"];
    } else {
-       $currentUsersPermission = NULL;
+       $currentUserPermission = NULL;
    }
-
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -65,7 +63,7 @@
                         <a href="<?php echo $path; ?>admin/posteditor.php" class="nav-desktop__dropdown-item"><li>Skapa nytt inlägg</li></a>
                         <a href="<?php echo $path; ?>admin/postlist.php" class="nav-desktop__dropdown-item"><li>Se alla inlägg</li></a>
                         <a href="<?php echo $path; ?>admin/comments.php" class="nav-desktop__dropdown-item"><li>Se alla kommentarer</li></a>
-                        <?php if ($currentUsersPermission == 1): ?>
+                        <?php if ($currentUserPermission == 1): ?>
                         <a href="<?php echo $path; ?>admin/categories.php" class="nav-desktop__dropdown-item"><li>Hantera kategorier</li></a>
                         <a href="<?php echo $path; ?>admin/users.php" class="nav-desktop__dropdown-item"><li>Hantera användare</li></a>
                         <?php endif; ?>
