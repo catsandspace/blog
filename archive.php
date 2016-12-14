@@ -11,6 +11,36 @@
         if statement that sorts and diplay post by month, lastest created, last
         created and by name
      ********************************************************************************/
+
+
+    /********************************************************************
+                    START OF MONTH LOOP
+    ********************************************************************/
+
+    if ($stmt->prepare($query)) {
+        $stmt->execute();
+        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
+    }
+
+    $months = array();
+    while (mysqli_stmt_fetch($stmt)) {
+        array_push($months, array(
+            "name" => date("F", strtotime($created)),
+            "number" => date("n", strtotime($created))
+        ));
+    }
+
+    /********************************************************************
+                    END OF MONTH LOOP
+    ********************************************************************/
+
+
+
+
+    /********************************************************************
+                    START OF POST LOOP
+    ********************************************************************/
+
     if(isset($_GET["sort"]) ) {
         $sort = $_GET["sort"];
         $month = $_GET["month"];
@@ -48,60 +78,39 @@
         $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
     }
 
-    $months = array();
+    $posts = array();
     while (mysqli_stmt_fetch($stmt)) {
-        array_push($months, array(
-            //"id" => $id,
-            //"userid" => $userId,
-            "name" => date("F", strtotime($created)),
-            "number" => date("n", strtotime($created))
-            //"updated" => $updated,
-            //"image" => $image,
-            //"title" => $title,
-            //"content" => $content,
-            //"published" => $published,
-            //"categoryid" => $categoryId
+        array_push($posts, array(
+            "id" => $id,
+            "created" => $created,
+            "title" => $title
         ));
     }
-    //var_dump($months);
-    //$months = array_map("unserialize", array_unique(array_map("serialize", $months)));
 
-    for ($i=0; $i < count($months); $i++):
-        $month = $months[$i];
-        print_r(array_unique($month));
-        //echo $month["name"]." ".$month["number"]."<br>";
-    endfor;
+    /********************************************************************
+                    END OF POST LOOP
+    ********************************************************************/
 
-    // Array that contains months and number for sorting posts
 
-    // $month = array(
-    //     array("Januari", "01"),
-    //     array("Februari", "02"),
-    //     array("Mars", "03"),
-    //     array("April", "04"),
-    //     array("Maj", "05"),
-    //     array("Juni", "06"),
-    //     array("Juli", "07"),
-    //     array("Augusti", "08"),
-    //     array("September", "09"),
-    //     array("Oktober", "10"),
-    //     array("November", "11"),
-    //     array("December", "12")
-    //     );
 
     /********************************************************************
                     Start of page headline info
     ********************************************************************/
-    // $headLine = "Alla inlägg";
-    // if(isset($_GET["month"])) {
-    //
-    //     foreach($month as $actualMonth) {
-    //
-    //         if ($actualMonth[1] == $_GET["month"]) {
-    //             $headLine = $actualMonth[0];
-    //         }
-    //     }
-    // }
+
+    $headLine = "Alla inlägg";
+
+    if(isset($_GET["month"])) {
+    $monthTitle = $_GET["month"];
+
+    }
+
+    if(isset($monthTitle) && $monthTitle <= 12 && $monthTitle >= 1) {
+        $headLine = date('F', mktime(0, 0, 0, $_GET["month"], 10));
+
+    } else {
+        $headLine = "Alla inlägg";
+        //header("Location: ./archive.php");
+    }
 ?>
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
@@ -140,15 +149,19 @@
         <h1><?php echo $headLine; ?></h1>
         <p><?php //echo $totalNumberOfMonthPosts; ?></p> <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
         <ul class="no-padding">
-        <?php while (mysqli_stmt_fetch($stmt)): ?>
-            <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($created); ?>]</span><a href="post.php?getpost=<?php echo $id ?>"><?php echo $title; ?></a></li>
-        <?php endwhile; ?>
+
+        <?php for ($i=0; $i < count($posts); $i++): $post = $posts[$i]; ?>
+            <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($post["created"]); ?>]</span><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo $post["title"]; ?></a></li>
+        <?php endfor; ?>
+
+
+
         </ul>
 
     </div>
 </main>
-<?php if($errorMessage) {
-    echo $errorMessage;
-}
+<?php //if($errorMessage) {
+    //echo $errorMessage;
+//}
 ?>
 <?php require_once "./templates/footer.php"; ?>
