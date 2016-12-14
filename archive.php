@@ -7,11 +7,6 @@
     //Determine if a variable is set and is not NULL
      $sort = "";
      $month = "";
-     /*******************************************************************************
-        if statement that sorts and diplay post by month, lastest created, last
-        created and by name
-     ********************************************************************************/
-
 
     /********************************************************************
                     START OF MONTH LOOP
@@ -106,49 +101,54 @@
     } else {
         $headLine = "Alla inlägg";
     }
+
+    /********************************************************************
+                        END OF HEADLINE INFO
+    ********************************************************************/
 ?>
-<main>
-    <h1 class="margin-bottom-l">Arkiv</h1>
-    <form method="GET" action="archive.php">
-        <label for="sort">Sortera arkivet</label>
-        <div class="select-arrows">
-        <select class="form-field form-field__select" name="month" id="sort">
-            <option value="all">Alla</option>
-            <?php for ($i=0; $i < count($months); $i++):
+    <main>
+        <h1 class="margin-bottom-l">Arkiv</h1>
+        <form method="GET" action="archive.php">
+            <label for="sort">Sortera arkivet</label>
+            <div class="select-arrows">
+            <select class="form-field form-field__select" name="month" id="sort">
+                <option value="all">Alla</option>
+                <?php for ($i=0; $i < count($months); $i++):
 
-                $month = $months[$i];
-                $selectedAttribute = "";
+                    $month = $months[$i];
+                    $selectedAttribute = "";
 
-                if(isset($_GET["month"]) && $_GET["month"] == $month["number"]) {
-                    $selectedAttribute = "selected";
-                }
-                // Function that send mutliple values from array and returns one value
-                $months = uniqueArray($months,'number');
-            ?>
-             <option value="<?php echo $month["number"]; ?>" <?php echo $selectedAttribute; ?>><?php echo $month["name"]; ?></option>
+                    if(isset($_GET["month"]) && $_GET["month"] == $month["number"]) {
+                        $selectedAttribute = "selected";
+                    }
+                    // Function that send mutliple values from array and returns one value
+                    $months = uniqueArray($months,'number');
+                ?>
+                 <option value="<?php echo $month["number"]; ?>" <?php echo $selectedAttribute; ?>><?php echo $month["name"]; ?></option>
+                <?php endfor; ?>
+            </select>
+            <select class="form-field form-field__select" name="sort" id="sort">
+                <?php
+                    // Makes sure that selected value in dropdown meny stays selected after reloading page
+                    $selected = "";
+                    if (isset($_GET["sort"])) {
+                        $selected = $_GET["sort"];
+                    }
+                ?>
+              <option value="desc" <?php if ($selected == "desc") { echo "selected"; } ?> >Senast publicerad</option>
+              <option value="asc" <?php if ($selected == "asc") { echo "selected"; } ?> >Tidigast publicerad</option>
+              <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Sortera efter bokstavsordning (A-Z)</option>
+            </select>
+              <button class="button button--small border-radius margin-bottom-l" type="submit">Sortera</button>
+            </div>
+        </form>
+        <div class="list-wrapper">
+            <h1><?php echo $headLine; ?></h1>
+            <ul class="no-padding">
+            <?php for ($i=0; $i < count($posts); $i++): $post = $posts[$i]; ?>
+                <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($post["created"]); ?>]</span><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo $post["title"]; ?></a></li>
             <?php endfor; ?>
-        </select>
-        <select class="form-field form-field__select" name="sort" id="sort">
-            <?php
-                $selected = "";
-                if (isset($_GET["sort"])) {
-                    $selected = $_GET["sort"];
-                }
-            ?>
-          <option value="desc" <?php if ($selected == "desc") { echo "selected"; } ?> >Senast publicerad</option>
-          <option value="asc" <?php if ($selected == "asc") { echo "selected"; } ?> >Tidigast publicerad</option>
-          <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Sortera efter bokstavsordning (A-Z)</option>
-        </select>
-          <button class="button button--small border-radius margin-bottom-l" type="submit">Sortera</button>
+            </ul>
         </div>
-    </form>
-    <div class="list-wrapper">
-        <h1><?php echo $headLine; ?></h1>
-        <ul class="no-padding">
-        <?php for ($i=0; $i < count($posts); $i++): $post = $posts[$i]; ?>
-            <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($post["created"]); ?>]</span><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo $post["title"]; ?></a></li>
-        <?php endfor; ?>
-        </ul>
-    </div>
-</main>
+    </main>
 <?php require_once "./templates/footer.php"; ?>
