@@ -11,6 +11,36 @@
         if statement that sorts and diplay post by month, lastest created, last
         created and by name
      ********************************************************************************/
+
+
+    /********************************************************************
+                    START OF MONTH LOOP
+    ********************************************************************/
+
+    if ($stmt->prepare($query)) {
+        $stmt->execute();
+        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
+    }
+
+    $months = array();
+    while (mysqli_stmt_fetch($stmt)) {
+        array_push($months, array(
+            "name" => date("F", strtotime($created)),
+            "number" => date("n", strtotime($created))
+        ));
+    }
+
+    /********************************************************************
+                    END OF MONTH LOOP
+    ********************************************************************/
+
+
+
+
+    /********************************************************************
+                    START OF POST LOOP
+    ********************************************************************/
+
     if(isset($_GET["sort"]) ) {
         $sort = $_GET["sort"];
         $month = $_GET["month"];
@@ -48,16 +78,22 @@
         $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
     }
 
-    $months = array();
+    $posts = array();
     while (mysqli_stmt_fetch($stmt)) {
-        array_push($months, array(
+        array_push($posts, array(
             "id" => $id,
             "created" => $created,
-            "name" => date("F", strtotime($created)),
-            "number" => date("n", strtotime($created)),
             "title" => $title
         ));
     }
+
+    /********************************************************************
+                    END OF POST LOOP
+    ********************************************************************/
+
+
+
+
     //var_dump($months);
     //$months = array_map("unserialize", array_unique(array_map("serialize", $months)));
 
@@ -121,8 +157,8 @@
         <p><?php //echo $totalNumberOfMonthPosts; ?></p> <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
         <ul class="no-padding">
 
-        <?php for ($i=0; $i < count($months); $i++): $month = $months[$i]; ?>
-            <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($month["created"]); ?>]</span><a href="post.php?getpost=<?php echo $month["id"] ?>"><?php echo $month["title"]; ?></a></li>
+        <?php for ($i=0; $i < count($posts); $i++): $post = $posts[$i]; ?>
+            <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($post["created"]); ?>]</span><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo $post["title"]; ?></a></li>
         <?php endfor; ?>
 
 
