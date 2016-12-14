@@ -2,7 +2,7 @@
     require_once "./templates/header.php";
     require_once "./assets/functions.php";
 
-    $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created DESC";
+    $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created ASC";
 
     //Determine if a variable is set and is not NULL
      $sort = "";
@@ -33,8 +33,6 @@
     /********************************************************************
                     END OF MONTH LOOP
     ********************************************************************/
-
-
 
 
     /********************************************************************
@@ -126,7 +124,9 @@
                 if(isset($_GET["month"]) && $_GET["month"] == $month["number"]) {
                     $selectedAttribute = "selected";
                 }
+                $months = uniqueArray($months,'number');
             ?>
+
 
              <option value="<?php echo $month["number"]; ?>" <?php echo $selectedAttribute; ?>><?php echo $month["name"]; ?></option>
             <?php endfor; ?>
