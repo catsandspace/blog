@@ -65,7 +65,6 @@
 
             if ($stmt->prepare($query)) {
                 $stmt->execute();
-                $stmt->close();
                 header("Location: ./users.php?getusers=$getUser#nav-adduser");
 
             } else {

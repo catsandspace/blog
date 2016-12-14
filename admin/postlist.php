@@ -3,13 +3,12 @@
     require_once "../assets/session.php";
     require_once "../assets/functions.php";
 
-    // This redirects user to login.php if not logged in.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
         header("Location: ../login.php");
     }
 
 /*******************************************************************************
-   START OF FEEDBACK MESSAGE AND DATABASE UPDATE
+   START OF FEEDBACK MESSAGES AND DATABASE UPDATE
 *******************************************************************************/
 
     $feedbackMessage = NULL;
@@ -17,7 +16,6 @@
 
     if (isset($_POST["edit-post"])) {
         $postToEdit = $_POST["edit-post"];
-        //Redirect to add post with current post id
         header("Location: ./posteditor.php?edit=$postToEdit");
     }
 
@@ -32,12 +30,7 @@
         }
     }
 
-    // Don't print out HTML from "header.php" before login check is done.
     require_once "../templates/header.php";
-
-/*******************************************************************************
-   END OF FEEDBACK MESSAGE AND DATABASE UPDATE
-*******************************************************************************/
 
 /*******************************************************************************
    START OF QUERY AND STMT THAT IS USED TO PRINT POST LIST
