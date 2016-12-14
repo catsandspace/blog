@@ -123,7 +123,7 @@
             <?php for ($i=0; $i < count($months); $i++):
                 $month = $months[$i];
                 $selectedAttribute = "";
-                if(isset($_GET["month"]) && $_GET["month"] == $actualMonth[0]) {
+                if(isset($_GET["month"]) && $_GET["month"] == $month["number"]) {
                     $selectedAttribute = "selected";
                 }
             ?>
