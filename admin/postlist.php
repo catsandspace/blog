@@ -73,6 +73,9 @@
     <?php else: ?>
         <h1 class="center-text">Dina inlägg</h1>
     <?php endif; ?>
+    <?php if ($feedbackMessage): ?>
+        <p class="error-msg error-msg--confirm"><?php echo $feedbackMessage; ?></p>
+    <?php endif; ?>
     <form method="POST" action="./postlist.php">
         <table class="table-listing">
             <thead class="hidden">
@@ -111,6 +114,5 @@
             </tbody>
         </table>
     </form>
-    <?php if ($feedbackMessage) { echo $feedbackMessage; } ?>
 </main>
 <?php require_once "../templates/footer.php"; ?>
