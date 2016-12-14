@@ -1,8 +1,5 @@
-
-/*******************************************************************************
-    START OF NAVIGATION DESKTOP STYLE
-*******************************************************************************/
-
+//TODO: change logut style
+//
 .nav-desktop {
     @include mobileSizeSmall {
         @include hidden-visually;
@@ -29,10 +26,6 @@
 .nav-desktop__link {
     display: block;
     padding: 2.5rem 2rem;
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    -ms-transition: all 0.2s;
-    -o-transition: all 0.2s;
     transition: all 0.2s;
 }
 
@@ -44,41 +37,33 @@
     background: $primary;
 }
 
-
 .nav-desktop__list-item {
+    cursor: pointer;
     display: inline-block;
     margin-right: -0.4rem;
     position: relative;
     padding: 0;
-    cursor: pointer;
-
 }
 
 .nav-desktop__list li ul {
-    padding: 0;
-    position: absolute;
-    top: 7.8rem;
+    box-shadow: none;
+    display: none;
     left: 0;
     min-width: 18rem;
     max-width: 25rem;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    display: none;
     opacity: 0;
+    padding: 0;
+    position: absolute;
+    top: 7.8rem;
     visibility: hidden;
-    -webkit-transiton: opacity 0.2s;
-    -moz-transition: opacity 0.2s;
-    -ms-transition: opacity 0.2s;
-    -o-transition: opacity 0.2s;
-    -transition: opacity 0.2s;
+    transition: opacity 0.2s;
 }
 
 .nav-desktop__list li ul li {
     background: $primaryAlternative2;
     display: block;
     color: $primaryTextcolor;
-    text-shadow: 0 -0.1rem 0 #000;
+    text-shadow: 0 -0.1rem 0 $baseColor;
     padding: 2.5rem 2rem;
 }
 
@@ -91,5 +76,3 @@
     opacity: 1;
     visibility: visible;
 }
-
-//TODO: change logut style
