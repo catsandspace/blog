@@ -32,8 +32,13 @@
     top: 100%;
     right: 0;
 }
+
 .hamburger .has-sub ul li:hover a {
     background: $primaryAlternative;
+}
+
+.hamburger .has-sub ul .error-link:hover a {
+    background: $error;
 }
 
 .hamburger .has-sub .has-sub:hover>ul {
@@ -63,6 +68,7 @@
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
 }
+
 .hamburger-menu--categories {
     background: $primaryAlternative2;
 }

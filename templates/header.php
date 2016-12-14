@@ -21,6 +21,7 @@
    } else {
        $currentUserPermission = NULL;
    }
+
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -54,16 +55,15 @@
         </div>
         <nav class="nav-desktop">
             <ul class="nav-desktop__list">
-
-                <li class="nav-desktop__list-item"><a href="<?php echo $path; ?>index.php" class="nav-desktop__link">Start</a></li>
-
                 <li class="nav-desktop__list-item">
-                    <span class="nav-desktop__link">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                    <a href="<?php echo $path; ?>index.php" class="nav-desktop__link">Start</a>
+                </li>
+                <li class="nav-desktop__list-item"><span class="nav-desktop__link">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
                     <ul class="nav-desktop__dropdown">
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
-                        <li>
-                            <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav-desktop__dropdown-item"><?php echo ucfirst($category); ?></a>
-                        </li>
+                            <li>
+                                <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav-desktop__dropdown-item"><?php echo ucfirst($category); ?></a>
+                            </li>
                         <?php endwhile?>
                     </ul>
                 </li>
@@ -87,12 +87,12 @@
                                 <a href="<?php echo $path; ?>admin/comments.php" class="nav-desktop__dropdown-item">Se alla kommentarer</a>
                             </li>
                             <?php if ($currentUserPermission == 1): ?>
-                            <li>
-                                <a href="<?php echo $path; ?>admin/categories.php" class="nav-desktop__dropdown-item">Hantera kategorier</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo $path; ?>admin/users.php" class="nav-desktop__dropdown-item">Hantera användare</a>
-                            </li>
+                                <li>
+                                    <a href="<?php echo $path; ?>admin/categories.php" class="nav-desktop__dropdown-item">Hantera kategorier</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $path; ?>admin/users.php" class="nav-desktop__dropdown-item">Hantera användare</a>
+                                </li>
                             <?php endif; ?>
                             <li>
                                 <a href="<?php echo $path; ?>admin/dashboard.php?statistics=true" class="nav-desktop__dropdown-item">Se statistik</a>
@@ -109,15 +109,27 @@
             <ul class="list-style-none">
                 <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
                     <ul class="list-style-none box-shadow">
-                        <li><a href="<?php echo $path; ?>index.php" class="hamburger-menu">Start</a></li>
+                        <li>
+                            <a href="<?php echo $path; ?>index.php" class="hamburger-menu">Start</a>
+                        </li>
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
-                        <li><a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="hamburger-menu hamburger-menu--categories">Kategori: <?php echo ucfirst($category); ?></a></li>
+                            <li>
+                                <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="hamburger-menu hamburger-menu--categories">Kategori: <?php echo ucfirst($category); ?></a>
+                            </li>
                         <?php endwhile?>
-                        <li><a href="<?php echo $path; ?>archive.php" class="hamburger-menu">Arkiv</a></li>
-                        <li><a href="<?php echo $path; ?>contact.php" class="hamburger-menu <?php if(!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE): ?>border-none<?php endif; ?>">Kontakt</a></li>
+                        <li>
+                            <a href="<?php echo $path; ?>archive.php" class="hamburger-menu">Arkiv</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $path; ?>contact.php" class="hamburger-menu <?php if(!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE): ?>border-none<?php endif; ?>">Kontakt</a>
+                        </li>
                         <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                        <li><a href="<?php echo $path; ?>admin/dashboard.php" class="hamburger-menu">Kontrollpanel</a></li>
-                        <li><a href="<?php echo $path; ?>assets/logout.php" class="hamburger-menu border-none">Logga ut</a></li>
+                        <li>
+                            <a href="<?php echo $path; ?>admin/dashboard.php" class="hamburger-menu">Kontrollpanel</a>
+                        </li>
+                        <li class="error-link">
+                            <a href="<?php echo $path; ?>assets/logout.php" class="hamburger-menu border-none">Logga ut</a>
+                        </li>
                         <?php endif; ?>
                     </ul>
                 </li>

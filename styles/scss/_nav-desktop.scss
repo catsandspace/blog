@@ -1,5 +1,3 @@
-//TODO: change logut style
-//
 .nav-desktop {
     @include mobileSizeSmall {
         @include hidden-visually;
@@ -79,10 +77,10 @@
     font-smoothing: antialiased;
 }
 
-.nav-desktop__dropdown-item--logout {
-    background: $errorAlternative;
-}
-
 .nav-desktop__dropdown-item:hover {
     background: $primaryAlternative;
+}
+
+.nav-desktop__dropdown-item--logout:hover {
+    background: $error;
 }
