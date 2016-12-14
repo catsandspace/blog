@@ -93,32 +93,25 @@
 
 
 
-
-    //var_dump($months);
-    //$months = array_map("unserialize", array_unique(array_map("serialize", $months)));
-
-    //for ($i=0; $i < count($months); $i++):
-        //$month = $months[$i];
-        //print_r(array_unique($month));
-        //echo $month["name"]." ".$month["number"]."<br>";
-    //endfor;
-
-    // Array that contains months and number for sorting posts
-
     /********************************************************************
                     Start of page headline info
     ********************************************************************/
-//     $headLine = "Alla inlägg";
-//     if(isset($_GET["month"])) {
-//
-//         foreach($month as $actualMonth) {
-//
-//             if ($actualMonth[1] == $_GET["month"]) {
-//                 $headLine = $actualMonth[0];
-//             }
-//         }
-//     }
-// ?>
+
+    $headLine = "Alla inlägg";
+
+    if(isset($_GET["month"])) {
+    $monthTitle = $_GET["month"];
+
+    }
+
+    if(isset($monthTitle) && $monthTitle <= 12 && $monthTitle >= 1) {
+        $headLine = date('F', mktime(0, 0, 0, $_GET["month"], 10));
+
+    } else {
+        $headLine = "Alla inlägg";
+        //header("Location: ./archive.php");
+    }
+?>
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
     <form method="GET" action="archive.php">
@@ -153,7 +146,7 @@
         </div>
     </form>
     <div class="list-wrapper">
-        <h1><?php //echo $headLine; ?></h1>
+        <h1><?php echo $headLine; ?></h1>
         <p><?php //echo $totalNumberOfMonthPosts; ?></p> <!-- STÄDA BORT SÅ FORT DET FUNKAR -->
         <ul class="no-padding">
 
