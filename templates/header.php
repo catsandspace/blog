@@ -54,6 +54,7 @@
             </a>
         </div>
         <nav class="nav">
+            <a class="nav__hamburger" href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
             <ul class="nav__list">
                 <li class="nav__list-item">
                     <a href="<?php echo $path; ?>index.php" class="nav__link">Start</a>
