@@ -85,7 +85,7 @@
                         </ul>
                     </li>
                 <?php endif; ?>
-                <li class="nav__list-item nav__list-item-sub-parent"><span class="nav__link nav__link--extra-spacing">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                <li class="nav__list-item nav__list-item-sub-parent"><span class="nav__link nav__link--sub-parent">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
                     <ul class="nav__dropdown">
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
                             <li class="nav__list-item nav__list-item-sub">

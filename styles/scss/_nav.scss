@@ -1,11 +1,14 @@
 .nav {
     position: relative;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
 }
 
 .nav__hamburger {
+    bottom: 0;
     position: absolute;
-    top: 0;
     right: 0;
+
     @include sizeDesktop {
         @include hidden-visually;
     }
@@ -18,16 +21,13 @@
     font-weight: 600;
     list-style: none;
     // display: none;
-    position: absolute;
-    width: 20rem;
-    top: 100%;
     right: 0;
     padding: 0;
-    -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
+    position: absolute;
+    top: 100%;
+    width: 20rem;
 
     @include sizeDesktop {
-        background: none;
         display: inline-block;
         font-family: $secondaryBrandFont;
         margin: 0;
@@ -45,47 +45,50 @@
     @include sizeDesktop {
         box-sizing: border-box;
         display: block;
-        padding-top: 2.5rem;
+        padding: 2.5rem 3rem 0 0;
         height: 6.8rem;
         transition: all 0.2s;
-    }
-}
-
-.nav__link:last-of-type {
-
-    @include sizeDesktop {
-        padding-right: 3rem;
     }
 }
 
 .nav__link:hover,
 .nav__list-item:hover {
     background: $primaryAlternative;
-    @include sizeDesktop {
-    }
 }
 
-.nav__link--extra-spacing {
+/*******************************************************************************
+    START OF CATEGORY STYLING (BURGER MODE)
+*******************************************************************************/
+
+.nav__link--sub-parent {
     padding-left: 1.2rem;
+    line-height: 2;
 }
+
+.nav__link--sub-parent:hover {
+    background: $primary;
+
+}
+
+.nav__list-item-sub-parent:hover {
+    background: $primary;
+}
+
+/*******************************************************************************
+    END OF CATEGORY STYLING
+*******************************************************************************/
 
 .nav__list-item {
     background: $primary;
-    border-bottom: 1px solid $baseColorTransparent;
-    padding: 1.5rem 1rem;
     cursor: pointer;
+    padding: 1.5rem 1rem;
 
     @include sizeDesktop {
-        border-bottom: none;
         background: none;
-        display: inline-block;
+        float: left;
         position: relative;
         padding: 0;
     }
-}
-
-.nav__list-item:last-child {
-    border-bottom: none;
 }
 
 .nav__list-item-sub-parent {
@@ -97,9 +100,13 @@
 
 .nav__list-item-sub {
     box-sizing: border-box;
-    background-color: $primaryAlternative;
     display: block;
+    padding-left: 2.4em;
     width: 100%;
+
+    @include sizeDesktop {
+        padding-left: 0;
+    }
 }
 
 .nav__list-item--logout {
@@ -113,10 +120,8 @@
 }
 
 .nav__list-item:hover .nav__dropdown {
-
     @include sizeDesktop {
         display: block;
-        opacity: 1;
         visibility: visible;
     }
 }
@@ -130,15 +135,10 @@
         font-family: $primaryBrandFont;
         font-weight: 600;
         padding: 1.5rem 1rem;
-        -webkit-font-smoothing: antialiased;
-        font-smoothing: antialiased;
     }
 }
 
 .nav__dropdown-item:hover {
-    // display: block;
-    // width: 100%;
-
     @include sizeDesktop {
         background: $primaryAlternative;
     }
