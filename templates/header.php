@@ -56,13 +56,13 @@
         <nav class="nav">
             <a class="nav__hamburger" href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
             <ul class="nav__list">
-                <li class="nav__list-item">
+                <li class="nav__list-item show-desktop">
                     <a href="<?php echo $path; ?>index.php" class="nav__link">Start</a>
                 </li>
-                <li class="nav__list-item"><span class="nav__link">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                <li class="nav__list-item nav__list-item-sub-parent"><span class="nav__link nav__link--extra-spacing">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
                     <ul class="nav__dropdown">
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
-                            <li>
+                            <li class="nav__list-item nav__list-item-sub">
                                 <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav__dropdown-item"><?php echo ucfirst($category); ?></a>
                             </li>
                         <?php endwhile?>
@@ -76,8 +76,8 @@
                 </li>
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
                     <li class="nav__list-item">
-                        <a href="<?php echo $path; ?>admin/dashboard.php" class="nav__link"><i class="fa fa-cog" aria-hidden="true"></i> Kontrollpanel</a>
-                        <ul class="nav__dropdown">
+                        <a href="<?php echo $path; ?>admin/dashboard.php" class="nav__link"><i class="fa fa-cog show-desktop" aria-hidden="true"></i> Kontrollpanel</a>
+                        <ul class="nav__dropdown nav__dropdown--hide-sub">
                             <li>
                                 <a href="<?php echo $path; ?>admin/posteditor.php" class="nav__dropdown-item">Skapa nytt inlägg</a>
                             </li>
@@ -102,11 +102,14 @@
                                 <a href="<?php echo $path; ?>assets/logout.php" class="nav__dropdown-item nav__dropdown-item--logout">Logga ut</a>
                             </li>
                         </ul>
+                        <li class="nav__list-item nav__list-item--logout show-desktop">
+                            <a href="<?php echo $path; ?>assets/logout.php" class="nav__link nav__link--logout">Logga ut</a>
+                        </li>
                     </li>
                 <?php endif; ?>
             </ul>
         </nav>
-        <nav class="hamburger">
+        <!-- <nav class="hamburger">
             <ul class="list-style-none">
                 <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
                     <ul class="list-style-none box-shadow">
@@ -135,5 +138,5 @@
                     </ul>
                 </li>
             </ul>
-        </nav>
+        </nav> -->
     </header>

@@ -181,6 +181,14 @@
     color: $baseColor2;
 }
 
+.show-desktop {
+    display: none;
+
+    @include sizeDesktop {
+        display: inline-block;
+    }
+}
+
 .saffron-text {
     color: $complimentary;
 }

@@ -1,43 +1,28 @@
 .nav {
 
-
-    // @include mobileSizeSmall {
-    //     @include hidden-visually;
-    // }
-    //
-    // @include mobileSizeMedium {
-    //     @include hidden-visually;
-    // }
-    //
-    // @include sizeTablet {
-    //     @include hidden-visually;
-    // }
 }
 
 
 .nav__hamburger {
-
     @include sizeDesktop {
         @include hidden-visually;
     }
 }
 
-
-// This should be styled as "list-style-none" on smaller units.
 // This is the ul that needs styling.
 .nav__list {
-    background: $primary;
-    border-bottom: 1px solid $baseColorTransparent;
+    // border-bottom: 1px solid $baseColorTransparent;
     font-family: $primaryBrandFont;
+    font-size: 1.4rem;
     font-weight: 600;
     list-style: none;
-    display: block;
-    line-height: 1.6em;
-    padding: 1.5rem 1rem;
+    display: inline-block;
+    // line-height: 1.6em;
+    // padding: 0 1rem;
+    margin: 0;
+    padding: 0;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
-
-
 
     // display: none;
     // position: absolute;
@@ -46,8 +31,10 @@
     // right: 0;
 
     @include sizeDesktop {
+        background: none;
         box-sizing: border-box;
         display: inline-block;
+        font-family: $secondaryBrandFont;
         margin: 0;
         line-height: 1.8;
         padding: 1.5rem 0.4rem 1.7rem 0;
@@ -77,16 +64,23 @@
 
 .nav__link:hover,
 .nav__list-item:hover {
-
+    background: $primaryAlternative;
     @include sizeDesktop {
-        background: $primary;
     }
 }
 
+.nav__link--extra-spacing {
+    padding-left: 1.5rem;
+}
+
 .nav__list-item {
+    background: $primary;
+    border-bottom: 1px solid $baseColorTransparent;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
 
     @include sizeDesktop {
-        cursor: pointer;
+        background: none;
         display: inline-block;
         margin-right: -0.4rem;
         position: relative;
@@ -94,21 +88,47 @@
     }
 }
 
+
+.nav__list-item:last-child {
+    border-bottom: none;
+}
+
+.nav__list-item-sub-parent {
+    padding: 1.5rem 0 0;
+
+}
+.nav__list-item-sub-parent:hover {
+    // background: $primary;
+    }
+
+.nav__list-item-sub {
+    box-sizing: border-box;
+    background-color: $primaryAlternative;
+    display: block;
+    width: 100%;
+}
+
 .nav__dropdown {
+    list-style: none;
+    padding: 0;
+    width: 100%;
 
     @include sizeDesktop {
         box-shadow: none;
         display: none;
         left: 0;
         list-style: none;
-        min-width: 18rem;
-        max-width: 25rem;
-        padding: 0;
+        // min-width: 18rem;
+        // max-width: 25rem;
         position: absolute;
         top: 7.8rem;
         visibility: hidden;
         transition: opacity 0.2s;
     }
+}
+
+.nav__dropdown--hide-sub {
+    display: none;
 }
 
 .nav__list-item:hover .nav__dropdown {
@@ -147,4 +167,8 @@
     @include sizeDesktop {
         background: $error;
     }
+}
+
+.nav__link--logout:hover {
+    background-color: $error;
 }
