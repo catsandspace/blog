@@ -26,7 +26,11 @@
 
         if ($stmt->prepare($query)) {
             $stmt->execute();
-            $feedbackMessage = "Du har tagit bort inlägget";
+            $query = "DELETE FROM comments WHERE postid ='{$postToDelete}'";
+            if ($stmt->prepare($query)) {
+                $stmt->execute();
+                $feedbackMessage = "Du har tagit bort inlägget";
+            }
         }
     }
 
