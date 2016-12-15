@@ -3,6 +3,8 @@
     require_once "./assets/session.php";
     require_once "./assets/functions.php";
 
+    $rows = 0;
+
 /*******************************************************************************
    GET SELECTED POST WHERE ID = post.php?getpost[id]
 *******************************************************************************/
@@ -146,7 +148,8 @@
         if ($stmt -> prepare($query)):
             $stmt-> execute();
             $stmt -> bind_result($commentId, $commentUserId, $commentCreated, $commentEmail, $commentAuthor, $commentContent, $commentWebsite, $postId, $userName, $userMail, $userWebsite);
-
+            $stmt->store_result();
+            $rows = $stmt->num_rows;
         else:
             $errorMessage = "Något gick fel när kommentarerna skulle hämtas.";
         endif;
@@ -230,7 +233,7 @@
                     <p class="author-info"> [ <a class="author-info__links" href="<?php echo $commentWebsite; ?>"><i class="fa fa-globe" aria-hidden="true"></i> Besök webbplats</a> ]</p>
                 </div>
             <?php endwhile; ?>
-            <?php if ($commentId == NULL): ?>
+            <?php if ($rows == 0): ?>
                 <p class="saffron-text primary-brand-font">Detta inlägg har inga kommentarer ännu.</p>
             <?php endif; ?>
         </div>

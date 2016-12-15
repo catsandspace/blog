@@ -77,7 +77,6 @@
 *******************************************************************************/
 ?>
 <main>
-    <?php echo $rows; ?>
     <?php if ($rows == 0): ?>
         <h1 class="center-text">Det finns inga kommentarer!</h1>
     <?php else: ?>
