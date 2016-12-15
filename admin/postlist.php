@@ -19,17 +19,32 @@
         header("Location: ./posteditor.php?edit=$postToEdit");
     }
 
+/********************************************************************************
+   REMOVING OF SELECTED POST, COMMENTS CONNECTED TO THAT POST AND REMOVING IMAGE
+********************************************************************************/
+
     if (isset($_POST["delete-post"])) {
 
         $postToDelete = $_POST["delete-post"];
-        $query = "DELETE FROM posts WHERE id ='{$postToDelete}'";
-
+        $query = "SELECT image FROM posts WHERE id ='{$postToDelete}'";
         if ($stmt->prepare($query)) {
             $stmt->execute();
-            $query = "DELETE FROM comments WHERE postid ='{$postToDelete}'";
+            $stmt->bind_result($fileName);
+            $stmt->fetch();
+            $fileName = str_replace("uploads/postimg/", "", $fileName);
+            $query = "DELETE FROM posts WHERE id ='{$postToDelete}'";
             if ($stmt->prepare($query)) {
                 $stmt->execute();
-                $feedbackMessage = "Du har tagit bort inlägget";
+                $query = "DELETE FROM comments WHERE postid ='{$postToDelete}'";
+                if ($stmt->prepare($query)) {
+                    $stmt->execute();
+                    $old = getcwd(); // Save the current directory
+                    $new = "../uploads/postimg/";
+                    chdir($new);
+                    unlink($fileName);
+                    chdir($old); // Restore the old working directory
+                    $feedbackMessage = "Du har tagit bort inlägget";
+                }
             }
         }
     }
