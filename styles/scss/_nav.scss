@@ -1,4 +1,6 @@
 .nav {
+
+
     // @include mobileSizeSmall {
     //     @include hidden-visually;
     // }
@@ -22,17 +24,39 @@
 
 
 // This should be styled as "list-style-none" on smaller units.
+// This is the ul that needs styling.
 .nav__list {
+    background: $primary;
+    border-bottom: 1px solid $baseColorTransparent;
+    font-family: $primaryBrandFont;
+    font-weight: 600;
+    list-style: none;
+    display: block;
+    line-height: 1.6em;
+    padding: 1.5rem 1rem;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+
+
+
+    // display: none;
+    // position: absolute;
+    // width: 20rem;
+    // top: 100%;
+    // right: 0;
 
     @include sizeDesktop {
         box-sizing: border-box;
-        display: inline;
+        display: inline-block;
         margin: 0;
         line-height: 1.8;
-        list-style: none;
         padding: 1.5rem 0.4rem 1.7rem 0;
         text-align: left;
     }
+}
+
+.nav__list:hover > ul {
+    display: block;
 }
 
 .nav__link {
