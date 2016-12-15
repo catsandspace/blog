@@ -1,47 +1,40 @@
 .nav {
-    border: 1px solid red;
-
+    position: relative;
 }
 
 .nav__hamburger {
+    position: absolute;
+    top: 0;
+    right: 0;
     @include sizeDesktop {
         @include hidden-visually;
     }
 }
 
-
-// This is the ul that needs styling.
 .nav__list {
+    box-shadow: 1px 2px 5px $baseColorTransparent;
     font-family: $primaryBrandFont;
     font-size: 1.4rem;
     font-weight: 600;
     list-style: none;
     // display: none;
-    margin: 0;
+    position: absolute;
+    width: 20rem;
+    top: 100%;
+    right: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
 
-    // display: none;
-    // position: absolute;
-    // width: 20rem;
-    // top: 100%;
-    // right: 0;
-
     @include sizeDesktop {
         background: none;
-        box-sizing: border-box;
         display: inline-block;
         font-family: $secondaryBrandFont;
         margin: 0;
-        line-height: 1.8;
-        // padding: 1.5rem 0.4rem 1.7rem 0;
-        // text-align: left;
+        position: relative;
+        top: 0;
+        width: auto;
     }
-}
-
-.nav__hamburger {
-    border: 1px solid purple;
 }
 
 .nav:hover .nav__list {
@@ -49,10 +42,11 @@
 }
 
 .nav__link {
-
     @include sizeDesktop {
+        box-sizing: border-box;
         display: block;
-        padding: 2.5rem 2rem;
+        padding-top: 2.5rem;
+        height: 6.8rem;
         transition: all 0.2s;
     }
 }
@@ -72,7 +66,7 @@
 }
 
 .nav__link--extra-spacing {
-    padding-left: 1.5rem;
+    padding-left: 1.2rem;
 }
 
 .nav__list-item {
@@ -82,14 +76,13 @@
     cursor: pointer;
 
     @include sizeDesktop {
+        border-bottom: none;
         background: none;
         display: inline-block;
-        margin-right: -0.4rem;
         position: relative;
         padding: 0;
     }
 }
-
 
 .nav__list-item:last-child {
     border-bottom: none;
@@ -97,40 +90,16 @@
 
 .nav__list-item-sub-parent {
     padding: 1.5rem 0 0;
-
+        @include sizeDesktop {
+            padding: 0;
+        }
 }
-.nav__list-item-sub-parent:hover {
-    // background: $primary;
-    }
 
 .nav__list-item-sub {
     box-sizing: border-box;
     background-color: $primaryAlternative;
     display: block;
     width: 100%;
-}
-
-.nav__dropdown {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-
-    @include sizeDesktop {
-        box-shadow: none;
-        display: none;
-        left: 0;
-        list-style: none;
-        // min-width: 18rem;
-        // max-width: 25rem;
-        position: absolute;
-        top: 7.8rem;
-        visibility: hidden;
-        transition: opacity 0.2s;
-    }
-}
-
-.nav__dropdown--hide-sub {
-    display: none;
 }
 
 .nav__list-item--logout {
@@ -153,7 +122,6 @@
 }
 
 .nav__dropdown-item {
-
     @include sizeDesktop {
         background: $primaryAlternative2;
         box-sizing: border-box;
@@ -168,8 +136,8 @@
 }
 
 .nav__dropdown-item:hover {
-    display: block;
-    width: 100%;
+    // display: block;
+    // width: 100%;
 
     @include sizeDesktop {
         background: $primaryAlternative;
@@ -189,4 +157,25 @@
     background-color: $error;
     width: 100%;
     display: block;
+}
+
+.nav__dropdown {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+
+    @include sizeDesktop {
+        box-shadow: none;
+        display: none;
+        left: 0;
+        list-style: none;
+        position: absolute;
+        visibility: hidden;
+        transition: opacity 0.2s;
+        top: 100%;
+    }
+}
+
+.nav__dropdown--hide-sub {
+    display: none;
 }
