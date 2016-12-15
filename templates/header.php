@@ -54,26 +54,8 @@
             </a>
         </div>
         <nav class="nav">
-            <a class="nav__hamburger" href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
+            <a class="nav__hamburger" href="#"><span class="burger-size">B<i class="fa fa-fw fa-bars"></i></span></a>
             <ul class="nav__list">
-                <!-- <li class="nav__list-item show-desktop">
-                    <a href="<?php echo $path; ?>index.php" class="nav__link">Start</a>
-                </li> -->
-                <li class="nav__list-item nav__list-item-sub-parent"><span class="nav__link nav__link--extra-spacing">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                    <ul class="nav__dropdown">
-                        <?php while (mysqli_stmt_fetch($stmt)): ?>
-                            <li class="nav__list-item nav__list-item-sub">
-                                <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav__dropdown-item"><?php echo ucfirst($category); ?></a>
-                            </li>
-                        <?php endwhile?>
-                    </ul>
-                </li>
-                <li class="nav__list-item">
-                    <a href="<?php echo $path; ?>archive.php" class="nav__link">Arkiv</a>
-                </li>
-                <li class="nav__list-item">
-                    <a href="<?php echo $path; ?>contact.php" class="nav__link">Kontakt</a>
-                </li>
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
                     <li class="nav__list-item">
                         <a href="<?php echo $path; ?>admin/dashboard.php" class="nav__link"><i class="fa fa-cog show-desktop" aria-hidden="true"></i> Kontrollpanel</a>
@@ -107,9 +89,25 @@
                         <a href="<?php echo $path; ?>assets/logout.php">Logga ut</a>
                     </li>
                 <?php endif; ?>
+                <li class="nav__list-item nav__list-item-sub-parent"><span class="nav__link nav__link--extra-spacing">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                    <ul class="nav__dropdown">
+                        <?php while (mysqli_stmt_fetch($stmt)): ?>
+                            <li class="nav__list-item nav__list-item-sub">
+                                <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav__dropdown-item"><?php echo ucfirst($category); ?></a>
+                            </li>
+                        <?php endwhile?>
+                    </ul>
+                </li>
+                <li class="nav__list-item">
+                    <a href="<?php echo $path; ?>archive.php" class="nav__link">Arkiv</a>
+                </li>
+                <li class="nav__list-item">
+                    <a href="<?php echo $path; ?>contact.php" class="nav__link">Kontakt</a>
+                </li>
+
             </ul>
         </nav>
-        <!-- <nav class="hamburger">
+        <nav class="hamburger">
             <ul class="list-style-none">
                 <li class="has-sub"><a href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
                     <ul class="list-style-none box-shadow">
@@ -138,5 +136,5 @@
                     </ul>
                 </li>
             </ul>
-        </nav> -->
+        </nav>
     </header>

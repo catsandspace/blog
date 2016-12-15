@@ -1,7 +1,7 @@
 .nav {
+    border: 1px solid red;
 
 }
-
 
 .nav__hamburger {
     @include sizeDesktop {
@@ -9,14 +9,14 @@
     }
 }
 
+
 // This is the ul that needs styling.
 .nav__list {
-    // border-bottom: 1px solid $baseColorTransparent;
     font-family: $primaryBrandFont;
     font-size: 1.4rem;
     font-weight: 600;
     list-style: none;
-    display: block;
+    // display: none;
     // line-height: 1.6em;
     // padding: 0 1rem;
     margin: 0;
@@ -37,12 +37,16 @@
         font-family: $secondaryBrandFont;
         margin: 0;
         line-height: 1.8;
-        padding: 1.5rem 0.4rem 1.7rem 0;
-        text-align: left;
+        // padding: 1.5rem 0.4rem 1.7rem 0;
+        // text-align: left;
     }
 }
 
-.nav__list:hover > ul {
+.nav__hamburger {
+    border: 1px solid purple;
+}
+
+.nav:hover .nav__list {
     display: block;
 }
 
