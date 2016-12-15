@@ -16,7 +16,7 @@
     font-size: 1.4rem;
     font-weight: 600;
     list-style: none;
-    display: inline-block;
+    display: block;
     // line-height: 1.6em;
     // padding: 0 1rem;
     margin: 0;
@@ -131,6 +131,16 @@
     display: none;
 }
 
+.nav__list-item--logout {
+    @include sizeDesktop {
+        display: none;
+    }
+}
+
+.nav__list-item--logout:hover {
+    background-color: $error;
+}
+
 .nav__list-item:hover .nav__dropdown {
 
     @include sizeDesktop {
@@ -156,6 +166,8 @@
 }
 
 .nav__dropdown-item:hover {
+    display: block;
+    width: 100%;
 
     @include sizeDesktop {
         background: $primaryAlternative;
@@ -163,6 +175,8 @@
 }
 
 .nav__dropdown-item--logout:hover {
+    display: block;
+    width: 100%;
 
     @include sizeDesktop {
         background: $error;
@@ -171,4 +185,6 @@
 
 .nav__link--logout:hover {
     background-color: $error;
+    width: 100%;
+    display: block;
 }

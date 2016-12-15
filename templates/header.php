@@ -56,9 +56,9 @@
         <nav class="nav">
             <a class="nav__hamburger" href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
             <ul class="nav__list">
-                <li class="nav__list-item show-desktop">
+                <!-- <li class="nav__list-item show-desktop">
                     <a href="<?php echo $path; ?>index.php" class="nav__link">Start</a>
-                </li>
+                </li> -->
                 <li class="nav__list-item nav__list-item-sub-parent"><span class="nav__link nav__link--extra-spacing">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
                     <ul class="nav__dropdown">
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
@@ -102,9 +102,9 @@
                                 <a href="<?php echo $path; ?>assets/logout.php" class="nav__dropdown-item nav__dropdown-item--logout">Logga ut</a>
                             </li>
                         </ul>
-                        <li class="nav__list-item nav__list-item--logout show-desktop">
-                            <a href="<?php echo $path; ?>assets/logout.php" class="nav__link nav__link--logout">Logga ut</a>
-                        </li>
+                    </li>
+                    <li class="nav__list-item nav__list-item--logout">
+                        <a href="<?php echo $path; ?>assets/logout.php">Logga ut</a>
                     </li>
                 <?php endif; ?>
             </ul>
