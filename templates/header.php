@@ -21,7 +21,6 @@
    } else {
        $currentUserPermission = NULL;
    }
-
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -85,9 +84,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav__list-item nav__list-item--logout">
-                        <a href="<?php echo $path; ?>assets/logout.php">Logga ut</a>
-                    </li>
                 <?php endif; ?>
                 <li class="nav__list-item nav__list-item-sub-parent"><span class="nav__link nav__link--extra-spacing">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
                     <ul class="nav__dropdown">
@@ -104,6 +100,11 @@
                 <li class="nav__list-item">
                     <a href="<?php echo $path; ?>contact.php" class="nav__link">Kontakt</a>
                 </li>
+                <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
+                    <li class="nav__list-item nav__list-item--logout">
+                        <a href="<?php echo $path; ?>assets/logout.php">Logga ut</a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>
