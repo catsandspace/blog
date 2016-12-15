@@ -53,52 +53,52 @@
                 <span class="header-logotext__text">Cats and Space</span>
             </a>
         </div>
-        <nav class="nav-desktop">
-            <ul class="nav-desktop__list">
-                <li class="nav-desktop__list-item">
-                    <a href="<?php echo $path; ?>index.php" class="nav-desktop__link">Start</a>
+        <nav class="nav">
+            <ul class="nav__list">
+                <li class="nav__list-item">
+                    <a href="<?php echo $path; ?>index.php" class="nav__link">Start</a>
                 </li>
-                <li class="nav-desktop__list-item"><span class="nav-desktop__link">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                    <ul class="nav-desktop__dropdown">
+                <li class="nav__list-item"><span class="nav__link">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                    <ul class="nav__dropdown">
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
                             <li>
-                                <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav-desktop__dropdown-item"><?php echo ucfirst($category); ?></a>
+                                <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav__dropdown-item"><?php echo ucfirst($category); ?></a>
                             </li>
                         <?php endwhile?>
                     </ul>
                 </li>
-                <li class="nav-desktop__list-item">
-                    <a href="<?php echo $path; ?>archive.php" class="nav-desktop__link">Arkiv</a>
+                <li class="nav__list-item">
+                    <a href="<?php echo $path; ?>archive.php" class="nav__link">Arkiv</a>
                 </li>
-                <li class="nav-desktop__list-item">
-                    <a href="<?php echo $path; ?>contact.php" class="nav-desktop__link">Kontakt</a>
+                <li class="nav__list-item">
+                    <a href="<?php echo $path; ?>contact.php" class="nav__link">Kontakt</a>
                 </li>
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                    <li class="nav-desktop__list-item">
-                        <a href="<?php echo $path; ?>admin/dashboard.php" class="nav-desktop__link"><i class="fa fa-cog" aria-hidden="true"></i> Kontrollpanel</a>
-                        <ul class="nav-desktop__dropdown">
+                    <li class="nav__list-item">
+                        <a href="<?php echo $path; ?>admin/dashboard.php" class="nav__link"><i class="fa fa-cog" aria-hidden="true"></i> Kontrollpanel</a>
+                        <ul class="nav__dropdown">
                             <li>
-                                <a href="<?php echo $path; ?>admin/posteditor.php" class="nav-desktop__dropdown-item">Skapa nytt inlägg</a>
+                                <a href="<?php echo $path; ?>admin/posteditor.php" class="nav__dropdown-item">Skapa nytt inlägg</a>
                             </li>
                             <li>
-                                <a href="<?php echo $path; ?>admin/postlist.php" class="nav-desktop__dropdown-item">Se alla inlägg</a>
+                                <a href="<?php echo $path; ?>admin/postlist.php" class="nav__dropdown-item">Se alla inlägg</a>
                             </li>
                             <li>
-                                <a href="<?php echo $path; ?>admin/comments.php" class="nav-desktop__dropdown-item">Se alla kommentarer</a>
+                                <a href="<?php echo $path; ?>admin/comments.php" class="nav__dropdown-item">Se alla kommentarer</a>
                             </li>
                             <?php if ($currentUserPermission == 1): ?>
                                 <li>
-                                    <a href="<?php echo $path; ?>admin/categories.php" class="nav-desktop__dropdown-item">Hantera kategorier</a>
+                                    <a href="<?php echo $path; ?>admin/categories.php" class="nav__dropdown-item">Hantera kategorier</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $path; ?>admin/users.php" class="nav-desktop__dropdown-item">Hantera användare</a>
+                                    <a href="<?php echo $path; ?>admin/users.php" class="nav__dropdown-item">Hantera användare</a>
                                 </li>
                             <?php endif; ?>
                             <li>
-                                <a href="<?php echo $path; ?>admin/dashboard.php?statistics=true" class="nav-desktop__dropdown-item">Se statistik</a>
+                                <a href="<?php echo $path; ?>admin/dashboard.php?statistics=true" class="nav__dropdown-item">Se statistik</a>
                             </li>
                             <li>
-                                <a href="<?php echo $path; ?>assets/logout.php" class="nav-desktop__dropdown-item nav-desktop__dropdown-item--logout">Logga ut</a>
+                                <a href="<?php echo $path; ?>assets/logout.php" class="nav__dropdown-item nav__dropdown-item--logout">Logga ut</a>
                             </li>
                         </ul>
                     </li>
