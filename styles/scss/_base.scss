@@ -54,8 +54,10 @@ header {
 }
 
 .header-logotext {
-    display: flex;
     align-content: baseline;
+    display: flex;
+    position: relative;
+    z-index: 1;
 
     @include sizeDesktop {
         padding: 1.3rem 3rem 0;

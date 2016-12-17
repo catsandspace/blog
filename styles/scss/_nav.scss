@@ -1,31 +1,49 @@
 .nav {
-    position: relative;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
 }
 
 .nav__hamburger {
-    bottom: 0;
-    position: absolute;
-    right: 0;
 
     @include sizeDesktop {
         @include hidden-visually;
     }
 }
 
+.nav__hamburger:hover + .nav__mouse-capture {
+    display: block;
+}
+
+.nav__mouse-capture {
+    width: 100%;
+    display: none;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.nav__mouse-capture:hover {
+    display: block;
+}
+
+.nav__mouse-capture:hover + .nav__list {
+    display: block;
+}
 .nav__list {
+    background-color: $primary;
     box-shadow: 1px 2px 5px $baseColorTransparent;
     font-family: $primaryBrandFont;
-    font-size: 1.4rem;
+    // font-size: 1.4rem;
     font-weight: 600;
     list-style: none;
-    // display: none;
+    margin: 0;
+    display: none;
     right: 0;
     padding: 0;
     position: absolute;
     top: 100%;
-    width: 20rem;
+    // width: 20rem;
 
     @include sizeDesktop {
         display: inline-block;
@@ -42,6 +60,14 @@
 }
 
 .nav__link {
+    display: block;
+    white-space: nowrap;
+    padding: 1.1rem 1.25rem 0.9rem;
+
+    &:hover {
+        background-color: $primaryAlternative;
+    }
+
     @include sizeDesktop {
         box-sizing: border-box;
         display: block;
@@ -51,37 +77,20 @@
     }
 }
 
-.nav__link:hover,
-.nav__list-item:hover {
-    background: $primaryAlternative;
+.nav__link--static:hover {
+    background-color: transparent;
 }
 
-/*******************************************************************************
-    START OF CATEGORY STYLING (BURGER MODE)
-*******************************************************************************/
-
-.nav__link--sub-parent {
-    padding-left: 1.2rem;
-    line-height: 2;
+.nav__link--sub {
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 
-.nav__link--sub-parent:hover {
-    background: $primary;
-
+.nav__link--logout:hover {
+    background-color: $error;
 }
-
-.nav__list-item-sub-parent:hover {
-    background: $primary;
-}
-
-/*******************************************************************************
-    END OF CATEGORY STYLING
-*******************************************************************************/
 
 .nav__list-item {
-    background: $primary;
-    cursor: pointer;
-    padding: 1.5rem 1rem;
 
     @include sizeDesktop {
         background: none;
@@ -91,18 +100,11 @@
     }
 }
 
-.nav__list-item-sub-parent {
-    padding: 1.5rem 0 0;
-        @include sizeDesktop {
-            padding: 0;
-        }
-}
-
 .nav__list-item-sub {
-    box-sizing: border-box;
-    display: block;
-    padding-left: 2.4em;
-    width: 100%;
+        // box-sizing: border-box;
+        // display: block;
+    // padding-left: 2.4em;
+    // width: 100%;
 
     @include sizeDesktop {
         padding-left: 0;
@@ -116,7 +118,7 @@
 }
 
 .nav__list-item--logout:hover {
-    background-color: $error;
+    // background-color: $error;
 }
 
 .nav__list-item:hover .nav__dropdown {
@@ -153,10 +155,49 @@
     }
 }
 
-.nav__link--logout:hover {
-    background-color: $error;
-    width: 100%;
-    display: block;
+/*******************************************************************************
+    START OF CATEGORY STYLING (BURGER MODE)
+*******************************************************************************/
+
+.nav__list-item-sub-parent {
+    // padding: 0.5rem 0 0;
+        @include sizeDesktop {
+            // padding: 2.5rem 0 0;
+        }
+}
+
+.nav__list-item-sub-parent:hover {
+    // background: $primary;
+
+        @include sizeDesktop {
+            background: $primaryAlternative;
+        }
+}
+
+.nav__link--sub-parent {
+    // line-height: 2;
+
+    @include sizeDesktop {
+        padding-top: 2.5rem;
+        line-height: inherit;
+    }
+}
+
+.nav__link--sub-parent:hover {
+    // background: $primary;
+
+}
+
+/*******************************************************************************
+    END OF CATEGORY STYLING
+*******************************************************************************/
+
+.nav__sub {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    // border-left: 6px solid $primary;
+    background-color: $primaryAlternative2;
 }
 
 .nav__dropdown {

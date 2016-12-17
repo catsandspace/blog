@@ -54,6 +54,7 @@
         </div>
         <nav class="nav">
             <a class="nav__hamburger" href="#"><span class="burger-size">B<i class="fa fa-fw fa-bars"></i></span></a>
+            <div class="nav__mouse-capture"></div>
             <ul class="nav__list">
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
                     <li class="nav__list-item">
@@ -85,11 +86,14 @@
                         </ul>
                     </li>
                 <?php endif; ?>
-                <li class="nav__list-item nav__list-item-sub-parent"><span class="nav__link nav__link--sub-parent">Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                    <ul class="nav__dropdown">
+                <li class="nav__list-item">
+                    <span class="nav__link nav__link--static">
+                        Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </span>
+                    <ul class="nav__sub">
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
                             <li class="nav__list-item nav__list-item-sub">
-                                <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav__dropdown-item"><?php echo ucfirst($category); ?></a>
+                                <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav__link nav__link--sub"><?php echo ucfirst($category); ?></a>
                             </li>
                         <?php endwhile?>
                     </ul>
@@ -101,8 +105,8 @@
                     <a href="<?php echo $path; ?>contact.php" class="nav__link">Kontakt</a>
                 </li>
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                    <li class="nav__list-item nav__list-item--logout">
-                        <a href="<?php echo $path; ?>assets/logout.php">Logga ut</a>
+                    <li class="nav__list-item">
+                        <a class="nav__link nav__link--logout" href="<?php echo $path; ?>assets/logout.php">Logga ut</a>
                     </li>
                 <?php endif; ?>
             </ul>
