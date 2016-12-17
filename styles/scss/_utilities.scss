@@ -94,6 +94,24 @@
     @include hidden-visually;
 }
 
+.hidden-mobile {
+    @media (max-width: #{$widthTablet - 1px}) {
+        display: none;
+    }
+}
+
+.hidden-tablet {
+    @include sizeTablet {
+        display: none;
+    }
+}
+
+.hidden-desktop {
+    @include sizeDesktop {
+        display: none;
+    }
+}
+
 .inline-block {
     display: inline-block;
     width: 100%;

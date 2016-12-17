@@ -53,46 +53,46 @@
             </a>
         </div>
         <nav class="nav">
-            <a class="nav__hamburger" href="#"><span class="burger-size">B<i class="fa fa-fw fa-bars"></i></span></a>
+            <a class="nav__hamburger hidden-desktop" href="#"><span class="burger-size">B<i class="fa fa-fw fa-bars"></i></span></a>
             <div class="nav__mouse-capture"></div>
             <ul class="nav__list">
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                    <li class="nav__list-item">
+                    <li class="nav__list-item nav__list-item--parent nav__list-item--last">
                         <a href="<?php echo $path; ?>admin/dashboard.php" class="nav__link"><i class="fa fa-cog show-desktop" aria-hidden="true"></i> Kontrollpanel</a>
-                        <ul class="nav__dropdown nav__dropdown--hide-sub">
-                            <li>
-                                <a href="<?php echo $path; ?>admin/posteditor.php" class="nav__dropdown-item">Skapa nytt inlägg</a>
+                        <ul class="nav__sub-list hidden-mobile hidden-tablet">
+                            <li class="nav__list-item nav__list-item--sub">
+                                <a href="<?php echo $path; ?>admin/posteditor.php" class="nav__link nav__link--sub">Skapa nytt inlägg</a>
                             </li>
-                            <li>
-                                <a href="<?php echo $path; ?>admin/postlist.php" class="nav__dropdown-item">Se alla inlägg</a>
+                            <li class="nav__list-item nav__list-item--sub">
+                                <a href="<?php echo $path; ?>admin/postlist.php" class="nav__link nav__link--sub">Se alla inlägg</a>
                             </li>
-                            <li>
-                                <a href="<?php echo $path; ?>admin/comments.php" class="nav__dropdown-item">Se alla kommentarer</a>
+                            <li class="nav__list-item nav__list-item--sub">
+                                <a href="<?php echo $path; ?>admin/comments.php" class="nav__link nav__link--sub">Se alla kommentarer</a>
                             </li>
                             <?php if ($currentUserPermission == 1): ?>
-                                <li>
-                                    <a href="<?php echo $path; ?>admin/categories.php" class="nav__dropdown-item">Hantera kategorier</a>
+                                <li class="nav__list-item nav__list-item--sub">
+                                    <a href="<?php echo $path; ?>admin/categories.php" class="nav__link nav__link--sub">Hantera kategorier</a>
                                 </li>
-                                <li>
-                                    <a href="<?php echo $path; ?>admin/users.php" class="nav__dropdown-item">Hantera användare</a>
+                                <li class="nav__list-item nav__list-item--sub">
+                                    <a href="<?php echo $path; ?>admin/users.php" class="nav__link nav__link--sub">Hantera användare</a>
                                 </li>
                             <?php endif; ?>
-                            <li>
-                                <a href="<?php echo $path; ?>admin/dashboard.php?statistics=true" class="nav__dropdown-item">Se statistik</a>
+                            <li class="nav__list-item nav__list-item--sub">
+                                <a href="<?php echo $path; ?>admin/dashboard.php?statistics=true" class="nav__link nav__link--sub">Se statistik</a>
                             </li>
-                            <li>
-                                <a href="<?php echo $path; ?>assets/logout.php" class="nav__dropdown-item nav__dropdown-item--logout">Logga ut</a>
+                            <li class="nav__list-item nav__list-item--sub">
+                                <a href="<?php echo $path; ?>assets/logout.php" class="nav__link nav__link--sub nav__link--logout">Logga ut</a>
                             </li>
                         </ul>
                     </li>
                 <?php endif; ?>
-                <li class="nav__list-item">
+                <li class="nav__list-item nav__list-item--parent">
                     <span class="nav__link nav__link--static">
                         Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </span>
-                    <ul class="nav__sub">
+                    <ul class="nav__sub-list">
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
-                            <li class="nav__list-item nav__list-item-sub">
+                            <li class="nav__list-item nav__list-item--sub">
                                 <a href="<?php echo $path; ?>index.php?display=<?php echo $id; ?>" class="nav__link nav__link--sub"><?php echo ucfirst($category); ?></a>
                             </li>
                         <?php endwhile?>
@@ -105,7 +105,7 @@
                     <a href="<?php echo $path; ?>contact.php" class="nav__link">Kontakt</a>
                 </li>
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
-                    <li class="nav__list-item">
+                    <li class="nav__list-item hidden-desktop">
                         <a class="nav__link nav__link--logout" href="<?php echo $path; ?>assets/logout.php">Logga ut</a>
                     </li>
                 <?php endif; ?>

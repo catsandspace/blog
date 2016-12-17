@@ -3,24 +3,17 @@
     font-smoothing: antialiased;
 }
 
-.nav__hamburger {
-
-    @include sizeDesktop {
-        @include hidden-visually;
-    }
-}
-
 .nav__hamburger:hover + .nav__mouse-capture {
     display: block;
 }
 
 .nav__mouse-capture {
-    width: 100%;
     display: none;
     height: 100%;
-    top: 0;
     left: 0;
     position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 .nav__mouse-capture:hover {
@@ -30,64 +23,50 @@
 .nav__mouse-capture:hover + .nav__list {
     display: block;
 }
+
 .nav__list {
     background-color: $primary;
     box-shadow: 1px 2px 5px $baseColorTransparent;
+    display: none;
     font-family: $primaryBrandFont;
-    // font-size: 1.4rem;
     font-weight: 600;
     list-style: none;
     margin: 0;
-    display: none;
-    right: 0;
     padding: 0;
     position: absolute;
+    right: 0;
     top: 100%;
-    // width: 20rem;
-
-    @include sizeDesktop {
-        display: inline-block;
-        font-family: $secondaryBrandFont;
-        margin: 0;
-        position: relative;
-        top: 0;
-        width: auto;
-    }
-}
-
-.nav:hover .nav__list {
-    display: block;
-}
-
-.nav__link {
-    display: block;
-    white-space: nowrap;
-    padding: 1.1rem 1.25rem 0.9rem;
 
     &:hover {
-        background-color: $primaryAlternative;
+        display: block;
     }
 
     @include sizeDesktop {
-        box-sizing: border-box;
-        display: block;
-        padding: 2.5rem 3rem 0 0;
-        height: 6.8rem;
-        transition: all 0.2s;
+        background-color: transparent;
+        box-shadow: none;
+        font-family: $secondaryBrandFont;
+        position: static;
+
+        &, &:hover {
+            // Combat display `block` for small screens.
+            display: flex;
+        }
     }
 }
 
-.nav__link--static:hover {
-    background-color: transparent;
-}
+.nav__sub-list {
+    background-color: $primaryAlternative2;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
-.nav__link--sub {
-    padding-left: 3rem;
-    padding-right: 3rem;
-}
+    @include sizeDesktop {
+        display: none;
 
-.nav__link--logout:hover {
-    background-color: $error;
+        .nav__list-item:hover & {
+            display: block;
+        }
+    }
 }
 
 .nav__list-item {
@@ -97,126 +76,61 @@
         float: left;
         position: relative;
         padding: 0;
+
+        &--parent:hover {
+            background-color: $primaryAlternative;
+        }
+
+        &--last {
+            order: 99;
+        }
+    }
+
+    &--sub {
+        display: list-item;
+        float: none;
+
+        @include sizeDesktop {
+            font-family: $primaryBrandFont;
+        }
     }
 }
 
-.nav__list-item-sub {
-        // box-sizing: border-box;
-        // display: block;
-    // padding-left: 2.4em;
-    // width: 100%;
-
-    @include sizeDesktop {
-        padding-left: 0;
-    }
-}
-
-.nav__list-item--logout {
-    @include sizeDesktop {
-        display: none;
-    }
-}
-
-.nav__list-item--logout:hover {
-    // background-color: $error;
-}
-
-.nav__list-item:hover .nav__dropdown {
-    @include sizeDesktop {
-        display: block;
-        visibility: visible;
-    }
-}
-
-.nav__dropdown-item {
-    @include sizeDesktop {
-        background: $primaryAlternative2;
-        box-sizing: border-box;
-        color: $primaryTextcolor;
-        display: block;
-        font-family: $primaryBrandFont;
-        font-weight: 600;
-        padding: 1.5rem 1rem;
-    }
-}
-
-.nav__dropdown-item:hover {
-    @include sizeDesktop {
-        background: $primaryAlternative;
-    }
-}
-
-.nav__dropdown-item--logout:hover {
+.nav__link {
     display: block;
-    width: 100%;
+    padding: 1.1rem 1.25rem 0.9rem;
+    white-space: nowrap;
 
     @include sizeDesktop {
-        background: $error;
+        box-sizing: border-box;
+        display: block;
+        height: 6.8rem;
+        padding: 2.5rem 3rem 0;
+        text-align: center;
+        transition: all 0.2s;
     }
-}
 
-/*******************************************************************************
-    START OF CATEGORY STYLING (BURGER MODE)
-*******************************************************************************/
+    &:hover {
+        background-color: $primaryAlternative;
+    }
 
-.nav__list-item-sub-parent {
-    // padding: 0.5rem 0 0;
+    &--static:hover {
+        background-color: transparent;
+    }
+
+    &--logout:hover {
+        background-color: $error;
+    }
+
+    &--sub {
+        height: auto;
+        text-align: left;
+        padding-left: 3rem;
+        padding-right: 3rem;
+        padding-top: 1.1rem;
+
         @include sizeDesktop {
-            // padding: 2.5rem 0 0;
+            padding: 1.5rem 1.25rem 1.2rem;
         }
-}
-
-.nav__list-item-sub-parent:hover {
-    // background: $primary;
-
-        @include sizeDesktop {
-            background: $primaryAlternative;
-        }
-}
-
-.nav__link--sub-parent {
-    // line-height: 2;
-
-    @include sizeDesktop {
-        padding-top: 2.5rem;
-        line-height: inherit;
     }
-}
-
-.nav__link--sub-parent:hover {
-    // background: $primary;
-
-}
-
-/*******************************************************************************
-    END OF CATEGORY STYLING
-*******************************************************************************/
-
-.nav__sub {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    // border-left: 6px solid $primary;
-    background-color: $primaryAlternative2;
-}
-
-.nav__dropdown {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-
-    @include sizeDesktop {
-        box-shadow: none;
-        display: none;
-        left: 0;
-        list-style: none;
-        position: absolute;
-        visibility: hidden;
-        transition: opacity 0.2s;
-        top: 100%;
-    }
-}
-
-.nav__dropdown--hide-sub {
-    display: none;
 }
