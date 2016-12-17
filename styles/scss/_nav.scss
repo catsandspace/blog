@@ -4,10 +4,12 @@
 }
 
 .nav__hamburger:hover + .nav__mouse-capture {
+    // This is used to make it possible to hover between hamburger and `nav__list`, without loosing connection with `nav__list`.
     display: block;
 }
 
 .nav__hamburger:hover ~ .nav__list {
+    // This is needed to display on mobile, since `nav__mouse-capture` is not available.
     display: block;
 }
 
@@ -84,6 +86,7 @@
         position: relative;
         padding: 0;
 
+        // Trying out a way to nestle modifiers to reflect sass structure.
         &--last {
             float: right;
         }
