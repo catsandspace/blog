@@ -7,6 +7,10 @@
     display: block;
 }
 
+.nav__hamburger:hover ~ .nav__list {
+    display: block;
+}
+
 .nav__mouse-capture {
     display: none;
     height: 100%;
@@ -44,13 +48,9 @@
     @include sizeDesktop {
         background-color: transparent;
         box-shadow: none;
+        display: block;
         font-family: $secondaryBrandFont;
         position: static;
-
-        &, &:hover {
-            // Combat display `block` for small screens.
-            display: flex;
-        }
     }
 }
 
@@ -61,10 +61,17 @@
     padding: 0;
 
     @include sizeDesktop {
-        display: none;
+        pointer-events: none;
+        transform: translateY(-100%);
+        opacity: 0;
 
         .nav__list-item:hover & {
-            display: block;
+            pointer-events: auto;
+            transform: translateY(0%);
+            transition:
+                opacity 0s 0.1s ease-out,
+                transform 0.2s 0.1s ease-out;
+            opacity: 1;
         }
     }
 }
@@ -77,12 +84,8 @@
         position: relative;
         padding: 0;
 
-        &--parent:hover {
-            background-color: $primaryAlternative;
-        }
-
         &--last {
-            order: 99;
+            float: right;
         }
     }
 
@@ -106,11 +109,13 @@
         display: block;
         height: 6.8rem;
         padding: 2.5rem 3rem 0;
+        position: relative;
         text-align: center;
-        transition: all 0.2s;
+        transition: background-color 0.05s;
+        z-index: 1;
     }
 
-    &:hover {
+    .nav__list-item--parent:hover &, &:hover {
         background-color: $primaryAlternative;
     }
 
