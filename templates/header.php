@@ -53,7 +53,7 @@
             </a>
         </div>
         <nav class="nav">
-            <a class="nav__hamburger hidden-desktop" href="#"><span class="burger-size">B<i class="fa fa-fw fa-bars"></i></span></a>
+            <a class="nav__hamburger hidden-desktop" href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
             <div class="nav__mouse-capture"></div>
             <ul class="nav__list">
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
@@ -88,7 +88,7 @@
                 <?php endif; ?>
                 <li class="nav__list-item nav__list-item--parent">
                     <span class="nav__link nav__link--static">
-                        Kategorier <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        Kategorier
                     </span>
                     <ul class="nav__sub-list">
                         <?php while (mysqli_stmt_fetch($stmt)): ?>
