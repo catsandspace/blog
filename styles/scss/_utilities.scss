@@ -30,13 +30,6 @@
     @include flexbox();
     @include flexboxFlexDirection(column);
 
-        //TODO: Keep this DRY
-    @include sizeTablet {
-        @include flexboxJustifyContent(center);
-        @include flexboxFlexDirection(row);
-        @include flexboxFlexWrap(wrap);
-    }
-
     @include sizeDesktop {
         @include flexboxJustifyContent(center);
         @include flexboxFlexDirection(row);
@@ -48,23 +41,15 @@
 .flex-list__item {
     border: 2px solid $primary;
     box-sizing: border-box;
-    // TODO: Width might need adjustment.
-    min-width: 29rem;
-    max-width: 29rem;
-    margin: 1rem auto;
+    margin: 1rem;
+    min-width: 50%;
+    max-width: 100%;
     padding: 1rem;
-    @include flex(1);
-
-    @include sizeTablet  {
-        margin: 1rem;
-        min-width: 50%;
-        max-width: 100%;
-    }
 
     @include sizeDesktop {
-        margin: 1rem;
         min-width: 33.33%;
         max-width: 100%;
+        @include flex(1);
     }
 }
 
