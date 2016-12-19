@@ -63,17 +63,10 @@
     padding: 0;
 
     @include sizeDesktop {
-        pointer-events: none;
-        transform: translateY(-100%);
-        opacity: 0;
+        display: none;
 
         .nav__list-item:hover & {
-            pointer-events: auto;
-            transform: translateY(0%);
-            transition:
-                opacity 0s 0.1s ease-out,
-                transform 0.2s 0.1s ease-out;
-            opacity: 1;
+            display: block;
         }
     }
 }
@@ -87,6 +80,10 @@
         padding: 0;
 
         // Trying out a way to nestle modifiers to reflect sass structure.
+        &--parent:hover {
+            background-color: $primaryAlternative;
+        }
+
         &--last {
             float: right;
         }
