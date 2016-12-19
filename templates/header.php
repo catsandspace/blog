@@ -53,7 +53,7 @@
             </a>
         </div>
         <nav class="nav">
-            <a class="nav__hamburger hidden-desktop" href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i>B</span></a>
+            <a class="nav__hamburger hidden-desktop" href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
             <div class="nav__mouse-capture"></div>
             <ul class="nav__list">
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>
