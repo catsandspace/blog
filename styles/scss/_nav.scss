@@ -57,7 +57,7 @@
 }
 
 .nav__sub-list {
-    background-color: $primaryAlternative2;
+    background-color: $primary;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -115,7 +115,7 @@
         z-index: 1;
     }
 
-    .nav__list-item--parent:hover &, &:hover {
+    &:hover {
         background-color: $primaryAlternative;
     }
 
@@ -123,9 +123,6 @@
         background-color: transparent;
     }
 
-    &--logout:hover {
-        background-color: $error;
-    }
 
     &--sub {
         height: auto;
@@ -134,8 +131,16 @@
         padding-right: 3rem;
         padding-top: 1.1rem;
 
+        &:hover {
+            background-color: $primaryAlternative;
+        }
+
         @include sizeDesktop {
             padding: 1.5rem 1.25rem 1.2rem;
         }
+    }
+
+    &--logout:hover {
+        background-color: $error;
     }
 }
