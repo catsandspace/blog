@@ -2,9 +2,13 @@
     background-color: $baseColor;
     display: block;
     // TODO: Decide font sizes, create variables.
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin: 0.7em 0;
     @include word-wrap();
+
+    @include mobileSizeSmall {
+        font-size: 1.3rem;
+    }
 }
 
 .contact-list__item:hover {
