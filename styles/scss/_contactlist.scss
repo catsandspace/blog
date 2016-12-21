@@ -4,7 +4,7 @@
     // TODO: Decide font sizes, create variables.
     font-size: 1.8rem;
     margin: 0.7em 0;
-
+    @include word-wrap();
 }
 
 .contact-list__item:hover {
