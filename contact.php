@@ -12,7 +12,7 @@
     endif;
 ?>
 <main>
-    <h1 class="center-text">Kontaktinformation</h1>
+    <h1 class="center-text">Redaktörer</h1>
     <div class="flexbox-wrapper">
     <?php while (mysqli_stmt_fetch($stmt)):
         $name = $firstName. ' '.$lastName;?>
