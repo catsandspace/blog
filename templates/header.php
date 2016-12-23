@@ -18,6 +18,7 @@
 
    if (isset($_SESSION["permission"])) {
        $currentUserPermission = $_SESSION["permission"];
+
    } else {
        $currentUserPermission = NULL;
    }
