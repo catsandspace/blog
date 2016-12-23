@@ -3,7 +3,6 @@
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
 
-    // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
     }
@@ -25,7 +24,7 @@
 
         $query = "SELECT * FROM posts WHERE id = '{$postIdToEdit}'";
 
-        // Insert and update database values
+
         if ($stmt->prepare($query)) {
             $stmt->execute();
             $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId);
@@ -44,19 +43,14 @@
    START OF CHECK TO CONFIRM THAT ALL REQUIRED FIELDS ARE FILLED.
 *******************************************************************************/
 
-    // This is used to stop user from leaving important fields empty.
     $allRequiredFilled = TRUE;
-
-    // If a required field is left empty, info about the key will be inserted in $errors
-    // $obligatoryField is used to print out error message to user
     $errors = array();
     $obligatoryField = "<p class=\"error-msg\">Obligatoriskt fält</p><br>";
     if (isset($_POST["submit"])) {
 
-        // These variables are used for checking if all fields are filled.
         $requiredFields = array("publish", "headline", "post-content", "category");
 
-        // This checks if all required fields are filled.
+        // Checks if all required fields are filled
         foreach ($fields as $key => $value) {
             $isRequired = in_array($key, $requiredFields);
 
@@ -132,7 +126,7 @@
                         } else {
                             $databaseError = "<p class=\"error-msg\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
                         }
-                        // Redirect to confirmation.php
+
                         header("Location: ./confirmation.php");
                     }
                 } else {

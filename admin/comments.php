@@ -3,10 +3,9 @@
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
 
-    // Redirect to login.php if no session active.
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE):
+    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
-    endif;
+    }
 
     require_once "../templates/header.php";
 
@@ -72,9 +71,6 @@
 
     endif;
 
-/*******************************************************************************
-    START OF HTML
-*******************************************************************************/
 ?>
 <main>
     <?php if ($rows == 0): ?>
