@@ -16,23 +16,7 @@ main {
     }
 }
 
-@keyframes menu-is-sliding-in {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(6.8rem);
-    }
-}
-
-// TODO: Decide on what to do with this animation.
 header {
-    // animation-name: menu-is-sliding-in;
-    // animation-duration: 1.2s;
-    // animation-delay: 0.2s;
-    // animation-iteration-count: 1;
-    // animation-fill-mode: forwards;
-    // top: -6.8rem;
     background-color: $baseColorSemiTransparent;
     box-sizing: border-box;
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
@@ -77,28 +61,6 @@ header {
 .header-logotext__logo:hover {
     -webkit-filter: saturate(5);
     filter: saturate(5);
-}
-
-/*******************************************************************************
-    END OF HEADER ELEMENT
-*******************************************************************************/
-
-@keyframes add-margin-top {
-    from {
-        margin-top: 0;
-    }
-    to {
-        margin-top: 7.7rem;
-    }
-}
-
-.content-slides-in {
-    animation-name: add-margin-top;
-    animation-duration: 1.1s;
-    animation-delay: 0.3s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-
 }
 
 /*******************************************************************************
