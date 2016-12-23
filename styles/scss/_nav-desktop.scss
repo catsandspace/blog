@@ -1,0 +1,86 @@
+.nav-desktop {
+    @include mobileSizeSmall {
+        @include hidden-visually;
+    }
+
+    @include mobileSizeMedium {
+        @include hidden-visually;
+    }
+
+    @include sizeTablet {
+        @include hidden-visually;
+    }
+}
+
+.nav-desktop__list {
+    box-sizing: border-box;
+    display: inline;
+    margin: 0;
+    line-height: 1.8;
+    list-style: none;
+    padding: 1.5rem 0.4rem 1.7rem 0;
+    text-align: left;
+}
+
+.nav-desktop__link {
+    display: block;
+    padding: 2.5rem 2rem;
+    transition: all 0.2s;
+}
+
+.nav-desktop__link:last-of-type {
+    padding-right: 3rem;
+}
+
+.nav-desktop__link:hover,
+.nav-desktop__list-item:hover {
+    background: $primary;
+}
+
+.nav-desktop__list-item {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: -0.4rem;
+    position: relative;
+    padding: 0;
+}
+
+.nav-desktop__dropdown {
+    box-shadow: none;
+    display: none;
+    left: 0;
+    list-style: none;
+    min-width: 18rem;
+    max-width: 25rem;
+    padding: 0;
+    position: absolute;
+    top: 7.8rem;
+    visibility: hidden;
+    transition: opacity 0.2s;
+}
+
+.nav-desktop__list-item:hover .nav-desktop__dropdown {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-desktop__dropdown-item {
+    background: $primaryAlternative2;
+    box-sizing: border-box;
+    color: $primaryTextcolor;
+    display: block;
+    font-family: $primaryBrandFont;
+    font-weight: 600;
+    padding: 1.5rem 1rem;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+.nav-desktop__dropdown-item:hover {
+    background: $primaryAlternative;
+}
+
+.nav-desktop__dropdown-item--logout:hover {
+    background: $error;
+}

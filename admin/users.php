@@ -65,7 +65,6 @@
 
             if ($stmt->prepare($query)) {
                 $stmt->execute();
-                $stmt->close();
                 header("Location: ./users.php?getusers=$getUser#nav-adduser");
 
             } else {
@@ -168,8 +167,4 @@
     </form>
     <?php endif; ?>
 </main>
-<?php
-    $stmt -> close();
-    $conn -> close();
-    require_once "../templates/footer.php";
-?>
+<?php require_once "../templates/footer.php"; ?>

@@ -47,6 +47,11 @@
     padding-bottom: 2rem;
 }
 
+.comment__border-bottom:last-of-type {
+    border-bottom: none;
+    padding-bottom: 1rem;
+}
+
 .comment-container {
     border: 2px solid $primary;
     padding: 2rem;

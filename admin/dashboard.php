@@ -12,9 +12,10 @@
     START OF OVERALL BLOG STATISTICS
 *******************************************************************************/
 
-    $NumberOfPosts = NULL;
-    $NumberOfComments = NULL;
+    $NumberOfPosts = 0;
+    $NumberOfComments = 0;
     $errorMessage = NULL;
+    $roundAverageNumber = 0;
     $errorStatistics = "Något gick fel vid försök att hämta statistik";
 
 
@@ -56,8 +57,10 @@
         $NumberOfComments++;
     }
 
-    $averagePostComments = $NumberOfComments / $NumberOfPosts;
-    $roundAverageNumber = number_format($averagePostComments, 2,',', ' ');
+    if ($NumberOfPosts != 0) {
+        $averagePostComments = $NumberOfComments / $NumberOfPosts;
+        $roundAverageNumber = number_format($averagePostComments, 2,',', ' ');
+    }
 
 /*******************************************************************************
     GET HEADER INFO

@@ -3,13 +3,12 @@
     require_once "../assets/session.php";
     require_once "../assets/functions.php";
 
-    // This redirects user to login.php if not logged in.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == false) {
         header("Location: ../login.php");
     }
 
 /*******************************************************************************
-   START OF FEEDBACK MESSAGE AND DATABASE UPDATE
+   START OF FEEDBACK MESSAGES AND DATABASE UPDATE
 *******************************************************************************/
 
     $feedbackMessage = NULL;
@@ -17,61 +16,75 @@
 
     if (isset($_POST["edit-post"])) {
         $postToEdit = $_POST["edit-post"];
-        //Redirect to add post with current post id
         header("Location: ./posteditor.php?edit=$postToEdit");
     }
+
+/********************************************************************************
+   REMOVING OF SELECTED POST, COMMENTS CONNECTED TO THAT POST AND REMOVING IMAGE
+********************************************************************************/
 
     if (isset($_POST["delete-post"])) {
 
         $postToDelete = $_POST["delete-post"];
-        $query = "DELETE FROM posts WHERE id ='{$postToDelete}'";
-
+        $query = "SELECT image FROM posts WHERE id ='{$postToDelete}'";
         if ($stmt->prepare($query)) {
             $stmt->execute();
-            $feedbackMessage = "Du har tagit bort inlägget";
+            $stmt->bind_result($fileName);
+            $stmt->fetch();
+            $fileName = str_replace("uploads/postimg/", "", $fileName);
+            $query = "DELETE FROM posts WHERE id ='{$postToDelete}'";
+            if ($stmt->prepare($query)) {
+                $stmt->execute();
+                $query = "DELETE FROM comments WHERE postid ='{$postToDelete}'";
+                if ($stmt->prepare($query)) {
+                    $stmt->execute();
+                    $old = getcwd(); // Save the current directory
+                    $new = "../uploads/postimg/";
+                    chdir($new);
+                    unlink($fileName);
+                    chdir($old); // Restore the old working directory
+                    $feedbackMessage = "Du har tagit bort inlägget";
+                }
+            }
         }
     }
 
-    // Don't print out HTML from "header.php" before login check is done.
     require_once "../templates/header.php";
-
-/*******************************************************************************
-   END OF FEEDBACK MESSAGE AND DATABASE UPDATE
-*******************************************************************************/
 
 /*******************************************************************************
    START OF QUERY AND STMT THAT IS USED TO PRINT POST LIST
 *******************************************************************************/
 
-    // TODO: Just get the variables you need.
-
     //  If logged in as super user, show all posts.
     if ($_SESSION["permission"] == 1) {
 
         $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id ORDER BY created DESC";
+
     } else {
-        // If logged in as "redaktör", only show your posts.
         $userId = $_SESSION["userid"];
         $query  = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE posts.userid = '{$userId}' ORDER BY created DESC";
     }
 
-    // Execute query.
     if ($stmt->prepare($query)) {
        $stmt->execute();
        $stmt->bind_result($id, $userId, $created, $updated, $image, $title, $content, $published, $categoryId, $categoryName);
+       $stmt->store_result();
+       $rows = $stmt->num_rows;
    } else {
        $feedbackMessage = "Det går inte att ansluta till databasen just nu.";
    }
-
-/*******************************************************************************
-  END OF QUERY AND STMT THAT IS USED TO PRINT POST LIST
-*******************************************************************************/
 ?>
 <main>
+    <?php if ($rows == 0): ?>
+        <h1 class="center-text">Det finns inga inlägg!</h1>
+    <?php else: ?>
     <?php if ($_SESSION["permission"] == 1): ?>
         <h1 class="center-text">Alla inlägg</h1>
     <?php else: ?>
         <h1 class="center-text">Dina inlägg</h1>
+    <?php endif; ?>
+    <?php if ($feedbackMessage): ?>
+        <p class="error-msg error-msg--confirm"><?php echo $feedbackMessage; ?></p>
     <?php endif; ?>
     <form method="POST" action="./postlist.php">
         <table class="table-listing">
@@ -111,6 +124,6 @@
             </tbody>
         </table>
     </form>
-    <?php if ($feedbackMessage) { echo $feedbackMessage; } ?>
+<?php endif; ?>
 </main>
 <?php require_once "../templates/footer.php"; ?>

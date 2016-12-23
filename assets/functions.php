@@ -112,4 +112,23 @@ function storeUserInSession($id, $permission, $uname, $upass) {
     $_SESSION["username"] = $uname;
     $_SESSION["userpassword"] = $upass;
 }
+
+/**
+ * Takes a existing array and returns a new "unique" array without duplicate values.
+*/
+function uniqueArray($array, $key) {
+    $tempArray = array();
+    $i = 0;
+    $keyArray = array();
+
+    foreach ($array as $value) {
+        if (!in_array($value[$key], $keyArray)) {
+            $keyArray[$i] = $value[$key];
+            $tempArray[$i] = $value;
+        }
+        $i++;
+    }
+    return $tempArray;
+}
+
 ?>
