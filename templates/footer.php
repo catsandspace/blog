@@ -2,7 +2,7 @@
     $stmt -> close();
     $conn -> close();
 ?>
-<svg class="hidden" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="hidden" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <symbol viewBox="0 0 961 959" id="logo">
         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g transform="translate(-31.000000, -33.000000)">

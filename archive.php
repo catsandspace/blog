@@ -103,35 +103,40 @@
 <main>
     <h1 class="margin-bottom-l">Arkiv</h1>
     <form method="GET" action="archive.php">
-        <label for="sort">Sortera arkivet</label>
-        <div class="select-arrows">
-        <select class="form-field form-field__select" name="month" id="sort">
-            <option value="all">Alla</option>
-            <?php for ($i=0; $i < count($months); $i++):
-                $month = $months[$i];
-                $selectedAttribute = "";
-                if (isset($_GET["month"]) && $_GET["month"] == $month["number"]) {
-                    $selectedAttribute = "selected";
-                }
-                // Takes existing array and returns a new array without duplicate values.
-                $months = uniqueArray($months,'number');
-            ?>
-             <option value="<?php echo $month["number"]; ?>" <?php echo $selectedAttribute; ?>><?php echo $month["name"]; ?></option>
-            <?php endfor; ?>
-        </select>
-        <select class="form-field form-field__select" name="sort" id="sort">
-            <?php
-                $selected = "";
-                if (isset($_GET["sort"])) {
-                    $selected = $_GET["sort"];
-                }
-            ?>
-            <option value="desc" <?php if ($selected == "desc") { echo "selected"; } ?> >Senast publicerad</option>
-            <option value="asc" <?php if ($selected == "asc") { echo "selected"; } ?> >Tidigast publicerad</option>
-            <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Sortera efter bokstavsordning (A-Z)</option>
-        </select>
-          <button class="button button--small border-radius margin-bottom-l" type="submit">Sortera</button>
+        <div class="archive__flex-select-wrapper">
+            <div class="archive__select-wrapper">
+                <label class="form-field__label" for="filter">Visa inlägg från</label>
+                <select class="form-field form-field__select margin-bottom-l" name="month" id="filter">
+                    <option value="all">Alla månader</option>
+                    <?php for ($i=0; $i < count($months); $i++):
+                        $month = $months[$i];
+                        $selectedAttribute = "";
+                        if (isset($_GET["month"]) && $_GET["month"] == $month["number"]) {
+                            $selectedAttribute = "selected";
+                        }
+                        // Takes existing array and returns a new array without duplicate values.
+                        $months = uniqueArray($months,'number');
+                    ?>
+                     <option value="<?php echo $month["number"]; ?>" <?php echo $selectedAttribute; ?>><?php echo $month["name"]; ?></option>
+                    <?php endfor; ?>
+                </select>
+            </div>
+            <div class="archive__select-wrapper">
+                <label class="form-field__label" for="sort">Sortera arkivet efter</label>
+                <select class="form-field form-field__select margin-bottom-l" name="sort" id="sort">
+                    <?php
+                        $selected = "";
+                        if (isset($_GET["sort"])) {
+                            $selected = $_GET["sort"];
+                        }
+                    ?>
+                    <option value="desc" <?php if ($selected == "desc") { echo "selected"; } ?> >Senast publicerad</option>
+                    <option value="asc" <?php if ($selected == "asc") { echo "selected"; } ?> >Tidigast publicerad</option>
+                    <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Bokstavsordning (A-Z)</option>
+                </select>
+            </div>
         </div>
+        <button class="button margin-bottom-xl" type="submit">Sortera</button>
     </form>
     <div class="list-wrapper">
         <h2><?php echo ucfirst($headLine); ?></h2>
