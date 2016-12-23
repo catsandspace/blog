@@ -34,6 +34,7 @@ input:-webkit-autofill {
     padding-left: 0.5em;
     text-shadow: 1px 1px 3px $baseColorSmallTransparent;
     width: 100%;
+    -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
 }
