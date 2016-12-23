@@ -4,13 +4,12 @@
 
     $query = "SELECT * FROM posts WHERE published = 1 ORDER BY EXTRACT(MONTH FROM created) ASC";
 
-    // Determine if a variable is set and is not NULL
-     $sort = "";
-     $month = "";
+    $month = "";
+    $sort = "";
 
-    /********************************************************************
-                    START OF MONTH ARRAY
-    ********************************************************************/
+/*******************************************************************************
+    START OF MONTH ARRAY
+*******************************************************************************/
 
     if ($stmt->prepare($query)) {
         $stmt->execute();
@@ -31,43 +30,42 @@
         ));
     }
 
-    /********************************************************************
-                    END OF MONTH ARRAY
-    ********************************************************************/
-
-
-    /********************************************************************
-                    START OF POST ARRAY
-    ********************************************************************/
+/*******************************************************************************
+    START OF POST ARRAY
+*******************************************************************************/
 
     if (isset($_GET["sort"]) ) {
-        $sort = $_GET["sort"];
-        $month = $_GET["month"];
 
-        // Sort post by lastest entry
+        $month = $_GET["month"];
+        $sort = $_GET["sort"];
+
         if ($sort == "asc") {
             if ($month == "all") {
                 $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created ASC";
+
             } else {
                 $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created ASC";
             }
         }
-        // Sort post by the last one
+
         if ($sort == "desc") {
             if ($month == "all") {
                 $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created DESC";
+
             } else {
                 $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY created DESC";
             }
         }
-        // Sort post by name
+
         if ($sort == "name") {
             if ($month == "all") {
                 $query = "SELECT * FROM posts WHERE published = 1 ORDER BY title ASC";
+
             } else {
                 $query = "SELECT * FROM posts WHERE published = 1 AND EXTRACT(MONTH FROM created) = {$month} ORDER BY title ASC";
             }
         }
+
     } else {
         $query = "SELECT * FROM posts WHERE published = 1 ORDER BY created DESC";
     }
@@ -78,6 +76,7 @@
     }
 
     $posts = array();
+
     while (mysqli_stmt_fetch($stmt)) {
         array_push($posts, array(
             "id" => $id,
@@ -86,13 +85,9 @@
         ));
     }
 
-    /********************************************************************
-                    END OF POST ARRAY
-    ********************************************************************/
-
-    /********************************************************************
-                    START OF PAGE HEADLINE INFO
-    ********************************************************************/
+/*******************************************************************************
+    SET HEADLINE
+*******************************************************************************/
 
     if (isset($_GET["month"])) {
         $monthTitle = $_GET["month"];
@@ -105,9 +100,6 @@
         $headLine = "Alla inlägg";
     }
 
-    /********************************************************************
-                        END OF HEADLINE INFO
-    ********************************************************************/
 ?>
     <main>
         <h1 class="margin-bottom-l">Arkiv</h1>
@@ -130,24 +122,23 @@
             </select>
             <select class="form-field form-field__select" name="sort" id="sort">
                 <?php
-                    // Makes sure that selected value in dropdown menu stays selected after reloading page
                     $selected = "";
                     if (isset($_GET["sort"])) {
                         $selected = $_GET["sort"];
                     }
                 ?>
-              <option value="desc" <?php if ($selected == "desc") { echo "selected"; } ?> >Senast publicerad</option>
-              <option value="asc" <?php if ($selected == "asc") { echo "selected"; } ?> >Tidigast publicerad</option>
-              <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Sortera efter bokstavsordning (A-Z)</option>
+                <option value="desc" <?php if ($selected == "desc") { echo "selected"; } ?> >Senast publicerad</option>
+                <option value="asc" <?php if ($selected == "asc") { echo "selected"; } ?> >Tidigast publicerad</option>
+                <option value="name" <?php if ($selected == "name") { echo "selected"; } ?> >Sortera efter bokstavsordning (A-Z)</option>
             </select>
               <button class="button button--small border-radius margin-bottom-l" type="submit">Sortera</button>
             </div>
         </form>
         <div class="list-wrapper">
-            <h1><?php echo ucfirst($headLine); ?></h1>
+            <h2><?php echo ucfirst($headLine); ?></h2>
             <ul class="no-padding">
             <?php for ($i=0; $i < count($posts); $i++): $post = $posts[$i]; ?>
-                <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($post["created"]); ?>] </span><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo $post["title"]; ?></a></li>
+                <li class="list-style-none"><span class="archive__date">[ <?php echo formatDate($post["created"]); ?> ]</span> <a class="archive__link" href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo $post["title"]; ?></a></li>
             <?php endfor; ?>
             </ul>
         </div>
