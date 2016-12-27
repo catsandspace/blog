@@ -114,8 +114,10 @@ function storeUserInSession($id, $permission, $uname, $upass) {
 }
 
 /**
- * Takes a existing array and returns a new "unique" array without duplicate values.
-*/
+ * The function takes a existing array and returns a new "unique" array without duplicate values.
+ * @param  takes a multidimensional array and sort out values
+ * @return returns one set of values from array without dublicating it
+ */
 function uniqueArray($array, $key) {
     $tempArray = array();
     $i = 0;
