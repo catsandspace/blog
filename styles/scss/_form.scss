@@ -10,7 +10,7 @@ input:-webkit-autofill {
 
 // This class is also found in "_typography.scss"
 .form-field {
-    background-color: transparent;
+    background-color: $baseColor;
     border: 0;
     border-radius: 0;
     border-bottom: 2px solid $primary;
