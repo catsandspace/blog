@@ -102,20 +102,19 @@
             }
 
             if (!isset($_GET["edit"])) {
-                // Insert and update database values
-                if ($stmt->prepare($query)) {
-                    $stmt->execute();
-                    $imageId = $stmt->insert_id; // Catches the created post.id for later use
+                // Working with the uploaded file
+                $fileName = basename($_FILES["post-img"]["name"]);
+                $temporaryFile = $_FILES["post-img"]["tmp_name"]; // The temporary file path
+                $type = pathinfo($fileName, PATHINFO_EXTENSION);
+                $fileError = checkUploadedFile($_FILES["post-img"]); // A function to check file errors
+                if (!$fileError) {
+                    // Insert and update database values
+                    if ($stmt->prepare($query)) {
+                        $stmt->execute();
+                        $imageId = $stmt->insert_id; // Catches the created post.id for later use
 
-                    // Working with the uploaded file
-                    $fileName = basename($_FILES["post-img"]["name"]);
-                    $temporaryFile = $_FILES["post-img"]["tmp_name"]; // The temporary file path
-                    $type = pathinfo($fileName, PATHINFO_EXTENSION);
-                    $fileError = checkUploadedFile($_FILES["post-img"]); // A function to check file errors
-                    $targetName = "../uploads/postimg/" . basename("postimg_") . $imageId . ".$type"; // The new file path connected with post.id column
-
-                    // Move uploaded file to "uploads/postimg/ and update $targetName to a appropiate path in table posts.image
-                    if (!$fileError) {
+                        // Move uploaded file to "uploads/postimg/ and update $targetName to a appropiate path in table posts.image
+                        $targetName = "../uploads/postimg/" . basename("postimg_") . $imageId . ".$type"; // The new file path connected with post.id column
                         move_uploaded_file($temporaryFile, $targetName);
                         $targetName = "uploads/postimg/". basename("postimg_") . $imageId . ".$type"; // Renames the file path
                         $updateQuery = "UPDATE posts SET image ='{$targetName}' WHERE id ='{$imageId}' "; // Inserts correct file path into db column posts.image
@@ -128,10 +127,9 @@
                         }
 
                         header("Location: ./confirmation.php");
+                    } else {
+                        $databaseError = "<p class=\"error-msg\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
                     }
-                } else {
-
-                    $databaseError = "<p class=\"error-msg\">Det gick inte att lägga upp inlägget i databasen. Försök igen.</p>";
                 }
             }
         }
