@@ -117,7 +117,7 @@
                         // Takes existing array and returns a new array without duplicate values.
                         $months = uniqueArray($months,'number');
                     ?>
-                     <option value="<?php echo $month["number"]; ?>" <?php echo $selectedAttribute; ?>><?php echo $month["name"]; ?></option>
+                     <option value="<?php echo $month["number"]; ?>" <?php echo $selectedAttribute; ?>><?php echo ucfirst($month["name"]); ?></option>
                     <?php endfor; ?>
                 </select>
             </div>
