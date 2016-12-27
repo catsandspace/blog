@@ -15,9 +15,9 @@
     $paginationCtrls = '';
     $queryFailed = "Det blev något fel. Försök igen senare.";
 
-/*******************************************************************************
+    /*******************************************************************************
     START OF PAGINATION AND QUERY TO CHECK NUMBER OF ROWS IN DATABASE TABLE "POSTS"
-*******************************************************************************/
+    *******************************************************************************/
 
     $query = "SELECT id FROM posts WHERE published = 1";
 
@@ -36,7 +36,11 @@
         $errorMessage = $queryFailed;
     }
 
-    $last = ceil($rows / $postsPerPage); // Round up
+    $last = ceil($rows / $postsPerPage); // Round up for last page
+    $postOnLastPage = $rows % $postsPerPage; // Posts on last page
+    if ($rows == 5) {
+        $postOnLastPage = 5;
+    }
 
     // If less posts than number on each page
     if ($last < 1) {
@@ -53,21 +57,23 @@
     } elseif ($pagenum > $last) {
         $pagenum = $last;
     }
+    // Textstring that is added to the middle of the query to set the display fetaures for the fetch,
+    // that is the category if it is chosen and to only fetch published posts
+    if (isset($_GET["display"])) {
+        $displayFeatures = 'categories.id = ' . $_GET["display"] .' AND published = 1 ';
+    } else {
+        $displayFeatures = ' published = 1 ';
+    }
 
-    // TODO: This could use some explaining! :-)
+    // Textstring that is added to the end of the query to set the limits for the fetch,
+    // that is the five posts that will be printed for the chosen page ($pagenum)
     $limit = 'LIMIT ' .($pagenum - 1) * $postsPerPage .',' .$postsPerPage;
 
 /*******************************************************************************
     START OF QUERIES TO PRINT OUT VARIABLES ON PAGE
 *******************************************************************************/
 
-    $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE published = 1 ORDER BY created DESC $limit";
-
-    if (isset($_GET["display"])) {
-        $display = $_GET["display"];
-
-        $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE categories.id = '{$display}' AND published = 1 ORDER BY created DESC $limit";
-    }
+    $query = "SELECT posts.*, categories.name FROM posts LEFT JOIN categories ON posts.categoryid = categories.id WHERE $displayFeatures ORDER BY created DESC $limit";
 
     if ($stmt->prepare($query)) {
         $stmt->execute();
@@ -80,38 +86,24 @@
 
     if ($last != 1) {
 
+        if ($display) { // This string is used if user is filtering by category.
+            $displayPagination = '&display='.$display;
+        } else { // This string is used if user is not filtering by category.
+            $displayPagination = '';
+        }
+
         if ($pagenum > 1) {
             $previous = $pagenum - 1;
             $first = 1;
-
-            // This string is used if user is filtering by category.
-            if ($display) {
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'&display='.$display.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;</a> ';
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'&display='.$display.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående &nbsp;</a> ';
-
-            // This string is used if user is not filtering by category.
-            } else {
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;</a> ';
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående &nbsp;</a> ';
-            }
+            $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$first.$displayPagination.'"><i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;</a> ';
+            $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.$displayPagination.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående &nbsp;</a> ';
         }
 
         // Check if current page is last page
         if ($pagenum != $last) {
             $next = $pagenum + 1;
-
-            // This string is used if user is filtering by category.
-            if ($display) {
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'&display='.$display.'"> Nästa <i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;</a> ';
-
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'&display='.$display.'"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a> ';
-
-            // This string is used if user is not filtering by category.
-            } else {
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'"> Nästa <i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;</a> ';
-
-                $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$last.'"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a> ';
-            }
+            $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.$displayPagination.'"> Nästa <i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;</a> ';
+            $paginationCtrls .= '<a class="pagination-wrapper__text" href="' .$_SERVER['PHP_SELF'].'?pn='.$last.$displayPagination.'"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a> ';
         }
     }
 
@@ -165,7 +157,18 @@
                 $errorMessage = $queryFailed;
             }
 
-            // Choose class on comment bubble depending on number of comments.
+            // Choose class on blogpost wrapper depending on number of posts on last page.
+            $blogpostArticletClass = "blogpost__article";
+            $blogpostWrapperImgClass = "blogpost-wrapper__img-container";
+            if ($pagenum == $last) {
+                if ($postOnLastPage < 5) {
+                    $blogpostArticletClass = "blogpost__article-large";
+                    $blogpostWrapperImgClass = "blogpost-wrapper__img-container-large";
+
+                }
+            }
+
+            // Choose class on post depending of number of posts on the page.
             if ($totalNumberOfComments < 10) {
                 $bubbleClass = "comment-bubble__number-one";
             } elseif ($totalNumberOfComments < 100) {
@@ -174,10 +177,10 @@
                 $bubbleClass = "comment-bubble__number-three";
             }
         ?>
-        <article class="blogpost__article">
+        <article class="<?php echo $blogpostArticletClass; ?>">
             <div class="blogpost-wrapper">
                 <a href="post.php?getpost=<?php echo $post["id"] ?>">
-                    <div class="blogpost-wrapper__img-container">
+                    <div class="<?php echo $blogpostWrapperImgClass; ?>">
                         <img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img">
                         <div class="comment-bubble">
                             <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>

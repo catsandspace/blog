@@ -94,14 +94,12 @@
                     START OF PAGE HEADLINE INFO
     ********************************************************************/
 
-    //$headLine = "Alla inlägg";
-
     if (isset($_GET["month"])) {
         $monthTitle = $_GET["month"];
     }
 
     if (isset($monthTitle) && $monthTitle <= 12 && $monthTitle >= 1) {
-        $headLine = date('F', mktime(0, 0, 0, $_GET["month"], 10));
+        $headLine = strftime("%B", strtotime($created));
 
     } else {
         $headLine = "Alla inlägg";
@@ -146,7 +144,7 @@
             </div>
         </form>
         <div class="list-wrapper">
-            <h1><?php echo $headLine; ?></h1>
+            <h1><?php echo ucfirst($headLine); ?></h1>
             <ul class="no-padding">
             <?php for ($i=0; $i < count($posts); $i++): $post = $posts[$i]; ?>
                 <li class="list-style-none"><span class="saffron-text primary-brand-font">[<?php echo formatDate($post["created"]); ?>] </span><a href="post.php?getpost=<?php echo $post["id"] ?>"><?php echo $post["title"]; ?></a></li>

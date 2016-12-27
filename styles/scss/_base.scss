@@ -37,6 +37,7 @@ header {
     box-sizing: border-box;
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
     color: $baseColor2;
+    height: 6.8rem;
     @include flexbox();
     @include flexboxJustifyContent(space-between);
     padding: 1.2rem 2rem;
@@ -53,8 +54,10 @@ header {
 }
 
 .header-logotext {
-    display: flex;
     align-content: baseline;
+    @include flexbox();
+    position: relative;
+    z-index: 1;
 
     @include sizeDesktop {
         padding: 1.3rem 3rem 0;
