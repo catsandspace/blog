@@ -1,26 +1,29 @@
+/*******************************************************************************
+    THESE FILES NEED TO BE IMPORTED FIRST
+*******************************************************************************/
+
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Rajdhani:300,400,600');
 @import "mixins";
 @import "normalize";
 @import "variables";
-@import "base";
-@import "typography";
-@import "nav";
-@import "buttons";
-@import "form";
-@import "alerts";
-@import "utilities";
-@import "comments";
-@import "tablelisting";
-@import "contactlist";
-@import "bloglist";
-@import "pagination";
-@import "checkbox";
-@import "radiobuttons";
-@import "authorinfo";
 
-/*@media screen and (min-width: 1024px) {
-	@import "_sizeTablet";
-}
-@media screen and (min-width: 1200px) {
-	@import "_desktop";
-}*/
+/*******************************************************************************
+    FOLLOWING ARE LISTED ALPHABETICALLY
+*******************************************************************************/
+
+@import "alerts";
+@import "archive-list";
+@import "authorinfo";
+@import "base";
+@import "bloglist";
+@import "buttons";
+@import "checkbox";
+@import "comments";
+@import "contactlist";
+@import "form";
+@import "nav";
+@import "pagination";
+@import "radiobuttons";
+@import "tablelisting";
+@import "typography";
+@import "utilities";

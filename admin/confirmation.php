@@ -3,12 +3,10 @@
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
 
-    // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
     }
 
-    // Don't print out HTML from "header.php" before login check is done.
     require_once "../templates/header.php";
 ?>
 <main>

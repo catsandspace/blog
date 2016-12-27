@@ -15,9 +15,9 @@
     $paginationCtrls = '';
     $queryFailed = "Det blev något fel. Försök igen senare.";
 
-    /*******************************************************************************
-    START OF PAGINATION AND QUERY TO CHECK NUMBER OF ROWS IN DATABASE TABLE "POSTS"
-    *******************************************************************************/
+/*******************************************************************************
+START OF PAGINATION AND QUERY TO CHECK NUMBER OF ROWS IN DATABASE TABLE "POSTS"
+*******************************************************************************/
 
     $query = "SELECT id FROM posts WHERE published = 1";
 
@@ -57,6 +57,7 @@
     } elseif ($pagenum > $last) {
         $pagenum = $last;
     }
+
     // Textstring that is added to the middle of the query to set the display fetaures for the fetch,
     // that is the category if it is chosen and to only fetch published posts
     if (isset($_GET["display"])) {
@@ -81,13 +82,14 @@
     }
 
 /*******************************************************************************
-    START OF PAGINATION NAVIGATION
+    START OF PAGINATION
 *******************************************************************************/
 
     if ($last != 1) {
 
         if ($display) { // This string is used if user is filtering by category.
             $displayPagination = '&display='.$display;
+
         } else { // This string is used if user is not filtering by category.
             $displayPagination = '';
         }
@@ -123,10 +125,6 @@
             "categoryName" => $categoryName
         ));
     }
-
-/*******************************************************************************
-    START OF HTML
-*******************************************************************************/
 ?>
 <main class="blogpost">
     <div class="pagination-wrapper">
@@ -153,26 +151,27 @@
                 $stmt->execute();
                 $stmt->store_result();
                 $totalNumberOfComments = $stmt->num_rows;
+
             } else {
                 $errorMessage = $queryFailed;
             }
 
-            // Choose class on blogpost wrapper depending on number of posts on last page.
             $blogpostArticletClass = "blogpost__article";
             $blogpostWrapperImgClass = "blogpost-wrapper__img-container";
+
             if ($pagenum == $last) {
                 if ($postOnLastPage < 5) {
                     $blogpostArticletClass = "blogpost__article-large";
                     $blogpostWrapperImgClass = "blogpost-wrapper__img-container-large";
-
                 }
             }
 
-            // Choose class on post depending of number of posts on the page.
             if ($totalNumberOfComments < 10) {
                 $bubbleClass = "comment-bubble__number-one";
+
             } elseif ($totalNumberOfComments < 100) {
                 $bubbleClass = "comment-bubble__number-two";
+
             } else {
                 $bubbleClass = "comment-bubble__number-three";
             }
@@ -204,7 +203,9 @@
             <?php echo $paginationCtrls; ?>
         </div>
     </div>
-    <?php endif; ?>
-    <?php if ($errorMessage) { echo $errorMessage; } ?>
+    <?php
+        endif;
+        if ($errorMessage) { echo $errorMessage; }
+    ?>
 </main>
 <?php require_once "./templates/footer.php"; ?>

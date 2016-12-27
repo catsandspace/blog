@@ -3,7 +3,6 @@
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
 
-    // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] != 1) {
       header("Location: ../login.php");
     }
@@ -19,11 +18,10 @@
     $errorStatistics = "Något gick fel vid försök att hämta statistik";
 
 
-    // Get postid from all published posts -------------------------------------
+    // Get postid from all published posts
     $query = "SELECT id FROM posts WHERE published = 1";
 
     if ($stmt->prepare($query)) {
-
         $stmt->execute();
         $stmt->bind_result($id);
 
@@ -38,7 +36,7 @@
         $NumberOfPosts++;
     }
 
-    // Get id from all comments ------------------------------------------------
+    // Get id from all comments
     $query = "SELECT id FROM comments";
 
     if ($stmt->prepare($query)) {

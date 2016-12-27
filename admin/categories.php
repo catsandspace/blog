@@ -3,11 +3,9 @@
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
 
-    // Redirect to login.php if no session active.
     if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
 
-    // Redirect if user is not a superadmin.
     } elseif ($_SESSION["permission"] != 1) {
         header("Location: ./dashboard.php");
     }
@@ -127,8 +125,8 @@
         $stmt->execute();
         $stmt->bind_result($catId, $category);
     endif;
-?>
 
+?>
 <main>
     <h1 class="center-text margin-bottom-l">Kategorier</h1>
     <div class="flexbox-wrapper">

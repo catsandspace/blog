@@ -3,18 +3,18 @@
     font-smoothing: antialiased;
 }
 
-.nav__hamburger:hover + .nav__mouse-capture {
-    // This is used to make it possible to hover between hamburger and `nav__list`, without loosing connection with `nav__list`.
-    display: block;
-}
-
-.nav__hamburger:hover ~ .nav__list {
-    // This is needed to display on mobile, since `nav__mouse-capture` is not available.
-    display: block;
-}
-
-.burger-size {
+.nav__hamburger {
     font-size: 4rem;
+}
+
+// Used for hovering between hamburger and `nav__list`, without loosing connection with `nav__list`.
+.nav__hamburger:hover + .nav__mouse-capture {
+    display: block;
+}
+
+// For display on mobile, since `nav__mouse-capture` is not available.
+.nav__hamburger:hover ~ .nav__list {
+    display: block;
 }
 
 .nav__mouse-capture {
@@ -83,7 +83,6 @@
         position: relative;
         padding: 0;
 
-        // Trying out a way to nestle modifiers to reflect sass structure.
         &--parent:hover {
             background-color: $primaryAlternative;
         }
@@ -126,7 +125,6 @@
     &--static:hover {
         background-color: transparent;
     }
-
 
     &--sub {
         height: auto;

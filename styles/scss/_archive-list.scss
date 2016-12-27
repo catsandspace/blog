@@ -1,0 +1,40 @@
+.archive__date, .archive__link {
+    @include complimentaryText;
+
+    font-size: 2rem;
+    line-height: 1.3em;
+    padding-right: 0.3em;
+}
+
+.archive__link {
+    color: $baseColor2;
+}
+
+.archive__link:hover {
+    color: $complimentaryHover;
+}
+
+.archive__flex-select-wrapper {
+    display: block;
+
+    @include sizeTablet {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    @include sizeDesktop {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.archive__select-wrapper {
+
+    @include sizeTablet {
+        width: 48%;
+    }
+
+    @include sizeDesktop {
+        width: 48%;
+    }
+}

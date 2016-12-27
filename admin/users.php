@@ -26,12 +26,10 @@
     $allRequiredFilled = TRUE;
     $errors = array();
 
-
     $errorInfo = "<p class=\"error-msg\">Ooops, något gick fel!</p>";
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
 
-    // Check if user has pressed button "register".
     if (isset ($_POST["register"])) {
 
         $requiredFields = array("username", "password", "firstname", "lastname", "email", "website");

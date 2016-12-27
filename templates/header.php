@@ -18,6 +18,7 @@
 
    if (isset($_SESSION["permission"])) {
        $currentUserPermission = $_SESSION["permission"];
+
    } else {
        $currentUserPermission = NULL;
    }
@@ -53,7 +54,7 @@
             </a>
         </div>
         <nav class="nav">
-            <a class="nav__hamburger hidden-desktop" href="#"><span class="burger-size"><i class="fa fa-fw fa-bars"></i></span></a>
+            <a class="nav__hamburger hidden-desktop" href="#"><i class="fa fa-fw fa-bars"></i></a>
             <div class="nav__mouse-capture"></div>
             <ul class="nav__list">
                 <?php if(isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE): ?>

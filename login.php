@@ -5,7 +5,6 @@
 
    $errorMessage = NULL;
 
-   // Redirect to dashboard.php if session is active.
    if (isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == TRUE) {
 
        header("Location: ./admin/dashboard.php");
@@ -33,6 +32,7 @@
                     $errorMessage = "Felaktigt användarnamn eller lösenord";
                 }
             }
+
         } else {
             $errorMessage = "Misslyckades att logga in!";
         }
