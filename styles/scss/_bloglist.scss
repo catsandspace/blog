@@ -51,8 +51,9 @@
 }
 
 .blogpost-wrapper__img:hover {
+    @include sizeDesktop {
     filter: blur(1px) grayscale(30%);
-    @include sizeDesktop {}
+    }
 }
 
 .blogpost-wrapper__img-container,
