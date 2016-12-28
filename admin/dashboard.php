@@ -16,13 +16,14 @@
     $errorMessage = NULL;
     $roundAverageNumber = 0;
     $errorStatistics = "Något gick fel vid försök att hämta statistik";
+    $userId = $_SESSION["userid"];
 
 
     // Get postid from all published posts. If superadmin, get all posts.
     if ($_SESSION["permission"] == 1) {
         $query = "SELECT id FROM posts WHERE published = 1";
+
     } else {
-        $userId = $_SESSION["userid"];
         $query = "SELECT id FROM posts WHERE published = 1 AND userid = '{$userId}'";
     }
 
@@ -44,8 +45,8 @@
     // Get id from all comments. If superadmin, get all comments.
     if ($_SESSION["permission"] == 1) {
         $query = "SELECT id FROM comments";
+
     } else {
-        $userId = $_SESSION["userid"];
         $query = "SELECT comments.postid, posts.userid, posts.id FROM comments LEFT JOIN posts ON comments.postid = posts.id WHERE posts.userid = '{$userId}'";
     }
 
@@ -60,7 +61,6 @@
         }
 
     } else {
-
         $errorMessage = $errorStatistics;
     }
 
