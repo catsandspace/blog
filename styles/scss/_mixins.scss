@@ -33,13 +33,11 @@
     width: 1px;
 }
 
-// TODO: Check these we are proberly missing some perfixes.
-
 @mixin flexbox() {
     display: -webkit-box;
     display: -moz-box;
-    display: -ms-flexbox;
     display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
 }
 
@@ -50,11 +48,13 @@
 
 @mixin flexboxFlexDirection($value) {
     -webkit-flex-direction: $value;
+    -ms-flex-direction: $value;
     flex-direction: $value;
 }
 
 @mixin flexboxFlexWrap($value) {
     -webkit-flex-wrap: $value;
+    -ms-flex-wrap: $value;
     flex-wrap: $value;
 }
 
