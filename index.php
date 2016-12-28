@@ -101,7 +101,6 @@ START OF PAGINATION AND QUERY TO CHECK NUMBER OF ROWS IN DATABASE TABLE "POSTS"
             $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.$displayPagination.'"><i class="fa fa-angle-left" aria-hidden="true"></i> Föregående &nbsp;</a> ';
         }
 
-        // Check if current page is last page
         if ($pagenum != $last) {
             $next = $pagenum + 1;
             $paginationCtrls .= '<a class="pagination-wrapper__text" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.$displayPagination.'"> Nästa <i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;</a> ';
