@@ -182,8 +182,8 @@ START OF PAGINATION AND QUERY TO CHECK NUMBER OF ROWS IN DATABASE TABLE "POSTS"
                     <div class="<?php echo $blogpostWrapperImgClass; ?>">
                         <img src="<?php echo $post["image"]; ?>" alt="<?php echo $post["title"]; ?>" class="blogpost-wrapper__img">
                         <div class="comment-bubble">
-                            <a href="post.php?getpost=<?php echo $post["id"] ?>"><i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
-                            <p class="comment-bubble__number <?php echo $bubbleClass; ?>"><?php echo "$totalNumberOfComments" ?></p></a>
+                            <i class="fa fa-comment comment-bubble__offset-text" aria-hidden="true"></i>
+                            <p class="comment-bubble__number <?php echo $bubbleClass; ?>"><?php echo "$totalNumberOfComments" ?></p>
                         </div>
                     </div>
                 </a>
