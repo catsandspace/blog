@@ -4,7 +4,7 @@
     position: absolute;
     right: 1.9rem;
     @include flexbox();
-    @include flexboxJustifyContent(flex-end)
+    @include flexboxJustifyContent(flex-end);
 }
 
 .comment-bubble__number {
