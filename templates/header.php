@@ -33,7 +33,6 @@
     <link rel="icon" type="image/png" href="<?php echo $path?>/img/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="<?php echo $path?>/img/favicon-16x16.png" sizes="16x16">
     <link rel="manifest" href="<?php echo $path?>/img/manifest.json">
-    <link rel="mask-icon" href="<?php echo $path?>/img/safari-pinned-tab.svg" color="#1d2225">
     <link rel="shortcut icon" href="<?php echo $path?>/img/favicon.ico">
     <meta name="msapplication-config" content="<?php echo $path?>/img/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
