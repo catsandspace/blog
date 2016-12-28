@@ -29,28 +29,15 @@
 .flex-list {
     @include flexbox();
     @include flexboxFlexDirection(column);
-
-    @include sizeDesktop {
-        @include flexboxJustifyContent(center);
-        @include flexboxFlexDirection(row);
-        @include flexboxFlexWrap(wrap);
-    }
-
 }
 
 .flex-list__item {
     border: 2px solid $primary;
     box-sizing: border-box;
-    margin: 1rem;
+    margin: 1rem 0;
     min-width: 50%;
     max-width: 100%;
     padding: 1rem;
-
-    @include sizeDesktop {
-        min-width: 33.33%;
-        max-width: 100%;
-        @include flex(1);
-    }
 }
 
 .flex-item {
