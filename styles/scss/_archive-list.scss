@@ -18,13 +18,13 @@
     display: block;
 
     @include sizeTablet {
-        display: flex;
-        justify-content: space-between;
+        @include flexbox();
+        @include flexboxJustifyContent(space-between);
     }
 
     @include sizeDesktop {
-        display: flex;
-        justify-content: space-between;
+        @include flexbox();
+        @include flexboxJustifyContent(space-between);
     }
 }
 
