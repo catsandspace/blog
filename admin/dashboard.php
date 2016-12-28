@@ -18,8 +18,13 @@
     $errorStatistics = "Något gick fel vid försök att hämta statistik";
 
 
-    // Get postid from all published posts
-    $query = "SELECT id FROM posts WHERE published = 1";
+    // Get postid from all published posts. If superadmin, get all posts.
+    if ($_SESSION["permission"] == 1) {
+        $query = "SELECT id FROM posts WHERE published = 1";
+    } else {
+        $userId = $_SESSION["userid"];
+        $query = "SELECT id FROM posts WHERE published = 1 AND userid = '{$userId}'";
+    }
 
     if ($stmt->prepare($query)) {
         $stmt->execute();
@@ -36,13 +41,23 @@
         $NumberOfPosts++;
     }
 
-    // Get id from all comments
-    $query = "SELECT id FROM comments";
+    // Get id from all comments. If superadmin, get all comments.
+    if ($_SESSION["permission"] == 1) {
+        $query = "SELECT id FROM comments";
+    } else {
+        $userId = $_SESSION["userid"];
+        $query = "SELECT comments.postid, posts.userid, posts.id FROM comments LEFT JOIN posts ON comments.postid = posts.id WHERE posts.userid = '{$userId}'";
+    }
 
     if ($stmt->prepare($query)) {
-
         $stmt->execute();
-        $stmt->bind_result($id);
+
+        if ($_SESSION["permission"] == 1) {
+            $stmt->bind_result($id);
+
+        } else {
+            $stmt->bind_result($commentsPostid, $userid, $postid);
+        }
 
     } else {
 
@@ -74,7 +89,11 @@
         <?php endif; ?>
         <?php if (isset($_GET['statistics'])): ?>
         <div class="border-normal padding-normal relative-container relative-container--boxsizing margin-normal center-text ">
-            <h2 class="center-text">Statistik</h2>
+            <?php if ($currentUserPermission == 1): ?>
+                <h2 class="center-text">Övergripande statistik</h2>
+            <?php else: ?>
+                <h2 class="center-text">Din statistik</h2>
+            <?php endif; ?>
             <ul class="list-style-none no-padding">
                 <li>Totalt antal publicerade blogginlägg: <?php echo $NumberOfPosts; ?></li>
                 <li>Totalt antal kommentarer: <?php echo $NumberOfComments; ?></li>
