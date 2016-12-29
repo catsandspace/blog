@@ -27,8 +27,12 @@
     $errors = array();
 
     $errorInfo = "<p class=\"error-msg\">Ooops, något gick fel!</p>";
+
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
+
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
+
+    $obligatoryFieldWebsite = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt. Formatera enligt: <br> https://www.catsandspace.com/ eller http://www.catsandspace.com/</p>";
 
     if (isset ($_POST["register"])) {
 
@@ -50,6 +54,14 @@
         // This checks if email is written correctly.
         if ($key = 'email') {
             if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
+                $allRequiredFilled = FALSE;
+                array_push($errors, $key);
+            }
+        }
+
+        // This checks if website is written correctly.
+        if ($key = 'website') {
+            if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
                 $allRequiredFilled = FALSE;
                 array_push($errors, $key);
             }
@@ -153,7 +165,7 @@
 
                 <label class="form-field__label" for="website">Webbplats</label>
                 <input class="form-field" type="text" name="website" id="website" required value="<?php echo $fields['website']; ?>">
-                <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
+                <?php if (in_array("website", $errors)) { echo $obligatoryFieldWebsite; } ?>
 
                 <button type="submit" name="register" value="Lägg till" class="button" id="nav-adduser-end">Lägg till</button>
             </fieldset>
