@@ -116,8 +116,9 @@ function storeUserInSession($id, $permission, $uname, $upass) {
 
 /**
  * The function takes a existing array and returns a new "unique" array without duplicate values.
- * @param  multidimensional array(names, number)    $months      takes a multidimensional array and sort out values
- * @return returns string                                        returns string month names from array and does´nt send back number values from array and does'nt dublicate it
+ * @param  array    $array        The array that needs to be checked for multiple values
+ * @param  int      $key          Key value that needs to be checked
+ * @return array    $tempArray    Array that does not contain ints or duplicated values
  */
 function uniqueArray($array, $key) {
     $tempArray = array();
