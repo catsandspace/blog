@@ -51,11 +51,16 @@
     );
 
     $allRequiredFilled = TRUE;
+
     $errors = array();
 
     $errorInfo = "<p class=\"error-msg\">Ooops, något gick fel! Se felmeddelanden nedan.</p>";
+
     $obligatoryField = "<p class=\"error-msg\">Fältet ovan är obligatoriskt.</p>";
+
     $obligatoryFieldEmail = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt.<br> Formatera enligt: namn@catsandspace.com</p>";
+
+    $obligatoryFieldWebsite = "<p class=\"error-msg\">Fältet ovan är obligatoriskt men tomt eller felaktigt ifyllt. Formatera enligt: <br> https://www.catsandspace.com/ eller http://www.catsandspace.com/</p>";
 
     if (isset($_POST["add-comment"])) {
 
@@ -79,16 +84,25 @@
             }
         }
 
-        // Check if email is correctly formatted.
         if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE) {
 
+            // Check if email is correctly formatted.
             if ($key = 'email') {
                     if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
                         $allRequiredFilled = FALSE;
                         array_push($errors, $key);
                     }
                 }
+
+            // Check if website is written correctly.
+            if ($key = 'website') {
+                if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+                    $allRequiredFilled = FALSE;
+                    array_push($errors, $key);
+                }
             }
+        }
+
 
 /*******************************************************************************
    WHEN $ALLREQUIREDFILLED IS TRUE, BEGIN DATABASE QUERY
@@ -189,19 +203,25 @@
             <form method="post">
                 <fieldset>
                     <legend class="hidden">Skriv ny kommentar</legend>
+
                     <label class="form-field__label" for="content">Kommentar</label>
                     <textarea class="form-field edit-post__textarea margin-bottom-l" name="content" id="content" cols="25" rows="7" required><?php echo $fields['content']; ?></textarea>
                     <?php if (in_array("content", $errors)) { echo $obligatoryField; } ?>
+
                     <?php  if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE): ?>
+
                         <label class="form-field__label" for="name">Ditt namn</label>
                         <input class="form-field" type="text" name="name" id="name" required value="<?php echo $fields['name']; ?>">
                         <?php if (in_array("name", $errors)) { echo $obligatoryField; } ?>
+
                         <label class="form-field__label" for="email">Din e-postadress</label>
                         <input class="form-field" type="email" name="email" id="email" required value="<?php echo $fields['email']; ?>">
                         <?php if (in_array("email", $errors)) { echo $obligatoryFieldEmail; } ?>
+
                         <label class="form-field__label" for="website">Din webbplats</label>
                         <input class="form-field" type="text" name="website" id="website" required value="<?php echo $fields['website']; ?>">
-                        <?php if (in_array("website", $errors)) { echo $obligatoryField; } ?>
+                        <?php if (in_array("website", $errors)) { echo $obligatoryFieldWebsite; } ?>
+
                     <?php endif; ?>
                     <button type="submit" class="button margin-bottom-l" name="add-comment">Lägg till</button>
                 </fieldset>

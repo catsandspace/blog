@@ -24,6 +24,7 @@
     );
 
     $allRequiredFilled = TRUE;
+
     $errors = array();
 
     $errorInfo = "<p class=\"error-msg\">Ooops, något gick fel!</p>";
@@ -51,7 +52,7 @@
             }
         }
 
-        // This checks if email is written correctly.
+        // Check if email is written correctly.
         if ($key = 'email') {
             if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
                 $allRequiredFilled = FALSE;
@@ -59,7 +60,7 @@
             }
         }
 
-        // This checks if website is written correctly.
+        // Check if website is written correctly.
         if ($key = 'website') {
             if (!filter_var($fields['website'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
                 $allRequiredFilled = FALSE;
