@@ -71,6 +71,7 @@ function formatDate($timestamp) {
 function formatInnerHtml($string) {
     $newString = str_replace("\n", "<br>", $string);
     $newString = str_replace("\r", "", $newString);
+    $newString = str_replace("<", "&lt;", $newString);
     return replaceSpecialCharacters($newString);
 }
 
