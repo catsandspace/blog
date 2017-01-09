@@ -3,8 +3,9 @@
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
 
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] == FALSE) {
+    if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE) {
         header("Location: ../login.php");
+        exit();
     }
 
     // This is used to populate input fields.

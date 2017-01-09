@@ -3,8 +3,9 @@
     require_once "../assets/functions.php";
     require_once "../assets/session.php";
 
-    if (!isset($_SESSION["logged-in"]) && $_SESSION["logged-in"] != 1) {
-      header("Location: ../login.php");
+    if (!isset($_SESSION["logged-in"]) || $_SESSION["logged-in"] == FALSE) {
+        header("Location: ../login.php");
+        exit();
     }
 
 /*******************************************************************************
